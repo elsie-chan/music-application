@@ -7,8 +7,10 @@
     $model_path = __DIR__ . '/models';
     $system_path = __DIR__ . '/system';
     $help_path = __DIR__ . '/helper';
+    $route_path = __DIR__ .'/routes';
     $dotenv = new Dotenv();
 
+    require_once('routes/Route.php');
     require_once('helper/helper.php');
     require_once('controllers/Controller.php');
     require_once('models/Model.php');
@@ -35,4 +37,7 @@
 
     $auth = new AuthController();
     $auth->index();
+
+    $route = new Route();
+    $route->index();
 

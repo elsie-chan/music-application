@@ -9,6 +9,6 @@ class AuthController extends Controller {
     }
 
     public function index() {
-        require(assets('views/auth/auth.login.php'));
+//        require(assets('views/auth/auth.login.php'));
     }
 }

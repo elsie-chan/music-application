@@ -20,7 +20,7 @@
     RewriteRule ^ src/index.php [L]
 </IfModule>
 
-<FilesMatch "(composer.json|composer.lock|.gitignore|.env|.htaccess|.env.example)">
+<FilesMatch "(composer.json|composer.lock|.gitignore|.env|route.php|.htaccess|.env.example)">
     Order Allow,Deny
     Deny from all
 </FilesMatch>
