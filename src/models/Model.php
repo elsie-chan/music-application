@@ -18,12 +18,4 @@ class Model {
             $this->con = mysqli_connect($this->host, $this->user_name, $this->password, $this->db_name);
         }
     }
-
-    public function secure_input($input) {
-        $input = str_replace("'", "", $input);   
-        $input = str_replace("\"", "", $input);   
-        $input = str_replace(" ", "-", $input);   
-        $input = mysqli_real_escape_string($this->con, $input);
-        return $input;
-    }
 }   

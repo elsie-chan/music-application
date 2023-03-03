@@ -1,7 +1,9 @@
  <?php
  // define load vendor paths
     require_once(dirname(__DIR__). '/vendor/autoload.php');
-    use Symfony\Component\Dotenv\Dotenv;
+
+ use App\Route\Route;
+ use Symfony\Component\Dotenv\Dotenv;
 
     $controller_path = __DIR__ . '/controllers';
     $model_path = __DIR__ . '/models';
@@ -34,10 +36,19 @@
             }
         }
     }
+$route = new Route();
+$controller_name = $route->controller;
+$method_name = $route->method;
 
-    $auth = new AuthController();
-    $auth->index();
+ if (file_exists('controllers/'.$controller_name.'.php')) {
+     require_once('controllers/'. $controller_name .'.php');
+ }
 
-    $route = new Route();
-    $route->index();
+ $controller = new $controller_name();
+
+ if (!method_exists($controller, $method_name)) {
+     echo "Loi";
+ }
+ $controller->{$method_name}();
+
 
