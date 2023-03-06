@@ -1,2 +1,2 @@
-<?php
-    echo "Cac ban";
+<h1>Day la footer</h1>
+<br>

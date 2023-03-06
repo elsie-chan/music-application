@@ -22,10 +22,16 @@ class Controller
     }
 
     public function loadView($view_path) {
-        if (!file_exists(VIEW . $view_path . '.php')) {
+//        if (!file_exists(VIEW . $view_path . '.php')) {
+//            return false;
+//        }
+//            require(VIEW . $view_path . '.php');
+//        return true;
+//        dd(assets('views/' . $view_path . '.php'));
+        if (!file_exists(assets('views/' . $view_path . '.php'))) {
             return false;
         }
-            require(VIEW . $view_path . '.php');
+        require assets('/views/' . $view_path . '.php');
         return true;
     }
     public function is_admin_logged_in() {
