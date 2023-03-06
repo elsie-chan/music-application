@@ -8,9 +8,10 @@
 </head>
 <body>
     <h1 class="home">Day la cai home nè</h1>
-    <img src="<?php echo assets('public/assets/imgs/bg_404.jpg')?>" alt="">
+    <img src="<?php echo url('src/public/assets/imgs/bg_404.jpg')?>" alt="">
+
     <button>
-        <a href="auth/login">Login nè</a>
+        <a href="<?php echo url('auth/login?conchim=conchuot')?>">Login nè</a>
     </button>
 </body>
 </html>

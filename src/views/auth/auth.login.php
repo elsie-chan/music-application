@@ -17,7 +17,7 @@
         <div class="container" style="background-image: url("<?php echo assets('public/assets/imgs/bg_404.jpg')?>")>
             <div class="logo_container">
                 <div class="logo">
-                    <img src="<?php echo assets('public/assets/imgs/bg_404.jpg')?>">
+                    <img src="<?php echo url('src/public/assets/imgs/logo.svg')?>" alt="">
                 </div>
                 <div class="name">
                     <h1>MISC</h1>
