@@ -4,7 +4,7 @@ use App\Route\Route;
 $routes = [
     (new Route('/', 'GET', HomeController::class, 'index')),
     (new Route('auth/login', 'GET', AuthController::class, 'login')),
-
+    (new Route('auth/logout', 'GET', AuthController::class, 'logout'))
 ];
 
 $flag = false;
