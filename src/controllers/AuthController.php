@@ -10,4 +10,8 @@ class AuthController extends Controller {
     public function login() {
         $this->loadView('auth/auth.login');
     }
+
+    public function logout() {
+        echo "may giac cua cheems";
+    }
 }
