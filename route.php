@@ -4,7 +4,6 @@ use App\Route\Route;
 $routes = [
     (new Route('/', 'GET', HomeController::class, 'index')),
     (new Route('auth/login', 'GET', AuthController::class, 'login')),
-    (new Route('auth/login/:id', 'GET', AuthController::class, 'login')),
 
 ];
 
@@ -14,8 +13,6 @@ foreach( $routes as $route ) {
     if ($result) {
         $flag = true;
         break;
-    } else {
-//        echo $route->getPath()." deo vo";
     }
 }
 

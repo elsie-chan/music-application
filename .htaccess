@@ -4,6 +4,7 @@
     </IfModule>
 
     RewriteEngine On
+
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
@@ -17,20 +18,4 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
-
-#   RewriteCond %{DOCUMENT_ROOT}/music-application/src/public/$1 -f
-#       RewriteRule ^(.*)$ public/$1 [L]
-#
-#       RewriteCond %{THE_REQUEST} \s/music-application/src/public/ [NC,OR]
-#       RewriteCond $1 !^/public/
-#       RewriteRule ^(.*)$ index.php [L]
-
 </IfModule>
-
-<FilesMatch "(composer.json|composer.lock|.gitignore|.env|route.php|.htaccess|.env.example)">
-    Order Allow,Deny
-    Deny from all
-</FilesMatch>
-
-RedirectMatch 403 ^/vendor/.*/?$
-RedirectMatch 403 ^/src/.*/?$
