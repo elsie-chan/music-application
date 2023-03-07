@@ -1,13 +1,14 @@
+:root {
+    --blue-bg: #0B1220;
+    --blue-sb: #121E35;
+    --hightlight: #00B6D6;
+    --white: #fff;
+    --grey: #767676;
+}
+
 html, body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-
-button {
-    background-color: #1b1e21;
-}
-
-
-
 
