@@ -19,6 +19,9 @@ class AdminModel extends Model{
             $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
             if (password_verify($password, $row->password)) {
                 if ($row->create_at == NULL) {
+            $pass_hasing = password_hash($row->password,PASSWORD_DEFAULT);
+            if (password_verify($password, $pass_hasing)) {
+                    if ($row->phone == NULL) {
                     $response["error"] = "Please verify your account in order to activate!";
                 } else {
                     $response["message"] = $row;
