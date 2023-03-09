@@ -1,7 +1,7 @@
 <?php
 
 use App\Model\Model;
-class Admin extends Model{
+class AdminModel extends Model{
     protected $table = 'users';
     public function __construct() {
         parent::__construct();
