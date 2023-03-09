@@ -13,15 +13,15 @@ class Controller
     }
 
     public function load_model($model_name) {
-        if (!file_exists(MOD . $model_name. '.php')) {
-            return false;
+        if (!file_exists(assets('models/' . $model_name. '.php'))) {
+            return null;
         }
-        require(MOD . $model_name . '.php');
-        $this->{$model_name} = new $model_name();
-        return true;
+        require_once assets('/models/' . $model_name . '.php');
+
+        return new $model_name;
     }
 
-    public function loadView($view_path) {
+    public function load_view($view_path) {
         if (!file_exists(assets('views/' . $view_path . '.php'))) {
             return false;
         }

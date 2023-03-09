@@ -1,26 +1,24 @@
 <?php
 
 use App\Model\Model;
-class Admin extends Model{
-    protected $table = 'Admins';
+class AdminModel extends Model{
+    protected $table = 'User';
     public function __construct() {
         parent::__construct();
     }
-    public function login() {
+    public function login($username, $email, $password) {
         $response = array();
         $response["error"] = "";
         $response["msg"] = "";
-        $email = $_POST["email"];
-        $username = $_POST["username"];
-        $password = $_POST["password"];
 
         $sql = "SELECT * FROM `" .$this->table. "` WHERE `email` LIKE '$email' or `username` LIKE '$username'";
         $res = mysqli_query($this->con, $sql);
 
         if (mysqli_num_rows($res) > 0) {
             $row = mysqli_fetch_object($res);
-            if (password_verify($password, $row->password)) {
-                if ($row->verified_at == NULL) {
+            $pass_hasing = password_hash($row->password,PASSWORD_DEFAULT);
+            if (password_verify($password, $pass_hasing)) {
+                    if ($row->phone == NULL) {
                     $response["error"] = "Please verify your account in order to activate!";
                 } else {
                     $response["message"] = $row;
