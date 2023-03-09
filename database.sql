@@ -9,14 +9,13 @@
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 -- CREATE DATABASE
-CREATE DATABASE MusicData;
-USE MusicData;
+USE musicdata;
 -- 
 -- CREATE TABLE
 -- 
 -- CREATE TABLE Advertises
 -- 
-CREATE TABLE `Advertises`(
+CREATE TABLE `advertises`(
     `id_advertises` int PRIMARY KEY,
     `title` TEXT,
     `intro_image` TEXT,
@@ -25,33 +24,33 @@ CREATE TABLE `Advertises`(
 -- 
 -- CREATE TABLE Topics
 -- 
-CREATE TABLE `Topics`(
+CREATE TABLE `topics`(
     `id_topics` int PRIMARY KEY,
     `name_topics` TEXT,
     `topic_image` TEXT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- 
--- CREATE TABLE Categories
+-- CREATE TABLE categories
 -- 
-CREATE TABLE `Categories`(
+CREATE TABLE `categories`(
     `id_cate` int PRIMARY KEY,
     `name_cate` TEXT,
     `cate_image` TEXT,
     `id_topics` int
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- 
--- CREATE TABLE Playlists
+-- CREATE TABLE playlists
 -- 
-CREATE TABLE `Playlists`(
+CREATE TABLE `playlists`(
     `id_playlist` int PRIMARY KEY,
     `name_playlist` TEXT,
     `playlist_image` TEXT,
     `create_at` DATE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- 
--- CREATE TABLE Artists
+-- CREATE TABLE artists
 -- 
-CREATE TABLE `Artists`(
+CREATE TABLE `artists`(
     `id_artists` int PRIMARY KEY,
     `name_artists` TEXT,
     `picture` TEXT,
@@ -60,17 +59,17 @@ CREATE TABLE `Artists`(
     `youtube` TEXT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- 
--- CREATE TABLE Albums
+-- CREATE TABLE albums
 -- 
-CREATE TABLE `Albums`(
+CREATE TABLE `albums`(
     `id_alb` int PRIMARY KEY,
     `name_alb` TEXT,
     `id_artists` int
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- 
--- CREATE TABLE Songs
+-- CREATE TABLE songs
 -- 
-CREATE TABLE `Songs`(
+CREATE TABLE `songs`(
     `id_songs` int PRIMARY KEY,
     `name_songs` TEXT,
     `duration` TIME,
@@ -80,9 +79,9 @@ CREATE TABLE `Songs`(
     `id_advertises` int
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- 
--- CREATE TABLE Users
+-- CREATE TABLE users
 -- 
-CREATE TABLE `Users`(
+CREATE TABLE `users`(
     `id_users` int PRIMARY KEY,
     `username` TEXT,
     `email_users` TEXT,
@@ -94,9 +93,9 @@ CREATE TABLE `Users`(
     `id_songs` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- 
--- CREATE TABLE Playlists_Songs
+-- CREATE TABLE playlists_songs
 -- 
-CREATE TABLE `Playlists_Songs`(
+CREATE TABLE `playlists_songs`(
     `id_playlist_song` int PRIMARY KEY,
     `id_songs` int,
     `id_playlist` int
@@ -104,37 +103,31 @@ CREATE TABLE `Playlists_Songs`(
 -- 
 -- CREATE TABLE Admins
 -- 
-CREATE TABLE `Admins`(
-    `id_admins` int PRIMARY KEY,
-    `email_admins` TEXT,
-    `pass_admins` TEXT,
-    `token_admins` TEXT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- 
 -- ADD FOREIGN KEY
 -- 
--- FK for table Categories
+-- FK for table categories
 -- 
-ALTER TABLE `Categories`
-ADD CONSTRAINT `FK_id_topics_Topics_Categories` FOREIGN KEY (`id_topics`) REFERENCES Topics(`id_topics`);
+ALTER TABLE `categories`
+ADD CONSTRAINT `FK_id_topics_Topics_categories` FOREIGN KEY (`id_topics`) REFERENCES Topics(`id_topics`);
 -- 
--- FK for table Albums
+-- FK for table albums
 -- 
-ALTER TABLE `Albums`
-ADD CONSTRAINT `FK_id_artist_Albums_Artists` FOREIGN KEY (`id_artists`) REFERENCES Artists(`id_artists`);
+ALTER TABLE `albums`
+ADD CONSTRAINT `FK_id_artist_albums_artists` FOREIGN KEY (`id_artists`) REFERENCES artists(`id_artists`);
 -- 
--- FK for table Songs
+-- FK for table songs
 -- 
-ALTER TABLE `Songs`
-ADD CONSTRAINT `FK_id_cate_Songs_Categories` FOREIGN KEY (`id_cate`) REFERENCES Categories(`id_cate`);
-ALTER TABLE `Songs`
-ADD CONSTRAINT `FK_id_artist_Songs_Artists` FOREIGN KEY (`id_artists`) REFERENCES Artists(`id_artists`);
-ALTER TABLE `Songs`
-ADD CONSTRAINT `FK_id_adver_Songs_Advertises` FOREIGN KEY (`id_advertises`) REFERENCES Advertises(`id_advertises`);
+ALTER TABLE `songs`
+ADD CONSTRAINT `FK_id_cate_songs_categories` FOREIGN KEY (`id_cate`) REFERENCES categories(`id_cate`);
+ALTER TABLE `songs`
+ADD CONSTRAINT `FK_id_artist_songs_artists` FOREIGN KEY (`id_artists`) REFERENCES artists(`id_artists`);
+ALTER TABLE `songs`
+ADD CONSTRAINT `FK_id_adver_songs_Advertises` FOREIGN KEY (`id_advertises`) REFERENCES Advertises(`id_advertises`);
 -- 
--- FK for table Playlists_Songs
+-- FK for table playlists_songs
 -- 
-ALTER TABLE `Playlists_Songs`
-ADD CONSTRAINT `FK_id_songs_Playlists_Songs` FOREIGN KEY (`id_songs`) REFERENCES Songs(`id_songs`);
-ALTER TABLE `Playlists_Songs`
-ADD CONSTRAINT `FK_id_playlists_Playlists_Songs` FOREIGN KEY (`id_playlist`) REFERENCES Playlists(`id_playlist`);
+ALTER TABLE `playlists_songs`
+ADD CONSTRAINT `FK_id_songs_playlists_songs` FOREIGN KEY (`id_songs`) REFERENCES songs(`id_songs`);
+ALTER TABLE `playlists_songs`
+ADD CONSTRAINT `FK_id_playlists_playlists_songs` FOREIGN KEY (`id_playlist`) REFERENCES playlists(`id_playlist`);
