@@ -1,12 +1,21 @@
 <?php
 
 use App\Model\Model;
-class Admin extends Model{
+<<<<<<< src/models/AdminModel.php
+class AdminModel extends Model{
     protected $table = 'users';
     public function __construct() {
         parent::__construct();
     }
     public function login($username,$email,$password) {
+=======
+class AdminModel extends Model{
+    protected $table = 'User';
+    public function __construct() {
+        parent::__construct();
+    }
+    public function login($username, $email, $password) {
+>>>>>>> src/models/AdminModel.php
         $response = array();
         $response["error"] = "";
         $response["msg"] = "";
@@ -16,9 +25,15 @@ class Admin extends Model{
 
         if (mysqli_num_rows($res) > 0) {
             $row = mysqli_fetch_object($res);
+<<<<<<< src/models/AdminModel.php
             $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
             if (password_verify($password, $row->password)) {
                 if ($row->create_at == NULL) {
+=======
+            $pass_hasing = password_hash($row->password,PASSWORD_DEFAULT);
+            if (password_verify($password, $pass_hasing)) {
+                    if ($row->phone == NULL) {
+>>>>>>> src/models/AdminModel.php
                     $response["error"] = "Please verify your account in order to activate!";
                 } else {
                     $response["message"] = $row;

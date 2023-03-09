@@ -5,9 +5,9 @@ class HomeController extends Controller {
         parent::__construct();
     }
     public function index() {
-        $this->loadView('components/header');
-        $this->loadView('components/controlbar');
-        $this->loadView('home');
-        $this->loadView('components/sidebar');
+        $this->load_view('components/header');
+        $this->load_view('components/controlbar');
+        $this->load_view('home');
+        $this->load_view('components/sidebar');
     }
 }
