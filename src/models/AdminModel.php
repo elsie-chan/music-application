@@ -16,8 +16,7 @@ class AdminModel extends Model{
         $res = mysqli_query($this->con, $sql);
         if (mysqli_num_rows($res) > 0) {
             $row = mysqli_fetch_object($res);
-            $pass_hasing = password_hash($password, PASSWORD_DEFAULT);
-            if (password_verify($password, $pass_hasing)) {
+            if (password_verify($password, $row->pass_users)) {
                 if ($row->create_at == NULL) {
                     $response["error"] = "Please verify your account in order to activate!";
                 } else {

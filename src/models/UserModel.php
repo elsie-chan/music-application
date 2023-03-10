@@ -21,41 +21,46 @@ class UserModel extends Model {
         return False;
     }
     // Register User
-    public function register() {
+    public function register($username,$email, $password,$confirm_pass,$mobile,$token) {
+        $response = array();
+        $response["error"] = "";
+        $response["message"] = "";
         $id = $this->countID()+1;
-        $name = $_POST['username'];
-        $email = $_POST["email"];
         $sql = "SELECT * FROM $this->table WHERE `email_users` = '$email'";
         $res = mysqli_num_rows(mysqli_query($this->con, $sql));
         if($res == 0 and $this->checkRegex($email,'/\w+@+[a-z]+\.+[a-z]+/gm')){
             $email = $email;
+        }else{
+            $response = array(
+                "error" => "",
+                "message" => "Your email is exists or it is invalid"
+            );
         }
-        else{
-            return;
+        if(strcmp($password,$confirm_pass)==0){
+            $password = password_hash($password, PASSWORD_DEFAULT);
+        }else{
+            $response = array(
+                "error" => "error",
+                "message" => "Your password is not valid"
+            );
         }
-        $password = password_hash($_SESSION["password"], PASSWORD_DEFAULT);
-        $mobile = $_POST["mobile-number"];
-        $token = $_POST["token"];
         $date = date('Y-m-d H:i:s', time());
         $sql = "INSERT INTO $this->table VALUES ('$id','$name','$email','$password','$mobile','$date','$token',0,NULL)";
         $stmt = mysqli_query($this->con,$sql);
+        return $response;
     }
     // Login User
-    public function login() {
+    public function login($username, $email, $password){
         $response = array();
         $response["error"] = "";
-        $response["msg"] = "";
-        $email = $_POST["email"];
-        $username = $_POST["username"];
-        $password = $_POST["password"];
+        $response["message"] = "";
 
-        $sql = "SELECT * FROM `" .$this->table. "` WHERE `email_users` LIKE '$email' or `username` LIKE '$username'";
+        $sql = "SELECT * FROM `" . $this->table . "` WHERE `email_users` LIKE '$email' or `username` LIKE '$username'";
         $res = mysqli_query($this->con, $sql);
-
         if (mysqli_num_rows($res) > 0) {
             $row = mysqli_fetch_object($res);
-            if (password_verify($password, $row->password)) {
-                if ($row->verified_at == NULL) {
+            if (password_verify($password, $row->pass_users)) {
+                if ($row->create_at == NULL) {
                     $response["error"] = "Please verify your account in order to activate!";
                 } else {
                     $response["message"] = $row;
