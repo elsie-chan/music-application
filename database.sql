@@ -92,7 +92,9 @@ CREATE TABLE `users`(
     `token_users` TEXT,
     `id_songs` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
--- 
+-- INSERT ADMIN to Users
+INSERT INTO `users` VALUE(1,'admin','admin@gmail.com','$2y$10$NBqwNkWAH6oT9xrlbNTppesPSZI4giYP26LbzND/J0nDcL0YZAOPC','0928416379','2023-3-10',1,'3oi4hi34u59hewf',NULL);
+--
 -- CREATE TABLE playlists_songs
 -- 
 CREATE TABLE `playlists_songs`(
