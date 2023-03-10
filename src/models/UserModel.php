@@ -28,14 +28,14 @@ class UserModel extends Model {
         $id = $this->countID()+1;
         $sql = "SELECT * FROM $this->table WHERE `email_users` = '$email'";
         $res = mysqli_num_rows(mysqli_query($this->con, $sql));
-        if($res == 0 and $this->checkRegex($email,'/\w+@+[a-z]+\.+[a-z]+/gm')){
-            $email = $email;
-        }else{
-            $response = array(
-                "error" => "",
-                "message" => "Your email is exists or it is invalid"
-            );
-        }
+//        if($res == 0 and $this->checkRegex($email,'/\w+@+[a-z]+\.+[a-z]+/gm')){
+//            $email = $email;
+//        }else{
+//            $response = array(
+//                "error" => "",
+//                "message" => "Your email is exists or it is invalid"
+//            );
+//        }
         if(strcmp($password,$confirm_pass)==0){
             $password = password_hash($password, PASSWORD_DEFAULT);
         }else{
@@ -45,7 +45,7 @@ class UserModel extends Model {
             );
         }
         $date = date('Y-m-d H:i:s', time());
-        $sql = "INSERT INTO $this->table VALUES ('$id','$username','$email','$password','$mobile','$date','$token',0,NULL)";
+        $sql = "INSERT INTO $this->table (`id_users`, `username`, `email_users`, `pass_users`, `phone_users`, `create_at`, `role`, `token_users`, `id_songs`) VALUES ('$id','$username','$email','$password','$mobile','$date', 0, '$token',NULL)";
         $stmt = mysqli_query($this->con,$sql);
         return $response;
     }
