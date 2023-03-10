@@ -6,6 +6,8 @@ $routes = [
     (new Route('auth/login', 'GET', AuthController::class, 'login')),
     (new Route('auth/login', 'POST', AuthController::class, 'handle_login')),
     (new Route('auth/logout', 'GET', AuthController::class, 'logout')),
+    (new Route('auth/register', 'GET', AuthController::class, 'register')),
+    (new Route('auth/register', 'POST', AuthController::class, 'handle_register')),
 
 ];
 

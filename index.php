@@ -21,7 +21,6 @@ require_once('./src/models/Model.php');
 require_once('./src/system/constant.php');
 require_once('./src/system/Security.php');
 
-
 if (file_exists($controller_path)) {
     $files = scandir($controller_path);
     foreach ($files as $file) {

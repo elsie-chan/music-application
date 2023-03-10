@@ -21,7 +21,7 @@ class UserModel extends Model {
         return False;
     }
     // Register User
-    public function register($username,$email, $password,$confirm_pass,$mobile,$token) {
+    public function register($username, $email, $password, $confirm_pass, $mobile, $token) {
         $response = array();
         $response["error"] = "";
         $response["message"] = "";
@@ -45,7 +45,7 @@ class UserModel extends Model {
             );
         }
         $date = date('Y-m-d H:i:s', time());
-        $sql = "INSERT INTO $this->table VALUES ('$id','$name','$email','$password','$mobile','$date','$token',0,NULL)";
+        $sql = "INSERT INTO $this->table VALUES ('$id','$username','$email','$password','$mobile','$date','$token',0,NULL)";
         $stmt = mysqli_query($this->con,$sql);
         return $response;
     }

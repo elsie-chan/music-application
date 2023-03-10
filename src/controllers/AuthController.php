@@ -19,26 +19,51 @@ class AuthController extends Controller {
        if ($_POST) {
          if ($token != null) {
 
-             $username= $_POST['username'];
-             $email = $_POST["email"];
-             $password = $_POST["password"];
-             $model_response = $this->load_model("AdminModel");
+             $_SESSION['username'] = $_POST['username'];
+             $_SESSION['email'] = $_POST["email"];
+             $_SESSION['password'] = $_POST["password"];
+             if ($_SESSION['email'] == 'admin@gmail.com') {
+                $model_response = $this->load_model("AdminModel");
+             } else {
+                 $model_response = $this->load_model("UserModel");
+             }
              if (!isset($model_response)) {
                $error = "NOT FOUND";
              }
-             $response = $model_response->login($username, $email, $password);
+             $response = $model_response->login($_SESSION['username'], $_SESSION['email'], $_SESSION['password']);
              $error = $response['error'];
              if (empty($error)) {
-                 $admin_data = $response["message"];
-                 $_SESSION["admin"] = $admin_data->id;
                 header("location:".url());
              }
          }
        }
     }
 
+    public function register() {
+        $this->load_view('auth/auth.register');
+    }
+
+    public function handle_register() {
+        $token = $_SESSION['token'];
+        if ($token != null) {
+            $_SESSION['username'] = $_POST['username'];
+            $_SESSION['email'] = $_POST['email'];
+            $_SESSION['password'] = $_POST['password'];
+            $_SESSION['confirm_pass'] = $_POST['confirm_pass'];
+            $_SESSION['mobile'] = $_POST['mobile'];
+
+            $model_response = $this->load_model("UserModel");
+            if (!isset($model_response)) {
+                echo 'NOT FOUND';
+            }
+
+            $response = $model_response->register($_SESSION['username'], $_SESSION['email'], $_SESSION['password'], $_SESSION['confirm_pass'], $_SESSION['mobile'], $_SESSION['token']);
+            header('Location:'.url());
+        }
+    }
+
     public function logout() {
        session_destroy();
-       $this->login();
+//       header('Location:'.$this->login());
     }
 }
