@@ -12,11 +12,14 @@ $help_path = __DIR__ . '/src/helper';
 $route_path = __DIR__ .'/src/routes';
 $dotenv = new Dotenv();
 
+session_start();
+
 require_once('./src/routes/Route.php');
 require_once('./src/helper/helper.php');
 require_once('./src/controllers/Controller.php');
 require_once('./src/models/Model.php');
 require_once('./src/system/constant.php');
+require_once('./src/system/Security.php');
 
 
 if (file_exists($controller_path)) {

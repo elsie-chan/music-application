@@ -6,7 +6,8 @@ class AdminModel extends Model{
     public function __construct() {
         parent::__construct();
     }
-    public function login($username, $email, $password){
+    public function login($username, $email, $password)
+    {
         $response = array();
         $response["error"] = "";
         $response["msg"] = "";

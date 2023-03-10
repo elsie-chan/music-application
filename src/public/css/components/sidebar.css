@@ -1,0 +1,122 @@
+@import url("src/public/css/style.css");
+
+button:focus, button:focus-visible {
+    outline: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.sidebar {
+	position: fixed;
+	width: 200px;
+	overflow-y: auto;
+	scrollbar-width: none;
+	top: 0;
+	bottom: 0;
+	z-index: 10;
+	background-color: var(--blue-sb);
+}
+
+::-webkit-scrollbar {
+	display: none;
+}
+
+.sidebar .banner {
+	padding: 8px 0 8px 24px;
+}
+
+.sidebar .banner .banner--logo {
+	height: 44px;
+	background-image: url("../../assets/imgs/banner.svg");
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.sidebar .banner .banner--logo:hover {
+    cursor: pointer;
+}
+
+.sidebar .navigation--list {
+    padding: 8px 0;
+    margin-bottom: 0; /*del bootstrap default*/
+    margin: 0 12px 0 12px;
+    border: none;
+}
+
+.sidebar .navigation--list .navigation--item {
+	padding-left: 12px;
+    height: 46px;
+    border-radius: 6px;
+
+}
+
+.sidebar .navigation--link {
+    line-height: 46px;
+	color: var(--grey);
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+.sidebar .navigation--item:hover {
+	background-color: rgba(255, 254, 254, 0.149);
+}
+
+.sidebar .navigation--link:hover {
+	text-decoration: none;
+    color: var(--white);
+}
+
+.sidebar .navigation .page__active a {
+    color: var(--hightlight);
+}
+
+span.line-break {
+    display: block;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.1);
+    margin: 0 12px;
+}
+
+.playlist {
+    display: flex;
+    flex-direction: column;
+    margin: 12px;
+}
+
+.playlist .playlist--add {
+    border: none;
+    background-color: transparent;
+    color: var(--white);
+    font-size: 16px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;    
+    padding: 8px 12px;
+    border-radius: 4px;
+}
+
+.playlist--add i {
+    font-size: 1.2rem;
+}
+
+.playlist .playlist--add:hover {
+    cursor: pointer;
+    color: var(--hightlight);
+    border: none;
+    background-color: rgba(0, 128, 128, 0.133);
+}
+
+.playlist .playlist--item {
+    border-radius: 4px;
+
+}
+
+.playlist .playlist--link {
+    line-height: 32px;
+    padding: 0px 8px;
+}
