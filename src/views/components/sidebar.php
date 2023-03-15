@@ -1,9 +1,7 @@
 <style>
     @import "<?php echo url('src/public/css/style.css') ?>";
     @import "<?php echo url('src/public/css/components/sidebar.css') ?>";
-    
 </style>
-
 
 <div class="sidebar">
     <div class="banner">

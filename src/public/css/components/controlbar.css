@@ -1,0 +1,28 @@
+* {
+    text-decoration: none;
+    list-style-type: none;
+}
+
+.controlbar {
+    position: fixed;
+    bottom: 0;
+    height: 80px;
+    z-index: 20;
+    background-color: var(--blue);
+}
+
+.controlbar > * {
+    height: 100%;
+}
+
+.song__poster img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 2px;
+    margin-right: 0.4rem;
+}
+
+.controlbar__center .player__control i {
+    color: var(--white);
+}
