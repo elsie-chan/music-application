@@ -1,6 +1,131 @@
+/* RESET CSS  */
+
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+* {
+    margin: 0;
+    padding: 0;
+    font: inherit;
+}
+img,
+picture,
+svg,
+video {
+    display: block;
+    max-width: 100%;
+}
+body {
+    min-height: 100vh;
+
+}
+/* BACKGROUND */
+.bg {
+    background-repeat: no-repeat;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+}
 
 
-.logo img {
-    width: 4rem;
-    height: 4rem;
+
+/* FORM LOG IN */
+
+.modal-form {
+    /* position: absolute; */
+    /* left: 40%; */
+    padding: 48px;
+}
+.glass{
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border:2px solid rgba(255, 255, 255, 0.351);
+    box-shadow: 0 8px 32px 0 rgba(107, 107, 107, 0.37);
+}
+.form-horizoltal {
+    text-align: center;
+}
+.form-horizoltal .form-logo {
+    display: inline-block;
+    width: 135px;
+    height: 135px;
+    margin: 0 0 13px;
+}
+.form-horizoltal .form-logo img {
+    height: 100%;
+    width: 100%;
+}
+.form-horizoltal .title {
+    color: #F6F3F3;
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 151.84%;
+    margin: 0 0 23px 0;
+}
+.form-horizoltal .title span {
+    color: #00B6D6;
+    /* text-shadow: 1px 2px 2px #F6F3F3; */
+}
+.form-horizoltal .form-group {
+    margin: 0;
+    position: relative;
+}
+.form-horizoltal .form-control {
+    color: #929292;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 151.84%;
+
+    
+    /* border: 1px solid #D6D6D6; */
+    border-radius: 8px;
+} 
+.form-horizoltal .form-control::placeholder {
+    color: #CAC7C7;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 151.84%;
+}
+
+.form-horizoltal .form-control:focus {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-width: 2px;
+    border-color: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+    color: #F6F3F3;
+}
+.form-horizoltal .input-icon {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    color: #F6F3F3;
+    font-size: 1.2em;
+}
+.form-horizoltal .remember {
+    color: #CAC7C7;
+    font-weight: 400;
+    font-size: 1em;
+    line-height: 19px;
+}
+.form-horizoltal .remember label input {
+    margin-top: 8px;
+    accent-color: #00B6D6;
+}
+.form-horizoltal  .form-options {
+    list-style: none;
+}
+.form-horizoltal  .form-options li a {
+    color: #F6F3F3;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 16px;
+    letter-spacing: .2px;
+}
+.form-horizoltal  .form-options li a span {
+    color: #00B6D6;
 }

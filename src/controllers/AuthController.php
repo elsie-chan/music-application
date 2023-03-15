@@ -15,26 +15,30 @@ class AuthController extends Controller {
        $error = "";
        $message = "";
 
-       $token = $_SESSION['token'];
+       $token = !empty($_SESSION['token']) ? $_SESSION['token'] : generate_token();
        if ($_POST) {
          if ($token != null) {
 
-             $_SESSION['username'] = $_POST['username'];
-             $_SESSION['email'] = $_POST["email"];
-             $_SESSION['password'] = $_POST["password"];
-             if ($_SESSION['email'] == 'admin@gmail.com') {
+            $_SESSION['username'] = $_POST['username'];
+            $_SESSION['email'] = $_POST["email"];
+            $_SESSION['password'] = $_POST["password"];
+
+            if ($_SESSION['email'] == 'admin@gmail.com') {
                 $model_response = $this->load_model("AdminModel");
-             } else {
-                 $model_response = $this->load_model("UserModel");
-             }
-             if (!isset($model_response)) {
-               $error = "NOT FOUND";
-             }
-             $response = $model_response->login($_SESSION['username'], $_SESSION['email'], $_SESSION['password']);
-             $error = $response['error'];
-             if (empty($error)) {
-                header("location:".url());
-             }
+            } else {
+                $model_response = $this->load_model("UserModel");
+            }
+
+            if (!isset($model_response)) {
+                $error = "NOT FOUND";
+            }
+
+            $response = $model_response->login($_SESSION['username'], $_SESSION['email'], $_SESSION['password'], $token);
+            $error = $response['error'];
+
+            if (empty($error)) {
+            header("location:".url());
+            }
          }
        }
     }
@@ -64,6 +68,7 @@ class AuthController extends Controller {
 
     public function logout() {
        session_destroy();
+       $_SESSION = [];
 //       header('Location:'.$this->login());
     }
 }

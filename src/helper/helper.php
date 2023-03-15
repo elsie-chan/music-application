@@ -1,6 +1,7 @@
 <?php
 $env_path = dirname($_SERVER['PHP_SELF'], 2) . '/.env';
 $dotenv->load(dirname(__DIR__, 2) . '/.env');
+
 function env($key = null): array|string
 {
     return $key ? $_ENV[$key] : $_ENV;
@@ -50,4 +51,9 @@ function url_query()
 function clean_array($array = array()): array
 {
     return array_filter($array, fn($value) => !is_null($value) && $value !== '');
+}
+
+function generate_token(): string
+{
+    return (new Security())->create_token();
 }
