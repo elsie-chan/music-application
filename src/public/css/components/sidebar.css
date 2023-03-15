@@ -111,9 +111,12 @@ span.line-break {
     background-color: rgba(0, 128, 128, 0.133);
 }
 
+.playlist ul.playlist--list {
+    padding-inline-start: 0;
+}
+
 .playlist .playlist--item {
     border-radius: 4px;
-
 }
 
 .playlist .playlist--link {
