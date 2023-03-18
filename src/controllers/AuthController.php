@@ -15,8 +15,8 @@ class AuthController extends Controller {
        $error = "";
        $message = "";
 
-       $token = !empty($_SESSION['token']) ? $_SESSION['token'] : generate_token();
        if ($_POST) {
+        $token = empty($_SESSION['token']) ? generate_token() : $_SESSION['token'];
          if ($token != null) {
 
             $_SESSION['username'] = $_POST['username'];
@@ -37,8 +37,12 @@ class AuthController extends Controller {
             $error = $response['error'];
 
             if (empty($error)) {
-            header("location:".url());
+                Redirect::to('/');
+            } else {
+                dd($error);
             }
+         } else {
+             dd("token is null");
          }
        }
     }
@@ -62,13 +66,13 @@ class AuthController extends Controller {
             }
 
             $response = $model_response->register($_SESSION['username'], $_SESSION['email'], $_SESSION['password'], $_SESSION['confirm_pass'], $_SESSION['mobile'], $_SESSION['token']);
-            header('Location:'.url());
+//            header('Location:'.url());
         }
     }
 
     public function logout() {
        session_destroy();
        $_SESSION = [];
-//       header('Location:'.$this->login());
+       Redirect::to('/');
     }
 }

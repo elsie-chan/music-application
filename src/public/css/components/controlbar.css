@@ -1,28 +1,147 @@
-* {
-    text-decoration: none;
-    list-style-type: none;
+.controlbar * {
+	color: #000;
 }
 
 .controlbar {
-    position: fixed;
-    bottom: 0;
-    height: 80px;
-    z-index: 20;
-    background-color: var(--blue);
+	height: 80px;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: var(--blue-bg);
+	box-shadow: 0px -1px 1px 1px rgba(244, 244, 244, 0.2);
 }
 
-.controlbar > * {
-    height: 100%;
+.controlbar p {
+	color: #fff;
 }
 
-.song__poster img {
-    width: 60px;
-    height: 60px;
-    object-fit: cover;
-    border-radius: 2px;
-    margin-right: 0.4rem;
+.controlbar i {
+	color: #fff;
 }
 
-.controlbar__center .player__control i {
-    color: var(--white);
+.controlbar__container {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.controlbar__container--left {
+	display: flex;
+	align-items: center;
+	height: 100%;
+	gap: 24px;
+}
+
+.song {
+	display: flex;
+	justify-content: center;
+	padding-left: 24px;
+}
+
+.song .song__poster {
+	width: 60px;
+	height: 48px;
+}
+
+img.song__poster--img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.song__info {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	max-width: 280px;
+	padding: 0 12px;
+}
+
+p.song__info--name {
+	width: 100%;
+	margin-bottom: 0;
+	text-overflow: ellipsis;
+	white-space: nowrap; 
+  	overflow: hidden;
+	font-size: 16px;
+}
+
+.song__info--artist {
+	width: 100%;
+	text-overflow: ellipsis;
+	white-space: nowrap; 
+  	overflow: hidden;
+	font-size: 14px;
+	margin-bottom: 0;
+}
+
+.control {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 12px;
+	padding: 0 12px;
+
+}
+
+.control__btns {
+	display: flex;
+	flex-direction: row;
+	gap: 46px;
+}
+
+.song__like {
+	display: flex;
+	align-items: center;
+	padding: 0 12px;
+}
+
+.control--btn {
+}
+
+.fa-solid {
+}
+
+.control--btn {
+}
+
+.song__progress {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.song__progress p {
+	margin-bottom: 0;
+}
+
+.progress--bar {
+	
+}
+
+.progress--bar--current {
+	width: 360px;
+	max-width: 360px;
+	height: 8px;
+	background-color: var(--hightlight);
+}
+
+.song__progress--time {
+}
+
+.time--current {
+}
+
+.time--duration {
+}
+
+.controlbar__container--right {
+	display: inline-block;
+}
+
+.btn--playlist {
+	padding: 24px;
 }

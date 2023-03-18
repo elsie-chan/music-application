@@ -1,9 +1,8 @@
 <style>
-    @import "<?php echo url('src/public/css/style.css') ?>";
+    @import "<?php echo url('src/public/css/components/header.css') ?>";
     .header {
-        position: relative;
-        background-color: aqua;
-        z-index: 10;
+        position: absolute;
+        top: 0;
     }
 
     .header .header__container {

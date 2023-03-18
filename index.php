@@ -19,8 +19,12 @@ require_once('./src/system/constant.php');
 require_once('./src/system/Security.php');
 require_once('./src/routes/Route.php');
 require_once('./src/helper/helper.php');
+require_once('./src/system/Redirect.php');
+$redirector = new Redirect();
+
 require_once('./src/controllers/Controller.php');
 require_once('./src/models/Model.php');
+
 
 if (file_exists($controller_path)) {
     $files = scandir($controller_path);

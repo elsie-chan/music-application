@@ -9,13 +9,13 @@ a:hover {
 }
 
 .sidebar {
-	position: fixed;
+    position: fixed;
 	width: 200px;
 	overflow-y: auto;
 	scrollbar-width: none;
 	top: 0;
 	bottom: 0;
-	z-index: 10;
+    left: 0;
 	background-color: var(--blue-sb);
 }
 
@@ -23,19 +23,15 @@ a:hover {
 	display: none;
 }
 
+.sidebar .logo {
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+    gap: 12px;
+}
+
 .sidebar .banner {
-	padding: 8px 0 8px 24px;
-}
-
-.sidebar .banner .banner--logo {
-	height: 44px;
-	background-image: url("../../assets/imgs/banner.svg");
-	background-size: contain;
-	background-repeat: no-repeat;
-}
-
-.sidebar .banner .banner--logo:hover {
-    cursor: pointer;
+    padding-left: 24px;
 }
 
 .sidebar .navigation--list {
@@ -45,15 +41,14 @@ a:hover {
     border: none;
 }
 
-.sidebar .navigation--list .navigation--item {
+.sidebar .navigation--item {
 	padding-left: 12px;
     height: 46px;
     border-radius: 6px;
-
 }
 
 .sidebar .navigation--link {
-    line-height: 46px;
+    height: 46px;
 	color: var(--grey);
 	display: flex;
 	align-items: center;
@@ -73,7 +68,7 @@ a:hover {
     color: var(--hightlight);
 }
 
-span.line-break {
+.line-break {
     display: block;
     height: 1px;
     background-color: rgba(255, 255, 255, 0.1);
@@ -121,5 +116,33 @@ span.line-break {
 
 .playlist .playlist--link {
     line-height: 32px;
-    padding: 0px 8px;
+}
+
+/*toggle sidebar---------------- */
+.sidebar.toggle span{
+    display: none;
+}
+
+.sidebar.toggle {
+    width: 80px;
+}
+
+.sidebar.toggle .navigation--link {
+    justify-content: center;
+}
+
+.sidebar.toggle .navigation--item {
+    padding: 0;
+}
+
+.sidebar.toggle .playlist--add {
+    justify-content: center;
+}
+
+.sidebar .logo {
+    justify-content: center;
+}
+
+.sidebar .banner {
+    padding: 0;
 }

@@ -57,3 +57,8 @@ function generate_token(): string
 {
     return (new Security())->create_token();
 }
+
+function authed(): bool
+{
+    return !empty($_SESSION['token']);
+}
