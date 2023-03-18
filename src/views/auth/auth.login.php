@@ -1,13 +1,12 @@
 <link rel="stylesheet" href="<?php echo url('src/public/vendors/bootstrap/css/bootstrap.css') ?>">
 <link rel="stylesheet" href="<?php echo url('src/public/vendors/font-awesome-6-pro-main/css/all.css') ?>">
+ <link rel="stylesheet" href="<?php echo url('src/public/css/style.css') ?>">
 <style>
-    <?php require_once (assets('public/css/auth/login.css'))?>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@300;400;500;700&display=swap');
+    <?php require_once (assets('public/css/auth/login.css')) ?>
     .bg {
-        background-image: url(<?php echo url('src/public/assets/imgs/login2.jpg') ?>);
+        background-image: url(<?php echo url('src/public/assets/imgs/bg_login.png') ?>);
         background-size: cover;
     }
-    
 </style>
 <main>
     <div class="bg">
@@ -21,19 +20,20 @@
                             </div>
                             <h3 class="title">Sign in to <span>Misc</span></h3>
                             <div class="form-group d-flex justify-content-center ">
-                                <input class="input1 form-control glass" type="text" name="username" placeholder="Email address or username">
+                                <input style="border-radius: 8px 8px 0 0;" class="input1 form-control glass" type="text" name="username" placeholder="Username">
                             </div>
                             <div class="form-group d-flex justify-content-center ">
-                                <input class="input1 form-control glass" type="email" name="email" placeholder="Email address or username">
+                                <input style="border-radius: 0px; border-top: 0; border-bottom: 0;" class="input2 form-control glass" type="email" name="email" placeholder="Email address">
                             </div>
                             <div class="form-group d-flex justify-content-center">
-                                <input class="input2 form-control glass" type="password" name="password" placeholder="Password">
+                                <input style="border-radius: 0 0 8px 8px;" class="input3 form-control glass" type="password" name="password" placeholder="Password">
                                 <i class="fa-thin fa-arrow-right input-icon btn-submit"></i>
                             </div>
+                            <span class="text-error"></span>
                             <div class="remember mt-3">
                                 <label><input type="checkbox"> Keep me signed in</label>
                             </div>
-                            <hr class="hr hr-blurry" />
+                            <div class="line"></div>
                             <ul class="form-options">
                                 <li><a href="#">Forgot your password?</a></li>
                                 <li><a href="#"><span>Sign up for Misc</span></a></li>
@@ -49,5 +49,22 @@
 <script>
     $('.btn-submit').on('click', (e) => {
         $('.form-login')[0].submit();
+    })
+
+    $(window).on('keypress', function (e) {
+        var is_full = true;
+        if (e.which === 13) {
+            $('.form-control').each((index, form) => {
+                if (!form.value) {
+                    // console.log("exsit one field empty")
+                    $('.text-error').text('Please, fill all fields')
+                    is_full = false;
+                    return false;
+                }
+            })
+            if (is_full) {
+                $('.form-login')[0].submit();
+            }
+        }
     })
 </script>
