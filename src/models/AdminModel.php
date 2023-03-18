@@ -11,8 +11,17 @@ class AdminModel extends Model{
         $response = array();
         $response["error"] = "";
         $response["msg"] = "";
-
-        $sql = "SELECT * FROM `" . $this->table . "` WHERE `email_users` LIKE '$email' or `username` LIKE '$username'";
+        $sql = "
+            SELECT
+                *
+            FROM
+                `$this->table`
+            WHERE
+                `username` = '$username'
+                OR
+                'email_users' = '$email'
+        ";
+        echo $token;
         $res = mysqli_query($this->con, $sql);
         if (mysqli_num_rows($res) > 0) {
             $row = mysqli_fetch_object($res);
@@ -20,6 +29,7 @@ class AdminModel extends Model{
                 if ($row->create_at == NULL) {
                     $response["error"] = "Please verify your account in order to activate!";
                 } else {
+                    $this->update_user_token($row->id_users, $token);
                     $response["message"] = $row;
                 }
             } else {
@@ -84,5 +94,19 @@ class AdminModel extends Model{
             array_push($data,$row);
         }
         return $data;
+    }
+
+    private function update_user_token($user_id, $token)
+    {
+        $sql = "
+            UPDATE
+                $this->table
+            SET 
+                `token_users` = '$token'
+            WHERE
+                `id_users` = '$user_id'
+        ";
+        $_SESSION['token'] = $token;
+        return mysqli_query($this->con, $sql);
     }
 }

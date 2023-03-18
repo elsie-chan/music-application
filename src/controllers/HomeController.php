@@ -5,9 +5,10 @@ class HomeController extends Controller {
         parent::__construct();
     }
     public function index() {
-        $this->load_view('components/header');
-        $this->load_view('components/controlbar');
-        $this->load_view('home');
-        $this->load_view('components/sidebar');
+        if (authed()) {
+            $this->load_view('home');
+        } else {
+            $this->load_view('auth/auth.login');
+        }
     }
 }

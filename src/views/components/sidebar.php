@@ -1,13 +1,13 @@
 <style>
-    @import "<?php echo url('src/public/css/style.css') ?>";
     @import "<?php echo url('src/public/css/components/sidebar.css') ?>";
 </style>
 
 <div class="sidebar">
     <div class="banner">
-        <div class="banner--logo">
-            <a href="#"></a>
-        </div>
+        <a class="logo" href="#">
+            <img src="src/public/assets/imgs/logo.svg" width="40" height="40" class="d-inline-block align-top" alt="">
+            <span>MISC</span>
+        </a>
     </div>
     <nav class="navigation">
         <ul class="navigation--list">
@@ -43,7 +43,7 @@
             </li>
         </ul>
     </nav>
-    <span class="line-break"></span>
+    <div class="line-break"></div>
     <div class="playlist">
         <button class="playlist--add">
             <i class="fa-sharp fa-regular fa-square-plus"></i>
