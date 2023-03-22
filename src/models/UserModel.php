@@ -24,46 +24,56 @@ class UserModel extends Model {
     public function register($username, $email, $password, $confirm_pass, $mobile, $token) {
         $response = array();
         $response["error"] = "";
-        $response["message"] = "";
+        $response["msg"] = "";
         $id = $this->countID()+1;
-        $sql = "SELECT * FROM $this->table WHERE `email_users` = '$email'";
+        $sql = "SELECT 
+                      * 
+                FROM 
+                      $this->table 
+                WHERE 
+                      `email_users` = '$email'
+                OR
+                    `username` = '$username'";
         $res = mysqli_num_rows(mysqli_query($this->con, $sql));
-//        if($res == 0 and $this->checkRegex($email,'/\w+@+[a-z]+\.+[a-z]+/gm')){
-//            $email = $email;
-//        }else{
-//            $response = array(
-//                "error" => "",
-//                "message" => "Your email is exists or it is invalid"
-//            );
-//        }
-        if(strcmp($password,$confirm_pass)==0){
-            $password = password_hash($password, PASSWORD_DEFAULT);
-        }else{
-            $response = array(
-                "error" => "error",
-                "message" => "Your password is not valid"
-            );
-        }
         $date = date('Y-m-d H:i:s', time());
-        $sql = "INSERT INTO $this->table (`id_users`, `username`, `email_users`, `pass_users`, `phone_users`, `create_at`, `role`, `token_users`, `id_songs`) VALUES ('$id','$username','$email','$password','$mobile','$date', 0, '$token',NULL)";
-        $stmt = mysqli_query($this->con,$sql);
+        if($res == 0 and $this->checkRegex($email,'/\w+@+[a-z]+\.+[a-z]+/gm')){
+            if(strcmp($password,$confirm_pass)==0){
+                $password = password_hash($password, PASSWORD_DEFAULT);
+                $sql = "INSERT INTO $this->table (`id_users`, `username`, `email_users`, `pass_users`, `phone_users`, `create_at`, `role`, `token_users`, `id_songs`) VALUES ('$id','$username','$email','$password','$mobile','$date', 0, '$token',NULL)";
+                $stmt = mysqli_query($this->con,$sql);
+            }else{
+                    $response["error"] = "Your password is not valid";
+            }
+        }else{
+            $response["error"] = "Your email is exists or it is invalid";
+        }
         return $response;
     }
     // Login User
-    public function login($username, $email, $password){
+    public function login($username, $email, $password, $token)
+    {
         $response = array();
         $response["error"] = "";
-        $response["message"] = "";
-
-        $sql = "SELECT * FROM `" . $this->table . "` WHERE `email_users` LIKE '$email' or `username` LIKE '$username'";
+        $response["msg"] = "";
+        $sql = "
+            SELECT
+                *
+            FROM
+                `$this->table`
+            WHERE
+                `username` = '$username'
+                OR
+                `email_users` = '$email'
+        ";
         $res = mysqli_query($this->con, $sql);
         if (mysqli_num_rows($res) > 0) {
             $row = mysqli_fetch_object($res);
             if (password_verify($password, $row->pass_users)) {
                 if ($row->create_at == NULL) {
-                    $response["error"] = "Please verify your account in order to activate!";
+                    $response["error"] = "User does not exists";
                 } else {
-                    $response["message"] = $row;
+                    $this->update_user_token($row->id_users, $token);
+                    $response["msg"] = $row;
                 }
             } else {
                 $response["error"] = "Password does not match";
@@ -74,28 +84,50 @@ class UserModel extends Model {
         return $response;
     }
     // Find One User By ID
-    public function get_user_by_id($id_user){
-        $sql = "SELECT * FROM $this->table WHERE `id_users` = '$id_user'";
+    public function get_user_by_username($username){
+        $sql = "SELECT
+                      *
+                FROM 
+                      $this->table 
+                WHERE 
+                      `username` = '$username'";
         $stmt = mysqli_query($this->con, $sql);
         if (mysqli_num_rows($stmt) > 0)
             return mysqli_fetch_object($stmt);
         else
-            return null;
+            return array(
+                "error" => "",
+                "msg" => "User is not exsits"
+            );
     }
     // Find All Users
     public function get_all_user(){
-        $sql = "SELECT * FROM `" . $this->table . "` ORDER BY `id_users` ASC";
+        $sql = "SELECT 
+                      * 
+                FROM 
+                    `" . $this->table . "` 
+                ORDER BY 
+                        `id_users` ASC";
         $stmt = mysqli_query($this->con, $sql);
         $data = array();
-        while($row = mysqli_num_rows($stmt)){
-            array_push($data,$row);
+        $row = mysqli_num_rows($stmt);
+        if(mysqli_num_rows($stmt)==0){
+            return array(
+                "error" => "",
+                "msg" => "User is not exsits"
+            );
+        }
+        while($temp = mysqli_fetch_object($stmt)){
+            array_push($data,$temp);
         }
         return $data;
     }
     // Update Profile User
     public function update_profile($arr){
         $temp = array($arr);
-        $sql = "UPDATE $this->table SET";
+        $sql = "UPDATE 
+                      $this->table 
+                SET";
         foreach($temp as $key => $val){
             $sql = $sql.' '."$key = $val, ";
         }
@@ -104,9 +136,13 @@ class UserModel extends Model {
     }
     // Update Profile User
     public function update_profile_where($arr1,$arr2){
+//        Temp1 sẽ chứa thuộc tính SET
         $temp1 = array($arr1);
+//        Temp 2 sẽ chứa các thuộc tính WHERE
         $temp2 = array($arr2);
-        $sql = "UPDATE $this->table SET";
+        $sql = "UPDATE 
+                      $this->table 
+                SET";
         foreach($temp1 as $key => $val){
             $sql = $sql.' '."$key = $val, ";
         }
