@@ -10,7 +10,7 @@ class AdminController extends Controller {
 
     public function is_admin_login() {
         return $_SESSION['admin'];
-}
+    }
 
    public function category($page_type) {
        $error = "";
@@ -19,7 +19,7 @@ class AdminController extends Controller {
        if ($this->is_admin_login()) {
            if ($page_type == 'add') {
                if ($_POST) {
-                   $model_response = $this->load_model('CategoryModel');
+                   $model_response = $this->load_model('AdminModel');
                }
            }
 
@@ -46,6 +46,7 @@ class AdminController extends Controller {
                 $_SESSION['error'] = $error;
             }
         }
+        return "Successfully deleted!";
     }
 
     public function delete_all_user() {
@@ -85,16 +86,16 @@ class AdminController extends Controller {
             $error = $response['error'];
 
             if (empty($error)) {
-                return $response;
+                return $response['message']->username;
             } else {
                 $_SESSION['error'] = $error;
             }
+            return $response['message']->username;
         }
-
-        return $response;
+        return NULL;
     }
 
-    public  function get_user_by_id($user_id) {
+    public  function get_user_by_user_name($user_name) {
         $error = "";
         $message = "";
 
@@ -105,16 +106,16 @@ class AdminController extends Controller {
                 require_once (assets('views/layout/404.php'));
             }
 
-            $response = $model_response->get_all_user_by_id($user_id);
+            $response = $model_response->get_all_user_by_id($user_name);
             $error = $response['error'];
 
             if (empty($error)) {
-                return $response;
+                return $response['message']->username;
             } else {
                 $_SESSION['error'] = $error;
             }
+            return $response['message']->username;
         }
-
-        return $response;
+        return NULL;
     }
 }

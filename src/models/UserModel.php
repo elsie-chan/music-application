@@ -153,4 +153,17 @@ class UserModel extends Model {
         $sql = substr(trim($sql),0,-1);
         return mysqli_query($this->con,$sql);
     }
+    private function update_user_token($user_id, $token)
+    {
+        $sql = "
+            UPDATE
+                $this->table
+            SET 
+                `token_users` = '$token'
+            WHERE
+                `id_users` = '$user_id'
+        ";
+        $_SESSION['token'] = $token;
+        return mysqli_query($this->con, $sql);
+    }
 }
