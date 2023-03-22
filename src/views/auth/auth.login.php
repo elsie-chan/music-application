@@ -14,7 +14,7 @@
             <div class="row d-flex justify-content-center">
                 <!-- <img src="<?php echo url('src/public/assets/imgs/bg_login1.png') ?>" class="" alt="Sample image"> -->
                 <div class="col-md-4 col-sm-6 col-8 modal-form glass">
-                        <form class="form-horizoltal form-login" action="<?php echo url('auth/login')?>" method="POST">
+                        <form class="form-horizoltal form-login" action="<?php echo url('auth/login')?>" method="POST" onsubmit="return false">
                             <div class="form-logo">
                                 <img src="<?php echo url('src/public/assets/imgs/logo.svg') ?>" alt="">
                             </div>
@@ -29,14 +29,21 @@
                                 <input style="border-radius: 0 0 8px 8px;" class="form-control glass" type="password" name="password" placeholder="Password">
                                 <i class="fa-thin fa-arrow-right input-icon btn-submit"></i>
                             </div>
-                            <span class="text-error"></span>
+                            <span class="text-error">
+                                <?php 
+                                    if (isset($_SESSION['error'])) {
+                                        echo $_SESSION['error'];
+                                        $_SESSION['error'] = '';
+                                    }
+                                ?>
+                            </span>
                             <div class="remember mt-3">
                                 <label><input type="checkbox"> Keep me signed in</label>
                             </div>
                             <div class="line"></div>
                             <ul class="form-options">
                                 <li><a href="#">Forgot your password?</a></li>
-                                <li><a href="#"><span>Sign up for Misc</span></a></li>
+                                <li><a href="<?php echo url("auth/register")?>"><span>Sign up for Misc</span></a></li>
                             </ul>
                         </form>
                 </div>

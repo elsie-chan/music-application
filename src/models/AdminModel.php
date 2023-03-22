@@ -1,5 +1,4 @@
 <?php
-
 use App\Model\Model;
 class AdminModel extends Model{
     protected $table = 'users';
@@ -21,7 +20,6 @@ class AdminModel extends Model{
                 OR
                 'email_users' = '$email'
         ";
-        echo $token;
         $res = mysqli_query($this->con, $sql);
         if (mysqli_num_rows($res) > 0) {
             $row = mysqli_fetch_object($res);

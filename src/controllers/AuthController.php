@@ -39,7 +39,9 @@ class AuthController extends Controller {
             if (empty($error)) {
                 Redirect::to('/');
             } else {
-                dd($error);
+                $error = $response['error'];
+                $_SESSION['error'] = $error;
+                Redirect::to('auth/login');
             }
          } else {
              dd("token is null");
