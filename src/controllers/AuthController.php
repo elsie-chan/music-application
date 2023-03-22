@@ -30,16 +30,21 @@ class AuthController extends Controller {
             }
 
             if (!isset($model_response)) {
-                $error = "NOT FOUND";
+                require_once (assets('views/layout/404.php'));
             }
 
             $response = $model_response->login($_SESSION['username'], $_SESSION['email'], $_SESSION['password'], $token);
             $error = $response['error'];
 
             if (empty($error)) {
+                if ($response['message']->id_users == 1) {
+                    $_SESSION['admin'] = $response['message']->id_users;
+                    dd($_SESSION['admin']);
+                } else {
+                    $_SESSION['user'] = $response['message']->id_users;
+                }
                 Redirect::to('/');
             } else {
-                $error = $response['error'];
                 $_SESSION['error'] = $error;
                 Redirect::to('auth/login');
             }
@@ -54,22 +59,38 @@ class AuthController extends Controller {
     }
 
     public function handle_register() {
-        $token = $_SESSION['token'];
-        if ($token != null) {
-            $_SESSION['username'] = $_POST['username'];
-            $_SESSION['email'] = $_POST['email'];
-            $_SESSION['password'] = $_POST['password'];
-            $_SESSION['confirm_pass'] = $_POST['confirm_pass'];
-            $_SESSION['mobile'] = $_POST['mobile'];
+        $error = "";
+        $message = "";
 
-            $model_response = $this->load_model("UserModel");
-            if (!isset($model_response)) {
-                echo 'NOT FOUND';
-            }
+        $token = empty($_SESSION['token']) ? generate_token() : $_SESSION['token'];
+        if ($_POST) {
+            if ($token != null) {
+                $_SESSION['username'] = $_POST['username'];
+                $_SESSION['email'] = $_POST['email'];
+                $_SESSION['password'] = $_POST['password'];
+                $_SESSION['confirm_pass'] = $_POST['confirm_pass'];
+                $_SESSION['mobile'] = $_POST['mobile'];
 
-            $response = $model_response->register($_SESSION['username'], $_SESSION['email'], $_SESSION['password'], $_SESSION['confirm_pass'], $_SESSION['mobile'], $_SESSION['token']);
-//            header('Location:'.url());
+                $model_response = $this->load_model("UserModel");
+                if (!isset($model_response)) {
+                    require_once (assets('views/layout/404.php'));
+                }
+
+                $response = $model_response->register($_SESSION['username'], $_SESSION['email'], $_SESSION['password'], $_SESSION['confirm_pass'], $_SESSION['mobile'], $_SESSION['token']);
+                $error = $response['error'];
+
+                if (empty($error)) {
+                    Redirect::to('auth/login');
+                    echo "Account has been created. Please login now";
+                } else {
+                    $_SESSION['error'] = $error;
+                    Redirect::to('auth/register');
+                }
+            }  else {
+            dd("token is null");
         }
+        }
+
     }
 
     public function logout() {

@@ -8,43 +8,113 @@ class AdminController extends Controller {
         parent::__construct();
     }
 
-    public function index() {
-//        require(assets('views/auth/auth.login.php'));
+    public function is_admin_login() {
+        return $_SESSION['admin'];
+}
+
+   public function category($page_type) {
+       $error = "";
+       $message = "";
+
+       if ($this->is_admin_login()) {
+           if ($page_type == 'add') {
+               if ($_POST) {
+                   $model_response = $this->load_model('CategoryModel');
+               }
+           }
+
+       }
     }
 
-    public function login() {
+    public function delete_user_by_id($id_user) {
         $error = "";
         $message = "";
 
-        if ($_POST)
-        {
-            $token = $_POST["token"];
+        if ($this->is_admin_login()) {
+            $model_response = $this->load_model('AdminModel');
 
-            if (Security::is_valid_token($token))
-            {
-                $email = $_POST["email"];
-                $password = $_POST["password"];
-
-                $model_response = $this->load_model("AdminModel")->login($email, $password);
-                $error = $model_response["error"];
-
-                if (empty($error))
-                {
-                    $admin_data = $model_response["msg"];
-                    $_SESSION["admin"] = $admin_data->id;
-                    header("Location: " . URL . "admin");
-                }
-            }
-            else
-            {
-                $error = "Token mismatch";
+            if (!isset($model_response)) {
+                require_once (assets('views/layout/404.php'));
             }
 
-            require_once(assets(VIEW .' /auth/auth.login.php'));
+            $response = $model_response->delete_user_by_id($id_user);
+            $error = $response['error'];
+
+            if (empty($error)) {
+                echo "Delete user successfully!";
+            } else {
+                $_SESSION['error'] = $error;
+            }
         }
-        else
-        {
-            require_once(assets(VIEW .' /auth/auth.login.php'));
+    }
+
+    public function delete_all_user() {
+        $error = "";
+        $message = "";
+
+        if ($this->is_admin_login()) {
+            $model_response = $this->load_model('AdminModel');
+
+            if (!isset($model_response)) {
+                require_once (assets('views/layout/404.php'));
+            }
+
+            $response = $model_response->delete_all_user();
+            $error = $response['error'];
+
+            if (empty($error)) {
+                echo "Delete user successfully!";
+            } else {
+                $_SESSION['error'] = $error;
+            }
         }
+    }
+
+    public function get_all_users() {
+        $error = "";
+        $message = "";
+
+        if ($this->is_admin_login()) {
+            $model_response = $this->load_model('AdminModel');
+
+            if (!isset($model_response)) {
+                require_once (assets('views/layout/404.php'));
+            }
+
+            $response = $model_response->get_all_users();
+            $error = $response['error'];
+
+            if (empty($error)) {
+                return $response;
+            } else {
+                $_SESSION['error'] = $error;
+            }
+        }
+
+        return $response;
+    }
+
+    public  function get_user_by_id($user_id) {
+        $error = "";
+        $message = "";
+
+        if ($this->is_admin_login()) {
+            $model_response = $this->load_model('AdminModel');
+
+            if (!isset($model_response)) {
+                require_once (assets('views/layout/404.php'));
+            }
+
+            $response = $model_response->get_all_user_by_id($user_id);
+            $error = $response['error'];
+
+            if (empty($error)) {
+                return $response;
+            } else {
+                $_SESSION['error'] = $error;
+            }
+        }
+
+        return $response;
     }
 }
