@@ -23,27 +23,21 @@ class AuthController extends Controller {
             $_SESSION['email'] = $_POST["email"];
             $_SESSION['password'] = $_POST["password"];
 
-            if ($_SESSION['email'] == 'admin@gmail.com') {
-                $model_response = $this->load_model("AdminModel");
-            } else {
-                $model_response = $this->load_model("UserModel");
-            }
-
+            $model_response = $this->load_model("UserModel");
             if (!isset($model_response)) {
                 require_once (assets('views/layout/404.php'));
             }
 
             $response = $model_response->login($_SESSION['username'], $_SESSION['email'], $_SESSION['password'], $token);
             $error = $response['error'];
-
             if (empty($error)) {
-                if ($response['message']->id_users == 1) {
+                if ($response['message']->role == 1) {
                     $_SESSION['admin'] = $response['message']->id_users;
-                    dd($_SESSION['admin']);
-                } else {
+                    Redirect::to('/');
+                } else if ($response['message']->role == 0) {
                     $_SESSION['user'] = $response['message']->id_users;
+                    Redirect::to('/');
                 }
-                Redirect::to('/');
             } else {
                 $_SESSION['error'] = $error;
                 Redirect::to('auth/login');
