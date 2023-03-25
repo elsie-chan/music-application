@@ -143,11 +143,14 @@ body {
     opacity:1;
 }
 .form-horizoltal .register-login {
-    color: var(--white);
     font-weight: 300;
     font-size: .9em;
     line-height: 18px;
 }
+.form-horizoltal .register-login p {
+    font-size: 1.2em;
+    color: var(--second-grey);
+} 
 .form-horizoltal .register-login .login-link {
     color: var(--hightlight);
     font-weight: 400;
