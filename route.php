@@ -8,6 +8,7 @@ $routes = [
     (new Route('auth/logout', 'GET', AuthController::class, 'logout')),
     (new Route('auth/register', 'GET', AuthController::class, 'register')),
     (new Route('auth/register', 'POST', AuthController::class, 'handle_register')),
+    (new Route('playlist', 'GET', HomeController::class, 'playlist_show')),
     (new Route('test', 'GET', HomeController::class, 'test')),
 ];
 

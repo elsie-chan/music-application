@@ -1,0 +1,7 @@
+@import url("src/public/css/style.css");
+#playlist {
+    width: calc(100%-20%);
+    left: 200px;
+    position: relative;
+    margin-bottom: 80px;
+}
