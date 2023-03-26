@@ -132,7 +132,7 @@ ALTER TABLE `songs`
 -- FK for table playlists
 --
 ALTER TABLE `playlists`
-    ADD CONSTRAINT `FK_id_user_playlist_user` FOREIGN KEY (`id_users`) REFERENCES users(`id_users`)
+    ADD CONSTRAINT `FK_id_user_playlist_user` FOREIGN KEY (`id_users`) REFERENCES users(`id_users`);
 --
 -- FK for table playlists_songs
 --
