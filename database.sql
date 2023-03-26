@@ -46,7 +46,8 @@ CREATE TABLE `playlists`(
                             `id_playlist` int PRIMARY KEY,
                             `name_playlist` TEXT,
                             `playlist_image` TEXT,
-                            `create_at` DATE
+                            `create_at` DATE,
+                            `id_users` int
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- 
 -- CREATE TABLE artists
@@ -126,10 +127,15 @@ ALTER TABLE `songs`
 ALTER TABLE `songs`
     ADD CONSTRAINT `FK_id_artist_songs_artists` FOREIGN KEY (`id_artists`) REFERENCES artists(`id_artists`);
 ALTER TABLE `songs`
-    ADD CONSTRAINT `FK_id_adver_songs_Advertises` FOREIGN KEY (`id_advertises`) REFERENCES advertises(`id_advertises`);
--- 
+    ADD CONSTRAINT `FK_id_adver_songs_advertises` FOREIGN KEY (`id_advertises`) REFERENCES advertises(`id_advertises`);
+--
+-- FK for table playlists
+--
+ALTER TABLE `playlists`
+    ADD CONSTRAINT `FK_id_user_playlist_user` FOREIGN KEY (`id_users`) REFERENCES users(`id_users`)
+--
 -- FK for table playlists_songs
--- 
+--
 ALTER TABLE `playlists_songs`
     ADD CONSTRAINT `FK_id_songs_playlists_songs` FOREIGN KEY (`id_songs`) REFERENCES songs(`id_songs`);
 ALTER TABLE `playlists_songs`
