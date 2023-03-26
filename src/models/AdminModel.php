@@ -7,12 +7,16 @@ class AdminModel extends Model{
     }
     // Remove All Users
     public function delete_all_user(){
+        $sql = "DELETE FROM `playlists`";
+        $stmt = mysqli_query($this->con,$sql);
         $sql = "DELETE FROM 
                             $this->table";
-        $stmt = mysqli_query($this->con,$sql);
+        return mysqli_query($this->con,$stmt);
     }
     // Remove One User in Database
-    public function delete_user_by_username($username){
+    public function delete_user_by_username($username,$id_users){
+        $sql = "DELETE FROM `playlists` WHERE `id_users` = '$id_users'";
+        $stmt = mysqli_query($this->con,$sql);
         $sql = "DELETE FROM 
                             $this->table 
                 WHERE 
@@ -69,7 +73,7 @@ class AdminModel extends Model{
                         `id_users` ASC";
         $stmt = mysqli_query($this->con, $sql);
         $data = array();
-        while($row = mysqli_num_rows($stmt)){
+        while($row = mysqli_fetch_object($stmt)){
             array_push($data,$row);
         }
         return $data;

@@ -1,1 +1,41 @@
 <?php
+use App\Model\Model;
+class PlaylistModel extends Model{
+    protected $table = 'playlists';
+    public function __construct(){
+        parent::__construct();
+    }
+//    create
+    function add_playlist($name_playlist,$playlist_image,$create_at,$id_users){
+        $response = array(
+            "error" => "",
+            "msg" => ""
+        );
+        $id = $this->countID()+1;
+        $stmt = mysqli_query($this->con,"SELECT * FROM `users` WHERE `id_users` = '$id_users'");
+        if(mysqli_num_rows($stmt)==0){
+            $response["error"] = "User does not exists";
+        }
+        $stmt = mysqli_query($this->con,"SELECT * FROM `playlists` WHERE `id_users` = '$id_users' AND `name_playlists` = '$name_playlist'");
+        if(mysqli_num_rows($stmt)==0){
+            $response["error"] = "Your playlist is exists";
+        }
+        if ($playlist_image["error"] != 0){
+             $response["error"] = "Please select image of playlist.";
+        }
+        if (getimagesize($playlist_image['tmp-name'])==false){
+             $response["error"] = "Please upload valid image.";
+        }
+        $path = "public/assets/".$playlist_image['name'];
+        move_uploaded_file($playlist_image['tmp-name'],$path);
+        $sql = "INSERT INTO `$this->table` VALUES('".$id."','".$name_playlist."','".$playlist_image."','".$create_at."','".$id_users."')";
+        $stmt = mysqli_query($this->con,$sql);
+        if($stmt){
+            $response["msg"] = "Add playlist successfully.";
+        }
+        return $response;
+    }
+//    read / find
+//    update / edit
+//    delete
+}
