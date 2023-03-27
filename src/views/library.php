@@ -71,6 +71,7 @@
                 </div>
             </div>
             <div class="col">
+                
                 <div class="card">
                     <img src="https://images.unsplash.com/photo-1678257355149-6eda1755b1a2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80" class="card-img-top" alt="...">
                     <div class="card-body">
