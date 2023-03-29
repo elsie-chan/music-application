@@ -1,7 +1,49 @@
 @import url("src/public/css/style.css");
-#playlist {
-    width: calc(100%-20%);
-    left: 200px;
-    position: relative;
-    margin-bottom: 80px;
+.content {
+  padding-top: 64px;
+  background: var(--blue-bg);
+  color: var(--white);
+}
+.info {
+  color: var(--white);
+}
+.info p {
+  color: var(--grey);
+}
+.info p span {
+  color: var(--white);
+}
+.media {
+  justify-content: space-between;
+  padding: 10px;
+  gap: 1em;
+}
+.playlist-header {
+  background-image: url("src/public/assets/imgs/song1.png");
+  /* color: black; */
+}
+.card-title,
+.card-text {
+  color: black;
+}
+.media-left .card-info {
+  height: 3rem;
+}
+.media-left .card-info p {
+  font-size: 0.9em;
+  color: var(--grey);
+}
+.media-right .fa-solid {
+  float: right;
+  /* margin-right: 1em; */
+}
+.songThumbnail {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  margin-right: 1em;
+}
+.songThumbnail img {
+  height: 100%;
+  border-radius: 4px;
 }
