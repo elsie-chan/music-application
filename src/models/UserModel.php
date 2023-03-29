@@ -8,11 +8,6 @@ class UserModel extends Model {
         parent::__construct();
     }
     // Count ID in database
-    public function countID() {
-        $sql = "SELECT * FROM `" .$this->table. "`";
-        $res = mysqli_query($this->con, $sql);
-        return mysqli_num_rows($res);
-    }
     // Check Regex Email and Phone
     public function checkRegex($temp,$regex){
         if(preg_match($regex,$temp)){
@@ -69,7 +64,7 @@ class UserModel extends Model {
         if (mysqli_num_rows($res) > 0) {
             $row = mysqli_fetch_object($res);
             if (password_verify($password, $row->pass_users)) {
-                if ($row->create_at == NULL) {
+                if ($row->email_users == NULL) {
                     $response["error"] = "User does not exists";
                 } else {
                     $this->update_user_token($row->id_users, $token);
@@ -96,8 +91,8 @@ class UserModel extends Model {
             return mysqli_fetch_object($stmt);
         else
             return array(
-                "error" => "",
-                "msg" => "User is not exsits"
+                "error" => "User is not exsits",
+                "msg" => ""
             );
     }
     // Find All Users
@@ -113,8 +108,8 @@ class UserModel extends Model {
         $row = mysqli_num_rows($stmt);
         if(mysqli_num_rows($stmt)==0){
             return array(
-                "error" => "",
-                "msg" => "User is not exsits"
+                "error" => "User is not exsits",
+                "msg" => ""
             );
         }
         while($temp = mysqli_fetch_object($stmt)){
