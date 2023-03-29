@@ -1,53 +1,22 @@
 <?php
-
 use App\Model\Model;
 class AdminModel extends Model{
     protected $table = 'users';
     public function __construct() {
         parent::__construct();
     }
-    public function login($username, $email, $password, $token)
-    {
-        $response = array();
-        $response["error"] = "";
-        $response["msg"] = "";
-        $sql = "
-            SELECT
-                *
-            FROM
-                `$this->table`
-            WHERE
-                `username` = '$username'
-                OR
-                'email_users' = '$email'
-        ";
-        echo $token;
-        $res = mysqli_query($this->con, $sql);
-        if (mysqli_num_rows($res) > 0) {
-            $row = mysqli_fetch_object($res);
-            if (password_verify($password, $row->pass_users)) {
-                if ($row->create_at == NULL) {
-                    $response["error"] = "Please verify your account in order to activate!";
-                } else {
-                    $this->update_user_token($row->id_users, $token);
-                    $response["message"] = $row;
-                }
-            } else {
-                $response["error"] = "Password does not match";
-            }
-        } else {
-            $response["error"] = "User does not exists";
-        }
-        return $response;
-    }
     // Remove All Users
     public function delete_all_user(){
-        $sql = "DELETE FROM $this->table";
+        $sql = "DELETE FROM 
+                            $this->table";
         $stmt = mysqli_query($this->con,$sql);
     }
     // Remove One User in Database
-    public function delete_user_by_id($id_user){
-        $sql = "DELETE FROM $this->table WHERE `id_users` = '$id_user'";
+    public function delete_user_by_username($username){
+        $sql = "DELETE FROM 
+                            $this->table 
+                WHERE 
+                     `username` = '$username'";
         $stmt = mysqli_query($this->con,$sql);
         return true;
     }
@@ -78,7 +47,12 @@ class AdminModel extends Model{
     }
     // Find One User By ID
     public function get_user_by_id($id_user){
-        $sql = "SELECT * FROM $this->table WHERE `id_users` = '$id_user'";
+        $sql = "SELECT 
+                      * 
+                FROM 
+                      $this->table 
+                WHERE 
+                      `id_users` = '$id_user'";
         $stmt = mysqli_query($this->con, $sql);
         if (mysqli_num_rows($stmt) > 0)
             return mysqli_fetch_object($stmt);
@@ -87,7 +61,12 @@ class AdminModel extends Model{
     }
     // Find All Users
     public function get_all_user(){
-        $sql = "SELECT * FROM `" . $this->table . "` ORDER BY `id_users` ASC";
+        $sql = "SELECT 
+                      * 
+                FROM 
+                      `" . $this->table . "` 
+                ORDER BY 
+                        `id_users` ASC";
         $stmt = mysqli_query($this->con, $sql);
         $data = array();
         while($row = mysqli_num_rows($stmt)){

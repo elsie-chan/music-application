@@ -7,8 +7,10 @@ class UserController extends Controller {
         parent::__construct();
     }
 
-    public function index() {
-        echo "cay choi lao nha";
+    public function is_user_login() {
+        return $_SESSION['user'];
     }
+
+    
 
 }

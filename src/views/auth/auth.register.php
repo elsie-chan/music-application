@@ -40,9 +40,9 @@
                         </div>
                         <span class="text-error"></span>
                         <br>
-                        <button type="button" style="background-color: var(--hightlight); border-color: var(--hightlight);" class="btn btn-primary btn-lg  mb-3">Register</button>
+                        <button type="button" style="background-color: var(--hightlight); border-color: var(--hightlight);" class="btn btn-primary btn-lg  mb-3">Sign up</button>
                         <div class="register-login">
-                            <p>Already have an account? <a href="#" class="login-link">Log in</a></p>
+                            <p>Already have an account? <a href="<?php echo url("auth/login")?>" class="login-link">Sign in</a></p>
                         </div>
                     </form>
                 </div>
