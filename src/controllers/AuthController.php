@@ -13,7 +13,6 @@ class AuthController extends Controller {
 
     public function handle_login() {
        $error = "";
-       $message = "";
 
        if ($_POST) {
         $token = empty($_SESSION['token']) ? generate_token() : $_SESSION['token'];
@@ -31,11 +30,11 @@ class AuthController extends Controller {
             $response = $model_response->login($_SESSION['username'], $_SESSION['email'], $_SESSION['password'], $token);
             $error = $response['error'];
             if (empty($error)) {
-                if ($response['message']->role == 1) {
-                    $_SESSION['admin'] = $response['message']->id_users;
+                if ($response['msg']->role == 1) {
+                    $_SESSION['admin'] = $response['msg']->role;
                     Redirect::to('/');
-                } else if ($response['message']->role == 0) {
-                    $_SESSION['user'] = $response['message']->id_users;
+                } else if ($response['msg']->role == 0) {
+                    $_SESSION['user'] = $response['msg']->id_users;
                     Redirect::to('/');
                 }
             } else {
@@ -72,10 +71,10 @@ class AuthController extends Controller {
 
                 $response = $model_response->register($_SESSION['username'], $_SESSION['email'], $_SESSION['password'], $_SESSION['confirm_pass'], $_SESSION['mobile'], $_SESSION['token']);
                 $error = $response['error'];
-
                 if (empty($error)) {
                     Redirect::to('auth/login');
-                    echo "Account has been created. Please login now";
+                    $message = "Account has been created. Please login now";
+                    $_SESSION['message'] = $message;
                 } else {
                     $_SESSION['error'] = $error;
                     Redirect::to('auth/register');
