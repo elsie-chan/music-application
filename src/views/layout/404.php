@@ -74,7 +74,7 @@
                     <h4 class="mb-4">Opps! Page not found</h4>
                     <p>Sorry, we can't find the page you're looking for.</p>
                     <div class="btn btn-home">
-                        <button><a href="<?php echo url('/') ?>">BACK TO HOME</a></button>
+                        <button><a href="<?php echo url('') ?>">BACK TO HOME</a></button>
                     </div>
                 </div>
             </div>
