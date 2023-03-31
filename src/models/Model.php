@@ -18,8 +18,8 @@ class Model {
             $this->con = mysqli_connect($this->host, $this->user_name, $this->password, $this->db_name);
         }
     }
-    public function countID() {
-        $sql = "SELECT * FROM `" .$this->table. "`";
+    public function countID($table) {
+        $sql = "SELECT * FROM `" .$table. "`";
         $res = mysqli_query($this->con, $sql);
         return mysqli_num_rows($res);
     }
