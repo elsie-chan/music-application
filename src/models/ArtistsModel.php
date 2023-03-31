@@ -16,7 +16,7 @@ class ArtistsModel extends Model
             "error" => "",
             "msg" => ""
         );
-        $id = $this->countID()+1;
+        $id = $this->countID($this->table)+1;
         $stmt = "SELECT * FROM `$this->table` WHERE `user_artists` = '$username'";
         if(mysqli_num_rows(mysqli_query($this->con,$stmt))>0){
             $response['error'] = "Artist has been exists";
@@ -79,7 +79,7 @@ class ArtistsModel extends Model
             "error" => "",
             "msg" => ""
         );
-        $id = $this->countID();
+        $id = $this->countID($this->table);
         $stmt = "SELECT * FROM `$this->table` WHERE `user_artists` = '$username'";
         $sql = mysqli_query($this->con,$stmt);
         if(mysqli_num_rows($sql)==0){
@@ -103,6 +103,10 @@ class ArtistsModel extends Model
     }
 //    Delete
     function delete_artists_by_username($username){
+        $response = array(
+            "error" => "",
+            "msg" => ""
+        );
         $stmt = "SELECT * FROM `$this->table` WHERE `user_artists` = '$username'";
         $sql = mysqli_query($this->con,$stmt);
         if(mysqli_num_rows($sql)==0){
@@ -115,5 +119,6 @@ class ArtistsModel extends Model
         mysqli_query($this->con,$stmt);
         $stmt = "DELETE FROM `$this->table` WHERE `username` = '$row->username'";
         mysqli_query($this->con,$stmt);
+
     }
 }

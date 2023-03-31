@@ -78,18 +78,4 @@ class AdminModel extends Model{
         }
         return $data;
     }
-
-    private function update_user_token($user_id, $token)
-    {
-        $sql = "
-            UPDATE
-                $this->table
-            SET 
-                `token_users` = '$token'
-            WHERE
-                `id_users` = '$user_id'
-        ";
-        $_SESSION['token'] = $token;
-        return mysqli_query($this->con, $sql);
-    }
 }
