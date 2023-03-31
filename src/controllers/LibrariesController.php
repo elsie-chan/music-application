@@ -12,4 +12,21 @@ class LibrariesController extends Controller {
             $this->load_view('auth/auth.login');
         }
     }
+
+    public function playlist_show()
+    {
+        if (authed()) {
+            $this->load_view('playlistView');
+        } else {
+            $this->load_view('auth/auth.login');
+        }
+    }
+
+    public function library() {
+        if (authed()) {
+            $this->load_view('library');
+        } else {
+            $this->load_view('auth/auth.login');
+        }
+    }
 }

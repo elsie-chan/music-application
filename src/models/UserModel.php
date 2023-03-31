@@ -20,21 +20,21 @@ class UserModel extends Model {
         $response = array();
         $response["error"] = "";
         $response["msg"] = "";
-        $id = $this->countID()+1;
+        $id = $this->countID($this->table)+1;
         $sql = "SELECT 
                       * 
                 FROM 
                       $this->table 
                 WHERE 
                       `email_users` = '$email'
-                OR
+                AND
                     `username` = '$username'";
         $res = mysqli_num_rows(mysqli_query($this->con, $sql));
         $date = date('Y-m-d H:i:s', time());
-        if($res == 0 and $this->checkRegex($email,'/\w+@+[a-z]+\.+[a-z]+/gm')){
+        if($res == 0 and $this->checkRegex($email,'/\w+@+[a-z]+\.+[a-z]+/')){
             if(strcmp($password,$confirm_pass)==0){
                 $password = password_hash($password, PASSWORD_DEFAULT);
-                $sql = "INSERT INTO $this->table (`id_users`, `username`, `email_users`, `pass_users`, `phone_users`, `create_at`, `role`, `token_users`, `id_songs`) VALUES ('$id','$username','$email','$password','$mobile','$date', 0, '$token',NULL)";
+                $sql = "INSERT INTO $this->table (`id_users`, `username`, `email_users`, `pass_users`, `phone_users`, `create_at`, `role`, `token_users`) VALUES ('$id','$username','$email','$password','$mobile','$date', 0, '$token')";
                 $stmt = mysqli_query($this->con,$sql);
             }else{
                     $response["error"] = "Your password is not valid";
@@ -57,7 +57,7 @@ class UserModel extends Model {
                 `$this->table`
             WHERE
                 `username` = '$username'
-                OR
+                AND
                 `email_users` = '$email'
         ";
         $res = mysqli_query($this->con, $sql);

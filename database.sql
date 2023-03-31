@@ -17,93 +17,92 @@ USE `music_data`;
 -- CREATE TABLE Advertises
 -- 
 CREATE TABLE `advertises`(
-                             `id_advertises` int PRIMARY KEY,
-                             `title` TEXT,
-                             `intro_image` TEXT,
-                             `background` TEXT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+     `id_advertises` int PRIMARY KEY,
+     `title` TEXT,
+     `intro_image` TEXT,
+     `background` TEXT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 -- 
 -- CREATE TABLE Topics
 -- 
 CREATE TABLE `topics`(
-                         `id_topics` int PRIMARY KEY,
-                         `name_topics` TEXT,
-                         `topic_image` TEXT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+    `id_topics` int PRIMARY KEY,
+    `name_topics` TEXT,
+    `topic_image` TEXT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 -- 
 -- CREATE TABLE categories
 -- 
 CREATE TABLE `categories`(
-                             `id_cate` int PRIMARY KEY,
-                             `name_cate` TEXT,
-                             `cate_image` TEXT,
-                             `id_topics` int
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+    `id_cate` int PRIMARY KEY,
+    `name_cate` TEXT,
+    `cate_image` TEXT,
+    `id_topics` int
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 -- 
 -- CREATE TABLE playlists
 -- 
 CREATE TABLE `playlists`(
-                            `id_playlist` int PRIMARY KEY,
-                            `name_playlist` TEXT,
-                            `playlist_image` TEXT,
-                            `create_at` DATE,
-                            `id_users` int
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+    `id_playlist` int PRIMARY KEY,
+    `name_playlist` TEXT,
+    `playlist_image` TEXT,
+    `create_at` DATE,
+    `id_users` int
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 -- 
 -- CREATE TABLE artists
 -- 
 CREATE TABLE `artists`(
-                          `id_artists` int PRIMARY KEY,
-                          `name_artists` TEXT,
-                          `picture` TEXT,
-                          `facebook` TEXT,
-                          `instagram` TEXT,
-                          `youtube` TEXT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+    `id_artists` int PRIMARY KEY,
+    `name_artists` TEXT,
+    `picture` TEXT,
+    `facebook` TEXT,
+    `instagram` TEXT,
+    `youtube` TEXT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 -- 
 -- CREATE TABLE albums
 -- 
 CREATE TABLE `albums`(
-                         `id_alb` int PRIMARY KEY,
-                         `name_alb` TEXT,
-                         `id_artists` int
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+     `id_alb` int PRIMARY KEY,
+     `name_alb` TEXT,
+     `id_artists` int
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 -- 
 -- CREATE TABLE songs
 -- 
 CREATE TABLE `songs`(
-                        `id_songs` int PRIMARY KEY,
-                        `name_songs` TEXT,
-                        `duration` TIME,
-                        `release_date` DATE,
-                        `id_cate` int,
-                        `id_artists` int,
-                        `id_advertises` int
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+    `id_songs` int PRIMARY KEY,
+    `name_songs` TEXT,
+    `duration` TIME,
+    `release_date` DATE,
+    `id_cate` int,
+    `id_artists` int,
+    `id_advertises` int
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 -- 
 -- CREATE TABLE users
 -- 
 CREATE TABLE `users`(
-                        `id_users` int PRIMARY KEY,
-                        `username` TEXT,
-                        `email_users` TEXT,
-                        `pass_users` TEXT,
-                        `phone_users` TEXT,
-                        `create_at` DATE,
-                        `role` INT,
-                        `token_users` TEXT,
-                        `id_songs` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+    `id_users` int PRIMARY KEY,
+    `username` TEXT,
+    `email_users` TEXT,
+    `pass_users` TEXT,
+    `phone_users` TEXT,
+    `create_at` DATE,
+    `role` INT,
+    `token_users` TEXT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 -- INSERT ADMIN to Users
-INSERT INTO `users` VALUE(1,'admin','admin@gmail.com','$2y$10$/Jj4b/w.6RNRzD6eeuFKMeyoYgHASRhQyXkkyQnlviwXQZhw8nE6q','0928416379','2023-3-10',1,'3oi4hi34u59hewf',NULL);
+INSERT INTO `users` VALUE(1,'admin','admin@gmail.com','$2y$10$/Jj4b/w.6RNRzD6eeuFKMeyoYgHASRhQyXkkyQnlviwXQZhw8nE6q','0928416379','2023-3-10',1,'3oi4hi34u59hewf');
 --
 -- CREATE TABLE playlists_songs
 -- 
 CREATE TABLE `playlists_songs`(
-                                  `id_playlist_song` int PRIMARY KEY,
-                                  `id_songs` int,
-                                  `id_playlist` int
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+    `id_playlist_song` int PRIMARY KEY,
+    `id_songs` int,
+    `id_playlist` int
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 -- 
 -- CREATE TABLE Admins
 -- 

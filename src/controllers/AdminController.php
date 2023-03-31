@@ -8,27 +8,8 @@ class AdminController extends Controller {
         parent::__construct();
     }
 
-    public function is_admin_login() {
-        return $_SESSION['admin'];
-    }
-
-   public function category($page_type) {
-       $error = "";
-       $message = "";
-
-       if ($this->is_admin_login()) {
-           if ($page_type == 'add') {
-               if ($_POST) {
-                   $model_response = $this->load_model('AdminModel');
-               }
-           }
-
-       }
-    }
-
     public function delete_user_by_id($id_user) {
         $error = "";
-        $message = "";
 
         if ($this->is_admin_login()) {
             $model_response = $this->load_model('AdminModel');
@@ -51,7 +32,6 @@ class AdminController extends Controller {
 
     public function delete_all_user() {
         $error = "";
-        $message = "";
 
         if ($this->is_admin_login()) {
             $model_response = $this->load_model('AdminModel');
@@ -73,7 +53,6 @@ class AdminController extends Controller {
 
     public function get_all_users() {
         $error = "";
-        $message = "";
 
         if ($this->is_admin_login()) {
             $model_response = $this->load_model('AdminModel');
@@ -86,18 +65,17 @@ class AdminController extends Controller {
             $error = $response['error'];
 
             if (empty($error)) {
-                return $response['message']->username;
+                return $response['msg']->username;
             } else {
                 $_SESSION['error'] = $error;
             }
-            return $response['message']->username;
+            return $response['msg']->username;
         }
         return NULL;
     }
 
     public  function get_user_by_user_name($user_name) {
         $error = "";
-        $message = "";
 
         if ($this->is_admin_login()) {
             $model_response = $this->load_model('AdminModel');
@@ -110,11 +88,44 @@ class AdminController extends Controller {
             $error = $response['error'];
 
             if (empty($error)) {
-                return $response['message']->username;
+                return $response['msg']->username;
             } else {
                 $_SESSION['error'] = $error;
             }
-            return $response['message']->username;
+            return $response['msg']->username;
+        }
+        return NULL;
+    }
+
+    public function add_artist()
+    {
+        $error = "";
+
+        if ($this->is_admin_login()) {
+            if ($_GET) {
+
+                $username = $_GET['username'];
+                $picture = $_GET['picture'];
+                $facebook = $_GET['facebook'];
+                $instagram = $_GET['instagram'];
+                $youtube = $_GET['youtube'];
+
+                $model_response = $this->load_model('ArtistsModel');
+
+                if (!isset($model_response)) {
+                    require_once(assets('views/layout/404.php'));
+                }
+
+                $response = $model_response->add_artist($username, $picture, $facebook, $instagram, $youtube);
+                $error = $response['error'];
+
+                if (empty($error)) {
+                    return $response['msg'];
+                } else {
+                    $_SESSION['error'] = $error;
+                }
+                return $response['msg'];
+            }
         }
         return NULL;
     }

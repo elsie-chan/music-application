@@ -25,4 +25,12 @@ class Controller
         require_once assets('/views/' . $view_path . '.php');
         return true;
     }
+
+    public function is_admin_login():bool {
+        return !empty($_SESSION["admin"]);
+    }
+
+    public function is_user_login():bool {
+        return !empty($_SESSION["user"]);
+    }
 }
