@@ -58,12 +58,12 @@
     <div id="playlist">
         <?php require_once 'components/header.php' ?>
         <div class="row content m-0">
-            <div class="col-md-4 col-sm-12 col-10  ml-0 mr-2 card bg-card row p-0" style="">
+            <div class="col-md-4 col-sm-12 col-12  ml-0 mr-2 card bg-card row" style="min-height: 320px; width: 100%;">
                 <div class="back-side col">
                 </div>
-                <div class="front-side col py-4 pr-3">
-                    <div class="card" style="border: none;background-color: transparent;">
-                        <img src="<?php echo url ('src/public/assets/imgs/song1.png')?>" alt="">
+                <div class="front-side col py-md-4 pr-md-3 h-auto" style=" padding:15px;">
+                    <div class="card flex-md-column flex-row" style="border: none;background-color: transparent; top: 0;">
+                        <img src="<?php echo url ('src/public/assets/imgs/song1.png')?>" alt="" style="">
                         <div class="info">
                             <div class="title d-flex">
                                 <h2 class="mr-auto pl-0 p-2" style="padding-left: 0 !important;">Normal Fucking Rockwell</h2>
@@ -76,7 +76,7 @@
                                 <i class="repeat-song fa-sharp fa-solid fa-repeat p-2"></i>
                                 <i class="more-info fa-duotone fa-circle-ellipsis-vertical  ml-auto p-2"></i>
                             </div>
-                            <ul class="more-function">
+                            <ul class="more-function" style="display: none;">
                                 <li><a href="#">Edit playlist name</a></li>
                                 <li><a href="#">Delete</a></li>
                                 <li><a href="#">Delete</a></li>
@@ -376,7 +376,7 @@
         moreButton.addEventListener('click', () => {
             if(moreFunction.style.display === 'none') {
                 moreFunction.style.display = 'inline-block';
-                console.log('hello');
+                // console.log('hello');
             } else {
                 moreFunction.style.display = 'none';
             }
