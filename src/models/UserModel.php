@@ -16,7 +16,7 @@ class UserModel extends Model {
         return False;
     }
     // Register User
-    public function register($avt,$username, $email, $password, $confirm_pass, $mobile, $token) {
+    public function register($username, $email, $password, $confirm_pass, $mobile, $token) {
         $response = array();
         $response["error"] = "";
         $response["msg"] = "";
@@ -30,10 +30,11 @@ class UserModel extends Model {
                 AND
                     `username` = '$username'";
         $res = mysqli_num_rows(mysqli_query($this->con, $sql));
+        $default_avt = 'src/public/assets/imgs/avt_users.png';
         if($res == 0 and $this->checkRegex($email,'/\w+@+[a-z]+\.+[a-z]+/')){
             if(strcmp($password,$confirm_pass)==0){
                 $password = password_hash($password, PASSWORD_DEFAULT);
-                $sql = "INSERT INTO $this->table VALUES ('$id','$avt','$username','$email','$password','$mobile', 0, '$token')";
+                $sql = "INSERT INTO $this->table VALUES ('$id','$default_avt','$username','$email','$password','$mobile', 0, '$token')";
                 $stmt = mysqli_query($this->con,$sql);
             }else{
                     $response["error"] = "Your password is not valid";
