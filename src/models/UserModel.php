@@ -30,11 +30,10 @@ class UserModel extends Model {
                 AND
                     `username` = '$username'";
         $res = mysqli_num_rows(mysqli_query($this->con, $sql));
-        $date = date('Y-m-d H:i:s', time());
         if($res == 0 and $this->checkRegex($email,'/\w+@+[a-z]+\.+[a-z]+/')){
             if(strcmp($password,$confirm_pass)==0){
                 $password = password_hash($password, PASSWORD_DEFAULT);
-                $sql = "INSERT INTO $this->table (`id_users`, `username`, `email_users`, `pass_users`, `phone_users`, `create_at`, `role`, `token_users`) VALUES ('$id','$username','$email','$password','$mobile','$date', 0, '$token')";
+                $sql = "INSERT INTO $this->table (`id_users`, `username`, `email_users`, `pass_users`, `phone_users`, `role`, `token_users`) VALUES ('$id','$username','$email','$password','$mobile', 0, '$token')";
                 $stmt = mysqli_query($this->con,$sql);
             }else{
                     $response["error"] = "Your password is not valid";
@@ -79,7 +78,7 @@ class UserModel extends Model {
         return $response;
     }
     // Find One User By ID
-    public function get_user_by_username($username){
+    function get_user_by_username($username){
         $sql = "SELECT
                       *
                 FROM 
@@ -96,7 +95,7 @@ class UserModel extends Model {
             );
     }
     // Find All Users
-    public function get_all_user(){
+    function get_all_user(){
         $sql = "SELECT 
                       * 
                 FROM 
@@ -118,36 +117,23 @@ class UserModel extends Model {
         return $data;
     }
     // Update Profile User
-    public function update_profile($arr){
-        $temp = array($arr);
-        $sql = "UPDATE 
-                      $this->table 
-                SET";
-        foreach($temp as $key => $val){
-            $sql = $sql.' '."$key = $val, ";
+    function edit_profile_by_id($id_users,$avt_users,$username){
+        $response = array(
+            "error" => "",
+            "msg" => ""
+        );
+        $sql = "SELECT * FROM `$this->table` WHERE `id_users` = '$id_users'";
+        if(mysqli_num_rows(mysqli_query($this->con,$sql)) == 0){
+            $response["error"] = "Users does not exists.";
         }
-        $sql = substr(trim($sql),0,-1);
-        return mysqli_query($this->con,$sql);
+        $sql = "UPDATE `$this->table` SET `avatar_users` = '$avt_users' AND `username` = '$username' WHERE `id_users` = '$id_users'";
+        $stmt = mysqli_query($this->con,$sql);
+        if($stmt){
+            $response["msg"] = "Edit profile successfully";
+        }
+        return $response;
     }
-    // Update Profile User
-    public function update_profile_where($arr1,$arr2){
-//        Temp1 sẽ chứa thuộc tính SET
-        $temp1 = array($arr1);
-//        Temp 2 sẽ chứa các thuộc tính WHERE
-        $temp2 = array($arr2);
-        $sql = "UPDATE 
-                      $this->table 
-                SET";
-        foreach($temp1 as $key => $val){
-            $sql = $sql.' '."$key = $val, ";
-        }
-        $sql = substr(trim($sql),0,-1).' '."WHERE";
-        foreach($temp2 as $key => $val){
-            $sql = $sql.' '."$key = $val, ";
-        }
-        $sql = substr(trim($sql),0,-1);
-        return mysqli_query($this->con,$sql);
-    }
+//    Token
     private function update_user_token($user_id, $token)
     {
         $sql = "

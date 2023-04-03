@@ -35,7 +35,22 @@ class ArtistsModel extends Model
         }
         return $response;
     }
+    function add_artists_to_users($id_users,$id_artists){
+        $id = $this->countID(`users_artists`)+1;
+        $sql = "INSERT INTO `users_artists` VALUES('$id','$id_users','$id_artists')";
+        return mysqli_query($this->con,$sql);
+    }
 //    Find
+    function get_artists_of_users($id_users){
+        $sql = "SELECT * FROM `users_artists` WHERE `id_users` = '$id_users'";
+
+        $data = array();
+        while($row = mysqli_fetch_object(mysqli_query($this->con,$sql))){
+            array_push($data,$row);
+        }
+
+        return $data;
+    }
     function get_all_artists($user_artists){
         $stmt = "SELECT * FROM `$this->table` ORDER BY FIELD(`user_artists`,'$user_artists') DESC";
         $sql = mysqli_query($this->con,$stmt);
@@ -50,6 +65,18 @@ class ArtistsModel extends Model
             array_push($data,$row);
         }
         return $data;
+    }
+    function get_artists_by_username($username){
+        $sql = "SELECT * FROM `$this->table` WHERE `name_artists` = '$username'";
+        $stmt = mysqli_query($this->con,$sql);
+        if(mysqli_num_rows($stmt) == 0){
+            return array(
+                "error" => "User does not exists.",
+                "msg" => ""
+            );
+        }else{
+            return mysqli_fetch_object($stmt);
+        }
     }
     function get_artists_by_username_with_songs($username){
         $data = array();
@@ -73,13 +100,13 @@ class ArtistsModel extends Model
         return $data;
     }
 //    Update
-    function edit_profile_artists($username,$picture,$birthday,$social_media){
+    function edit_profile_artists($id_artists,$username,$picture,$social_media){
         $response = array(
             "error" => "",
             "msg" => ""
         );
         $id = $this->countID($this->table);
-        $stmt = "SELECT * FROM `$this->table` WHERE `name_artists` = '$username'";
+        $stmt = "SELECT * FROM `$this->table` WHERE `id_artists` = '$id_artists'";
         $sql = mysqli_query($this->con,$stmt);
         $row = mysqli_fetch_object($sql);
         if(mysqli_num_rows($sql)==0){
@@ -93,7 +120,7 @@ class ArtistsModel extends Model
         }
         $path = "public/assets/".$picture['name'];
         move_uploaded_file($picture['tmp-name'],$path);
-        $stmt1 = "UPDATE `$this->table` SET `picture` = '".$picture."', `birthday` = '$birthday', `social_media` = '$social_media' WHERE `name_artists` = '".$username."'";
+        $stmt1 = "UPDATE `$this->table` SET `name_artists` = '$username', `picture` = '$picture', `social_media` = '$social_media' WHERE `id_artists` = '$id_artists'";
         $sql1 = mysqli_query($this->con,$stmt1);
         if ($sql1){
             $response['msg'] = "Successful. Artist has been updated";

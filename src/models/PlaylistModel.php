@@ -94,7 +94,7 @@ class PlaylistModel extends Model{
         if (getimagesize($playlist_image['tmp-name']) == False){
             $response["error"] = "Please upload valid image.";
         }
-        $sql = "UPDATE `$this->table` SET `name_playlist` = '$name_playlist' AND `playlist_image` = '$playlist_image' WHERE `id_playlist` = '$id_playlist'";
+        $sql = "UPDATE `$this->table` SET `name_playlist` = '$name_playlist', `playlist_image` = '$playlist_image' WHERE `id_playlist` = '$id_playlist'";
         $stmt = mysqli_query($this->con,$sql);
         if($stmt){
             $response["msg"] = "Your playlist has been updated.";
@@ -110,7 +110,7 @@ class PlaylistModel extends Model{
         $sql = "SELECT * FROM `$this->table` WHERE `name_playlists` = '$name_playlist'";
         $stmt = mysqli_query($this->con,$sql);
         if(mysqli_num_rows($stmt) == 0){
-            $response["error"] = "Playlist does not exists.";
+            $response["error"] = "Playlist does not exists.s";
         }else{
             $sql = "DELETE FROM `$this->table` WHERE '$name_playlist'";
             $stmt = mysqli_query($this->con,$sql);

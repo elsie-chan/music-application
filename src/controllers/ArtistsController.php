@@ -18,6 +18,6 @@ class ArtistsController extends Controller
 
     public function test() {
         $model = $this->load_model('ArtistsModel');
-        $model->edit_profile_artists('ab','a','a','a','a');
+        $model->get_artists_of_users('2');
     }
 }
