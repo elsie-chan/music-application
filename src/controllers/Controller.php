@@ -4,9 +4,24 @@ namespace App\Controller;
 
 class Controller
 {
+
+    protected $model_admin;
+    protected $model_album;
+    protected $model_artist;
+    protected $model_playlist;
+    protected $model_song;
+    protected $model_topic;
+    protected $model_user;
+
     public function __construct()
     {
-
+        $this->model_admin = $this->load_model('AdminModel');
+        $this->model_album = $this->load_model('AlbumModel');
+        $this->model_artist = $this->load_model('ArtistsModel');
+        $this->model_playlist = $this->load_model('PlaylistModel');
+        $this->model_song = $this->load_model('SongModel');
+        $this->model_topic = $this->load_model('TopicModel');
+        $this->model_user = $this->load_model('UserModel');
     }
 
     public function load_model($model_name) {
