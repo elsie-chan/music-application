@@ -12,7 +12,7 @@ class AdminController extends Controller {
         $error = "";
 
         if ($this->is_admin_login()) {
-            $model_response = $this->load_model('AdminModel');
+            $model_response = $this->model_admin;
 
             if (!isset($model_response)) {
                 require_once (assets('views/layout/404.php'));

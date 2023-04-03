@@ -64,7 +64,7 @@ class AuthController extends Controller {
                 $_SESSION['confirm_pass'] = $_POST['confirm_pass'];
                 $_SESSION['mobile'] = $_POST['mobile'];
 
-                $model_response = $this->load_model("UserModel");
+                $model_response = $this->model_user;
                 if (!isset($model_response)) {
                     require_once (assets('views/layout/404.php'));
                 }
@@ -72,7 +72,7 @@ class AuthController extends Controller {
                 $response = $model_response->register($_SESSION['username'], $_SESSION['email'], $_SESSION['password'], $_SESSION['confirm_pass'], $_SESSION['mobile'], $_SESSION['token']);
                 $error = $response['error'];
                 if (empty($error)) {
-                    $this->liked_song();
+//                    $this->liked_song();
                     Redirect::to('auth/login');
                 } else {
                     $_SESSION['error'] = $error;

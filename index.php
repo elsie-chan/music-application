@@ -1,9 +1,16 @@
  <?php
  // define load vendor paths
 require_once(__DIR__.'/vendor/autoload.php');
+require __DIR__.'/vendor/PHPMailer/PHPMailer/src/Exception.php';
+require __DIR__.'/vendor/PHPMailer/PHPMailer/src/PHPMailer.php';
+require __DIR__.'/vendor/PHPMailer/PHPMailer/src/SMTP.php';
 
 use App\Route\Route;
 use Symfony\Component\Dotenv\Dotenv;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\SMTP;
+use App\Mail\Mail;
 
 $controller_path = __DIR__ . '/src/controllers';
 $model_path = __DIR__ . '/src/models';
@@ -11,7 +18,7 @@ $system_path = __DIR__ . '/src/system';
 $help_path = __DIR__ . '/src/helper';
 $route_path = __DIR__ .'/src/routes';
 $dotenv = new Dotenv();
-
+$mail = new PHPMailer(true);
 session_start();
 
 
