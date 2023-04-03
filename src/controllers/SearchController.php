@@ -7,6 +7,14 @@ class SearchController extends Controller {
         parent::__construct();
     }
 
+    public function index() {
+        if (authed()) {
+            $this->load_view('search');
+        } else {
+            $this->load_view('auth/auth.login');
+        }
+    }
+
     public function find_artist($artist) {
         $error = "";
 

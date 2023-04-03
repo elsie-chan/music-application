@@ -36,17 +36,46 @@ class PlaylistModel extends Model{
         return $response;
     }
 //    read / find
-    function get_playlist_by_id_user($id_users){
+    function get_playlist_by_name($name_playlists){
         $response = array(
             "error" => "",
             "msg" => ""
         );
-        $stmt = mysqli_query($this->con,"SELECT * FROM `$this->table WHERE `id_users` = '$id_users'");
-        if(mysqli_num_rows($stmt)==0){
-            $response["error"] = "User does not exists";
-        }
-        $sql = "SELECT * FROM `$this->table` WHERE `id_users` = '$id_users'";
+        $sql = "SELECT * FROM `$this->table` WHERE `name_playlists` = '$name_playlists'";
         $stmt = mysqli_query($this->con,$sql);
+        if(mysqli_num_rows($stmt) == 0){
+            $response["error"] = "Playlist does not exists.";
+        }else{
+            if(mysqli_num_rows($stmt) == 1){
+                $row = mysqli_fetch_object($stmt);
+                $response["msg"] = $row;
+            }
+            else{
+                $data = array();
+                while($row = mysqli_fetch_object($stmt)){
+                    array_push($data,$row);
+                }
+                $response['msg'] = $data;
+            }
+        }
+        return $response;
+    }
+    function get_all_playlist_of_user($id_user){
+        $response = array(
+            "error" => "",
+            "msg" => ""
+        );
+        $sql = "SELECT * FROM `$this->table` WHERE `id_users` = '$id_user'";
+        $stmt = mysqli_query($this->con,$sql);
+        $data = array();
+        if(mysqli_num_rows($stmt) == 0){
+            $response["error"] = "User does not exists.";
+        }else{
+            while ($row = mysqli_fetch_object($stmt)){
+                array_push($data,$row);
+            }
+            $response["msg"] = $data;
+        }
         return $response;
     }
 //    update / edit
@@ -73,14 +102,19 @@ class PlaylistModel extends Model{
         return $response;
     }
 //    delete
-    function delete_playlist_by_id_playlist($id_playlist){
-        $stmt = mysqli_query($this->con,"SELECT * FROM `$this->table WHERE `id_playlist` = '$id_playlist'");
-        if(mysqli_num_rows($stmt)==0){
-            $response["error"] = "Playlist does not exists";
+    function delete_playlist_by_name($name_playlist){
+        $response = array(
+            "error" => "",
+            "msg" => ""
+        );
+        $sql = "SELECT * FROM `$this->table` WHERE `name_playlists` = '$name_playlist'";
+        $stmt = mysqli_query($this->con,$sql);
+        if(mysqli_num_rows($stmt) == 0){
+            $response["error"] = "Playlist does not exists.";
         }else{
-            $sql = "DELETE FROM `$this->table` WHERE `id_playlist` = '$id_playlist'";
-            mysqli_query($this->con,$sql);
-            $response["msg"] = "";
+            $sql = "DELETE FROM `$this->table` WHERE '$name_playlist'";
+            $stmt = mysqli_query($this->con,$sql);
+            $response["msg"] = "Playlist has been deleted.";
         }
         return $response;
     }

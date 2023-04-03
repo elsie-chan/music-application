@@ -29,4 +29,19 @@ class LibrariesController extends Controller {
             $this->load_view('auth/auth.login');
         }
     }
+
+    public function edit_name_playlist($name) {
+        $error = "";
+
+        if ($this->is_user_login() or $this->is_admin_login()) {
+            if ($this->is_id_user())
+            if ($_GET) {
+                $model_response = $this->load_model('PlaylistModel');
+
+                if (!isset($model_response)) {
+                    require_once (assets('views/layout/404.php'));
+                }
+            }
+        }
+    }
 }

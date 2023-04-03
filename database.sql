@@ -27,8 +27,7 @@ CREATE TABLE `advertises`(
 -- 
 CREATE TABLE `topics`(
     `id_topics` int PRIMARY KEY,
-    `name_topics` TEXT,
-    `topic_image` TEXT
+    `name_topics` TEXT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 -- 
 -- CREATE TABLE categories
@@ -56,9 +55,8 @@ CREATE TABLE `artists`(
     `id_artists` int PRIMARY KEY,
     `name_artists` TEXT,
     `picture` TEXT,
-    `facebook` TEXT,
-    `instagram` TEXT,
-    `youtube` TEXT
+    `birthday` DATE,
+    `social_media` TEXT DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 -- 
 -- CREATE TABLE albums

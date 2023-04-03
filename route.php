@@ -10,7 +10,8 @@ $routes = [
     (new Route('auth/register', 'POST', AuthController::class, 'handle_register')),
     (new Route('playlist', 'GET', LibrariesController::class, 'playlist_show')),
     (new Route('library', 'GET', LibrariesController::class, 'library')),
-    (new Route('test', 'POST', ArtistsController::class, 'test'))
+    (new Route('test', 'POST', ArtistsController::class, 'test')),
+    (new Route('search', 'GET', SearchController::class, 'index')),
 ];
 
 $flag = false;
