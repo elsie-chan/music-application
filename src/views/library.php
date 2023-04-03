@@ -21,6 +21,7 @@
             left:200px;
             position: relative;
             margin-bottom: 80px;
+            background: #0B1220;
         }
 
         .sidebar {
@@ -47,17 +48,25 @@
     <?php require_once 'components/header.php' ?>
     <div id = "home_library">
         <div class="container pt-5" style ="padding-top: 0px">
-            <div class ="topic" style ="padding-top:15px">
-                <button class="nav-item">
-                    <a class="nav-link" href="#"><span>Your Playlist</span></a>
-                </button>
-                <button class="nav-item">
-                    <a class="nav-link" href="#"><span>Artist</span></a>
-                </button>
-                <button class="nav-item">
-                    <a class="nav-link" href="#"><span>Album</span></a>
-                </button>
+            <nav class="navbar navbar-expand bg-transparent"style="padding-left: 0"  >
+                <div class="container-fluid">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Your Playlist</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Artist</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Album</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
                 <style>
+                    .navbar-nav{
+                        left: 10px;
+                    }
                     .nav-item{
                         background-color: transparent;
                         border: none;
@@ -68,17 +77,17 @@
                         color: #ffffff;
 
                     }
-                    .nav-item:hover{
-                        background-color: rgba(255, 255, 255, 0.2);
+                    .nav-item:hover a{
                         color: #00B6D6;
                     }
+                    .nav-item:active a{
+                        background: rgba(255, 255, 255, 0.2);
+                    }
                 </style>
-            </div>
         </div>
         <div class="container albums">
             <style>
                 .container { 
-                    padding-top: 30px;
                     margin-left: 20px;
                 }
             </style>
@@ -86,13 +95,15 @@
                 <div class="col-4">
                     <style>
                         .col-4{
-                            background: linear-gradient(90.11deg, #FFFFFF 1.2%, #2D66FF 55.56%, #0F0F10 101.57%)
+                            background: linear-gradient(90.11deg, #FFFFFF 1.2%, #2D66FF 55.56%, #0F0F10 101.57%);
+                            left:15px;
+                            
                         }
                     </style>
                     <div class="card liked_songs">
                         <style>
                             .liked_songs{
-                                left: 50%;
+                                left: 40%;
                                 position: absolute;
                                 font-family: 'Roboto';
                                 font-style: normal;
@@ -101,7 +112,8 @@
                                 line-height: 22px;display: flex;
                                 color: #FFFFFF;
                                 text-shadow: 2px -4px 4px rgba(0, 0, 0, 0.25);
-                                bottom: 6px;
+                                bottom: 36px;
+
                                 background-color: transparent;
                                 border: none
                             }   
