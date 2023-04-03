@@ -10,9 +10,9 @@ class ArtistsController extends Controller
     public function index()
     {
         if(authed()) {
-            $this->load_view('auth/auth.login');
+            $this->load_view('artist');
         } else {
-            $this->load_view('auth/artist');
+            $this->load_view('auth/auth.login');
         }
     }
 

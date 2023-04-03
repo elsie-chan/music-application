@@ -59,16 +59,28 @@
 </main>
 <script src=<?php echo url('src/public/vendors/jquery/jquery.js')?>></script>
 <script>
+    // Check event click
     $('.btn-signup').on('click', (e) => {
-        $('.form-signup').submit();
+        var is_full = true;
+        $('.form-control').each((index, form) => {
+                if (!form.value) {
+                    $('.text-error').text('Please, fill all fields!')
+                    is_full = false;
+                    return false;
+                }
+            })
+            if (is_full) {
+                $('.form-signup').submit();
+                alert("<?php echo $_SESSION['message'] ?>");
+            }
     })
 
+    // Check event enter
     $(window).on('keypress', function (e) {
         var is_full = true;
         if (e.which === 13) {
             $('.form-control').each((index, form) => {
                 if (!form.value) {
-                    // console.log("exist one field empty")
                     $('.text-error').text('Please, fill all fields')
                     is_full = false;
                     return false;

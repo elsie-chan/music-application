@@ -33,4 +33,12 @@ class Controller
     public function is_user_login():bool {
         return !empty($_SESSION["user"]);
     }
+
+    public function is_user_name() {
+        return $_SESSION['username'];
+    }
+
+    public function is_id_user() {
+        return $_SESSION['user'];
+    }
 }
