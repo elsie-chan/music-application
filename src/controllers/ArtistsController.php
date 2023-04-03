@@ -15,8 +15,4 @@ class ArtistsController extends Controller
             $this->load_view('auth/artist');
         }
     }
-    public function test() {
-        $model = $this->load_model('ArtistsModel');
-        $model->get_artists_of_users('2');
-    }
 }
