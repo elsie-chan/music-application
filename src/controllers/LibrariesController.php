@@ -31,6 +31,14 @@ class LibrariesController extends Controller {
         }
     }
 
+    public function liked_songs() {
+        if (authed()) {
+            $this->load_view('liked_songs');
+        } else {
+            $this->load_view('auth/auth.login');
+        }
+    }
+
     public function edit_name_playlist($name) {
         $error = "";
 

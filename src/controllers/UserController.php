@@ -17,25 +17,52 @@ class UserController extends Controller {
 
     public function get_user_by_username($username) {
         $error = "";
-
-        if ($this->is_user_login()) {
-            $model_response = $this->load_model('UserModel');
-
-            if (!isset($model_response)) {
-                require_once (assets('views/layout/404.php'));
-            }
+        $message = "";
+        if ($_GET) {
+            $model_response = $this->model_user;
+            $this->check_model($model_response);
 
             $response = $model_response->get_user_by_username($username);
+            $message = $response->username;
             $error = $response['error'];
-
             if (empty($error)) {
-                return $response['msg'];
+                return $_SESSION['message'] = $message;
+            } else {
+                return $_SESSION['error'] = $error;
+            }
+        }
+        return NULL;
+    }
+
+    public function test() {
+        $test = $this->get_all_user();
+        print_r($test);
+    }
+
+    public function get_all_user() {
+        $error = "";
+        $message = "";
+
+        if ($_POST) {
+            $model_response = $this->model_user;
+
+            $this->check_model($model_response);
+            
+            $response = $model_response->get_all_user();
+            $error = $response['error'];
+            
+            if (empty($error)) {
+                return $_SESSION['merror'] = $response;
+            } else {
+                return $_SESSION['error'] = $error;
             }
         }
         return NULL;
     }
 
     public function update_profile() {
+        $error = "";
+        $message = "";
 
     }
 }

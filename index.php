@@ -10,7 +10,6 @@ use Symfony\Component\Dotenv\Dotenv;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\SMTP;
-use App\Mail\Mail;
 
 $controller_path = __DIR__ . '/src/controllers';
 $model_path = __DIR__ . '/src/models';
@@ -27,7 +26,9 @@ require_once('./src/system/Security.php');
 require_once('./src/routes/Route.php');
 require_once('./src/helper/helper.php');
 require_once('./src/system/Redirect.php');
+require_once('./src/views/mail/Mail.php');
 $redirector = new Redirect();
+$newmail = new Mail();
 
 require_once('./src/controllers/Controller.php');
 require_once('./src/models/Model.php');

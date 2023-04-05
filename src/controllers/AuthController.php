@@ -22,10 +22,8 @@ class AuthController extends Controller {
             $_SESSION['email'] = $_POST["email"];
             $_SESSION['password'] = $_POST["password"];
 
-            $model_response = $this->load_model("UserModel");
-            if (!isset($model_response)) {
-                require_once (assets('views/layout/404.php'));
-            }
+            $model_response = $this->model_user;
+            $this->check_model($model_response);
 
             $response = $model_response->login($_SESSION['username'], $_SESSION['email'], $_SESSION['password'], $token);
             $error = $response['error'];
@@ -57,6 +55,7 @@ class AuthController extends Controller {
 
         $token = empty($_SESSION['token']) ? generate_token() : $_SESSION['token'];
         if ($_POST) {
+
             if ($token != null) {
                 $_SESSION['username'] = $_POST['username'];
                 $_SESSION['email'] = $_POST['email'];
@@ -65,14 +64,14 @@ class AuthController extends Controller {
                 $_SESSION['mobile'] = $_POST['mobile'];
 
                 $model_response = $this->model_user;
-                if (!isset($model_response)) {
-                    require_once (assets('views/layout/404.php'));
-                }
+                $this->check_model($model_response);
 
+                Mail::send_code_to_email($_SESSION['email'], $_SESSION['username']);
                 $response = $model_response->register($_SESSION['username'], $_SESSION['email'], $_SESSION['password'], $_SESSION['confirm_pass'], $_SESSION['mobile'], $_SESSION['token']);
                 $error = $response['error'];
                 if (empty($error)) {
 //                    $this->liked_song();
+
                     Redirect::to('auth/login');
                 } else {
                     $_SESSION['error'] = $error;

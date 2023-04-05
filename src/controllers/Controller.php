@@ -41,19 +41,17 @@ class Controller
         return true;
     }
 
-    public function is_admin_login():bool {
-        return !empty($_SESSION["admin"]);
-    }
-
-    public function is_user_login():bool {
-        return !empty($_SESSION["user"]);
-    }
-
     public function is_user_name() {
         return $_SESSION['username'];
     }
 
     public function is_id_user() {
         return $_SESSION['user'];
+    }
+
+    public function check_model($model_name) {
+        if (!isset($model_name)) {
+            require_once (assets('views/layout/404.php'));
+        }
     }
 }
