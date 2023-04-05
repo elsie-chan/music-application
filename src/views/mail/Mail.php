@@ -1,33 +1,32 @@
 <?php
-namespace App\Mail;
-use App\Controller;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\SMTP;
 class Mail
 {
-    public function send_code_email($email) {
-        if (isset($_POST['btn-signup'])) {
-            // Get form data
-            $to = $_POST['to'];
-            $subject = $_POST['subject'];
-            $body = $_POST['body'];
-
+    public static function send_code_to_email($email, $username) {
+        $mail = new PHPMailer(true);
+        try {
+            $mail->CharSet = "UTF-8";
+            $mail->SMTPDebug = 0;
             $mail->isSMTP();
             $mail->Host = 'smtp.gmail.com';
             $mail->SMTPAuth = true;
-            $mail->Username = 'youremail@gmail.com';
-            $mail->Password = 'yourpassword';
+            $mail->Username = env('MAIL');
+            $mail->Password = env('MAIL_PASSWORD');
             $mail->SMTPSecure = 'tls';
             $mail->Port = 587;
-            $mail->setFrom('youremail@gmail.com', 'Your Name');
-            $mail->addAddress($to);
+            $mail->setFrom(env('MAIL'), 'MISC');
+            $mail->addAddress($email, $username);
+            $random_number = rand();
             $mail->isHTML(true);
-            $mail->Subject = $subject;
-            $mail->Body = $body;
-
-            if (!$mail->send()) {
-                echo 'Mailer Error: ' . $mail->ErrorInfo;
-            } else {
-                echo 'Message sent!';
-            }
+            $mail->Subject = 'Verification Code';
+            $mail->Body    ="<h3>Your Verification Code</h3>" . $random_number;
+            $mail->send();
+            return true;
+        } catch (Exception $e) {
+            echo "Message could not sent. Mailer Error: " . $mail->ErrorInfo;
+            return false;
         }
     }
 
