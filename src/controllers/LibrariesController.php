@@ -5,13 +5,6 @@ class LibrariesController extends Controller {
         parent::__construct();
     }
 
-    public function index() {
-        if (authed()) {
-            $this->load_view('home');
-        } else {
-            $this->load_view('auth/auth.login');
-        }
-    }
 
     public function playlist_show()
     {
@@ -25,6 +18,14 @@ class LibrariesController extends Controller {
     public function library() {
         if (authed()) {
             $this->load_view('library');
+        } else {
+            $this->load_view('auth/auth.login');
+        }
+    }
+
+    public function album() {
+        if (authed()) {
+            $this->load_view('album');
         } else {
             $this->load_view('auth/auth.login');
         }

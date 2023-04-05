@@ -8,6 +8,14 @@ class AdminController extends Controller {
         parent::__construct();
     }
 
+    public function index() {
+        if (authed()) {
+            $this->load_view('admin/dashboard');
+        } else {
+            $this->load_view('auth/auth.login');
+        }
+    }
+
     public function delete_user_by_id($id_user) {
         $error = "";
 
