@@ -1,0 +1,67 @@
+@import url("src/public/css/style.css");
+.content {
+  padding-top: 64px;
+  background: var(--blue-bg);
+  color: var(--white);
+}
+
+.media {
+  justify-content: space-between;
+  padding: 10px;
+  gap: 1em;
+}
+
+.media:hover {
+  background-color: var(--blue-sb);
+  border-radius: 5px;
+  transition: 0.5s;
+}
+
+.playlist-header {
+  background-image: url("src/public/assets/imgs/song1.png");
+  /* color: black; */
+}
+
+.card-title,
+.card-text {
+  color: black;
+}
+
+.media-left .card-info {
+  height: 3rem;
+}
+
+.media-left .card-info p {
+  font-size: 0.9em;
+  color: var(--grey);
+}
+
+.media-right .fa-solid {
+  float: right;
+  /* margin-right: 1em; */
+}
+
+.songThumbnail {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  margin-right: 1em;
+}
+
+.songThumbnail img {
+  height: 100%;
+  border-radius: 4px;
+}
+
+.songThumbnail .icon-play-song {
+  visibility:hidden;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.media:hover .icon-play-song {
+  visibility: visible;
+}
