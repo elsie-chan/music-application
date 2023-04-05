@@ -7,6 +7,14 @@ class UserController extends Controller {
         parent::__construct();
     }
 
+    public function index() {
+        if (authed()) {
+            $this->load_view('user/account');
+        } else {
+            $this->load_view('auth/auth.login');
+        }
+    }
+
     public function get_user_by_username($username) {
         $error = "";
 

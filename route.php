@@ -12,6 +12,7 @@ $routes = [
     (new Route('library', 'GET', LibrariesController::class, 'library')),
     (new Route('test', 'GET', ArtistsController::class, 'test')),
     (new Route('search', 'GET', SearchController::class, 'index')),
+    (new Route('account', 'GET', UserController::class, 'index')),
 ];
 
 $flag = false;

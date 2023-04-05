@@ -5,4 +5,9 @@ class SongsController extends Controller {
         parent::__construct();
     }
 
+//    public function liked_song() {
+//        if (authed()) {
+//            $this->load_view('')
+//        }
+//    }
 }
