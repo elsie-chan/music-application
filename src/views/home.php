@@ -39,6 +39,12 @@
             z-index: 20;
         }
 
+        .bg_blue {
+            background-color: lightcyan;
+            border: 1px solid #000;
+            height: 100px;
+        }
+
     </style>
 
 </head>
@@ -48,11 +54,11 @@
 <div id="home">
     <?php require_once 'components/header.php' ?>
     <div class="slideshow__container">
-        <div class="slideshow">
+        <div class="slideshow ">
+            <div class="slideshow__current"></div>
             <button class="slideshow__control--prev">
                 <i class="fas fa-chevron-left"></i>
             </button>
-            <div class="slideshow__current"></div>
             <button class="slideshow__control--next">
                 <i class="fas fa-chevron-right"></i>
             </button>
@@ -61,53 +67,20 @@
         <div class="slideshow__blur"></div>
         <div class="slideshow__darker"></div>
     </div>
-    
-    <div class="container-fluid albums">
+
+    <!--    Popular albums-->
+    <div class="container-fluid albums" id="popular_albums">
         <div class="row albums__title">
-            <h4 style="color: var(--hightlight);">POPULAR ALBUMS</h4>
+            <h4 style="padding: 0 1rem; color: var(--hightlight);">POPULAR ALBUMS</h4>
         </div>
-        <div class="row row-cols-md-6 albums__list">
-            <div class="col">
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1678257355149-6eda1755b1a2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text">Albums Name</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1678257355149-6eda1755b1a2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text">Albums Name</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1678257355149-6eda1755b1a2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text">Albums Name</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1678257355149-6eda1755b1a2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text">Albums Name</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1678257355149-6eda1755b1a2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text">Albums Name</p>
-                    </div>
-                </div>
-            </div>
+        <?php require 'components/playlistList.php' ?>
+    </div>
+    <!--    Trending albums-->
+    <div class="container-fluid albums" id="trending_albums">
+        <div class="row albums__title">
+            <h4 style="padding: 0 1rem; color: var(--hightlight);">TRENDINg ALBUMS</h4>
         </div>
+        <?php require 'components/playlistList.php' ?>
     </div>
     
 </div>
@@ -144,13 +117,13 @@
 
     <!-- js for slider -->
     <script>
-        const slideshow = document.querySelector('.slideshow');
-        const slideshowCurrent = document.querySelector('.slideshow__current');
-        const slideshowControls = document.querySelector('.slideshow__controls');
-        const slideshowControlPrev = document.querySelector('.slideshow__control--prev');
-        const slideshowControlNext = document.querySelector('.slideshow__control--next');
+        const slideshow = $('.slideshow');
+        const slideshowCurrent = $('.slideshow__current');
+        const slideshowControls = $('.slideshow__controls');
+        const slideshowControlPrev = $('.slideshow__control--prev');
+        const slideshowControlNext = $('.slideshow__control--next');
 
-        const slideshowBlur = document.querySelector(".slideshow__blur");
+        const slideshowBlur = $(".slideshow__blur");
 
         const slideshowImgs = [
             "https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80", 
@@ -167,6 +140,7 @@
                 control.addEventListener('click', function() {
                     currentSlide = i;
                     slideshowCurrent.style.backgroundImage = `url(${slideshowImgs[currentSlide]})`;
+                    setActiveControl(currentSlide)
                 });
                 slideshowControls.appendChild(control);
             }
@@ -175,11 +149,11 @@
         initSliderControls();
         function initSlider() {
             slideshowCurrent.style.backgroundImage = `url(${slideshowImgs[currentSlide]})`;
-
             slideshowBlur.style.backgroundImage = `url(${slideshowImgs[currentSlide]})`;
+            let controls = document.querySelectorAll('.controls--buttons');
+            controls[0].classList.add('active');
         }
 
-        initSlider();
 
         slideshowControlNext.addEventListener("click", function() {
             currentSlide++;
@@ -187,7 +161,7 @@
                 currentSlide = 0;
             }
             slideshowCurrent.style.backgroundImage = `url(${slideshowImgs[currentSlide]})`;
-            initSlider();
+            setActiveControl(currentSlide)
 
         }); 
         
@@ -197,13 +171,68 @@
                 currentSlide = slideshowImgs.length - 1;
             }
             slideshowCurrent.style.backgroundImage = `url(${slideshowImgs[currentSlide]})`;
-            
-            initSlider();
+            setActiveControl(currentSlide)
         });
-        
+
+        function setActiveControl(currentIndex) {
+            let controls = document.querySelectorAll('.controls--buttons');
+            for (let i = 0; i < controls.length; i++) {
+                if(controls[i].classList.contains('active')) {
+                    controls[i].classList.remove('active');
+                }
+            }
+            controls[currentIndex].classList.add('active');
+        }
+
+        initSlider();
+
+        setInterval(function() {
+            currentSlide++;
+            if (currentSlide > slideshowImgs.length - 1) {
+                currentSlide = 0;
+            }
+            slideshowCurrent.style.backgroundImage = `url(${slideshowImgs[currentSlide]})`;
+            setActiveControl(currentSlide)
+        }, 3600)
 
 
+    //    -------------js for drag list -------------------
+       const slider = document.querySelector('.albums__list');
+       let isDown = false;
+       let startX;
+       let scrollLeft;
 
-    </script>
+       slider.addEventListener('mousedown', (e) => {
+           isDown = true;
+           slider.classList.add('active');
+           startX = e.pageX - slider.offsetLeft;
+           scrollLeft = slider.scrollLeft;
+       });
+       slider.addEventListener('mouseleave', () => {
+           isDown = false;
+           slider.classList.remove('active');
+       });
+       slider.addEventListener('mouseup', () => {
+           isDown = false;
+           slider.classList.remove('active');
+       });
+       slider.addEventListener('mousemove', (e) => {
+           if(!isDown) return;
+           e.preventDefault();
+           const x = e.pageX - slider.offsetLeft;
+           const walk = (x - startX) * 3; //scroll-fast
+           slider.scrollLeft = scrollLeft - walk;
+           // console.log(walk);
+       });
+
+
+       let albumItem = document.querySelectorAll('.album__item');
+       for(let i = 0; i < albumItem.length; i++) {
+           albumItem[i].addEventListener('click', function() {
+               console.log(i);
+           })
+       }
+    //
+    //</script>
 </body>
 </html>
