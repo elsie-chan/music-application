@@ -18,25 +18,19 @@
                 </a>
             </li>
              <li class="navigation--item">
-                <a href="#" class="navigation--link">
+                <a href="/music-application/search" class="navigation--link">
                     <i class="fa-solid fa-magnifying-glass"></i>
                     <span>Search</span>
                 </a>
             </li>
              <li class="navigation--item">
-                <a href="#" class="navigation--link">
+                <a href="/music-application/library" class="navigation--link">
                     <i class="fa-solid fa-books"></i>
                     <span>Library</span>
                 </a>
             </li>
              <li class="navigation--item">
-                <a href="#" class="navigation--link">
-                    <i class="fa-solid fa-arrow-rotate-left"></i>
-                    <span>Recent songs</span>
-                </a>
-            </li>
-             <li class="navigation--item">
-                <a href="#" class="navigation--link">
+                <a href="/music-application/liked_songs" class="navigation--link">
                     <i class="fa-solid fa-heart"></i>
                     <span>Liked songs</span>
                 </a>
