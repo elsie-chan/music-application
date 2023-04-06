@@ -1,0 +1,63 @@
+@import url("src/public/css/style.css");
+
+
+
+/* Search box */
+.form{
+    position: relative;
+    align-items: center;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.24);
+    z-index: 13;
+}
+
+.form .fa-search{
+    position: absolute;
+    right: 0.2em;
+    color: var(--white);
+    gap: .3rem;
+}
+
+.form .fa-search:hover {
+    color: var(--second-grey);
+    cursor: pointer;
+}
+
+.form-input{
+    width: 100%;
+    height: 32px;
+    text-indent: 12px;
+    border-radius: 8px;
+    color: var(--white);
+    border-color: rgba(255, 255, 255, 0.24);
+    background: rgba(255, 255, 255, 0.24);
+}
+
+.form-input:focus{
+    box-shadow: none;
+    background: rgba(255, 255, 255, 0.24);
+    color: var(--white);
+    border:none;
+}
+
+.form-input::placeholder {
+    color: var(--white);
+    font-weight: 300;
+}
+
+/* Card topic */
+
+.card-img-top {
+border-radius: 1rem;
+}
+
+.card h3{
+    position: absolute;
+    bottom: .5rem;
+    left: 2rem;
+    color: var(--white);
+}
+
+.topic-card:hover {
+    cursor: pointer;
+}

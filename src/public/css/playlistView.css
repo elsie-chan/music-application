@@ -27,8 +27,18 @@
   color: var(--white);
 }
 
+.info .edit-name {
+  background: transparent;
+  color: var(--white);
+}
+
+.info .edit-name:focus {
+  box-shadow: none !important;
+}
+
 .functional{
     align-items :center;
+    position: relative;
 }
 
 .play-song {
@@ -40,14 +50,16 @@
   font-size: 2rem;
 }
 
-.play-song:hover ,.repeat-song:hover,.more-info:hover, .more:hover, .edit-name:hover{
+.repeat-song:hover,.more-info:hover, .more:hover, .edit-name:hover{
   cursor: pointer;
   opacity: .8;
   transition: 0.5s;
 }
 
 .play-song:hover {
+  cursor: pointer;
   font-size: 3.3rem;
+  transition: 0.5s;
 }
 
 
@@ -55,14 +67,15 @@
   /* display: none; */
   list-style-type: none;
   position: absolute;
-  left: 50%;
-  top: 98%;
+  right: 0.7rem;
+  top: 3.5rem;
   background-color: #212529;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   min-width: 120px;
   /* padding: 0 12px; */
   padding-inline-start: 0;
   border-radius: 4px;
+  z-index: 12;
 }
 .more-function li a {
   color: var(--white);
@@ -104,9 +117,13 @@
   height: 3rem;
 }
 
-.media-left .card-info p {
+.media-left .card-info a {
   font-size: 0.9em;
   color: var(--grey);
+}
+
+.media-left .card-info a:hover {
+  text-decoration: underline;
 }
 
 .media-right .fa-solid {
@@ -137,4 +154,80 @@
 
 .media:hover .icon-play-song {
   visibility: visible;
+}
+
+/* Modal  */
+.modal-header .modal-title {
+  color: var(--blue-bg);
+}
+
+.modal-body .avt-playlist {
+  position: relative;
+}
+
+.modal-body .avt-playlist img {
+  width: 100%;
+}
+
+.modal-body .avt-playlist:hover  img {
+  opacity: .5;
+}
+
+.modal-body .avt-playlist:hover  .hide{
+  display: block;
+  color: var(--blue-bg);
+}
+
+.modal-body .hide {
+  display: none;
+  font-size: 3rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
+.modal-body .form-control:focus {
+  box-shadow: none;
+}
+
+.modal-body .content-playlist .description {
+  height: 92px;
+  resize: none;
+}
+
+.modal-footer .btn-primary {
+  background-color: var(--hightlight);
+  border: 1px solid var(--hightlight);
+}
+
+.modal-footer .btn-primary:hover {
+  font-weight: 700;
+  background-color: var(--hightlight);
+  border: 1px solid var(--hightlight);
+  transition: 0.5s;
+}
+
+/* menu */
+.song-menu {
+  display: inline-block;
+  position: absolute;
+  visibility: hidden;
+}
+
+.menu {
+  background-color: #212529;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+}
+.menu a{
+  color: var(--white);
+}
+.menu li:hover{
+  background-color: var(--grey);
+}
+.menu .list-group-item {
+  background-color: #212529;
+  border-radius: 4px;
 }

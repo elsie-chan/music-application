@@ -7,6 +7,7 @@
     <title>Playlist</title>
 
     <link rel="stylesheet" href="<?php echo url('src/public/vendors/bootstrap/css/bootstrap.css')?>">
+   
     <link rel="stylesheet" href="<?php echo url('src/public/vendors/font-awesome-6-pro-main/css/all.css')?>">
     <link rel="stylesheet" href="<?php echo url('src/public/css/style.css') ?>">
     <link rel="stylesheet" href="<?php echo url('src/public/css/playlistView.css')?>">
@@ -67,7 +68,11 @@
                         <div class="info">
                             <div class="title d-flex">
                                 <h2 class="mr-auto pl-0 p-2" style="padding-left: 0 !important;">Normal Fucking Rockwell</h2>
-                                <i class="edit-name fa-sharp fa-solid fa-pen p-2 mt-2"></i>
+                                <!-- Button trigger modal -->
+                                <button type="button" class="edit-name btn" data-toggle="modal" data-target="#myModal">
+                                    <i class="fa-sharp fa-solid fa-pen"></i>
+                                </button>
+                                
                             </div>
                             <p>13 songs</p>
                             <!-- <p></p> -->
@@ -75,12 +80,12 @@
                                 <i class="play-song fa-solid fa-circle-play p-2 " style="padding-left: 0 !important;"></i>
                                 <i class="repeat-song fa-sharp fa-solid fa-repeat p-2"></i>
                                 <i class="more-info fa-duotone fa-circle-ellipsis-vertical  ml-auto p-2"></i>
+                                <ul class="more-function" style="display: none;">
+                                    <li><a href="#">Edit playlist name</a></li>
+                                    <li><a href="#">Delete</a></li>
+                                    <li><a href="#">Delete</a></li>
+                                </ul>
                             </div>
-                            <ul class="more-function" style="display: none;">
-                                <li><a href="#">Edit playlist name</a></li>
-                                <li><a href="#">Delete</a></li>
-                                <li><a href="#">Delete</a></li>
-                            </ul>
                         </div>
                     </div>
                 </div>
@@ -100,7 +105,7 @@
                                 </div>
                                 <div class="card-info">
                                     <h6>Norman fucking Rockwell</h6>
-                                    <p>Lana Del Rey</p>
+                                    <a href="#">Lana Del Rey</a>
                                 </div>
                             </div>
                         </div>
@@ -119,7 +124,7 @@
                                 </div>
                                 <div class="card-info">
                                     <h6>Fuck it I love you</h6>
-                                    <p>Lana Del Rey</p>
+                                    <a href="#">Lana Del Rey</a>
                                 </div>
                             </div>
                         </div>
@@ -138,7 +143,7 @@
                                 </div>
                                 <div class="card-info">
                                     <h6>Venice Bitch</h6>
-                                    <p>Lana Del Rey</p>
+                                    <a href="#">Lana Del Rey</a>
                                 </div>
                             </div>
                         </div>
@@ -157,7 +162,7 @@
                                 </div>
                                 <div class="card-info">
                                     <h6>Doin' Time</h6>
-                                    <p>Lana Del Rey</p>
+                                    <a href="#">Lana Del Rey</a>
                                 </div>
                             </div>
                         </div>
@@ -176,7 +181,7 @@
                                 </div>
                                 <div class="card-info">
                                     <h6>Cinnamon Girl</h6>
-                                    <p>Lana Del Rey</p>
+                                    <a href="#">Lana Del Rey</a>
                                 </div>
                             </div>
                         </div>
@@ -195,7 +200,7 @@
                                 </div>
                                 <div class="card-info">
                                     <h6>California</h6>
-                                    <p>Lana Del Rey</p>
+                                    <a href="#">Lana Del Rey</a>
                                 </div>
                             </div>
                         </div>
@@ -214,7 +219,7 @@
                                 </div>
                                 <div class="card-info">
                                     <h6>Happiness is a butterfly</h6>
-                                    <p>Lana Del Rey</p>
+                                    <a href="#">Lana Del Rey</a>
                                 </div>
                             </div>
                         </div>
@@ -233,7 +238,7 @@
                                 </div>
                                 <div class="card-info">
                                     <h6>Bartender</h6>
-                                    <p>Lana Del Rey</p>
+                                    <a href="#">Lana Del Rey</a>
                                 </div>
                             </div>
                         </div>
@@ -252,7 +257,7 @@
                                 </div>
                                 <div class="card-info">
                                     <h6>hope is  a dangerous thing for women like me to have</h6>
-                                    <p>Lana Del Rey</p>
+                                    <a href="#">Lana Del Rey</a>
                                 </div>
                             </div>
                         </div>
@@ -271,7 +276,7 @@
                                 </div>
                                 <div class="card-info">
                                     <h6>hope is  a dangerous thing for women like me to have</h6>
-                                    <p>Lana Del Rey</p>
+                                    <a href="#">Lana Del Rey</a>
                                 </div>
                             </div>
                         </div>
@@ -290,7 +295,7 @@
                                 </div>
                                 <div class="card-info">
                                     <h6>hope is  a dangerous thing for women like me to have</h6>
-                                    <p>Lana Del Rey</p>
+                                    <a href="#">Lana Del Rey</a>
                                 </div>
                             </div>
                         </div>
@@ -309,7 +314,7 @@
                                 </div>
                                 <div class="card-info">
                                     <h6>hope is  a dangerous thing for women like me to have</h6>
-                                    <p>Lana Del Rey</p>
+                                    <a href="#">Lana Del Rey</a>
                                 </div>
                             </div>
                         </div>
@@ -328,7 +333,7 @@
                                 </div>
                                 <div class="card-info">
                                     <h6>hope is  a dangerous thing for women like me to have</h6>
-                                    <p>Lana Del Rey</p>
+                                    <a href="">Lana Del Rey</a>
                                 </div>
                             </div>
                         </div>
@@ -337,16 +342,60 @@
                         </div>
                     </li>
                 </ul>
+                <!-- Context menu for song  -->
+                <div class="menu-wrapper song-menu p-0" style="top: 0;left: 0;">
+                    <ul class="menu list-group list-group-flush">
+                        <li class="list-group-item"><a href="#">Add to playlist</a></li>
+                        <li class="list-group-item"><a href="#">Save to your Liked song</a></li>
+                        <li class="list-group-item"><a href="#">Remove from this playlist</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
-
-    <!-- Modal -->
+    
+    
+    <!-- Modal edit playlist name-->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Edit details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-4 col-12 avt-playlist">
+                            <img src="src/public/assets/imgs/song1.png" alt="avatar-playlist">
+                            <i class="hide fa-regular fa-pen"></i>
+                        </div>
+                        <div class="col-sm-8 col-12 d-flex flex-column content-playlist">
+                            <input type="text" class="form-control mb-2" name="name" placeholder="New playlist name">
+                            <textarea name="description" id="" class="form-control description" cols="30" rows="10" placeholder="Add an optional description "></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
     
 
-    <script>
+
+<script src=<?php echo url('src/public/vendors/jquery/jquery.js')?>></script>
+<!-- <script src="<?php echo url('src/public/vendors/bootstrap/js/bootstrap.js') ?>"></script> -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+
         // <!-- js for sidebar resize -->
-        const $ = document.querySelector.bind(document);
+        // const $ = document.querySelector.bind(document);
         const sidebar = document.querySelector('.sidebar');
         const playlist = document.querySelector('#playlist');
         document.addEventListener("DOMContentLoaded", function(event) { 
@@ -369,7 +418,7 @@
             }
         }
 
-        // Display modal 
+        // Display menu more-info for playlist
 
         const moreFunction = document.querySelector('.more-function');
         const moreButton = document.querySelector('.more-info');
@@ -381,6 +430,29 @@
                 moreFunction.style.display = 'none';
             }
         });
+
+        // Display menu more for song
+        // $('.more').click(function(e) {
+        //     console.log('hi');
+        //     e.preventDefault();
+        //     const contextElement = $('.song-menu');
+        //     contextElement.style.top = e.offsetY + 'px';
+        //     contextElement.style.left = e.offsetX + 'px';
+
+        // });
+
+        // Display modal for edit playlist name
+        const myModal = $('#myModal');
+        myModal.modal({
+            show:false
+        })
+        $('.edit-name').click(function(){
+            console.log('hello');
+            myModal.modal('show');
+        });
+
+
+        
 
     </script>
 </body>

@@ -12,7 +12,6 @@
     <div class="bg">
         <div class="container p-0">
             <div class="row d-flex justify-content-center">
-                <!-- <img src="<?php echo url('src/public/assets/imgs/bg_login1.png') ?>" class="" alt="Sample image"> -->
                 <div class="col-md-4 col-sm-6 col-8 modal-form glass">
                         <form class="form-horizoltal form-login" action="<?php echo url('auth/login')?>" method="POST" onsubmit="return false">
                             <div class="form-logo">

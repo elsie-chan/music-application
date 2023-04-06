@@ -70,8 +70,7 @@
                 }
             })
             if (is_full) {
-                $('.form-signup').submit();
-                alert("<?php echo $_SESSION['message'] ?>");
+                $('.form-signup')[0].submit();   
             }
     })
 
@@ -87,7 +86,10 @@
                 }
             })
             if (is_full) {
-                $('.form-signup').submit();
+                $('.form-signup')[0].submit();
+                <?php if (isset($_SESSION['error'])) { ?>
+                    alert('Congratulations, your account has been successfully created. Please log in to continue.');
+                <?php } ?>
             }
         }
     })
