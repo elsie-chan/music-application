@@ -1,0 +1,55 @@
+/* albums */
+.albums {
+    padding: 24px;
+}
+
+.albums__list {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+}
+
+.album__item:hover {
+    cursor: pointer;
+}
+
+.album__item img {
+    width: 100%;
+    aspect-ratio : 1 / 0.8;
+    object-fit: cover;
+
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+.album__item {
+    width: 100%;
+    height: fit-content;
+    background-color: rgba(255, 255, 255, 0.04);
+    padding: 0.5rem 0.5rem 0 0.5rem;
+    border-radius: 4px;
+}
+
+.album__item p {
+    width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 22px;
+    margin: 0;
+    color: var(--white);
+}
+
+.album__item:hover {
+    background: rgb(255, 255, 255, 0.2);
+}
