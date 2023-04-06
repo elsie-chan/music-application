@@ -1,0 +1,49 @@
+#account {
+    background-color: var(--blue-bg);
+}
+
+#account .header {
+    position: relative;
+}
+
+#info {
+    background-color: seagreen;
+    padding: 24px 0;
+}
+
+.info__img img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.info__img {
+    padding: 0 12px;
+}
+
+.info__text > * {
+    margin-bottom: 0;
+}
+
+.info__text p {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 14px;
+}
+
+.info__text h1 {
+    font-size: 36px;
+}
+
+.info__text .text--inline {
+    display: inline;
+}
+
+#liked_artists .albums__list .album__item p{
+    text-align: center;
+    text-transform: capitalize;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 14px;
+}
