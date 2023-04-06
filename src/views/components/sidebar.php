@@ -12,7 +12,7 @@
     <nav class="navigation">
         <ul class="navigation--list">
             <li class="navigation--item page__active">
-                <a href="#" class="navigation--link">
+                <a href="/music-application/" class="navigation--link">
                     <i class="fas fa-home"></i>
                     <span>Home</span>
                 </a>

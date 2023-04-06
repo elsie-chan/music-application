@@ -14,6 +14,7 @@
         @import "<?php echo url('src/public/css/style.css') ?>";
         body {
             position: relative;
+            overflow-y: hidden;
         }
 
         #home {
@@ -44,6 +45,7 @@
             border: 1px solid #000;
             height: 100px;
         }
+
 
     </style>
 
@@ -82,15 +84,20 @@
         </div>
         <?php require 'components/playlistList.php' ?>
     </div>
-    
-</div>
 
+
+
+</div>
     <script src="<?php echo url('src/public/vendors/jquery/jquery.js')?>"></script>
     <script src="<?php echo url('src/public/vendors/bootstrap/js/bootstrap.bundle.min.js')?>"></script>
 
+<?php require_once 'components/loading.php' ?>
+
+<!-- js for loading -->
+
+
     <!-- js for sidebar resize -->
     <script>
-        const $ = document.querySelector.bind(document);
         const sidebar = document.querySelector('.sidebar');
         const home = document.querySelector('#home');
         document.addEventListener("DOMContentLoaded", function(event) { 
@@ -118,12 +125,12 @@
     <!-- js for slider -->
     <script>
         const slideshow = $('.slideshow');
-        const slideshowCurrent = $('.slideshow__current');
-        const slideshowControls = $('.slideshow__controls');
-        const slideshowControlPrev = $('.slideshow__control--prev');
-        const slideshowControlNext = $('.slideshow__control--next');
+        const slideshowCurrent = $('.slideshow__current')[0];
+        const slideshowControls = $('.slideshow__controls')[0];
+        const slideshowControlPrev = $('.slideshow__control--prev')[0];
+        const slideshowControlNext = $('.slideshow__control--next')[0];
 
-        const slideshowBlur = $(".slideshow__blur");
+        const slideshowBlur = $(".slideshow__blur")[0];
 
         const slideshowImgs = [
             "https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80", 
@@ -162,7 +169,6 @@
             }
             slideshowCurrent.style.backgroundImage = `url(${slideshowImgs[currentSlide]})`;
             setActiveControl(currentSlide)
-
         }); 
         
         slideshowControlPrev.addEventListener("click", function() {
@@ -194,7 +200,6 @@
             slideshowCurrent.style.backgroundImage = `url(${slideshowImgs[currentSlide]})`;
             setActiveControl(currentSlide)
         }, 3600)
-
 
     //    -------------js for drag list -------------------
        const slider = document.querySelector('.albums__list');
