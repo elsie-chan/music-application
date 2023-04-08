@@ -19,7 +19,28 @@
 }
 
 .info__img {
-    padding: 0 12px;
+    margin: 0 24px 0 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border-radius: 50%;
+}
+
+.info__img i {
+    position: absolute;
+    font-size: 36px;
+    color: var(--white);
+    display: none;
+    z-index: 13;
+}
+
+.info__img:hover i {
+    display: block;
+}
+
+.info__img:hover img {
+    opacity: 0.5;
 }
 
 .info__text > * {
@@ -46,4 +67,48 @@
     font-weight: 500;
     font-size: 12px;
     line-height: 14px;
+}
+
+#myModal .avatar-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#myModal .avatar-container i {
+    position: absolute;
+    color: #000;
+    display: none;
+    z-index: 22;
+}
+
+#myModal .avatar-container:hover i {
+    display: block;
+}
+
+#myModal .avatar-container:hover img{
+    opacity: 0.5;
+}
+
+.avatar-container input {
+    cursor: pointer;
+    height: 100%;
+    position:absolute;
+    top: 0;
+    right: 0;
+    z-index: 99;
+    /*This makes the button huge. If you want a bigger button, increase the font size*/
+    font-size:50px;
+    /*Opacity settings for all browsers*/
+    opacity: 0;
+    -moz-opacity: 0;
+    filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0)
+}
+
+#myModal .avatar-container img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
 }
