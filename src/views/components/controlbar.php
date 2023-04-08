@@ -12,7 +12,7 @@
                     src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/fe529a64193929.5aca8500ba9ab.jpg" alt="song cover">
                 </div>
                 <div class="song__info">
-                    <p class="song__info--name">lana del rey did you know that there's a tunnel under ocean blvd</p>
+                    <p class="song__info--name">KILL BILL lana del rey did you know that there's a tunnel under ocean blvd</p>
                     <p class="song__info--artist">Artist Name</p>
                 </div>
                 <div class="song__like">
@@ -45,10 +45,26 @@
                     <p class="time--duration">0:00</p>
                 </div>
             </div>
-            <audio id="audio" src="" preload="metadata"></audio>
+            <audio id="audio" src="https://vnno-pt-2-tf-mp3-s1-zmp3.zmdcdn.me/348375d583956acb3384/5313884956124655570?authen=exp=1681156207~acl=/348375d583956acb3384/*~hmac=af7eca41be598b3784e506c4d3bff583&fs=MTY4MDk4MzQwNzE2NXx3ZWJWNnwwfDEwMy4yNDkdUngMjMdUngMTQ2" preload="metadata"></audio>
         </div>
         <div class="controlbar__container--right btn--playlist">
             <i class="fa-solid fa-list-music"></i>
         </div>
     </div>
 </div>
+
+<script>
+    const audio = document.getElementById('audio');
+    const playBtn = document.querySelector('.btn--play');
+    const prevBtn = document.querySelector('.btn--prev');
+
+    playBtn.addEventListener('click', () => {
+        if (audio.paused) {
+            audio.play();
+            playBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+        } else {
+            audio.pause();
+            playBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
+        }
+    });
+</script>
