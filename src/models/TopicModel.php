@@ -1,12 +1,12 @@
 <?php
 use App\Model\Model;
 class TopicModel extends Model{
-    protected $table = 'topic';
+    protected $table = 'topics';
     public function __construct(){
         parent::__construct();
     }
 //  create
-    function add_topic($name_topic){
+    function add_topics($name_topic){
         $id = $this->countID($this->table)+1;
         $sql = "SELECT * FROM `$this->table` WHERE `name_topics` = '$name_topic'";
         $stmt = mysqli_query($this->con,$sql);

@@ -36,6 +36,10 @@ class ArtistsModel extends Model
         return $response;
     }
     function add_artists_to_users($id_users,$id_artists){
+        $response = array(
+            "error" => "",
+            "msg" => ""
+        );
         $sql = "SELECT * FROM `users` WHERE `id_users` = '$id_users'";
         $stmt = mysqli_query($this->con,$sql);
         $id = $this->countID('users_artists')+1;
@@ -44,12 +48,18 @@ class ArtistsModel extends Model
         }else{
             $sql = "SELECT * FROM `$this->table` WHERE `id_artists` = '$id_artists'";
             $stmt = mysqli_query($this->con,$sql);
-            if(mysqli_num_rows($stmt) > 0){
-                $response["error"] = "Album is exists.";
+            if(mysqli_num_rows($stmt) == 0){
+                $response["error"] = "Artists is not exists.";
             }else{
-                $sql = "INSERT INTO `users_artists` VALUES('". $id ."', '". $id_users ."', '". $id_artists ."')";
+                $sql = "SELECT * FROM `users_artists` WHERE `id_artists` = '$id_artists'";
                 $stmt = mysqli_query($this->con,$sql);
-                $response["msg"] = "Success";
+                if(mysqli_num_rows($stmt) > 0){
+                    $response["error"] = "Artists is exists.";
+                }else{
+                    $sql = "INSERT INTO `users_artists` VALUES('". $id ."', '". $id_users ."', '". $id_artists ."')";
+                    $stmt = mysqli_query($this->con,$sql);
+                    $response["msg"] = "Success";
+                }
             }
         }
         return $response;
@@ -60,8 +70,8 @@ class ArtistsModel extends Model
             "error" => "",
             "msg" => ""
         );
-        $sql = "SELECT * FROM `users_albums` WHERE `id_users` = '$id_users'";
-        $stmt = mysqli_query($this->con,$stmt);
+        $sql = "SELECT * FROM `users_artists` WHERE `id_users` = '$id_users'";
+        $stmt = mysqli_query($this->con,$sql);
         if(mysqli_num_rows($stmt) == 0){
             $response["error"] = "User is not exists.";
         }else{
@@ -75,8 +85,8 @@ class ArtistsModel extends Model
         }
         return $response;
     }
-    function get_all_artists($user_artists){
-        $stmt = "SELECT * FROM `$this->table` ORDER BY FIELD(`user_artists`,'$user_artists') DESC";
+    function get_all_artists($id_artists){
+        $stmt = "SELECT * FROM `$this->table` ORDER BY FIELD(`id_artists`,'$id_artists') DESC";
         $sql = mysqli_query($this->con,$stmt);
         $data = array();
         if(mysqli_num_rows($sql)==0){
@@ -95,7 +105,7 @@ class ArtistsModel extends Model
         $stmt = mysqli_query($this->con,$sql);
         if(mysqli_num_rows($stmt) == 0){
             return array(
-                "error" => "User does not exists.",
+                "error" => "User is not exists.",
                 "msg" => ""
             );
         }else{
@@ -134,7 +144,7 @@ class ArtistsModel extends Model
         $sql = mysqli_query($this->con,$stmt);
         $row = mysqli_fetch_object($sql);
         if(mysqli_num_rows($sql)==0){
-            $response['error'] = "Artist does not exists";
+            $response['error'] = "Artist is not exists";
         }
         if ($picture["error"] != 0){
             $response["error"] = "Please select picture of artists.";
@@ -156,7 +166,7 @@ class ArtistsModel extends Model
         $stmt = "SELECT * FROM `$this->table` WHERE `name_artists` = '$username'";
         $sql = mysqli_query($this->con,$stmt);
         if(mysqli_num_rows($sql)==0){
-            $response['error'] = "Artist has not exists";
+            $response['error'] = "Artist is not exists";
         }
         $row = mysqli_fetch_object($sql);
         $id = $row->id_artists;

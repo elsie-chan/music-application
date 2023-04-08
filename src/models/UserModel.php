@@ -151,24 +151,20 @@ class UserModel extends Model {
         }
         return $response;
     }
-    function forgot_pass($email,$old_pass,$new_pass,$confirm_new_pass){
-        $sql = "SELECT * FROM `$this->table` WHERE `email_users` = '$email' AND `pass_users` = '$old_pass'";
+    function forgot_pass($email,$new_pass,$confirm_new_pass){
+        $sql = "SELECT * FROM `$this->table` WHERE `email_users` = '$email'";
         $stmt = mysqli_query($this->con,$sql);
         $response = array(
             "error" => "",
             "msg" => ""
         );
         if(mysqli_num_rows($stmt) > 0 ){
-            if(strcmp($old_pass,$new_pass)!=0){
-                if(strcmp($new_pass,$confirm_new_pass)==0){
-                    $sql = "UPDATE `$this->table` SET `pass_users` = '$new_pass' WHERE `email_users` = '$email'";
-                    $stmt = mysqli_query($this->con,$sql);
-                    $response["msg"] = "Your password has been changed";
-                }else{
-                    $response["error"] = "Your new password is invalid";
-                }
+            if(strcmp($new_pass,$confirm_new_pass)==0){
+                $sql = "UPDATE `$this->table` SET `pass_users` = '$new_pass' WHERE `email_users` = '$email'";
+                $stmt = mysqli_query($this->con,$sql);
+                $response["msg"] = "Your password has been changed";
             }else{
-                $response["error"] = "Your old password is invalid";
+                $response["error"] = "Your new password is invalid";
             }
         }else{
             $response["error"] = "User is not exists.";
