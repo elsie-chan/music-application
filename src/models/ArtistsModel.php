@@ -36,19 +36,18 @@ class ArtistsModel extends Model
         return $response;
     }
     function add_artists_to_users($id_users,$id_artists){
-        $id = $this->countID(`users_artists`)+1;
+        $id = $this->countID('users_artists')+1;
         $sql = "INSERT INTO `users_artists` VALUES('$id','$id_users','$id_artists')";
         return mysqli_query($this->con,$sql);
     }
 //    Find
     function get_artists_of_users($id_users){
-        $sql = "SELECT * FROM `users_artists` WHERE `id_users` = '$id_users'";
-
+        $sql = "SELECT a.* FROM `$this->table` a, `users_artists` u WHERE a.`id_artists` = u.`id_artists` AND u.`id_users` = '$id_users'";
         $data = array();
-        while($row = mysqli_fetch_object(mysqli_query($this->con,$sql))){
+        $stmt = mysqli_query($this->con,$sql);
+        while($row = mysqli_fetch_object($stmt)){
             array_push($data,$row);
         }
-
         return $data;
     }
     function get_all_artists($user_artists){
@@ -141,5 +140,10 @@ class ArtistsModel extends Model
         mysqli_query($this->con,$stmt);
         $stmt = "DELETE FROM `$this->table` WHERE `name_artists` = '$row->name_artists'";
         mysqli_query($this->con,$stmt);
+    }
+    function delete_artists_of_users($id_users,$id_artist){
+        $sql = "DELETE FROM `users_artists` WHERE `id_users` = '$id_users' AND `id_artists` = '$id_artist'";
+        $stmt = mysqli_query($this->con,$sql);
+        return $stmt;
     }
 }
