@@ -11,7 +11,7 @@ class AlbumModel extends Model{
             "error" => "",
             "msg" => ""
         );
-        $sql = "SELECT * FROM `$this->table` WHERE `id_artists` = '$id_artists'";
+        $sql = "SELECT * FROM `artists` WHERE `id_artists` = '$id_artists'";
         $stmt = mysqli_query($this->con,$sql);
         if(mysqli_num_rows($stmt) == 0){
             $response["error"] = "Artist does not exists.";
@@ -87,11 +87,13 @@ class AlbumModel extends Model{
             "msg" => ""
         );
         $sql = "SELECT * FROM `users_albums` WHERE `id_users` = '$id_users'";
-        $stmt = mysqli_query($this->con,$stmt);
+        $stmt = mysqli_query($this->con,$sql);
         if(mysqli_num_rows($stmt) == 0){
             $response["error"] = "User is not exists.";
         }else{
             $data = array();
+            $sql = "SELECT a.* FROM `$this->table` a, `users_albums` u WHERE a.`id_albums` = u.`id_albums` AND u.`id_users` = '$id_users'";
+            $stmt = mysqli_query($this->con,$sql);
             while($row = mysqli_fetch_object($stmt)){
                 array_push($data,$row);
             }
@@ -128,5 +130,10 @@ class AlbumModel extends Model{
         $stmt = mysqli_query($this->con,$sql);
         $sql = "UPDATE `$this->table` SET `id_albums` = `id_albums` - 1 WHERE `id_albums` > '$id'";
         $stmt = mysqli_query($this->con,$sql);
+    }
+    function delete_albums_of_users($id_users,$id_albums){
+        $sql = "DELETE FROM `users_albums` WHERE `id_users` = '$id_users' AND `id_albums` = '$id_albums'";
+        $stmt = mysqli_query($this->con,$sql);
+        return $stmt;
     }
 }

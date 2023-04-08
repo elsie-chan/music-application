@@ -36,19 +36,44 @@ class ArtistsModel extends Model
         return $response;
     }
     function add_artists_to_users($id_users,$id_artists){
+        $sql = "SELECT * FROM `users` WHERE `id_users` = '$id_users'";
+        $stmt = mysqli_query($this->con,$sql);
         $id = $this->countID('users_artists')+1;
-        $sql = "INSERT INTO `users_artists` VALUES('$id','$id_users','$id_artists')";
-        return mysqli_query($this->con,$sql);
+        if(mysqli_num_rows($stmt)==0) {
+            $response["error"] = "User is not exists.";
+        }else{
+            $sql = "SELECT * FROM `$this->table` WHERE `id_artists` = '$id_artists'";
+            $stmt = mysqli_query($this->con,$sql);
+            if(mysqli_num_rows($stmt) > 0){
+                $response["error"] = "Album is exists.";
+            }else{
+                $sql = "INSERT INTO `users_artists` VALUES('". $id ."', '". $id_users ."', '". $id_artists ."')";
+                $stmt = mysqli_query($this->con,$sql);
+                $response["msg"] = "Success";
+            }
+        }
+        return $response;
     }
 //    Find
     function get_artists_of_users($id_users){
-        $sql = "SELECT a.* FROM `$this->table` a, `users_artists` u WHERE a.`id_artists` = u.`id_artists` AND u.`id_users` = '$id_users'";
-        $data = array();
-        $stmt = mysqli_query($this->con,$sql);
-        while($row = mysqli_fetch_object($stmt)){
-            array_push($data,$row);
+        $response = array(
+            "error" => "",
+            "msg" => ""
+        );
+        $sql = "SELECT * FROM `users_albums` WHERE `id_users` = '$id_users'";
+        $stmt = mysqli_query($this->con,$stmt);
+        if(mysqli_num_rows($stmt) == 0){
+            $response["error"] = "User is not exists.";
+        }else{
+            $sql = "SELECT a.* FROM `$this->table` a, `users_artists` u WHERE a.`id_artists` = u.`id_artists` AND u.`id_users` = '$id_users'";
+            $data = array();
+            $stmt = mysqli_query($this->con,$sql);
+            while($row = mysqli_fetch_object($stmt)){
+                array_push($data,$row);
+            }
+            $response["msg"] = $data;
         }
-        return $data;
+        return $response;
     }
     function get_all_artists($user_artists){
         $stmt = "SELECT * FROM `$this->table` ORDER BY FIELD(`user_artists`,'$user_artists') DESC";
@@ -134,12 +159,15 @@ class ArtistsModel extends Model
             $response['error'] = "Artist has not exists";
         }
         $row = mysqli_fetch_object($sql);
+        $id = $row->id_artists;
         $stmt = "DELETE FROM `songs` WHERE `id_artists` = '$row->id_artists'";
         mysqli_query($this->con,$stmt);
         $stmt = "DELETE FROM `albums` WHERE `id_artists` = '$row->id_artists'";
         mysqli_query($this->con,$stmt);
         $stmt = "DELETE FROM `$this->table` WHERE `name_artists` = '$row->name_artists'";
         mysqli_query($this->con,$stmt);
+        $sql = "UPDATE `$this->table` SET `id_artists` = `id_artists` - 1 WHERE `id_artists` > '$id'";
+        $stmt = mysqli_query($this->con,$sql);
     }
     function delete_artists_of_users($id_users,$id_artist){
         $sql = "DELETE FROM `users_artists` WHERE `id_users` = '$id_users' AND `id_artists` = '$id_artist'";

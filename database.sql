@@ -25,9 +25,9 @@ CREATE TABLE `topics`(
 -- CREATE TABLE playlists
 -- 
 CREATE TABLE `playlists`(
-    `id_playlist` int PRIMARY KEY,
-    `name_playlist` TEXT,
-    `playlist_image` TEXT,
+    `id_playlists` int PRIMARY KEY,
+    `name_playlists` TEXT,
+    `playlists_image` TEXT,
     `create_at` DATE,
     `id_users` int
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -45,8 +45,9 @@ CREATE TABLE `artists`(
 -- CREATE TABLE albums
 -- 
 CREATE TABLE `albums`(
-    `id_alb` int PRIMARY KEY,
-    `name_alb` TEXT,
+    `id_albums` int PRIMARY KEY,
+    `name_albums` TEXT,
+    `image_albums` TEXT,
     `id_artists` int
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 -- 
@@ -55,6 +56,7 @@ CREATE TABLE `albums`(
 CREATE TABLE `songs`(
     `id_songs` int PRIMARY KEY,
     `name_songs` TEXT,
+    `src` TEXT,
     `duration` TIME,
     `release_date` DATE,
     `id_artists` int
@@ -73,14 +75,19 @@ CREATE TABLE `users`(
     `token_users` TEXT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 -- INSERT ADMIN to Users
-INSERT INTO `users` VALUE(1,'src/public/assets/imgs/avt_users.png','admin','admin@gmail.com','$2y$10$/Jj4b/w.6RNRzD6eeuFKMeyoYgHASRhQyXkkyQnlviwXQZhw8nE6q','0928416379',1,'3oi4hi34u59hewf');
 --
 -- CREATE TABLE playlists_songs
 --
 CREATE TABLE `playlists_songs`(
-    `id_playlist_song` int PRIMARY KEY,
+    `id_playlists_songs` int PRIMARY KEY,
     `id_songs` int,
-    `id_playlist` int
+    `id_playlists` int
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `users_playlists`(
+    `id_users_playlists` int PRIMARY KEY,
+    `id_users` int,
+    `id_playlists` int
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `users_artists`(
@@ -88,9 +95,13 @@ CREATE TABLE `users_artists`(
     `id_users` int,
     `id_artists` int
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
---
--- CREATE TABLE Admins
---
+
+CREATE TABLE `users_albums`(
+    `id_users_albums` int PRIMARY KEY,
+    `id_users` int,
+    `id_albums` int
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 --
 -- ADD FOREIGN KEY
 --
@@ -115,4 +126,32 @@ ALTER TABLE `playlists`
 ALTER TABLE `playlists_songs`
     ADD CONSTRAINT `FK_id_songs_playlists_songs` FOREIGN KEY (`id_songs`) REFERENCES songs(`id_songs`);
 ALTER TABLE `playlists_songs`
-    ADD CONSTRAINT `FK_id_playlists_playlists_songs` FOREIGN KEY (`id_playlist`) REFERENCES playlists(`id_playlist`);
+    ADD CONSTRAINT `FK_id_playlists_playlists_songs` FOREIGN KEY (`id_playlists`) REFERENCES playlists(`id_playlists`);
+
+ALTER TABLE `users_artists`
+    ADD CONSTRAINT `FK_id_users_users_artists` FOREIGN KEY (`id_users`) REFERENCES users(`id_users`);
+ALTER TABLE `users_artists`
+    ADD CONSTRAINT `FK_id_artists_users_artists` FOREIGN KEY (`id_artists`) REFERENCES artists(`id_artists`);
+
+ALTER TABLE `users_albums`
+    ADD CONSTRAINT `FK_id_users_users_albums` FOREIGN KEY (`id_users`) REFERENCES users(`id_users`);
+ALTER TABLE `users_albums`
+    ADD CONSTRAINT `FK_id_albums_users_albums` FOREIGN KEY (`id_albums`) REFERENCES albums(`id_albums`);
+
+ALTER TABLE `users_playlists`
+    ADD CONSTRAINT `FK_id_users_users_playlists` FOREIGN KEY (`id_users`) REFERENCES users(`id_users`);
+ALTER TABLE `users_playlists`
+    ADD CONSTRAINT `FK_id_playlists_users_playlists` FOREIGN KEY (`id_playlists`) REFERENCES playlists(`id_playlists`);
+-- INSERT INTO TABLE
+INSERT INTO `users` VALUE(1,'src/public/assets/imgs/avt_users.png','admin','admin@gmail.com','$2y$10$/Jj4b/w.6RNRzD6eeuFKMeyoYgHASRhQyXkkyQnlviwXQZhw8nE6q','0928416379',1,'3oi4hi34u59hewf');
+INSERT INTO `artists` VALUES(1, 'ns1', 'a', '1998-11-29', 'a');
+INSERT INTO `topics`VALUES
+                        (1, 'US-UK'),
+                        (2, 'V-pop'),
+                        (3, 'Acoustic'),
+                        (4, 'Rap'),
+                        (5, 'K-pop'),
+                        (6, 'Workout'),
+                        (7, 'Meditation'),
+                        (8, 'Motivation'),
+                        (9, 'Indie');

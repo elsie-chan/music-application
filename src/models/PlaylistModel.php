@@ -6,7 +6,7 @@ class PlaylistModel extends Model{
         parent::__construct();
     }
 //    create
-    function add_playlist($name_playlist,$playlist_image,$create_at,$id_users){
+    function add_playlists($name_playlists,$playlists_image,$create_at,$id_users){
         $response = array(
             "error" => "",
             "msg" => ""
@@ -16,19 +16,19 @@ class PlaylistModel extends Model{
         if(mysqli_num_rows($stmt)==0){
             $response["error"] = "User does not exists";
         }
-        $stmt = mysqli_query($this->con,"SELECT * FROM `playlists` WHERE `id_users` = '$id_users' AND `name_playlists` = '$name_playlist'");
+        $stmt = mysqli_query($this->con,"SELECT * FROM `playlists` WHERE `id_users` = '$id_users' AND `name_playlists` = '$name_playlists'");
         if(mysqli_num_rows($stmt)==0){
             $response["error"] = "Your playlist is exists";
         }
-        if ($playlist_image["error"] != 0){
+        if ($playlists_image["error"] != 0){
              $response["error"] = "Please select image of playlist.";
         }
-        if (getimagesize($playlist_image['tmp-name'])==false){
+        if (getimagesize($playlists_image['tmp-name'])==false){
              $response["error"] = "Please upload valid image.";
         }
-        $path = "public/assets/".$playlist_image['name'];
-        move_uploaded_file($playlist_image['tmp-name'],$path);
-        $sql = "INSERT INTO `$this->table` VALUES('".$id."','".$name_playlist."','".$playlist_image."','".$create_at."','".$id_users."')";
+        $path = "public/assets/".$playlists_image['name'];
+        move_uploaded_file($playlists_image['tmp-name'],$path);
+        $sql = "INSERT INTO `$this->table` VALUES('".$id."','".$name_playlists."','".$playlists_image."','".$create_at."','".$id_users."')";
         $stmt = mysqli_query($this->con,$sql);
         if($stmt){
             $response["msg"] = "Add playlist successfully.";
@@ -36,7 +36,7 @@ class PlaylistModel extends Model{
         return $response;
     }
 //    read / find
-    function get_playlist_by_name($name_playlists){
+    function get_playlists_by_name($name_playlists){
         $response = array(
             "error" => "",
             "msg" => ""
@@ -60,7 +60,7 @@ class PlaylistModel extends Model{
         }
         return $response;
     }
-    function get_all_playlist_of_user($id_user){
+    function get_all_playlists_of_user($id_user){
         $response = array(
             "error" => "",
             "msg" => ""
@@ -79,22 +79,22 @@ class PlaylistModel extends Model{
         return $response;
     }
 //    update / edit
-    function edit_playlist_by_id_playlist($id_playlist,$name_playlist,$playlist_image){
+    function edit_playlists_by_id_playlists($id_playlists,$name_playlists,$playlists_image){
         $response = array(
             "error" => "",
             "msg" => ""
         );
-        $stmt = mysqli_query($this->con,"SELECT * FROM `$this->table WHERE `id_playlist` = '$id_playlist'");
+        $stmt = mysqli_query($this->con,"SELECT * FROM `$this->table` WHERE `id_playlists` = '$id_playlists'");
         if(mysqli_num_rows($stmt)==0){
             $response["error"] = "Playlist does not exists";
         }
-        if ($playlist_image["error"] != 0){
+        if ($playlists_image["error"] != 0){
             $response["error"] = "Please select image of playlist.";
         }
-        if (getimagesize($playlist_image['tmp-name']) == False){
+        if (getimagesize($playlists_image['tmp-name']) == False){
             $response["error"] = "Please upload valid image.";
         }
-        $sql = "UPDATE `$this->table` SET `name_playlist` = '$name_playlist', `playlist_image` = '$playlist_image' WHERE `id_playlist` = '$id_playlist'";
+        $sql = "UPDATE `$this->table` SET `name_playlists` = '$name_playlists', `playlists_image` = '$playlists_image' WHERE `id_playlists` = '$id_playlists'";
         $stmt = mysqli_query($this->con,$sql);
         if($stmt){
             $response["msg"] = "Your playlist has been updated.";
@@ -102,17 +102,20 @@ class PlaylistModel extends Model{
         return $response;
     }
 //    delete
-    function delete_playlist_by_name($name_playlist){
+    function delete_playlists_by_name($name_playlists){
         $response = array(
             "error" => "",
             "msg" => ""
         );
-        $sql = "SELECT * FROM `$this->table` WHERE `name_playlists` = '$name_playlist'";
+        $sql = "SELECT * FROM `$this->table` WHERE `name_playlists` = '$name_playlists'";
         $stmt = mysqli_query($this->con,$sql);
+        $id = mysqli_fetch_object(mysqli_query($this->con,$sql))->id_playlists;
         if(mysqli_num_rows($stmt) == 0){
-            $response["error"] = "Playlist does not exists.s";
+            $response["error"] = "Playlist does not exists.";
         }else{
-            $sql = "DELETE FROM `$this->table` WHERE '$name_playlist'";
+            $sql = "DELETE FROM `$this->table` WHERE `name_playlists` = '$name_playlists'";
+            $stmt = mysqli_query($this->con,$sql);
+            $sql = "UPDATE `$this->table` SET `id_playlists` = `id_playlists` - 1 WHERE `id_playlists` > '$id'";
             $stmt = mysqli_query($this->con,$sql);
             $response["msg"] = "Playlist has been deleted.";
         }
