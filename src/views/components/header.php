@@ -34,7 +34,7 @@
             <a href="#"><i class="fa-regular fa-gear"></i></a>
         </div>
         <div class="header--avatar">
-            <a href="#">
+            <a href="/music-application/account">
                 <img src="https://cdn-icons-png.flaticon.com/512/547/547413.png" alt="avatar">
             </a>
         </div>
