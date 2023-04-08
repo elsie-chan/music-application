@@ -99,7 +99,7 @@ class UserModel extends Model {
         return $response;
     }
     function get_user_by_email($email){
-        $sql = "SELECT * FROM `$this->table` WHERE `email` = '$email'";
+        $sql = "SELECT * FROM `$this->table` WHERE `email_users` = '$email'";
         $stmt = mysqli_query($this->con,$sql);
         $response = array(
             "error" => "",
