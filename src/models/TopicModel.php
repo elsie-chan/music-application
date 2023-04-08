@@ -71,9 +71,10 @@ class TopicModel extends Model{
         return $response;
     }
 //    delete
-    function delete_topic_by_id($id_topics){
-        $sql = "SELECT * FROM `$this->table` WHERE `id_topics` = '$id_topics'";
+    function delete_topic_by_name($name_topics){
+        $sql = "SELECT * FROM `$this->table` WHERE `name_topics` = '$name_topics'";
         $stmt = mysqli_query($this->con,$sql);
+        $id = mysqli_fetch_object(mysqli_query($this->con,$sql))->id_topics;
         $response = array(
             "error" => "",
             "msg" => ""
@@ -81,7 +82,9 @@ class TopicModel extends Model{
         if(mysqli_num_rows($stmt) == 0){
             $response["error"] = "Topic has not exists.";
         }else{
-            $sql = "DELETE FROM `$this->table` WHERE `id_topics` = '$id_topics'";
+            $sql = "DELETE FROM `$this->table` WHERE `name_topics` = '$name_topics'";
+            $stmt = mysqli_query($this->con,$sql);
+            $sql = "UPDATE `$this->table` SET `id_topics` = `id_topics` - 1 WHERE `id_topics` > '$id'";
             $stmt = mysqli_query($this->con,$sql);
             $response["msg"] = "Topic has been removed.";
         }

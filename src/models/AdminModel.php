@@ -50,18 +50,39 @@ class AdminModel extends Model{
         return mysqli_query($this->con,$sql);
     }
     // Find One User By ID
-    public function get_user_by_id($id_user){
-        $sql = "SELECT 
-                      * 
+    function get_user_by_username($username)
+    {
+        $sql = "SELECT
+                      *
                 FROM 
                       $this->table 
                 WHERE 
-                      `id_users` = '$id_user'";
+                      `username` = '$username'";
         $stmt = mysqli_query($this->con, $sql);
-        if (mysqli_num_rows($stmt) > 0)
-            return mysqli_fetch_object($stmt);
-        else
-            return null;
+        $response = array(
+            "error" => "",
+            "msg" => ""
+        );
+        if (mysqli_num_rows($stmt) > 0) {
+            $response["msg"] = mysqli_fetch_object($stmt);
+        } else {
+            $response["error"] = "User is not exists.";
+        }
+        return $response;
+    }
+    function get_user_by_email($email){
+        $sql = "SELECT * FROM `$this->table` WHERE `email` = '$email'";
+        $stmt = mysqli_query($this->con,$sql);
+        $response = array(
+            "error" => "",
+            "msg" => ""
+        );
+        if(mysqli_num_rows($stmt)>0){
+            $response["msg"] = mysqli_fetch_object($stmt);
+        }else{
+            $response["error"] = "User is not exists.";
+        }
+        return $response;
     }
     // Find All Users
     public function get_all_user(){
