@@ -13,6 +13,7 @@ $routes = [
     (new Route('search', 'GET', SearchController::class, 'index')),
     (new Route('account', 'GET', UserController::class, 'index')),
     (new Route('test', 'POST', UserController::class, 'test')),
+    (new Route('home', 'POST', HomeController::class, 'test')),
     (new Route('liked_songs', 'GET', LibrariesController::class, 'liked_songs')),
 ];
 

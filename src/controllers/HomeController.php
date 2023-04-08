@@ -11,4 +11,10 @@ class HomeController extends Controller {
             $this->load_view('auth/auth.login');
         }
     }
+    public function test(){
+        $model_response = $this->model_playlist;
+        $res = $model_response->edit_album_by_id('2','alb2','abc','2');
+        print_r($res);
+        die();
+    }
 }
