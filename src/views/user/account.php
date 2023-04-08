@@ -160,7 +160,11 @@
         });
 
     //     js for upload avatar
-
+        $.ajax({
+            url: '',
+            type: GET|POST|DELETE,
+            sucess: function() {...}
+        })
 
     </script>
 
