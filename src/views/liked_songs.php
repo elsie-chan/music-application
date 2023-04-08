@@ -48,8 +48,18 @@
             filter: blur(50px);
             -webkit-filter: blur(50px);
         }
+        .fa-heart{
+            background: transparent;
+            border: none;
+            color: white;
+        }
+        /* .fa-heart:focus{
+            color: red;
+        } */
 
-        
+        .liked--song.song--active {
+            color: red;
+        }
     </style>
 </head>
 <body>
@@ -72,25 +82,15 @@
                                 </div>
                                 <div class="card-info">
                                     <h6>Norman fucking Rockwell</h6>
-                                    <p>Lana Del Rey</p>
+                                    <a>Lana Del Rey</a>
                                 </div>
                             </div>
                         </div>
                         <div class="col media-right">
                             <i class="more fa-solid fa-ellipsis-vertical"></i>
                             <div class="song__like" >
-                                <button class="fa-solid fa-heart"></button>
+                                <button class="liked--song fa-solid fa-heart" name ="heart"></button>
                             </div> 
-                            <style>
-                                .fa-heart{
-                                    background: transparent;
-                                    border: none;
-                                    color: white;
-                                }
-                                .fa-heart:focus{
-                                    color: #97a0de;
-                                }
-                            </style>
                         </div>
                     </li>
                     <li class="media">
@@ -104,14 +104,14 @@
                                 </div>
                                 <div class="card-info">
                                     <h6>Fuck it I love you</h6>
-                                    <p>Lana Del Rey</p>
+                                    <a>Lana Del Rey</a>
                                 </div>
                             </div>
                         </div>
                         <div class="col media-right">
                             <i class="more fa-solid fa-ellipsis-vertical"></i>
                             <div class="song__like">
-                                <button class="fa-solid fa-heart"></button>
+                                <button class="liked--song fa-solid fa-heart" name ="heart"></button>
                             </div> 
                         </div>
                     </li>
@@ -126,20 +126,14 @@
                                 </div>
                                 <div class="card-info">
                                     <h6>Venice Bitch</h6>
-                                    <p>Lana Del Rey</p>
+                                    <a>Lana Del Rey</a>
                                 </div>
-                                <div class="time">he</div>
-                                <style>
-                                    .time{
-                                        text-align: right;
-                                    }
-                                </style>
                             </div>
                         </div>
                         <div class="col media-right">
                             <i class="more fa-solid fa-ellipsis-vertical"></i>
                             <div class="song__like">
-                                <button class="fa-solid fa-heart"></button>
+                                <button class="liked--song fa-solid fa-heart" name ="heart"></button>
                             </div> 
                         </div>
                     </li>
@@ -154,14 +148,14 @@
                                 </div>
                                 <div class="card-info">
                                     <h6>Doin' Time</h6>
-                                    <p>Lana Del Rey</p>
+                                    <a>Lana Del Rey</a>
                                 </div>
                             </div>
                         </div>
                         <div class="col media-right">
                             <i class="more fa-solid fa-ellipsis-vertical"></i>
                             <div class="song__like">
-                                <button class="fa-solid fa-heart"></button>
+                                <button class="liked--song fa-solid fa-heart" name ="heart"></button>
                             </div> 
                         </div>
                     </li>
@@ -176,14 +170,14 @@
                                 </div>
                                 <div class="card-info">
                                     <h6>Cinnamon Girl</h6>
-                                    <p>Lana Del Rey</p>
+                                    <a>Lana Del Rey</a>
                                 </div>
                             </div>
                         </div>
                         <div class="col media-right">
                             <i class="more fa-solid fa-ellipsis-vertical"></i>
                             <div class="song__like">
-                                <button class="fa-solid fa-heart"></button>
+                                <button class="liked--song fa-solid fa-heart" name ="heart"></button>
                             </div> 
                         </div>
                     </li>
@@ -198,14 +192,14 @@
                                 </div>
                                 <div class="card-info">
                                     <h6>California</h6>
-                                    <p>Lana Del Rey</p>
+                                    <a>Lana Del Rey</a>
                                 </div>
                             </div>
                         </div>
                         <div class="col media-right">
                             <i class="more fa-solid fa-ellipsis-vertical"></i>
                             <div class="song__like">
-                                <button class="fa-solid fa-heart"></button>
+                                <button class="liked--song fa-solid fa-heart" name ="heart"></button>
                             </div> 
                         </div>
                     </li>
@@ -220,14 +214,14 @@
                                 </div>
                                 <div class="card-info">
                                     <h6>Happiness is a butterfly</h6>
-                                    <p>Lana Del Rey</p>
+                                    <a>Lana Del Rey</a>
                                 </div>
                             </div>
                         </div>
                         <div class="col media-right">
                             <i class="more fa-solid fa-ellipsis-vertical"></i>
                             <div class="song__like">
-                                <button class="fa-solid fa-heart"></button>
+                                <button class="liked--song fa-solid fa-heart" name ="heart"></button>
                             </div> 
                         </div>
                     </li>
@@ -242,14 +236,14 @@
                                 </div>
                                 <div class="card-info">
                                     <h6>Bartender</h6>
-                                    <p>Lana Del Rey</p>
+                                    <a>Lana Del Rey</a>
                                 </div>
                             </div>
                         </div>
                         <div class="col media-right">
                             <i class="more fa-solid fa-ellipsis-vertical"></i>
                             <div class="song__like">
-                                <button class="fa-solid fa-heart"></button>
+                                <button class="liked--song fa-solid fa-heart" name ="heart"></button>
                             </div> 
                         </div>
                     </li>
@@ -264,14 +258,14 @@
                                 </div>
                                 <div class="card-info">
                                     <h6>hope is  a dangerous thing for women like me to have</h6>
-                                    <p>Lana Del Rey</p>
+                                    <a>Lana Del Rey</a>
                                 </div>
                             </div>
                         </div>
                         <div class="col media-right">
                             <i class="more fa-solid fa-ellipsis-vertical"></i>
                             <div class="song__like">
-                                <button class="fa-solid fa-heart"></button>
+                                <button class="liked--song fa-solid fa-heart" name ="heart"></button>
                             </div> 
                         </div>
                     </li>
@@ -286,14 +280,14 @@
                                 </div>
                                 <div class="card-info">
                                     <h6>hope is  a dangerous thing for women like me to have</h6>
-                                    <p>Lana Del Rey</p>
+                                    <a>Lana Del Rey</a>
                                 </div>
                             </div>
                         </div>
                         <div class="col media-right">
                             <i class="more fa-solid fa-ellipsis-vertical"></i>
                             <div class="song__like">
-                                <button class="fa-solid fa-heart"></button>
+                                <button class="liked--song fa-solid fa-heart" name ="heart"></button>
                             </div> 
                         </div>
                     </li>
@@ -308,14 +302,14 @@
                                 </div>
                                 <div class="card-info">
                                     <h6>hope is  a dangerous thing for women like me to have</h6>
-                                    <p>Lana Del Rey</p>
+                                    <a>Lana Del Rey</a>
                                 </div>
                             </div>
                         </div>
                         <div class="col media-right">
                             <i class="more fa-solid fa-ellipsis-vertical"></i>
                             <div class="song__like">
-                                <button class="fa-solid fa-heart"></button>
+                                <button class="liked--song fa-solid fa-heart" name ="heart"></button>
                             </div> 
                         </div>
                     </li>
@@ -330,14 +324,14 @@
                                 </div>
                                 <div class="card-info">
                                     <h6>hope is  a dangerous thing for women like me to have</h6>
-                                    <p>Lana Del Rey</p>
+                                    <a>Lana Del Rey</a>
                                 </div>
                             </div>
                         </div>
                         <div class="col media-right">
                             <i class="more fa-solid fa-ellipsis-vertical"></i>
                             <div class="song__like">
-                                <button class="fa-solid fa-heart"></button>
+                                <button class="liked--song fa-solid fa-heart" name ="heart"></button>
                             </div> 
                         </div>
                     </li>
@@ -352,14 +346,14 @@
                                 </div>
                                 <div class="card-info">
                                     <h6>hope is  a dangerous thing for women like me to have</h6>
-                                    <p>Lana Del Rey</p>
+                                    <a>Lana Del Rey</a>
                                 </div>
                             </div>
                         </div>
                         <div class="col media-right">
                             <i class="more fa-solid fa-ellipsis-vertical"></i>
                             <div class="song__like">
-                                <button class="fa-solid fa-heart"></button>
+                                <button class="liked--song fa-solid fa-heart" name ="heart"></button>
                             </div> 
                         </div>
                     </li>
@@ -398,17 +392,40 @@
 
         // Display modal 
 
-        const moreFunction = document.querySelector('.more-function');
-        const moreButton = document.querySelector('.more-info');
-        moreButton.addEventListener('click', () => {
-            if(moreFunction.style.display === 'none') {
-                moreFunction.style.display = 'inline-block';
-                // console.log('hello');
-            } else {
-                moreFunction.style.display = 'none';
-            }
-        });
+        // const moreFunction = document.querySelector('.more-function');
+        // const moreButton = document.querySelector('.more-info');
+        // moreButton.addEventListener('click', () => {
+        //     if(moreFunction.style.display === 'none') {
+        //         moreFunction.style.display = 'inline-block';
+        //     } else {
+        //         moreFunction.style.display = 'none';
+        //     }
+        // });
+
+
+        // js for change heart icon on click 
+        let hearts = document.querySelectorAll(".liked--song");
+        // console.log(hearts.length);
+        for(let i = 0; i < hearts.length; i++) {
+            hearts[i].addEventListener("click", function() {
+                hearts[i].classList.toggle("song--active");
+            })
+        }
 
     </script>
+    <!-- <script>
+        const test22 = document.getElementsByName("heart"); 
+        let len = test22.length;
+        for(tet of test22){
+            tet.addEventListener('click', () => {
+                if(test.style.)){
+                    this.classList.remove("focus");
+                } else {
+                    this.classList.add("focus");
+                }
+            })
+        }
+    </script> -->
+    
 </body>
 </html>

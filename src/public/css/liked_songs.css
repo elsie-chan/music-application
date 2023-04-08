@@ -65,3 +65,12 @@
 .media:hover .icon-play-song {
   visibility: visible;
 }
+
+
+
+.fa-heart{
+    background: transparent;
+    border: none;
+    color: white;
+}
+

@@ -2,16 +2,12 @@
 #home_library{
 	background: #0B1220;
 }
-/* .topic {
-	display: inline-block;
-} */
+
 .card-body{
 	height:100px;
-	font-size: 18px;
+	font-size: small;
 	color: white;
 	font-weight: 700;
-
-
 }
 .card{
 	background: rgba(255, 255, 255, 0.2);
@@ -24,6 +20,7 @@
 .navbar-expand{
 	padding-left: 0;
 }
+
 
 
 
