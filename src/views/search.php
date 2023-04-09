@@ -51,11 +51,11 @@
 <?php require_once 'components/controlbar.php' ?>
 <div id="search">
     <?php require_once 'components/header.php' ?>
-    <div class="row m-0 p-0 height">
-        <div class="col-md-6 m-3">
+    <div class="row  p-0 height ">
+        <div class="col-md-6 col-sm-6 col search-container">
             <div class="form d-flex flex-row">
-                <input type="text" class="border-0 form-control form-input p-2" placeholder="Find your songs here?">
-                <i class="fa fa-search p-2"></i>
+                <input type="text" class="border-0 form-control form-input p-2 search-input " placeholder="Find your songs here?">
+                <i class="search-box fa fa-search p-2"></i>
             </div>
         </div>
     </div>
@@ -106,21 +106,24 @@
     <script src="<?php echo url('src/public/vendors/jquery/jquery.js')?>"></script>
     <script src="<?php echo url('src/public/vendors/bootstrap/js/bootstrap.bundle.min.js')?>"></script>
 
-    <!-- js for sidebar resize -->
-    <script>
+    <script type="text/javascript">
+        // <!-- js for sidebar resize -->
         // const $ = document.querySelector.bind(document);
         const sidebar = document.querySelector('.sidebar');
         const search = document.querySelector('#search');
+        
         document.addEventListener("DOMContentLoaded", function(event) { 
             resizeSidebar();
         });
 
-        window.addEventListener('resize', function() {
-            resizeSidebar();
-        });
+        // window.addEventListener('resize', function() {
+        //     resizeSidebar();
+        // });
 
         function resizeSidebar() {
             if (window.innerWidth < 1000) {
+                
+               
                 sidebar.classList.add("toggle");
                 search.style.width = "calc(100% - 80px)";
                 search.style.left = "80px";
@@ -130,6 +133,29 @@
                 search.style.left = "200px";
             }
         }
+
+        $(document).ready(function () {
+            const header = $('.header')
+            const heightHeader = header[0].offsetHeight;
+            const searchContainer = $('.search-container');
+            $(window).on('resize', function () {
+                resizeSidebar();
+
+                if ($(window).width() < 786) {
+                searchContainer.css ({
+                    "margin-top" : heightHeader + "px"
+                })
+                } else {
+                    searchContainer.css({
+                    "margin-top": "1em"
+                    })
+                }
+            })
+        })
+        
+
+        // click event to show search
+    
     </script>
 </body>
 </html>

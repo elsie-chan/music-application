@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="<?php echo url('src/public/vendors/font-awesome-6-pro-main/css/all.css')?>">
     <link rel="stylesheet" href="<?php echo url('src/public/css/style.css') ?>">
     <link rel="stylesheet" href="<?php echo url('src/public/css/playlistView.css')?>">
+    <link rel="stylesheet" href="<?php echo url('src/public/css/components/contextMenu.css')?>">
+    
     <style>
         @import "<?php echo url('src/public/css/style.css') ?>";
         body {
@@ -58,7 +60,86 @@
     <?php require_once 'components/controlbar.php' ?>
     <div id="playlist">
         <?php require_once 'components/header.php' ?>
+        <?php 
+            $author = [
+                'Lana Del Rey', 'Lam_Si-chan', 'Elsie_nè', 'Hahah'
+            ];
+
+            $name = [
+                'AtlanTa', 'Florentino', 'hí',  'Elsie_nè'
+            ];
+
+            $songs = [
+                [
+                    'link_song' => 'src/public/assets/imgs/song1.png',
+                    'author' => $author[rand()&3],
+                    'name' => $name[rand()&3]
+                ],
+                [
+                    'link_song' => 'src/public/assets/imgs/song1.png',
+                    'author' => $author[rand()&3],
+                    'name' => $name[rand()&3]
+                ],
+                [
+                    'link_song' => 'src/public/assets/imgs/song1.png',
+                    'author' => $author[rand()&3],
+                    'name' => $name[rand()&3]
+                ],
+                [
+                    'link_song' => 'src/public/assets/imgs/song1.png',
+                    'author' => $author[rand()&3],
+                    'name' => $name[rand()&3]
+                ],
+                [
+                    'link_song' => 'src/public/assets/imgs/song1.png',
+                    'author' => $author[rand()&3],
+                    'name' => $name[rand()&3]
+                ],
+                [
+                    'link_song' => 'src/public/assets/imgs/song1.png',
+                    'author' => $author[rand()&3],
+                    'name' => $name[rand()&3]
+                ],
+                [
+                    'link_song' => 'src/public/assets/imgs/song1.png',
+                    'author' => $author[rand()&3],
+                    'name' => $name[rand()&3]
+                ],
+                [
+                    'link_song' => 'src/public/assets/imgs/song1.png',
+                    'author' => $author[rand()&3],
+                    'name' => $name[rand()&3]
+                ],
+                [
+                    'link_song' => 'src/public/assets/imgs/song1.png',
+                    'author' => $author[rand()&3],
+                    'name' => $name[rand()&3]
+                ],
+                [
+                    'link_song' => 'src/public/assets/imgs/song1.png',
+                    'author' => $author[rand()&3],
+                    'name' => $name[rand()&3]
+                ],
+                [
+                    'link_song' => 'src/public/assets/imgs/song1.png',
+                    'author' => $author[rand()&3],
+                    'name' => $name[rand()&3]
+                ],
+                [
+                    'link_song' => 'src/public/assets/imgs/song1.png',
+                    'author' => $author[rand()&3],
+                    'name' => $name[rand()&3]
+                ],
+                [
+                    'link_song' => 'src/public/assets/imgs/song1.png',
+                    'author' => $author[rand()&3],
+                    'name' => $name[rand()&3]
+                ]
+            ]
+        ?>
         <div class="row content m-0">
+            <!-- <?php require_once 'components/contextMenu.php' ?> -->
+
             <div class="col-md-4 col-sm-12 col-12  ml-0 mr-2 card bg-card row" style="min-height: 320px; width: 100%;">
                 <div class="back-side col">
                 </div>
@@ -94,7 +175,29 @@
             <div class="col">
                 <!-- <h2>hwihdwiduw</h2> -->
                 <ul class="list-unstyled mt-3">
-                    <li class="media">
+                    <?php foreach ($songs as $key => $song) { ?>
+                        <li class="media">
+                            <div class="col-10">
+                                <div class="row media-left">
+                                    <div class="songThumbnail">
+                                        <img src="<?php echo url($song['link_song']) ?>" alt="song avatar" >
+                                        <span class="icon-play-song">
+                                            <i class="fa-duotone fa-play"></i>
+                                        </span>
+                                    </div>
+                                    <div class="card-info">
+                                        <h6><?php echo $song['name']?></h6>
+                                        <a href="#"><?php echo $song['author']?></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col media-right more-option">
+                                <i class="more fa-solid fa-ellipsis-vertical"></i>
+                                <?php require 'components/contextMenu.php' ?>
+                            </div>
+                        </li>
+                    <?php } ?>
+                    <!-- <li class="media">
                         <div class="col-10">
                             <div class="row media-left">
                                 <div class="songThumbnail">
@@ -109,7 +212,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col media-right">
+                        <div class="col media-right more-option">
                             <i class="more fa-solid fa-ellipsis-vertical"></i>
                         </div>
                     </li>
@@ -128,7 +231,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col media-right">
+                        <div class="col media-right more-option">
                             <i class="more fa-solid fa-ellipsis-vertical"></i>
                         </div>
                     </li>
@@ -147,7 +250,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col media-right">
+                        <div class="col media-right more-option">
                             <i class="more fa-solid fa-ellipsis-vertical"></i>
                         </div>
                     </li>
@@ -166,7 +269,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col media-right">
+                        <div class="col media-right more-option">
                             <i class="more fa-solid fa-ellipsis-vertical"></i>
                         </div>
                     </li>
@@ -185,7 +288,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col media-right">
+                        <div class="col media-right more-option">
                             <i class="more fa-solid fa-ellipsis-vertical"></i>
                         </div>
                     </li>
@@ -204,7 +307,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col media-right">
+                        <div class="col media-right more-option">
                             <i class="more fa-solid fa-ellipsis-vertical"></i>
                         </div>
                     </li>
@@ -223,7 +326,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col media-right">
+                        <div class="col media-right more-option">
                             <i class="more fa-solid fa-ellipsis-vertical"></i>
                         </div>
                     </li>
@@ -242,7 +345,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col media-right">
+                        <div class="col media-right more-option">
                             <i class="more fa-solid fa-ellipsis-vertical"></i>
                         </div>
                     </li>
@@ -261,7 +364,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col media-right">
+                        <div class="col media-right more-option">
                             <i class="more fa-solid fa-ellipsis-vertical"></i>
                         </div>
                     </li>
@@ -280,7 +383,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col media-right">
+                        <div class="col media-right more-option">
                             <i class="more fa-solid fa-ellipsis-vertical"></i>
                         </div>
                     </li>
@@ -299,7 +402,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col media-right">
+                        <div class="col media-right more-option">
                             <i class="more fa-solid fa-ellipsis-vertical"></i>
                         </div>
                     </li>
@@ -318,7 +421,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col media-right">
+                        <div class="col media-right more-option">
                             <i class="more fa-solid fa-ellipsis-vertical"></i>
                         </div>
                     </li>
@@ -337,19 +440,19 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col media-right">
+                        <div class="col media-right more-option">
                             <i class="more fa-solid fa-ellipsis-vertical"></i>
                         </div>
-                    </li>
+                    </li> -->
                 </ul>
                 <!-- Context menu for song  -->
-                <div class="menu-wrapper song-menu p-0" style="top: 0;left: 0;">
+                <!-- <div class="menu-wrapper song-menu p-0" style="top: 0;left: 0;">
                     <ul class="menu list-group list-group-flush">
                         <li class="list-group-item"><a href="#">Add to playlist</a></li>
                         <li class="list-group-item"><a href="#">Save to your Liked song</a></li>
                         <li class="list-group-item"><a href="#">Remove from this playlist</a></li>
                     </ul>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -391,8 +494,9 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src='<?php echo url('src/public/js/contextMenu.js')?>' type="text/javascript"></script>
 
-    <script type="text/javascript">
+<script type="text/javascript">
 
         // <!-- js for sidebar resize -->
         // const $ = document.querySelector.bind(document);

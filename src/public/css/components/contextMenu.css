@@ -1,0 +1,33 @@
+.context-menu {
+  position: absolute;
+  z-index: 10000;
+  display: none;
+  top: 20px;
+  right: 0;
+  background-color: aliceblue;
+  border-radius: 5px;
+  min-width: 209px;
+}
+
+.context-menu .items {
+  list-style-type: none;
+}
+
+.context-menu .item {
+  padding: 10px;
+}
+.menu {
+  background-color: #212529;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+}
+.menu a {
+  color: var(--white);
+}
+.menu li:hover {
+  background-color: var(--grey);
+}
+.menu .list-group-item {
+  background-color: #212529;
+  border-radius: 4px;
+}
