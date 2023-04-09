@@ -7,8 +7,8 @@
 
 /* .bg-card {
   position: sticky; */
-  /* top: 0; */
-  /* max-height: 90vh;
+/* top: 0; */
+/* max-height: 90vh;
 } */
 
 .front-side {
@@ -17,7 +17,6 @@
   left: 0;
   width: 100%;
 }
-
 
 .info {
   color: var(--white);
@@ -36,23 +35,31 @@
   box-shadow: none !important;
 }
 
-.functional{
-    align-items :center;
-    position: relative;
+.functional {
+  align-items: center;
+  position: relative;
 }
 
 .play-song {
-    font-size: 3rem;
-    color: var(--hightlight);
-    
+  font-size: 3rem;
+  color: var(--hightlight);
 }
 .more-info {
   font-size: 2rem;
 }
 
-.repeat-song:hover,.more-info:hover, .more:hover, .edit-name:hover{
+.more {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.repeat-song:hover,
+.more-info:hover,
+.more:hover,
+.edit-name:hover {
   cursor: pointer;
-  opacity: .8;
+  opacity: 0.8;
   transition: 0.5s;
 }
 
@@ -61,7 +68,6 @@
   font-size: 3.3rem;
   transition: 0.5s;
 }
-
 
 .more-function {
   /* display: none; */
@@ -81,9 +87,8 @@
   color: var(--white);
   text-decoration: none;
   line-height: 46px;
-  display: block; 
+  display: block;
   padding: 0 24px;
-
 }
 
 .more-function li:hover a {
@@ -92,6 +97,7 @@
 }
 
 .media {
+  display: flex;
   justify-content: space-between;
   padding: 10px;
   gap: 1em;
@@ -145,7 +151,7 @@
 }
 
 .songThumbnail .icon-play-song {
-  visibility:hidden;
+  visibility: hidden;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -169,11 +175,11 @@
   width: 100%;
 }
 
-.modal-body .avt-playlist:hover  img {
-  opacity: .5;
+.modal-body .avt-playlist:hover img {
+  opacity: 0.5;
 }
 
-.modal-body .avt-playlist:hover  .hide{
+.modal-body .avt-playlist:hover .hide {
   display: block;
   color: var(--blue-bg);
 }
@@ -210,24 +216,6 @@
 }
 
 /* menu */
-.song-menu {
-  display: inline-block;
-  position: absolute;
-  visibility: hidden;
-}
-
-.menu {
-  background-color: #212529;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  border-radius: 4px;
-}
-.menu a{
-  color: var(--white);
-}
-.menu li:hover{
-  background-color: var(--grey);
-}
-.menu .list-group-item {
-  background-color: #212529;
-  border-radius: 4px;
+.more-option {
+  position: relative;
 }
