@@ -12,11 +12,7 @@ class PlaylistModel extends Model{
             "msg" => ""
         );
         $id = $this->countID($this->table)+1;
-        $stmt = mysqli_query($this->con,"SELECT * FROM `users` WHERE `id_users` = '$id_users'");
-        if(mysqli_num_rows($stmt)==0){
-            $response["error"] = "User does not exists";
-        }
-        $stmt = mysqli_query($this->con,"SELECT * FROM `playlists` WHERE `id_users` = '$id_users' AND `name_playlists` = '$name_playlists'");
+        $stmt = mysqli_query($this->con,"SELECT * FROM `$this->table` WHERE `id_users` = '$id_users' AND `name_playlists` = '$name_playlists'");
         if(mysqli_num_rows($stmt)==0){
             $response["error"] = "Your playlist is exists";
         }
@@ -26,7 +22,7 @@ class PlaylistModel extends Model{
         if (getimagesize($playlists_image['tmp-name'])==false){
              $response["error"] = "Please upload valid image.";
         }
-        $path = "public/assets/".$playlists_image['name'];
+        $path = "public/assets/imgs/".$playlists_image['name'];
         move_uploaded_file($playlists_image['tmp-name'],$path);
         $sql = "INSERT INTO `$this->table` VALUES('".$id."','".$name_playlists."','".$playlists_image."','".$create_at."','".$id_users."')";
         $stmt = mysqli_query($this->con,$sql);
