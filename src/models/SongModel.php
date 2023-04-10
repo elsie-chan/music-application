@@ -52,6 +52,7 @@ class SongModel extends Model{
             }else{
                 $sql = "SELECT * FROM `playlists_songs` WHERE `id_songs` = '$id_songs' AND `id_playlists` = '$id_playlists'";
                 $stmt = mysqli_query($this->con,$sql);
+                $id = $this->countID('playlists_songs')+1;
                 if(mysqli_num_rows($stmt) > 0){
                     $response["error"] = "Song is exists.";
                 }else{
@@ -117,6 +118,8 @@ class SongModel extends Model{
         if(mysqli_num_rows($stmt) == 0){
             $response["error"] = "Playlist is not exists.";
         }else{
+            $sql = "SELECT s.* FROM `$this->table` s, `playlists_songs` p WHERE s.`id_songs` = p.`id_songs` AND p.`id_playlists` = '$id_playlists'";
+            $stmt = mysqli_query($this->con,$sql);
             while($row = mysqli_fetch_object($stmt)) {
                 array_push($data, $row);
             }
