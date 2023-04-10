@@ -28,6 +28,7 @@ CREATE TABLE `playlists`(
     `id_playlists` int PRIMARY KEY,
     `name_playlists` TEXT,
     `playlists_image` TEXT,
+    `description` TEXT,
     `create_at` DATE,
     `id_users` int
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -59,7 +60,9 @@ CREATE TABLE `songs`(
     `src` TEXT,
     `duration` TIME,
     `release_date` DATE,
-    `id_artists` int
+    `id_artists` int,
+    `id_albums` int,
+    `id_topics` int
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 -- 
 -- CREATE TABLE users
@@ -80,14 +83,8 @@ CREATE TABLE `users`(
 --
 CREATE TABLE `playlists_songs`(
     `id_playlists_songs` int PRIMARY KEY,
-    `id_songs` int,
-    `id_playlists` int
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-CREATE TABLE `users_playlists`(
-    `id_users_playlists` int PRIMARY KEY,
-    `id_users` int,
-    `id_playlists` int
+    `id_playlists` int,
+    `id_songs` int
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `users_artists`(
@@ -138,20 +135,33 @@ ALTER TABLE `users_albums`
 ALTER TABLE `users_albums`
     ADD CONSTRAINT `FK_id_albums_users_albums` FOREIGN KEY (`id_albums`) REFERENCES albums(`id_albums`);
 
-ALTER TABLE `users_playlists`
-    ADD CONSTRAINT `FK_id_users_users_playlists` FOREIGN KEY (`id_users`) REFERENCES users(`id_users`);
-ALTER TABLE `users_playlists`
-    ADD CONSTRAINT `FK_id_playlists_users_playlists` FOREIGN KEY (`id_playlists`) REFERENCES playlists(`id_playlists`);
 -- INSERT INTO TABLE
-INSERT INTO `users` VALUE(1,'src/public/assets/imgs/avt_users.png','admin','admin@gmail.com','$2y$10$/Jj4b/w.6RNRzD6eeuFKMeyoYgHASRhQyXkkyQnlviwXQZhw8nE6q','0928416379',1,'3oi4hi34u59hewf');
-INSERT INTO `artists` VALUES(1, 'ns1', 'a', '1998-11-29', 'a');
+INSERT INTO `users` VALUE
+    (1,'src/public/assets/imgs/avt_users.png','admin','admin@gmail.com','$2y$10$/Jj4b/w.6RNRzD6eeuFKMeyoYgHASRhQyXkkyQnlviwXQZhw8nE6q','0928416379',1,'3oi4hi34u59hewf'),
+    (2,'src/public/assets/imgs/avt_users.png','baola','baola@gmail.com','$2y$10$/Jj4b/w.6RNRzD6eeuFKMeyoYgHASRhQyXkkyQnlviwXQZhw8nE6q','0928416379',0,'3oi4hi34u59hewf');
+INSERT INTO `artists` VALUES
+                          (1, 'ns1', 'a', '1998-11-29', 'a'),
+                          (2, 'ns2', 'a', '1998-11-29', 'a'),
+                          (3, 'ns3', 'a', '1998-11-29', 'a');
+INSERT INTO `albums` VALUES
+                         (1,'alb1','a',1),
+                         (2,'alb2','a',1),
+                         (3,'alb3','a',1);
+INSERT INTO `playlists` VALUES
+                            (1,'playlist1','a','abcad','2023-4-9',1),
+                            (2,'playlist2','a','abcad','2023-4-9',1),
+                            (3,'playlist3','a','abcad','2023-4-9',1),
+                            (4,'playlist4','a','abcad','2023-4-9',2),
+                            (5,'playlist5','a','abcad','2023-4-9',2);
 INSERT INTO `topics`VALUES
-                        (1, 'US-UK'),
-                        (2, 'V-pop'),
-                        (3, 'Acoustic'),
-                        (4, 'Rap'),
-                        (5, 'K-pop'),
-                        (6, 'Workout'),
-                        (7, 'Meditation'),
-                        (8, 'Motivation'),
-                        (9, 'Indie');
+                    (1, 'US-UK'),
+                    (2, 'V-pop'),
+                    (3, 'Acoustic'),
+                    (4, 'Rap'),
+                    (5, 'K-pop'),
+                    (6, 'Workout'),
+                    (7, 'Meditation'),
+                    (8, 'Motivation'),
+                    (9, 'Indie');
+INSERT INTO `songs` VALUES
+                        (1,'tdtu song','src/public/assets/songs/tdtu.mp3','120','1995-4-9',1,1,1)

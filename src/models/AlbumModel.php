@@ -45,7 +45,7 @@ class AlbumModel extends Model{
             if(mysqli_num_rows($stmt) == 0){
                 $response["error"] = "Album is not exists.";
             }else{
-                $sql = "SELECT * FROM `users_albums` WHERE `id_albums` = '$id_albums'";
+                $sql = "SELECT * FROM `users_albums` WHERE `id_albums` = '$id_albums' AND `id_users` = '$id_users'";
                 $stmt = mysqli_query($this->con,$sql);
                 if(mysqli_num_rows($stmt) > 0){
                     $response["error"] = "Album is exists.";
@@ -137,14 +137,31 @@ class AlbumModel extends Model{
         );
         $sql = "SELECT * FROM `$this->table` WHERE `name_albums` = '$name_album'";
         $id = mysqli_fetch_object(mysqli_query($this->con,$sql))->id_albums;
+        $sql = "DELETE FROM `users_albums` WHERE `id_albums` = '$id'";
+        $stmt = mysqli_query($this->con,$sql);
         $sql = "DELETE FROM `$this->table` WHERE `name_albums` = '$name_album'";
         $stmt = mysqli_query($this->con,$sql);
         $sql = "UPDATE `$this->table` SET `id_albums` = `id_albums` - 1 WHERE `id_albums` > '$id'";
         $stmt = mysqli_query($this->con,$sql);
+        if($stmt){
+            $response["msg"] = "Album has been removed.";
+        }else{
+            $response["error"] = "Failed.";
+        }
+        return $response;
     }
     function delete_albums_of_users($id_users,$id_albums){
+        $response = array(
+            "error" => "",
+            "msg" => ""
+        );
         $sql = "DELETE FROM `users_albums` WHERE `id_users` = '$id_users' AND `id_albums` = '$id_albums'";
         $stmt = mysqli_query($this->con,$sql);
-        return $stmt;
+        if($stmt){
+            $response["msg"] = "Album has been removed.";
+        }else{
+            $response["error"] = "Failed.";
+        }
+        return $response;
     }
 }

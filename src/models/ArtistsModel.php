@@ -5,8 +5,7 @@ use App\Model\Model;
 class ArtistsModel extends Model
 {
     protected $table = 'artists';
-    public function __construct()
-    {
+    public function __construct(){
         parent::__construct();
     }
 //    Create
@@ -26,7 +25,7 @@ class ArtistsModel extends Model
         if (getimagesize($picture['tmp-name'])==false){
             $response["error"] = "Please upload valid image.";
         }
-        $path = "public/assets/".$picture['name'];
+        $path = "public/assets/imgs/".$picture['name'];
         move_uploaded_file($picture['tmp-name'],$path);
         $stmt = "INSERT INTO `artists` VALUES ('".$id."','".$username."','".$picture."','".$birthday."','".$social_media."')";
         $sql = mysqli_query($this->con,$stmt);
@@ -51,7 +50,7 @@ class ArtistsModel extends Model
             if(mysqli_num_rows($stmt) == 0){
                 $response["error"] = "Artists is not exists.";
             }else{
-                $sql = "SELECT * FROM `users_artists` WHERE `id_artists` = '$id_artists'";
+                $sql = "SELECT * FROM `users_artists` WHERE `id_artists` = '$id_artists' AND `id_users` = '$id_users'";
                 $stmt = mysqli_query($this->con,$sql);
                 if(mysqli_num_rows($stmt) > 0){
                     $response["error"] = "Artists is exists.";
@@ -86,52 +85,61 @@ class ArtistsModel extends Model
         return $response;
     }
     function get_all_artists($id_artists){
+        $response = array(
+            "error" => "",
+            "msg" => ""
+        );
         $stmt = "SELECT * FROM `$this->table` ORDER BY FIELD(`id_artists`,'$id_artists') DESC";
         $sql = mysqli_query($this->con,$stmt);
         $data = array();
         if(mysqli_num_rows($sql)==0){
-            return array(
-                "error" => "No artists exists yet",
-                "msg" => ""
-            );
+            $response["error"] = "Artist is not exists.";
+        }else{
+            while($row = mysqli_fetch_object($sql)){
+                array_push($data,$row);
+            }
+            $response["msg"] = $data;
         }
-        while($row = mysqli_fetch_object($sql)){
-            array_push($data,$row);
-        }
-        return $data;
+        return $response;
     }
     function get_artists_by_username($username){
+        $response = array(
+            "error" => "",
+            "msg" => ""
+        );
         $sql = "SELECT * FROM `$this->table` WHERE `name_artists` = '$username'";
         $stmt = mysqli_query($this->con,$sql);
         if(mysqli_num_rows($stmt) == 0){
-            return array(
-                "error" => "User is not exists.",
-                "msg" => ""
-            );
+            $response["error"] = "Artist is not exists.";
         }else{
-            return mysqli_fetch_object($stmt);
+            $row = mysqli_fetch_object($stmt);
+            $response["msg"] = $row;
         }
+        return $response;
     }
     function get_artists_by_username_with_songs($username){
+        $response = array(
+            "error" => "",
+            "msg" => ""
+        );
         $data = array();
         $stmt = "SELECT * FROM `$this->table` WHERE `name_artists` = '$username'";
         $sql = mysqli_query($this->con,$stmt);
         if(mysqli_num_rows($sql)==0){
-            return array(
-                "error" => "Artist is not exists.",
-                "msg" => ""
-            );
-        }
-        $row = mysqli_fetch_object($sql);
-        $stmt_song = "SELECT a.*,`name_songs` FROM `artists` a 
+            $response["error"] = "Artist is not exists.";
+        }else{
+            $row = mysqli_fetch_object($sql);
+            $stmt_song = "SELECT a.*,`name_songs` FROM `artists` a 
                      INNER JOIN `songs` s 
                      ON a.id_artists = s.id_artists 
                      WHERE a.name_artists = '$username'";
-        $sql_song = mysqli_query($this->con,$stmt_song);
-        while($row = mysqli_fetch_object($sql_song)){
-            array_push($data,$row);
+            $sql_song = mysqli_query($this->con,$stmt_song);
+            while($row = mysqli_fetch_object($sql_song)){
+                array_push($data,$row);
+            }
+            $response["msg"] = $data;
         }
-        return $data;
+        return $response;
     }
 //    Update
     function edit_profile_artists($id_artists,$username,$picture,$social_media){
@@ -139,11 +147,10 @@ class ArtistsModel extends Model
             "error" => "",
             "msg" => ""
         );
-        $id = $this->countID($this->table);
-        $stmt = "SELECT * FROM `$this->table` WHERE `id_artists` = '$id_artists'";
-        $sql = mysqli_query($this->con,$stmt);
-        $row = mysqli_fetch_object($sql);
-        if(mysqli_num_rows($sql)==0){
+        $sql = "SELECT * FROM `$this->table` WHERE `id_artists` = '$id_artists'";
+        $stmt = mysqli_query($this->con,$sql);
+        $row = mysqli_fetch_object($stmt);
+        if(mysqli_num_rows($stmt)==0){
             $response['error'] = "Artist is not exists";
         }
         if ($picture["error"] != 0){
@@ -154,34 +161,54 @@ class ArtistsModel extends Model
         }
         $path = "public/assets/".$picture['name'];
         move_uploaded_file($picture['tmp-name'],$path);
-        $stmt1 = "UPDATE `$this->table` SET `name_artists` = '$username', `picture` = '$picture', `social_media` = '$social_media' WHERE `id_artists` = '$id_artists'";
-        $sql1 = mysqli_query($this->con,$stmt1);
-        if ($sql1){
+        $sql = "UPDATE `$this->table` SET `name_artists` = '$username', `picture` = '$picture', `social_media` = '$social_media' WHERE `id_artists` = '$id_artists'";
+        $stmt = mysqli_query($this->con,$sql);
+        if ($stmt){
             $response['msg'] = "Successful. Artist has been updated";
+        }else{
+            $response["error"] = "Failed";
         }
         return $response;
     }
 //    Delete
     function delete_artists_by_username($username){
+        $response = array(
+            "error" => "",
+            "msg" => ""
+        );
         $stmt = "SELECT * FROM `$this->table` WHERE `name_artists` = '$username'";
         $sql = mysqli_query($this->con,$stmt);
         if(mysqli_num_rows($sql)==0){
             $response['error'] = "Artist is not exists";
+        }else{
+            $row = mysqli_fetch_object($sql);
+            $id = $row->id_artists;
+            $sql = "DELETE FROM `songs` WHERE `id_artists` = '$row->id_artists'";
+            $stmt = mysqli_query($this->con,$sql);
+            $sql = "DELETE FROM `albums` WHERE `id_artists` = '$row->id_artists'";
+            $stmt = mysqli_query($this->con,$sql);
+            $sql = "DELETE FROM `users_artists` WHERE `id_artists` = '$row->id_artists'";
+            $stmt = mysqli_query($this->con,$sql);
+            $sql = "DELETE FROM `$this->table` WHERE `name_artists` = '$row->name_artists'";
+            $stmt = mysqli_query($this->con,$sql);
+            $sql = "UPDATE `$this->table` SET `id_artists` = `id_artists` - 1 WHERE `id_artists` > '$id'";
+            $stmt = mysqli_query($this->con,$sql);
+            $response['msg'] = "Successful. Artist has been removed";
         }
-        $row = mysqli_fetch_object($sql);
-        $id = $row->id_artists;
-        $stmt = "DELETE FROM `songs` WHERE `id_artists` = '$row->id_artists'";
-        mysqli_query($this->con,$stmt);
-        $stmt = "DELETE FROM `albums` WHERE `id_artists` = '$row->id_artists'";
-        mysqli_query($this->con,$stmt);
-        $stmt = "DELETE FROM `$this->table` WHERE `name_artists` = '$row->name_artists'";
-        mysqli_query($this->con,$stmt);
-        $sql = "UPDATE `$this->table` SET `id_artists` = `id_artists` - 1 WHERE `id_artists` > '$id'";
-        $stmt = mysqli_query($this->con,$sql);
+        return $response;
     }
     function delete_artists_of_users($id_users,$id_artist){
+        $response = array(
+            "error" => "",
+            "msg" => ""
+        );
         $sql = "DELETE FROM `users_artists` WHERE `id_users` = '$id_users' AND `id_artists` = '$id_artist'";
         $stmt = mysqli_query($this->con,$sql);
-        return $stmt;
+        if ($stmt){
+            $response['msg'] = "Successful. Artist has been removed";
+        }else{
+            $response["error"] = "Failed";
+        }
+        return $response;
     }
 }

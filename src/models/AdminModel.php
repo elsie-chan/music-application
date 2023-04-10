@@ -25,29 +25,21 @@ class AdminModel extends Model{
         return true;
     }
     // Update Profile User
-    public function update_profile($arr){
-        $temp = array($arr);
-        $sql = "UPDATE $this->table SET";
-        foreach($temp as $key => $val){
-            $sql = $sql.' '."$key = $val, ";
+    public function edit_profile_by_id($id_users,$avt_users,$username){
+        $response = array(
+            "error" => "",
+            "msg" => ""
+        );
+        $sql = "SELECT * FROM `$this->table` WHERE `id_users` = '$id_users'";
+        if(mysqli_num_rows(mysqli_query($this->con,$sql)) == 0){
+            $response["error"] = "Users does not exists.";
         }
-        $sql = substr(trim($sql),0,-1);
-        return mysqli_query($this->con,$sql);
-    }
-    // Update Profile User
-    public function update_profile_where($arr1,$arr2){
-        $temp1 = array($arr1);
-        $temp2 = array($arr2);
-        $sql = "UPDATE $this->table SET";
-        foreach($temp1 as $key => $val){
-            $sql = $sql.' '."$key = $val, ";
+        $sql = "UPDATE `$this->table` SET `avatar_users` = '$avt_users' AND `username` = '$username' WHERE `id_users` = '$id_users'";
+        $stmt = mysqli_query($this->con,$sql);
+        if($stmt){
+            $response["msg"] = "Edit profile successfully";
         }
-        $sql = substr(trim($sql),0,-1).' '."WHERE";
-        foreach($temp2 as $key => $val){
-            $sql = $sql.' '."$key = $val, ";
-        }
-        $sql = substr(trim($sql),0,-1);
-        return mysqli_query($this->con,$sql);
+        return $response;
     }
     // Find One User By ID
     function get_user_by_username($username)
