@@ -6,6 +6,7 @@ class HomeController extends Controller {
     }
     public function index() {
         if (authed()) {
+            $_SESSION['page'] = 'home';
             $this->load_view('home');
         } else {
             $this->load_view('auth/auth.login');

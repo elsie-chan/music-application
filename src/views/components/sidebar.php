@@ -11,25 +11,25 @@
     </div>
     <nav class="navigation">
         <ul class="navigation--list">
-            <li class="navigation--item page__active">
+            <li class="navigation--item <?php echo (empty($_SESSION['page']) ? '' : $_SESSION['page'] == 'home') ? 'page__active' : '' ?>" >
                 <a href="/music-application/" class="navigation--link">
                     <i class="fas fa-home"></i>
                     <span>Home</span>
                 </a>
             </li>
-             <li class="navigation--item">
+             <li class="navigation--item <?php echo (empty($_SESSION['page']) ? '' : $_SESSION['page'] == 'search') ? 'page__active' : '' ?>">
                 <a href="/music-application/search" class="navigation--link">
                     <i class="fa-solid fa-magnifying-glass"></i>
                     <span>Search</span>
                 </a>
             </li>
-             <li class="navigation--item">
+             <li class="navigation--item  <?php echo (empty($_SESSION['page']) ? '' : $_SESSION['page'] == 'library') ? 'page__active' : '' ?>">
                 <a href="/music-application/library" class="navigation--link">
                     <i class="fa-solid fa-books"></i>
                     <span>Library</span>
                 </a>
             </li>
-             <li class="navigation--item">
+             <li class="navigation--item <?php echo (empty($_SESSION['page']) ? '' : $_SESSION['page'] == 'liked_songs') ? 'page__active' : '' ?>">
                 <a href="/music-application/liked_songs" class="navigation--link">
                     <i class="fa-solid fa-heart"></i>
                     <span>Liked songs</span>
@@ -76,3 +76,8 @@
         lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam, quod.lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam, quod.lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam, quod.lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam, quod.lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam, quod.lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam, quod.lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam, quod.lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam, quod.lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam, quod.
     </p>
 </div>
+
+<script>
+    const navigationItem = $('.navigation--item');
+
+</script>

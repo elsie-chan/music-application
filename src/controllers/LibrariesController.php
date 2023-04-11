@@ -17,6 +17,7 @@ class LibrariesController extends Controller {
 
     public function library() {
         if (authed()) {
+            $_SESSION['page'] = 'library';
             $this->load_view('library');
         } else {
             $this->load_view('auth/auth.login');
@@ -33,6 +34,7 @@ class LibrariesController extends Controller {
 
     public function liked_songs() {
         if (authed()) {
+            $_SESSION['page'] = 'liked_songs';
             $this->load_view('liked_songs');
         } else {
             $this->load_view('auth/auth.login');

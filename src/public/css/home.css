@@ -10,6 +10,10 @@
 	padding-top: 60px;
 	margin-bottom: 24px;
 	position: relative;
+	transition: all 1s ease-in-out;
+	-moz-transition: all 1s ease-in-out;
+	-webkit-transition: all 1s ease-in-out;
+	-o-transition: all 1s ease-in-out;
 }
 
 .slideshow__blur, .slideshow__darker {
@@ -56,6 +60,9 @@
 	height: 0;
 	padding-bottom: 40%;
 	background-size: cover;
+	transition: all 1s ease-in-out;
+
+	transition-delay: 1s;
 }
 
 .slideshow__control--next,

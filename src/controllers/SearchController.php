@@ -9,6 +9,7 @@ class SearchController extends Controller {
 
     public function index() {
         if (authed()) {
+            $_SESSION['page'] = 'search';
             $this->load_view('search');
         } else {
             $this->load_view('auth/auth.login');

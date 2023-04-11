@@ -61,8 +61,29 @@ class UserController extends Controller {
     }
 
     public function update_profile() {
+
         $error = "";
         $message = "";
 
+        if ($_POST) {
+            $user_id = $_POST['id'];
+            $name = $_POST['name'];
+            $file = $_FILES['img'];
+
+            $destination = 'src/public/assets/imgs/' . time();
+            $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
+            $destination = $destination . '.' . $extension;
+            $is_moved = move_uploaded_file($file['tmp_name'], $destination);
+
+            echo json_encode([
+                'error' => $error,
+                'message' => $message,
+                'name' => $name,
+                'file' => $_FILES,
+                'img' => url($destination),
+                'is_moved' => $is_moved
+            ], JSON_PRETTY_PRINT);
+
+        }
     }
 }

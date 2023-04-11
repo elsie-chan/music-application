@@ -4,7 +4,7 @@
 
 
     <div class="row albums__list">
-        <div class="col-6 col-xl-2 col-md-3 col-sm-4">
+        <div class="col-6 col-md-3 col-sm-4">
             <div class="album__item">
                 <a href="#">
                     <img src="https://source.unsplash.com/random/1920x1080/?wallpaper,landscape" alt="">
@@ -12,7 +12,7 @@
                 </a>
             </div>
         </div>
-        <div class="col-6 col-xl-2 col-md-3 col-sm-4">
+        <div class="col-6 col-md-3 col-sm-4">
             <div class="album__item">
                 <a href="#">
                     <img src="https://source.unsplash.com/random/1920x1080/?wallpaper,landscape" alt="">
@@ -20,7 +20,7 @@
                 </a>
             </div>
         </div>
-        <div class="col-6 col-xl-2 col-md-3 col-sm-4">
+        <div class="col-6 col-md-3 col-sm-4">
             <div class="album__item">
                 <a href="#">
                     <img src="https://source.unsplash.com/random/1920x1080/?wallpaper,landscape" alt="">
@@ -28,7 +28,7 @@
                 </a>
             </div>
         </div>
-        <div class="col-6 col-xl-2 col-md-3 col-sm-4">
+        <div class="col-6 col-md-3 col-sm-4">
             <div class="album__item">
                 <a href="#">
                     <img src="https://source.unsplash.com/random/1920x1080/?wallpaper,landscape" alt="">
@@ -36,7 +36,7 @@
                 </a>
             </div>
         </div>
-        <div class="col-6 col-xl-2 col-md-3 col-sm-4">
+        <div class="col-6 col-md-3 col-sm-4">
             <div class="album__item">
                 <a href="#">
                     <img src="https://source.unsplash.com/random/1920x1080/?wallpaper,landscape" alt="">
@@ -44,7 +44,7 @@
                 </a>
             </div>
         </div>
-        <div class="col-6 col-xl-2 col-md-3 col-sm-4">
+        <div class="col-6 col-md-3 col-sm-4">
             <div class="album__item">
                 <a href="#">
                     <img src="https://source.unsplash.com/random/1920x1080/?wallpaper,landscape" alt="">

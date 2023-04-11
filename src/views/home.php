@@ -51,6 +51,7 @@
 
 </head>
 <body>
+
 <?php require_once 'components/sidebar.php' ?>
 <?php require_once 'components/controlbar.php' ?>
 <div id="home">
@@ -85,13 +86,10 @@
         <?php require 'components/playlistList.php' ?>
     </div>
 
-
-
 </div>
     <script src="<?php echo url('src/public/vendors/jquery/jquery.js')?>"></script>
     <script src="<?php echo url('src/public/vendors/bootstrap/js/bootstrap.bundle.min.js')?>"></script>
 
-<?php require_once 'components/loading.php' ?>
 
 <!-- js for loading -->
 
@@ -199,7 +197,7 @@
             }
             slideshowCurrent.style.backgroundImage = `url(${slideshowImgs[currentSlide]})`;
             setActiveControl(currentSlide)
-        }, 3600)
+        }, 5000);
 
     //    -------------js for drag list -------------------
        const slider = document.querySelector('.albums__list');
@@ -239,5 +237,8 @@
        }
     //
     //</script>
+<?php require_once 'components/loading.php' ?>
+
 </body>
+
 </html>
