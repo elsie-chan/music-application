@@ -10,57 +10,97 @@ class AdminController extends Controller {
 
     public function index() {
         if (authed()) {
-            $this->load_view('admin/dashboard');
+            if ($this->is_admin_login()) {
+                $this->load_view('admin/dashboard');
+            } else {
+                if ($_SERVER['REQUEST_URI'] == url('admin/dashboard')) {
+                    $this->load_view('auth/auth.login');
+                }
+            }
         } else {
             $this->load_view('auth/auth.login');
         }
     }
 
-    // Add artist
+
+    //  Artist CRUD
     public function add_artist() {
         $error = "";
         $message = "";
+        if ($this->is_admin_login()) {
+            if ($_POST) {
+                $name = $_POST['name'];
+                $img = $_POST['img'];
+                $birthday = $_POST['birthday'];
+                $media = $_POST['media'];
 
-        if ($_POST) {
-            $name = $_POST['name'];
-            $img = $_POST['img'];
-            $birthday = $_POST['birthday'];
-            $media = $_POST['media'];
+                $model_response = $this->model_artist;
+                $this->check_model($model_response);
 
-            $model_response = $this->model_artist;
-            $this->check_model($model_response);
+                $response = $model_response->add_artist($name, $img, $birthday, $media);
+                $error = $response['error'];
+                $message = $error['msg'];
 
-            $response = $model_response->add_artist($name, $img, $birthday, $media);
-            $error = $response['error'];
-            $message = $error['msg'];
-
-            if (empty($error)) {
-                $_SESSION['message'] = $message;
-                Redirect::to('admin/dashboard');
-            } else {
-                $_SESSION['$error'] = $error;
-                Redirect::to('admin/dashboard');
+                if (empty($error)) {
+                    $_SESSION['message'] = $message;
+                    Redirect::to('admin/dashboard');
+                } else {
+                    $_SESSION['$error'] = $error;
+                    Redirect::to('admin/dashboard');
+                }
             }
+        } else {
+            $_SESSION['error'] = "You don't have permission to access this page.";
         }
     }
 
-    public function delete_user($username, $id_user) {
 
-        if($_POST) {
+//    User CRUD
+//    public function get_all_users() {
+//        $error = "";
+//        $message = "";
+//        if ($this->is_admin_login()) {
+//            if ($_POST) {
+//                $model_response = $this->model_user;
+//                $this->check_model($model_response);
+//
+//                $response = $model_response->get_all_user();
+//                $error = $response['error'];
+//
+//                if (empty($error)) {
+//                    $message = $response;
+//                    header('Content-Type: application/json; charset=utf-8');
+//                    return json_encode($message);
+//                } else {
+//                    return $_SESSION['error'] = $error;
+//                }
+//            }
+//        } else {
+//            $_SESSION['error'] = "You don't have permission to access this page.";
+//        }
+//        return NULL;
+//    }
+    public function delete_user($username, $id_user) {
+        if ($this->is_admin_login())
+        {
+            if($_POST) {
 //            $username = $_POST['username'];
 //            $id_user = $_POST['id_user'];
 
-            $model_response = $this->model_admin;
-            $this->check_model($model_response);
+                $model_response = $this->model_admin;
+                $this->check_model($model_response);
 
-            $response = $model_response->delete_user_by_username($username, $id_user);
-            if ($response) {
-                return $_SESSION['message'] = 'Successfully deleted';
-            } else {
-                return $_SESSION['error'] = 'User does not exist';
+                $response = $model_response->delete_user_by_username($username, $id_user);
+                if ($response) {
+                    return $_SESSION['message'] = 'Successfully deleted';
+                } else {
+                    return $_SESSION['error'] = 'User does not exist';
+                }
             }
+        } else {
+            return $_SESSION['error'] = "You don't have permission to access this page.";
         }
-        return NULL;
+            return NULL;
     }
 
     public function delete_all_user() {
@@ -254,9 +294,10 @@ class AdminController extends Controller {
         }
     }
     public function test() {
-        $username = $_POST['username'];
-        $id_user = $_POST['id_user'];
-        $test = $this->delete_all_user();
-        echo $test;
+//        echo $this->is_admin_login();
+//        $test = $this->get_all_users();
+//        echo $test;
+        $this->check_login();
+
     }
 }

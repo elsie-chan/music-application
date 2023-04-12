@@ -41,8 +41,8 @@ class Controller
         return true;
     }
 
-    public function is_user_name() {
-        return $_SESSION['username'];
+    public function is_admin_login():bool {
+        return isset($_SESSION['username']);
     }
 
     public function is_id_user() {

@@ -17,7 +17,7 @@ class SearchController extends Controller {
     }
 
 //    Search Artist
-    public function get_artist_by_username() {
+    public function get_artist_by_name() {
         $error = "";
         $message = "";
 
@@ -35,21 +35,23 @@ class SearchController extends Controller {
                 $error = $response['error'];
                 $message = $response['msg'];
                 if (empty($error)) {
-                    header("Content-Type: application/json; charset=utf-8");
-                    echo json_encode($message);
-//                    return json_encode($message);
+                    foreach ($message as $value) {
+                        $picture = url($value->picture);
+                        $value->picture = $picture;
+                        header("Content-Type: application/json; charset=utf-8");
+                        echo json_encode($value);
+                    }
                 } else {
-                    echo $_SESSION['error'] = $error;
+                     echo json_encode($error);
                 }
             } else {
-                echo $_SESSION['error'] = $error;
+                 echo json_encode($error);
             }
         }
-//        return NULL;
     }
 
 //    Search Playlist
-    public function get_playlist_by_username() {
+    public function get_playlist_by_name() {
         $error = "";
         $message = "";
 
@@ -67,24 +69,28 @@ class SearchController extends Controller {
                 $message  = $response['msg'];
 
                 if (empty($error)) {
-                    header("Content-Type: application/json; charset=utf-8");
-                    echo json_encode($message);
+                    foreach ($message as $value) {
+                        $picture = url($value->playlists_image);
+                        $value->playlists_image = $picture;
+                        header("Content-Type: application/json; charset=utf-8");
+                        echo json_encode($value, JSON_PRETTY_PRINT);
+                    }
                 } else {
-                    echo $_SESSION['error'] = $error;
+                    echo json_encode($error);
                 }
             } else {
-                echo $_SESSION['error'] = $error;
+                echo json_encode($error);
             }
         }
     }
 
 //    Search Song
-    public function get_songs_by_username() {
+    public function get_song_by_name() {
         $error = "";
         $message = "";
 
         if ($_POST) {
-            $song  = $_POST['song'];
+            $song = $_POST['name'];
             $model_response = $this->model_song;
             $this->check_model($model_response);
 
@@ -92,25 +98,62 @@ class SearchController extends Controller {
             $error = $response_song['error'];
 
             if (empty($error)) {
-                $response = $model_response->get_all_song_with_name($response_song['msg']->name_songs);
+                $response = $model_response->get_all_songs_with_name($response_song['msg']->name_songs);
                 $error = $response['error'];
                 $message = $response['msg'];
 
                 if (empty($error)) {
-                    header("Content-Type: application/json; charset=utf-8");
-                    return json_encode($message);
+                    foreach ($message as $value) {
+                        $picture = url($value->src);
+                        $value->src = $picture;
+                        header("Content-Type: application/json; charset=utf-8");
+                        echo json_encode($value, JSON_PRETTY_PRINT);
+                    }
                 } else {
-                    return $_SESSION['error'] = $error;
+                    echo json_encode($error);
                 }
             } else {
-                return $_SESSION['error'] = $error;
+                echo json_encode($error);
             }
         }
-        return NULL;
+    }
+
+//    Search Album
+    public function get_album_by_name() {
+        $error = "";
+        $message = "";
+
+        if ($_POST) {
+            $album = $_POST['name'];
+            $model_response = $this->model_album;
+            $this->check_model($model_response);
+
+            $response_album = $model_response->get_album_by_name($album);
+            $error = $response_album['error'];
+
+            if (empty($error)) {
+                $response = $model_response->get_all_albums($response_album['msg']->id_albums);
+                $error = $response['error'];
+                $message = $response['msg'];
+
+                if (empty($error)) {
+                    foreach($message as $value) {
+                        $picture = url($value->image_albums);
+                        $value->image_albums = $picture;
+                        header("Content-Type: application/json; charset=utf-8");
+                        echo json_encode($value, JSON_PRETTY_PRINT);
+                    }
+                } else {
+                    echo json_encode($error);
+                }
+            } else {
+                echo json_encode($error);
+            }
+        }
     }
     public function test() {
 //        $name = $_POST['name'];
-        $test = $this->get_artist_by_username();
-        echo $test;
+        $this->get_artist_by_name();
+
     }
 }
