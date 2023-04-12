@@ -177,7 +177,6 @@ class AuthController extends Controller {
             $error = $response['error'];
             if (empty($error)) {
                 $response_playlist = $model_response_playlist->add_playlists("liked_song", $img, date('Y-m-d H:i:s', time()), $response['msg']->id_users);
-                dd($response_playlist);
                 $error = $response_playlist['error'];
                 if (empty($error)) {
                     $message = $response_playlist['msg'];
