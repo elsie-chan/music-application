@@ -9,12 +9,17 @@ $routes = [
     (new Route('auth/register', 'GET', AuthController::class, 'register')),
     (new Route('auth/register', 'POST', AuthController::class, 'handle_register')),
     (new Route('playlist', 'GET', LibrariesController::class, 'playlist_show')),
+    (new Route('album', 'GET', LibrariesController::class, 'album'))
     (new Route('library', 'GET', LibrariesController::class, 'library')),
     (new Route('search', 'GET', SearchController::class, 'index')),
     (new Route('account', 'GET', UserController::class, 'index')),
     (new Route('account/update/:id', 'POST', UserController::class, 'update_profile')),
     (new Route('test', 'POST', UserController::class, 'test')),
     (new Route('liked_songs', 'GET', LibrariesController::class, 'liked_songs')),
+    (new Route('test_search', 'POST', SearchController::class, 'test')),
+    (new Route('test_like', 'POST', AuthController::class, 'test')),
+    (new Route('artist', 'GET', UserController::class, 'artist')),
+
 ];
 
 $flag = false;
