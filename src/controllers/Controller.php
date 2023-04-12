@@ -54,4 +54,11 @@ class Controller
             require_once (assets('views/layout/404.php'));
         }
     }
+
+    public function get_specific() {
+        $query = $_SERVER['REQUEST_URI'];
+        $path = parse_url($query);
+        $id = basename($path['path']);
+        return $id;
+    }
 }

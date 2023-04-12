@@ -16,125 +16,247 @@ class AdminController extends Controller {
         }
     }
 
-    public function delete_user_by_id($id_user) {
+    // Add artist
+    public function add_artist() {
         $error = "";
+        $message = "";
 
-        if ($this->is_admin_login()) {
-            $model_response = $this->model_admin;
+        if ($_POST) {
+            $name = $_POST['name'];
+            $img = $_POST['img'];
+            $birthday = $_POST['birthday'];
+            $media = $_POST['media'];
 
-            if (!isset($model_response)) {
-                require_once (assets('views/layout/404.php'));
-            }
+            $model_response = $this->model_artist;
+            $this->check_model($model_response);
 
-            $response = $model_response->delete_user_by_id($id_user);
+            $response = $model_response->add_artist($name, $img, $birthday, $media);
             $error = $response['error'];
+            $message = $error['msg'];
 
             if (empty($error)) {
-                echo "Delete user successfully!";
+                $_SESSION['message'] = $message;
+                Redirect::to('admin/dashboard');
             } else {
-                $_SESSION['error'] = $error;
+                $_SESSION['$error'] = $error;
+                Redirect::to('admin/dashboard');
             }
         }
-        return "Successfully deleted!";
+    }
+
+    public function delete_user($username, $id_user) {
+
+        if($_POST) {
+//            $username = $_POST['username'];
+//            $id_user = $_POST['id_user'];
+
+            $model_response = $this->model_admin;
+            $this->check_model($model_response);
+
+            $response = $model_response->delete_user_by_username($username, $id_user);
+            if ($response) {
+                return $_SESSION['message'] = 'Successfully deleted';
+            } else {
+                return $_SESSION['error'] = 'User does not exist';
+            }
+        }
+        return NULL;
     }
 
     public function delete_all_user() {
-        $error = "";
-
-        if ($this->is_admin_login()) {
-            $model_response = $this->load_model('AdminModel');
-
-            if (!isset($model_response)) {
-                require_once (assets('views/layout/404.php'));
-            }
+        if ($_POST) {
+            $model_response = $this->model_admin;
+            $this->check_model($model_response);
 
             $response = $model_response->delete_all_user();
-            $error = $response['error'];
-
-            if (empty($error)) {
-                echo "Delete user successfully!";
+            if ($response) {
+                return $_SESSION['message'] = 'Successfully deleted';
             } else {
-                $_SESSION['error'] = $error;
+                return $_SESSION['error'] = 'User does not exist';
             }
-        }
-    }
-
-    public function get_all_users() {
-        $error = "";
-
-        if ($this->is_admin_login()) {
-            $model_response = $this->load_model('AdminModel');
-
-            if (!isset($model_response)) {
-                require_once (assets('views/layout/404.php'));
-            }
-
-            $response = $model_response->get_all_users();
-            $error = $response['error'];
-
-            if (empty($error)) {
-                return $response['msg']->username;
-            } else {
-                $_SESSION['error'] = $error;
-            }
-            return $response['msg']->username;
         }
         return NULL;
     }
 
-    public  function get_user_by_user_name($user_name) {
+//    Playlist
+    public function add_playlist() {
         $error = "";
+        $message = "";
 
-        if ($this->is_admin_login()) {
-            $model_response = $this->load_model('AdminModel');
+        if ($_POST) {
+            $name = $_POST['name'];
+            $img = $_FILES['img'];
+            $today = date("Y-m-d H:i:s");
+            $id_user = $this->is_id_user();
 
-            if (!isset($model_response)) {
-                require_once (assets('views/layout/404.php'));
-            }
+            $model_response  = $this->model_playlist;
+            $this->check_model($model_response);
 
-            $response = $model_response->get_all_user_by_id($user_name);
+            $response = $model_response->add_playlists($name, $img, $today, $id_user);
             $error = $response['error'];
 
             if (empty($error)) {
-                return $response['msg']->username;
+                $message = $response['msg'];
+                $_SESSION['message'] = $message;
+                Redirect::to('admin/dashboard');
             } else {
                 $_SESSION['error'] = $error;
+                Redirect::to('admin/dashboard');
             }
-            return $response['msg']->username;
+        }
+    }
+
+    public function get_playlists() {
+        $error = "";
+        $message = "";
+
+        if ($_POST) {
+            $name = $_POST['name'];
+
+            $model_response = $this->model_playlist;
+            $this->check_model($model_response);
+
+            $response = $model_response->get_playlists_by_name($name);
+            $error = $response['error'];
+            $message = $response['msg'];
+
+            if (empty($error)) {
+                header('Content-Type: application/json; charset=utf-8');
+                json_encode($message, JSON_FORCE_OBJECT);
+                Redirect::to('admin/dashboard');
+            } else {
+                $_SESSION['error'] = $error;
+                Redirect::to('admin/dashboard');
+            }
+        }
+    }
+
+    public function update_playlists() {
+        $errors = "";
+        $message = "";
+
+        if ($_POST) {
+            $id = $_POST["id"];
+            $name = $_POST["name"];
+            $img = $_FILES["img"];
+
+            $model_response = $this->model_playlist;
+            $this->check_model($model_response);
+
+            $response = $model_response->edit_playlists_by_id_playlists($id, $name, $img);
+            $error = $response['error'];
+            $message = $error['msg'];
+
+            if (empty($error)) {
+
+            }
+        }
+    }
+
+//    Album
+    public function add_album() {
+        $error = "";
+
+        if ($_POST) {
+            $name = $_POST["name"];
+            $img = $_FILES["img"];
+            $id_user = $this->is_id_user();
+
+            $model_response = $this->model_album;
+            $this->check_model($model_response);
+
+            $response = $model_response->add_albums($name, $img, $id_user);
+            $error = $response['error'];
+            $message  = $response['msg'];
+
+            if (empty($error)) {
+                $_SESSION['message'] = $message;
+                Redirect::to('admin/dashboard');
+            } else {
+                $_SESSION['error'] = $error;
+                Redirect::to('admin/dashboard');
+            }
+        }
+    }
+
+    public function get_all_albums() {
+        $error = "";
+        $message = "";
+
+        if ($_POST) {
+            $id_user = $_POST["id_user"];
+
+            $model_response = $this->model_album;
+            $this->check_model($model_response);
+
+            $response = $model_response->get_all_albums($id_user);
+            $error = $response['error'];
+            $message = $response['msg'];
+
+            if (empty($error)) {
+                header('Content-Type: application/json; charset=utf-8');
+                json_encode($message, JSON_FORCE_OBJECT);
+                Redirect::to('admin/dashboard');
+            } else {
+                $_SESSION['error'] = $error;
+                Redirect::to('admin/dashboard');
+            }
         }
         return NULL;
     }
 
-    public function add_artist()
-    {
+    public function update_album() {
         $error = "";
+        $message = "";
 
-        if ($this->is_admin_login()) {
-            if ($_GET) {
+        if ($_POST) {
+            $id = $_POST['id'];
+            $name = $_POST['name'];
+            $img = $_FILES['img'];
+            $id_artist = $_POST['id_artist'];
 
-                $username = $_GET['username'];
-                $picture = $_GET['picture'];
-                $facebook = $_GET['facebook'];
-                $instagram = $_GET['instagram'];
-                $youtube = $_GET['youtube'];
+            $model_response = $this->model_album;
+            $this->check_model($model_response);
 
-                $model_response = $this->load_model('ArtistsModel');
+            $response = $model_response->edit_album_by_id($id, $name, $img, $id_artist);
+            $error = $response['error'];
+            $message = $response['msg'];
 
-                if (!isset($model_response)) {
-                    require_once(assets('views/layout/404.php'));
-                }
-
-                $response = $model_response->add_artist($username, $picture, $facebook, $instagram, $youtube);
-                $error = $response['error'];
-
-                if (empty($error)) {
-                    return $response['msg'];
-                } else {
-                    $_SESSION['error'] = $error;
-                }
-                return $response['msg'];
+            if (empty($error)) {
+                $_SESSION['message'] = $message;
+                Redirect::to('admin/dashboard');
+            } else {
+                $_SESSION['$error'] = $error;
+                Redirect::to('admin/dashboard');
             }
         }
-        return NULL;
+    }
+
+    public function delete_album_by_nanme() {
+        $error = "";
+        $message = "";
+
+        if ($_POST) {
+            $name = $_POST['name'];
+
+            $model_response = $this->model_album;
+            $this->check_model($model_response);
+
+            $response = $model_response->delete_ablum_by_name($name);
+            $error = $response['error'];
+
+            if (empty($error)) {
+                Redirect::to('admin/dashboard');
+            } else {
+                $_SESSION['$error'] = $error;
+                Redirect::to('admin/dashboard');
+            }
+        }
+    }
+    public function test() {
+        $username = $_POST['username'];
+        $id_user = $_POST['id_user'];
+        $test = $this->delete_all_user();
+        echo $test;
     }
 }

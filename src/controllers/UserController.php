@@ -15,6 +15,14 @@ class UserController extends Controller {
         }
     }
 
+    public function artist() {
+        if (authed()) {
+            $this->load_view('user/artist');
+        } else {
+            $this->load_view('auth/auth.login');
+        }
+    }
+
     public function get_user_by_username($username) {
         $error = "";
         $message = "";

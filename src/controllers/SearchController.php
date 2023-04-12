@@ -16,42 +16,100 @@ class SearchController extends Controller {
         }
     }
 
-    public function find_artist($artist) {
+//    Search Artist
+    public function get_artist_by_username($artist) {
         $error = "";
+        $message = "";
 
-        if ($this->is_user_login()) {
-            if ($_GET) {
-                $model_response = $this->load_model('ArtistsModel');
+        if ($_POST) {
+//            $artist = $_POST['artist'];
 
-                $response = $model_response->get_artists_by_username_with_songs($artist);
+            $model_response = $this->model_artist;
+            $this->check_model($model_response);
+
+            $response_artist = $model_response->get_artists_by_username($artist);
+            $error = $response_artist['error'];
+
+            if (empty($error)) {
+                $response = $model_response->get_all_artists($response_artist['msg']->id_artists);
                 $error = $response['error'];
-
+                $message = $response['msg'];
                 if (empty($error)) {
-                    return $response;
+                    header("Content-Type: application/json; charset=utf-8");
+                    return json_encode($message);
+                } else {
+                    return $_SESSION['error'] = $error;
                 }
+            } else {
+                return $_SESSION['error'] = $error;
             }
         }
         return NULL;
     }
 
-    public  function get_user_by_username($username) {
+//    Search Playlist
+    public function get_playlist_by_username($playlist) {
         $error = "";
+        $message = "";
 
-        if ($this->is_user_login()) {
-            if ($_GET) {
-                $model_response = $this->load_model('UserModel');
+        if ($_POST) {
+//            $playlist = $_POST['playlist'];
+            $model_response = $this->model_playlist;
+            $this->check_model($model_response);
 
-                if (!isset($model_response)) {
-                    require_once(assets('views/layout/404.php'));
-                }
+            $response_playlist = $model_response->get_playlists_by_name($playlist);
+            $error = $response_playlist['error'];
 
-                $response = $model_response->get_user_by_username($username);
+            if (empty($error)) {
+                $response = $model_response->get_all_playlists_of_user($response_playlist['msg']->id_playlists);
                 $error = $response['error'];
+                $message  = $response['msg'];
 
                 if (empty($error)) {
-                    return;
+                    header("Content-Type: application/json; charset=utf-8");
+                    return json_encode($message);
+                } else {
+                    return $_SESSION['error'] = $error;
                 }
+            } else {
+                return $_SESSION['error'] = $error;
             }
         }
+        return NULL;
+    }
+
+//    Search Song
+    public function get_songs_by_username($song) {
+        $error = "";
+        $message = "";
+
+        if ($_POST) {
+            $model_response = $this->model_song;
+            $this->check_model($model_response);
+
+            $response_song = $model_response->get_song_by_name($song);
+            $error = $response_song['error'];
+
+            if (empty($error)) {
+                $response = $model_response->get_all_song_with_name($response_song['msg']->name_songs);
+                $error = $response['error'];
+                $message = $response['msg'];
+
+                if (empty($error)) {
+                    header("Content-Type: application/json; charset=utf-8");
+                    return json_encode($message);
+                } else {
+                    return $_SESSION['error'] = $error;
+                }
+            } else {
+                return $_SESSION['error'] = $error;
+            }
+        }
+        return NULL;
+    }
+    public function test() {
+        $name = $_POST['name'];
+        $test = $this->get_songs_by_username($name);
+        echo $test;
     }
 }
