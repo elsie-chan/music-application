@@ -11,19 +11,19 @@ SET time_zone = "+00:00";
 -- CREATE DATABASE
 CREATE DATABASE `music_data`;
 USE `music_data`;
--- 
+--
 -- CREATE TABLE
 --
--- 
+--
 -- CREATE TABLE Topics
--- 
+--
 CREATE TABLE `topics`(
     `id_topics` int PRIMARY KEY,
     `name_topics` TEXT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
--- 
+--
 -- CREATE TABLE playlists
--- 
+--
 CREATE TABLE `playlists`(
     `id_playlists` int PRIMARY KEY,
     `name_playlists` TEXT,
@@ -32,9 +32,9 @@ CREATE TABLE `playlists`(
     `create_at` DATE,
     `id_users` int
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
--- 
+--
 -- CREATE TABLE artists
--- 
+--
 CREATE TABLE `artists`(
     `id_artists` int PRIMARY KEY,
     `name_artists` TEXT,
@@ -42,18 +42,18 @@ CREATE TABLE `artists`(
     `birthday` DATE,
     `social_media` TEXT DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
--- 
+--
 -- CREATE TABLE albums
--- 
+--
 CREATE TABLE `albums`(
     `id_albums` int PRIMARY KEY,
     `name_albums` TEXT,
     `image_albums` TEXT,
     `id_artists` int
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
--- 
+--
 -- CREATE TABLE songs
--- 
+--
 CREATE TABLE `songs`(
     `id_songs` int PRIMARY KEY,
     `name_songs` TEXT,
@@ -63,9 +63,9 @@ CREATE TABLE `songs`(
     `id_artists` int,
     `id_topics` int
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
--- 
+--
 -- CREATE TABLE users
--- 
+--
 CREATE TABLE `users`(
     `id_users` int PRIMARY KEY,
     `avatar_users` TEXT,
@@ -198,9 +198,9 @@ INSERT INTO `albums` VALUES
                          (19,'Thịnh Suy Radio','src/public/assets/imgs/alb2.png',8),
                          (20,'tiny things','src/public/assets/imgs/alb2.png',8),
                          (21,'Door To Nowhere','src/public/assets/imgs/alb2.png',8),
-                         (21,'SZA Radio','src/public/assets/imgs/alb2.png',9),
-                         (21,'SOS','src/public/assets/imgs/alb2.png',9),
-                         (21,'Ctrl','src/public/assets/imgs/alb2.png',9);
+                         (22,'SZA Radio','src/public/assets/imgs/alb2.png',9),
+                         (23,'SOS','src/public/assets/imgs/alb2.png',9),
+                         (24,'Ctrl','src/public/assets/imgs/alb2.png',9);
 
 INSERT INTO `playlists` VALUES
                             (1,'like songs','src/public/assets/imgs/like_songs.jpg','abcad','2023-4-9',2),
@@ -216,7 +216,7 @@ INSERT INTO `topics`VALUES
                     (4, 'Rap'),
                     (5, 'K-pop'),
                     (6, 'Workout'),
-                    (7, 'Meditation')
+                    (7, 'Meditation'),
                     (8, 'Motivation'),
                     (9, 'Indie');
 
@@ -267,15 +267,15 @@ INSERT INTO `songs` VALUES
                     (44,'Good Days','src/public/assets/songs/gooddays.mp3','src/public/assets/imgs/img_songs/gooddays.jpg',CURRENT_TIMESTAMP(),9,4),
                     (45,'I Hate U','src/public/assets/songs/ihateu.mp3','src/public/assets/imgs/img_songs/ihateu.jpg',CURRENT_TIMESTAMP(),9,4),
                     (46, 'Cupid', 'src/public/assets/songs/cupid.mp3','src/public/assets/imgs/img_songs/cupid.jpeg', CURRENT_TIMESTAMP(), 10, 7),
-                    (47, 'On' 'src/public/assets/songs/on.mp3','src/public/assets/imgs/img_songs/on.jpeg', CURRENT_TIMESTAMP(), 11, 5),
-                    (48, 'Dynamite' 'src/public/assets/songs/dynamite.mp3','src/public/assets/imgs/img_songs/dynamite.png', CURRENT_TIMESTAMP(), 11, 5),
-                    (49, 'Life Gose On' 'src/public/assets/songs/lifegoseon.mp3','src/public/assets/imgs/img_songs/lifegoseon.png', CURRENT_TIMESTAMP(), 11, 5),
+                    (47, 'On','src/public/assets/songs/on.mp3','src/public/assets/imgs/img_songs/on.jpeg', CURRENT_TIMESTAMP(), 11, 5),
+                    (48, 'Dynamite','src/public/assets/songs/dynamite.mp3','src/public/assets/imgs/img_songs/dynamite.png', CURRENT_TIMESTAMP(), 11, 5),
+                    (49, 'Life Gose On','src/public/assets/songs/lifegoseon.mp3','src/public/assets/imgs/img_songs/lifegoseon.png', CURRENT_TIMESTAMP(), 11, 5),
                     (50, 'Fake Love', 'src/public/assets/songs/fakelove.mp3','src/public/assets/imgs/img_songs/fakelove.jpeg', CURRENT_TIMESTAMP(), 11, 5),
-                    (51, 'Boy With Luv' 'src/public/assets/songs/boywithluv.mp3','src/public/assets/imgs/img_songs/boywithluv.jpg', CURRENT_TIMESTAMP(), 11, 5),
+                    (51, 'Boy With Luv','src/public/assets/songs/boywithluv.mp3','src/public/assets/imgs/img_songs/boywithluv.jpg', CURRENT_TIMESTAMP(), 11, 5),
                     (52, 'I Need U', 'src/public/assets/songs/ineedu.mp3', 'src/public/assets/imgs/img_songs/saveme.jpeg', CURRENT_TIMESTAMP(), 11, 5),
                     (53, 'Save Me', 'src/public/assets/songs/saveme.mp3', 'src/public/assets/imgs/img_songs/saveme.jpeg', CURRENT_TIMESTAMP(), 11, 5),
-                    (54, 'Fire' 'src/public/assets/songs/fire.mp3', 'src/public/assets/imgs/img_songs/saveme.jpeg', CURRENT_TIMESTAMP(), 11, 5),
-                    (55, 'DNA' 'src/public/assets/songs/dna.mp3', 'src/public/assets/imgs/img_songs/dna.jpeg', CURRENT_TIMESTAMP(), 11, 5),
+                    (54, 'Fire','src/public/assets/songs/fire.mp3', 'src/public/assets/imgs/img_songs/saveme.jpeg', CURRENT_TIMESTAMP(), 11, 5),
+                    (55, 'DNA','src/public/assets/songs/dna.mp3', 'src/public/assets/imgs/img_songs/dna.jpeg', CURRENT_TIMESTAMP(), 11, 5),
                     (56, 'LIMBO', 'src/public/assets/songs/limbo.mp3', 'src/public/assets/imgs/img_songs/keshi.jpeg', CURRENT_TIMESTAMP(), 12, 8),
                     (57, 'Its You', 'src/public/assets/songs/ityou.mp3', 'src/public/assets/imgs/img_songs/ityou.jpeg', CURRENT_TIMESTAMP(), 12, 8),
                     (58, 'Drunk', 'src/public/assets/songs/drunk.mp3', 'src/public/assets/imgs/img_songs/drunk.jpeg', CURRENT_TIMESTAMP(), 12, 8),
@@ -287,7 +287,7 @@ INSERT INTO `songs` VALUES
                     (64, 'She Likes Spring, I Prefer Winter', 'src/public/assets/songs/shelikespring.mp3', 'src/public/assets/imgs/img_songs/shelikespring.png', CURRENT_TIMESTAMP(), 13, 8),
                     (65, 'Say Whats On Your Mind', 'src/public/assets/songs/saywhat.mp3', 'src/public/assets/imgs/img_songs/saywhat.jpeg', CURRENT_TIMESTAMP(), 13, 8),
                     (66, 'First Date', 'src/public/assets/songs/firstdate.mp3', 'src/public/assets/imgs/img_songs/firstdate.jpeg', CURRENT_TIMESTAMP(), 14, 7),
-                    (67, 'Luv Letters' 'src/public/assets/songs/luvletters.mp3', 'src/public/assets/imgs/img_songs/luvletters.jpeg', CURRENT_TIMESTAMP(), 14, 7),
+                    (67, 'Luv Letters','src/public/assets/songs/luvletters.mp3', 'src/public/assets/imgs/img_songs/luvletters.jpeg', CURRENT_TIMESTAMP(), 14, 7),
                     (68, 'The Time We Spent', 'src/public/assets/songs/thetimewespent.mp3', 'src/public/assets/imgs/img_songs/thetimewespent.jpeg', CURRENT_TIMESTAMP(), 14, 7),
                     (69, 'The Girl I Have A Crush', 'src/public/assets/songs/thegirlihaveacrush.mp3', 'src/public/assets/imgs/img_songs/thegirlihaveacrush.jpeg', CURRENT_TIMESTAMP(), 14, 7),
                     (70, 'While You Were Away', 'src/public/assets/songs/whileyouwereaway.mp3', 'src/public/assets/imgs/img_songs/whileyouwereaway.jpeg', CURRENT_TIMESTAMP(), 14, 7),
