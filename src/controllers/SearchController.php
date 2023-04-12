@@ -17,12 +17,12 @@ class SearchController extends Controller {
     }
 
 //    Search Artist
-    public function get_artist_by_username($artist) {
+    public function get_artist_by_username() {
         $error = "";
         $message = "";
 
         if ($_POST) {
-//            $artist = $_POST['artist'];
+            $artist = $_POST['name'];
 
             $model_response = $this->model_artist;
             $this->check_model($model_response);
@@ -36,24 +36,25 @@ class SearchController extends Controller {
                 $message = $response['msg'];
                 if (empty($error)) {
                     header("Content-Type: application/json; charset=utf-8");
-                    return json_encode($message);
+                    echo json_encode($message);
+//                    return json_encode($message);
                 } else {
-                    return $_SESSION['error'] = $error;
+                    echo $_SESSION['error'] = $error;
                 }
             } else {
-                return $_SESSION['error'] = $error;
+                echo $_SESSION['error'] = $error;
             }
         }
-        return NULL;
+//        return NULL;
     }
 
 //    Search Playlist
-    public function get_playlist_by_username($playlist) {
+    public function get_playlist_by_username() {
         $error = "";
         $message = "";
 
         if ($_POST) {
-//            $playlist = $_POST['playlist'];
+            $playlist = $_POST['name'];
             $model_response = $this->model_playlist;
             $this->check_model($model_response);
 
@@ -67,23 +68,23 @@ class SearchController extends Controller {
 
                 if (empty($error)) {
                     header("Content-Type: application/json; charset=utf-8");
-                    return json_encode($message);
+                    echo json_encode($message);
                 } else {
-                    return $_SESSION['error'] = $error;
+                    echo $_SESSION['error'] = $error;
                 }
             } else {
-                return $_SESSION['error'] = $error;
+                echo $_SESSION['error'] = $error;
             }
         }
-        return NULL;
     }
 
 //    Search Song
-    public function get_songs_by_username($song) {
+    public function get_songs_by_username() {
         $error = "";
         $message = "";
 
         if ($_POST) {
+            $song  = $_POST['song'];
             $model_response = $this->model_song;
             $this->check_model($model_response);
 
@@ -108,8 +109,8 @@ class SearchController extends Controller {
         return NULL;
     }
     public function test() {
-        $name = $_POST['name'];
-        $test = $this->get_songs_by_username($name);
+//        $name = $_POST['name'];
+        $test = $this->get_artist_by_username();
         echo $test;
     }
 }
