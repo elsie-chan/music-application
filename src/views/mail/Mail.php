@@ -18,7 +18,8 @@ class Mail
             $mail->Port = 587;
             $mail->setFrom(env('MAIL'), 'MISC');
             $mail->addAddress($email, $username);
-            $random_number = rand();
+            $random_number = rand(1000, 9999);
+            $_SESSION['number'] = $random_number;
             $mail->isHTML(true);
             $mail->Subject = 'Verification Code';
             $mail->Body    ="<h3>Your Verification Code</h3>" . $random_number;
