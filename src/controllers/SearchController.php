@@ -104,8 +104,10 @@ class SearchController extends Controller {
 
                 if (empty($error)) {
                     foreach ($message as $value) {
-                        $picture = url($value->src);
-                        $value->src = $picture;
+                        $src = url($value->src);
+                        $value->src = $src;
+                        $picture = url($value->image_song);
+                        $value->image_song = $picture;
                         header("Content-Type: application/json; charset=utf-8");
                         echo json_encode($value, JSON_PRETTY_PRINT);
                     }
