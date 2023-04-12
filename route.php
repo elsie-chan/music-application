@@ -19,6 +19,8 @@ $routes = [
     (new Route('test_search', 'POST', SearchController::class, 'test')),
     (new Route('test_like', 'POST', AuthController::class, 'test')),
     (new Route('artist', 'GET', UserController::class, 'artist')),
+    (new Route('search_artist', 'POST', SearchController::class, 'get_artist_by_username')),
+    (new Route('search_playlist', 'POST', SearchController::class, 'get_playlist_by_username')),
 
 ];
 
