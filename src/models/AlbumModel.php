@@ -36,7 +36,6 @@ class AlbumModel extends Model{
         );
         $sql = "SELECT * FROM `users` WHERE `id_users` = '$id_users'";
         $stmt = mysqli_query($this->con,$sql);
-        $id = $this->countID('users_albums')+1;
         if(mysqli_num_rows($stmt)==0){
             $response["error"] = "User is not exists.";
         }else{
@@ -50,7 +49,7 @@ class AlbumModel extends Model{
                 if(mysqli_num_rows($stmt) > 0){
                     $response["error"] = "Album is exists.";
                 }else{
-                    $sql = "INSERT INTO `users_albums` VALUES('". $id ."', '". $id_users ."', '". $id_albums ."')";
+                    $sql = "INSERT INTO `users_albums` (`id_users`,`id_albums`) VALUES('". $id_users ."', '". $id_albums ."')";
                     $stmt = mysqli_query($this->con,$sql);
                     $response["msg"] = "Success";
                 }
