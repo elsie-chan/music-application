@@ -18,12 +18,15 @@ $routes = [
     (new Route('liked_songs', 'GET', LibrariesController::class, 'liked_songs')),
     (new Route('test_search', 'POST', SearchController::class, 'test')),
     (new Route('test_like', 'POST', AuthController::class, 'test')),
-    (new Route('artist', 'GET', UserController::class, 'artist')),
+    (new Route('artist', 'GET', ArtistsController::class, 'index')),
     (new Route('search_artist', 'POST', SearchController::class, 'get_artist_by_name')),
     (new Route('search_playlist', 'POST', SearchController::class, 'get_playlist_by_name')),
     (new Route('search_album', 'POST', SearchController::class, 'get_album_by_name')),
     (new Route('search_song', 'POST', SearchController::class, 'get_song_by_name')),
     (new Route('test_admin', 'POST', AdminController::class, 'test')),
+    (new Route('test_song', 'POST', SongsController::class, 'test')),
+    (new Route('admin/dashboard', 'GET', AdminController::class, 'index')),
+    (new Route('response_topic', 'POST', SongsController::class, 'get_all_song_with_id_topic')),
 ];
 
 $flag = false;
