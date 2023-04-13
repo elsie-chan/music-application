@@ -101,6 +101,7 @@
   justify-content: space-between;
   padding: 10px;
   gap: 1em;
+  color: var(--white);
 }
 
 .media:hover {
@@ -147,6 +148,7 @@
 
 .songThumbnail img {
   height: 100%;
+  aspect-ratio : 1 / 1;
   border-radius: 4px;
 }
 

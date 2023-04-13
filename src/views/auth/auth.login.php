@@ -41,7 +41,7 @@
                             </div>
                             <div class="line"></div>
                             <ul class="form-options">
-                                <li><a href="#">Forgot your password?</a></li>
+                                <li><a href="<?php echo url("auth/forgot_password")?>">Forgot your password?</a></li>
                                 <li><a href="<?php echo url("auth/register")?>"><span>Sign up for Misc</span></a></li>
                             </ul>
                         </form>

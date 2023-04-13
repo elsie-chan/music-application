@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="<?php echo url('src/public/vendors/bootstrap/css/bootstrap.min.css')?>">
     <link rel="stylesheet" href="<?php echo url('src/public/vendors/font-awesome-6-pro-main/css/all.css')?>">
     <link rel="stylesheet" href="<?php echo url('src/public/css/search.css')?>">
+    <link rel="stylesheet" href="<?php echo url('src/public/css/playlistView.css')?>">
+    
 
     <style>
         @import "<?php echo url('src/public/css/style.css') ?>";
@@ -50,57 +52,66 @@
 <?php require_once 'components/sidebar.php' ?>
 <?php require_once 'components/controlbar.php' ?>
 <div id="search">
+    
     <?php require_once 'components/header.php' ?>
-    <div class="row  p-0 height ">
-        <div class="col-md-6 col-sm-6 col search-container">
-            <div class="form d-flex flex-row">
+    <div class="row m-0 p-0 height ">
+        <div class="col-md-6 col-sm-12 col search-container">
+            <div class="form d-flex flex-row form-search">
                 <input type="text" class="border-0 form-control form-input p-2 search-input " placeholder="Find your songs here?">
                 <i class="search-box fa fa-search p-2"></i>
             </div>
         </div>
     </div>
-    <div class="row m-0 py-1 pl-3 d-flex justify-content-around">
-        <div class="col-md-4 col-sm-10 col-12 border-0 card" style="background-color: transparent; border-radius: 16px;">
-            <img class="card-img-top topic-card p-2" src="<?php echo url ('src/public/assets/imgs/latin.png')?>" alt="Card image cap">
-            <h3>Latin</h3>
+    <div class="topic-type m-0">
+        <div class="type-title hide">Artist</div>
+        <div class="row m-0 py-1 pl-3 d-flex justify-content-around search-result search-result-artist">
+            <div class="col-md-4 col-sm-10 col-12 border-0 card topic-card" style="background-color: transparent; border-radius: 16px;" data-id="9">
+                <img class="card-img-top topic-card p-2" src="<?php echo url ('src/public/assets/imgs/latin.png')?>" alt="Card image cap">
+                <h3>Indie</h3>
+            </div>
+            <div class="col-md-4 col-sm-10 col-12 border-0 card topic-card" style="background-color: transparent;" data-id="1">
+                <img class="card-img-top topic-card p-2" src="<?php echo url ('src/public/assets/imgs/usuk.png')?>" alt="Card image cap">
+                <h3>US UK</h3>
+            </div>
+            <div class="col-md-4 col-sm-10 col-12 border-0 card topic-card" style="background-color: transparent;" data-id="2">
+                <img class="card-img-top topic-card p-2" src="<?php echo url ('src/public/assets/imgs/nhacviet.png')?>" alt="Card image cap">
+                <h3>Nhạc Việt</h3>
+            </div>
         </div>
-        <div class="col-md-4 col-sm-10 col-12 border-0 card" style="background-color: transparent;">
-            <img class="card-img-top topic-card p-2" src="<?php echo url ('src/public/assets/imgs/usuk.png')?>" alt="Card image cap">
-            <h3>US UK</h3>
+        <div class="type-title hide">Song</div>
+        <div class="row m-0 py-1 pl-3 d-flex justify-content-around search-result search-result-song">
+            <div class="col-md-4 col-sm-10 col-12 border-0 card topic-card" style="background-color: transparent;" data-id="3">
+                <img class="card-img-top topic-card p-2" src="<?php echo url ('src/public/assets/imgs/acoustic.png')?>" alt="Card image cap">
+                <h3>Acoustic</h3>
+            </div>
+            <div class="col-md-4 col-sm-10 col-12 border-0 card topic-card" style="background-color: transparent;" data-id="4">
+                <img class="card-img-top topic-card p-2" src="<?php echo url ('src/public/assets/imgs/rap.png')?>" alt="Card image cap">
+                <h3>Rap</h3>
+            </div>
+            <div class="col-md-4 col-sm-10 col-12 border-0 card topic-card" style="background-color: transparent;" data-id="5">
+                <img class="card-img-top topic-card p-2" src="<?php echo url ('src/public/assets/imgs/kpop.png')?>" alt="Card image cap">
+                <h3>K-pop</h3>
+            </div>
+        </div> 
+        <div class="type-title hide">Album</div> 
+        <div class="row m-0 py-1 pl-3 d-flex justify-content-around search-result search-result-album">
+            <div class="col-md-4 col-sm-10 col-12 border-0 card topic-card" style="background-color: transparent;" data-id="6">
+                <img class="card-img-top topic-card p-2" src="<?php echo url ('src/public/assets/imgs/motivation.png')?>" alt="Card image cap">
+                <h3>Motivation</h3>
+            </div>
+            <div class="col-md-4 col-sm-10 col-12 border-0 card topic-card" style="background-color: transparent;" data-id="7">
+                <img class="card-img-top topic-card p-2" src="<?php echo url ('src/public/assets/imgs/meditation.png')?>" alt="Card image cap">
+                <h3>Meditation</h3>
+            </div>
+            <div class="col-md-4 col-sm-10 col-12 border-0 card topic-card" style="background-color: transparent;" data-id="8">
+                <img class="card-img-top topic-card p-2" src="<?php echo url ('src/public/assets/imgs/workout.png')?>" alt="Card image cap">
+                <h3>Work out</h3>
+            </div>
         </div>
-        <div class="col-md-4 col-sm-10 col-12 border-0 card" style="background-color: transparent;">
-            <img class="card-img-top topic-card p-2" src="<?php echo url ('src/public/assets/imgs/nhacviet.png')?>" alt="Card image cap">
-            <h3>Nhạc Việt</h3>
+        <div class="type-title hide">Playlist</div> 
+        <div class="row m-0 py-1 pl-3 d-flex justify-content-around search-result search-result-playlist">
         </div>
     </div>
-    <div class="row m-0 py-1 pl-3 d-flex justify-content-around">
-        <div class="col-md-4 col-sm-10 col-12 border-0 card" style="background-color: transparent;">
-            <img class="card-img-top topic-card p-2" src="<?php echo url ('src/public/assets/imgs/acoustic.png')?>" alt="Card image cap">
-            <h3>Acoustic</h3>
-        </div>
-        <div class="col-md-4 col-sm-10 col-12 border-0 card" style="background-color: transparent;">
-            <img class="card-img-top topic-card p-2" src="<?php echo url ('src/public/assets/imgs/rap.png')?>" alt="Card image cap">
-            <h3>Rap</h3>
-        </div>
-        <div class="col-md-4 col-sm-10 col-12 border-0 card" style="background-color: transparent;">
-            <img class="card-img-top topic-card p-2" src="<?php echo url ('src/public/assets/imgs/kpop.png')?>" alt="Card image cap">
-            <h3>K-pop</h3>
-        </div>
-    </div>  
-    <div class="row m-0 py-1 pl-3 d-flex justify-content-around">
-        <div class="col-md-4 col-sm-10 col-12 border-0 card" style="background-color: transparent;">
-            <img class="card-img-top topic-card p-2" src="<?php echo url ('src/public/assets/imgs/motivation.png')?>" alt="Card image cap">
-            <h3>Motivation</h3>
-        </div>
-        <div class="col-md-4 col-sm-10 col-12 border-0 card" style="background-color: transparent;">
-            <img class="card-img-top topic-card p-2" src="<?php echo url ('src/public/assets/imgs/meditation.png')?>" alt="Card image cap">
-            <h3>Meditation</h3>
-        </div>
-        <div class="col-md-4 col-sm-10 col-12 border-0 card" style="background-color: transparent;">
-            <img class="card-img-top topic-card p-2" src="<?php echo url ('src/public/assets/imgs/workout.png')?>" alt="Card image cap">
-            <h3>Work out</h3>
-        </div>
-</div>
 </div>
 
     <script src="<?php echo url('src/public/vendors/jquery/jquery.js')?>"></script>
@@ -134,6 +145,7 @@
             }
         }
 
+        // resize search bar
         $(document).ready(function () {
             const header = $('.header')
             const heightHeader = header[0].offsetHeight;
@@ -151,10 +163,239 @@
                     })
                 }
             })
+
+            function clear() {
+                $(".search-result").css({
+                    display: "none",
+                });
+            }
+            // search artist
+            function search_artist() {
+                $.ajax({
+                    url: '<?php echo url('search_artist') ?>' || '<?php echo url('search_song') ?>' || '<?php echo url('search_playlist') ?>',
+                    type: 'POST',
+                    data: {
+                        name: $('.search-input').val(),
+                    },
+                    success: function (data) {
+                        $('.type-title').removeClass("hide");
+                        $('.card').css("display","none");
+                        $('.search-result-artist').addClass("row d-flex");
+                        if (data?.error) {
+                            console.log(data);
+                        } else {
+                            
+                            
+                            const template = data.slice(0,5).map((artist, index) => {
+                                return `
+                                    <div class="album__item col-md-2 col-sm-8 col-10 py-2">
+                                        <a href="#">
+                                            <img src="${artist.picture}" alt="">
+                                            <p class="py-2">${artist.name_artists}</p>
+                                        </a>
+                                    </div>
+                                `;
+                            })
+                            // $('.search-result-artist').append( "<h2>Album</h2>" );
+                            // $('h2').addClass("row");
+                            $('.search-result-artist').html(template);
+                        }
+                        // console.log('hi');
+                        console.log(data)
+                        
+
+                    },
+                    error: function(error) {
+                        console.log(error);
+                        console.log('error');
+                    }
+                })
+            }
+            // search song
+            function search_song() {
+                $.ajax({
+                    url: '<?php echo url('search_song') ?>',
+                    type: 'POST',
+                    data: {
+                        name: $('.search-input').val(),
+                    },
+                    success: function (data) {
+                        // $('.type-title').removeClass("hide");
+                        $('.card').css("display","none");
+                        $('.search-result-song').addClass("row d-flex");
+                        if (data?.error) {
+                            console.log(data);
+                        } else {
+                            console.log('hi');
+                            console.log(data);
+                            
+                            const template = data.slice(0,5).map((song, index) => {
+                                return `
+                                    <div class="album__item col-md-2 col-sm-8 col-10 py-2">
+                                        <a href="#">
+                                            <img src="${song.image_song}" alt="">
+                                            <p class="py-2">${song.name_songs}</p>
+                                        </a>
+                                    </div>
+                                `;
+                            })
+                            // $('.search-result-song').append( "<h2>Album</h2>" );
+                            // // $('h2').addClass("row");
+                            $('.search-result-song').html(template);
+                        }
+                    },
+                    error: function(error) {
+                        console.log(error);
+                        console.log('error');
+                    }
+                })
+            }
+            // search album
+            function search_album() {
+                $.ajax({
+                    url: '<?php echo url('search_album') ?>',
+                    type: 'POST',
+                    data: {
+                        name: $('.search-input').val(),
+                    },
+                    success: function (data) {
+                        $('.card').css("display","none");
+                        $('.search-result-album').addClass("row d-flex");
+                        if (data?.error) {
+                            console.log(data);
+                        } else {
+                            
+                            const template = data.slice(0,5).map((album, index) => {
+                                return `
+                                    <div class="album__item col-md-2 col-sm-8 col-10 py-2">
+                                        <a href="#">
+                                            <img src="${album.image_albums}" alt="">
+                                            <p class="py-2">${album.name_albums}</p>
+                                        </a>
+                                    </div>
+                                `;
+                            })
+                            // $('.search-result-artist').append( "<h2>Album</h2>" );
+                            // $('h2').addClass("row");
+                            $('.search-result-album').html(template);
+                        }
+                        // console.log('hi');
+                        console.log(data)
+                        
+
+                    },
+                    error: function(error) {
+                        console.log(error);
+                        console.log('error');
+                    }
+                })
+            }
+            // search playlist
+            function search_playlist() {
+                $.ajax({
+                    url: '<?php echo url('search_playlist') ?>',
+                    type: 'POST',
+                    data: {
+                        name: $('.search-input').val(),
+                    },
+                    success: function (data) {
+                        // $('.card').css("display","none");
+                        $('.search-result-playlist').addClass("row d-flex justify-content-around");
+                        if (data?.error) {
+                            console.log(data);
+                        } else {
+                            
+                            const template = data.slice(0,5).map((playlist, index) => {
+                                return `
+                                    <div class="album__item col-md-2 col-sm-8 col-10 py-2">
+                                        <a href="#">
+                                            <img src="${playlist.playlists_image}" alt="">
+                                            <p class="py-2">${playlist.name_playlists}</p>
+                                        </a>
+                                    </div>
+                                `;
+                            })
+                            // $('.search-result-artist').append( "<h2>Album</h2>" );
+                            // $('h2').addClass("row");
+                            $('.search-result-album').html(template);
+                        }
+                        // console.log('hi');
+                        console.log(data)
+                        
+
+                    },
+                    error: function(error) {
+                        console.log(error);
+                        console.log('error');
+                    }
+                })
+            }
+
+            // click event to show search
+            $('.search-box').on('click ', (e) => {
+                search_artist();
+                search_song();
+                search_album();
+                search_playlist();
+            })
+
+            $('.search-container').on('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    search_artist();
+                    search_song();
+                    search_album();
+                    search_playlist();
+                }
+            })
+
+            // ajax get song by topic
+            $(".topic-card").on("click", function() {
+                $('.form-search').css("visibility","hidden");
+                $('.card').css("display","none");
+                let dataId = $(this).attr("data-id");
+                // alert("The data-id of clicked item is: " + dataId);
+                $.ajax({
+                    type: 'POST',
+                    url: '<?php echo url('response_topic') ?>',
+                    data: { name: $(this).attr("data-id"), },
+                    success: function(data) {
+                        console.log(data);
+                        if (data?.error) {
+                            console.log(data);
+                        } else {
+                            
+                            const template = data.map((song, index) => {
+                                return `
+                                    <li class="media container">
+                                        <div class="col-10">
+                                            <div class="row media-left">
+                                                <div class="songThumbnail">
+                                                    <img src="${song.image_song}" alt="song avatar" >
+                                                    <span class="icon-play-song">
+                                                        <i class="fa-duotone fa-play"></i>
+                                                    </span>
+                                                </div>
+                                                <div class="card-info">
+                                                    <h6>${song.name_songs}</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    
+                                `;
+                            })
+                            // $('.search-result-artist').append( "<h2>Album</h2>" );
+                            // $('h2').addClass("row");
+                            $('.topic-type').html(template);
+                        }
+                    }
+
+                })
+            });
         })
         
 
-        // click event to show search
     
     </script>
 </body>

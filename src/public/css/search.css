@@ -90,3 +90,65 @@
 .topic-card:hover {
   cursor: pointer;
 }
+
+/* Search result  */
+.type-title {
+  font-size: 1.5rem;
+  color: var(--white);
+  margin-left: 2rem;
+}
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
+.album__item:hover {
+    cursor: pointer;
+}
+
+.album__item img {
+    width: 100%;
+    aspect-ratio : 1 / 1;
+
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    /* user-drag: none; */
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+    border-radius: 50%;
+    max-height: 200px;
+    object-fit: cover;
+}
+
+.album__item {
+    /* height: fit-content; */
+    padding: 0.5rem 1rem 0 1rem;
+    background-color: rgba(255, 255, 255, 0.04);
+    border-radius: 4px;
+    margin: 0.5rem;
+}
+
+.album__item p {
+    width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 22px;
+    margin: 0;
+    color: var(--white);
+    text-align: center;
+}
+
+.album__item:hover {
+    background: rgb(255, 255, 255, 0.2);
+}
