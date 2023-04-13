@@ -18,8 +18,10 @@ class UserModel extends Model {
     // Register User
     public function register($username, $email, $password, $confirm_pass, $mobile, $token) {
         $response = array();
-        $response["error"] = "";
-        $response["msg"] = "";
+        $response = array(
+            "error" => "",
+            "msg" => ""
+        );
         $id = $this->countID($this->table)+1;
         $sql = "SELECT 
                       * 
@@ -48,8 +50,10 @@ class UserModel extends Model {
     public function login($username, $email, $password, $token)
     {
         $response = array();
-        $response["error"] = "";
-        $response["msg"] = "";
+        $response = array(
+            "error" => "",
+            "msg" => ""
+        );
         $sql = "
             SELECT
                 *
@@ -113,26 +117,29 @@ class UserModel extends Model {
         return $response;
     }
     // Find All Users
-    function get_all_user(){
+    public function get_all_user(){
+        $response = array(
+            "error" => "",
+            "msg" => ""
+        );
         $sql = "SELECT 
                       * 
                 FROM 
-                    `" . $this->table . "` 
+                      `" . $this->table . "` 
                 ORDER BY 
                         `id_users` ASC";
         $stmt = mysqli_query($this->con, $sql);
-        $data = array();
-        $row = mysqli_num_rows($stmt);
-        if(mysqli_num_rows($stmt)==0){
-            return array(
-                "error" => "User is not exsits",
-                "msg" => ""
-            );
+
+        if(mysqli_num_rows($stmt) == 0){
+            $response["error"] = "User is not exists.";
+        }else{
+            $data = array();
+            while($row = mysqli_fetch_object($stmt)){
+                array_push($data,$row);
+            }
+            $response["msg"] = $data;
         }
-        while($temp = mysqli_fetch_object($stmt)){
-            array_push($data,$temp);
-        }
-        return $data;
+        return $response;
     }
     // Update Profile User
     function edit_profile_by_id($id_users,$avt_users,$username){

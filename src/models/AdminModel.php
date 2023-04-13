@@ -7,14 +7,28 @@ class AdminModel extends Model{
     }
     // Remove All Users
     public function delete_all_user(){
+        $response = array(
+            "error" => "",
+            "msg" => ""
+        );
         $sql = "DELETE FROM `playlists`";
         $stmt = mysqli_query($this->con,$sql);
         $sql = "DELETE FROM 
                             $this->table";
-        return mysqli_query($this->con,$stmt);
+        $stmt = mysqli_query($this->con,$stmt);
+        if($stmt){
+            $response["msg"] = "All users has been removed.";
+        }else{
+            $response["error"] = "Failed";
+        }
+        return $response;
     }
     // Remove One User in Database
     public function delete_user_by_username($username,$id_users){
+        $response = array(
+            "error" => "",
+            "msg" => ""
+        );
         $sql = "DELETE FROM `playlists` WHERE `id_users` = '$id_users'";
         $stmt = mysqli_query($this->con,$sql);
         $sql = "DELETE FROM 
@@ -22,7 +36,12 @@ class AdminModel extends Model{
                 WHERE 
                      `username` = '$username'";
         $stmt = mysqli_query($this->con,$sql);
-        return true;
+        if($stmt){
+            $response["msg"] = "User has been removed.";
+        }else{
+            $response["error"] = "Failed";
+        }
+        return $response;
     }
     // Update Profile User
     public function edit_profile_by_id($id_users,$avt_users,$username){
@@ -42,8 +61,7 @@ class AdminModel extends Model{
         return $response;
     }
     // Find One User By ID
-    function get_user_by_username($username)
-    {
+    function get_user_by_username($username){
         $sql = "SELECT
                       *
                 FROM 
@@ -78,6 +96,10 @@ class AdminModel extends Model{
     }
     // Find All Users
     public function get_all_user(){
+        $response = array(
+            "error" => "",
+            "msg" => ""
+        );
         $sql = "SELECT 
                       * 
                 FROM 
@@ -85,10 +107,16 @@ class AdminModel extends Model{
                 ORDER BY 
                         `id_users` ASC";
         $stmt = mysqli_query($this->con, $sql);
-        $data = array();
-        while($row = mysqli_fetch_object($stmt)){
-            array_push($data,$row);
+
+        if(mysqli_num_rows($stmt) == 0){
+            $response["error"] = "User is not exists.";
+        }else{
+            $data = array();
+            while($row = mysqli_fetch_object($stmt)){
+                array_push($data,$row);
+            }
+            $response["msg"] = $data;
         }
-        return $data;
+        return $response;
     }
 }

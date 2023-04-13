@@ -42,17 +42,8 @@ class PlaylistModel extends Model{
         if(mysqli_num_rows($stmt) == 0){
             $response["error"] = "Playlist does not exists.";
         }else{
-            if(mysqli_num_rows($stmt) == 1){
-                $row = mysqli_fetch_object($stmt);
-                $response["msg"] = $row;
-            }
-            else{
-                $data = array();
-                while($row = mysqli_fetch_object($stmt)){
-                    array_push($data,$row);
-                }
-                $response['msg'] = $data;
-            }
+            $row = mysqli_fetch_object($stmt);
+            $response['msg'] = $row;
         }
         return $response;
     }

@@ -7,6 +7,10 @@ class TopicModel extends Model{
     }
 //  create
     function add_topics($name_topic){
+        $response = array(
+            "error" => "",
+            "msg" => ""
+        );
         $id = $this->countID($this->table)+1;
         $sql = "SELECT * FROM `$this->table` WHERE `name_topics` = '$name_topic'";
         $stmt = mysqli_query($this->con,$sql);

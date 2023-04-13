@@ -89,6 +89,10 @@ class SongModel extends Model{
     }
 //    GET / SELECT
     function get_all_songs_with_name($name_songs){
+        $response = array(
+            "error" => "",
+            "msg" => ""
+        );
         $sql = "SELECT * FROM `$this->table` ORDER BY FIELD(`name_songs`,'$name_songs') DESC";
         $stmt = mysqli_query($this->con,$sql);
         $data = array();
@@ -103,6 +107,10 @@ class SongModel extends Model{
         return $response;
     }
     function get_all_song_with_id_topic($id_topics){
+        $response = array(
+            "error" => "",
+            "msg" => ""
+        );
         $sql = "SELECT * FROM `$this->table` ORDER BY FIELD(`id_topics`,'$id_topics') DESC";
         $stmt = mysqli_query($this->con,$sql);
         $data = array();
