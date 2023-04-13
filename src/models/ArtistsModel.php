@@ -41,7 +41,6 @@ class ArtistsModel extends Model
         );
         $sql = "SELECT * FROM `users` WHERE `id_users` = '$id_users'";
         $stmt = mysqli_query($this->con,$sql);
-        $id = $this->countID('users_artists')+1;
         if(mysqli_num_rows($stmt)==0) {
             $response["error"] = "User is not exists.";
         }else{
@@ -55,7 +54,7 @@ class ArtistsModel extends Model
                 if(mysqli_num_rows($stmt) > 0){
                     $response["error"] = "Artists is exists.";
                 }else{
-                    $sql = "INSERT INTO `users_artists` VALUES('". $id ."', '". $id_users ."', '". $id_artists ."')";
+                    $sql = "INSERT INTO `users_artists` (`id_users`,`id_artists`) VALUES('". $id_users ."', '". $id_artists ."')";
                     $stmt = mysqli_query($this->con,$sql);
                     $response["msg"] = "Success";
                 }

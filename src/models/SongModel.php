@@ -46,11 +46,10 @@ class SongModel extends Model{
             }else{
                 $sql = "SELECT * FROM `playlists_songs` WHERE `id_songs` = '$id_songs' AND `id_playlists` = '$id_playlists'";
                 $stmt = mysqli_query($this->con,$sql);
-                $id = $this->countID('playlists_songs')+1;
                 if(mysqli_num_rows($stmt) > 0){
                     $response["error"] = "Song is exists.";
                 }else{
-                    $sql = "INSERT INTO `playlists_songs` VALUES('". $id ."', '". $id_playlists ."', '". $id_songs ."')";
+                    $sql = "INSERT INTO `playlists_songs` (`id_playlists`,`id_songs`) VALUES('". $id_playlists ."', '". $id_songs ."')";
                     $stmt = mysqli_query($this->con,$sql);
                     $response["msg"] = "Success";
                 }
@@ -75,11 +74,10 @@ class SongModel extends Model{
             }else{
                 $sql = "SELECT * FROM `albums_songs` WHERE `id_songs` = '$id_songs' AND `id_albums` = '$id_albums'";
                 $stmt = mysqli_query($this->con,$sql);
-                $id = $this->countID('albums_songs')+1;
                 if(mysqli_num_rows($stmt) > 0){
                     $response["error"] = "Song is exists.";
                 }else{
-                    $sql = "INSERT INTO `albums_songs` VALUES('". $id ."', '". $id_albums ."', '". $id_songs ."')";
+                    $sql = "INSERT INTO `albums_songs` (`id_albums`,`id_songs`) VALUES('". $id_albums ."', '". $id_songs ."')";
                     $stmt = mysqli_query($this->con,$sql);
                     $response["msg"] = "Success";
                 }
@@ -153,7 +151,7 @@ class SongModel extends Model{
         $stmt = mysqli_query($this->con,$sql);
         $data = array();
         if(mysqli_num_rows($stmt) == 0){
-            $response["error"] = "Playlist is not exists.";
+            $response["error"] = "Album is not exists.";
         }else{
             $sql = "SELECT s.* FROM `$this->table` s, `albums_songs` p WHERE s.`id_songs` = p.`id_songs` AND p.`id_albums` = '$id_albums'";
             $stmt = mysqli_query($this->con,$sql);
@@ -189,7 +187,7 @@ class SongModel extends Model{
             "msg" => ""
         );
         if(mysqli_num_rows($stmt) == 0){
-            $response["error"] = "Song has not exists.";
+            $response["error"] = "Song is not exists.";
         }else{
             $sql = "DELETE FROM `playlists_songs` WHERE `id_songs` = '$id'";
             $stmt = mysqli_query($this->con,$sql);

@@ -81,25 +81,25 @@ CREATE TABLE `users`(
 -- CREATE TABLE playlists_songs
 --
 CREATE TABLE `playlists_songs`(
-    `id_playlists_songs` int PRIMARY KEY,
+    `id_playlists_songs` int PRIMARY KEY AUTO_INCREMENT = 1,
     `id_playlists` int,
     `id_songs` int
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `albums_songs`(
-    `id_albums_songs` int PRIMARY KEY,
+    `id_albums_songs` int PRIMARY KEY AUTO_INCREMENT = 1,
     `id_albums` int,
     `id_songs` int
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `users_artists`(
-    `id_users_artists` int PRIMARY KEY,
+    `id_users_artists` int PRIMARY KEY AUTO_INCREMENT = 1,
     `id_users` int,
     `id_artists` int
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `users_albums`(
-    `id_users_albums` int PRIMARY KEY,
+    `id_users_albums` int PRIMARY KEY AUTO_INCREMENT = 1,
     `id_users` int,
     `id_albums` int
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -204,19 +204,19 @@ INSERT INTO `albums` VALUES
                          (25,'headaches','src/public/assets/imgs/alb2.png',13),
                          (26,'my insecurities, not yours','src/public/assets/imgs/alb2.png',13),
                          (27,'First Date','src/public/assets/imgs/alb2.png',14),
-                         (28,'First Date','src/public/assets/imgs/alb2.png',14),
-                         (29,'First Date','src/public/assets/imgs/alb2.png',15),
-                         (30,'First Date','src/public/assets/imgs/alb2.png',15),
-                         (31,'First Date','src/public/assets/imgs/alb2.png',16),
-                         (32,'First Date','src/public/assets/imgs/alb2.png',16),
-                         (33,'First Date','src/public/assets/imgs/alb2.png',17),
-                         (34,'First Date','src/public/assets/imgs/alb2.png',17),
-                         (35,'First Date','src/public/assets/imgs/alb2.png',18),
-                         (36,'First Date','src/public/assets/imgs/alb2.png',18),
-                         (37,'First Date','src/public/assets/imgs/alb2.png',19),
-                         (38,'First Date','src/public/assets/imgs/alb2.png',19),
-                         (39,'First Date','src/public/assets/imgs/alb2.png',20),
-                         (40,'First Date','src/public/assets/imgs/alb2.png',20);
+                         (28,'late night','src/public/assets/imgs/alb2.png',14),
+                         (29,'SMITHEREENS','src/public/assets/imgs/alb2.png',15),
+                         (30,'BALLADS','src/public/assets/imgs/alb2.png',15),
+                         (31,'edaname','src/public/assets/imgs/alb2.png',16),
+                         (32,'bag or die','src/public/assets/imgs/alb2.png',16),
+                         (33,'Thấy Chưa','src/public/assets/imgs/alb2.png',17),
+                         (34,'Gieo','src/public/assets/imgs/alb2.png',17),
+                         (35,'THE BOOK','src/public/assets/imgs/alb2.png',18),
+                         (36,'YOASOBI Radio','src/public/assets/imgs/alb2.png',18),
+                         (37,'ALIVE','src/public/assets/imgs/alb2.png',19),
+                         (38,'Still Life','src/public/assets/imgs/alb2.png',19),
+                         (39,'Khi Em Lớn','src/public/assets/imgs/alb2.png',20),
+                         (40,'25','src/public/assets/imgs/alb2.png',20);
 
 INSERT INTO `playlists` VALUES
                             (1,'like songs','src/public/assets/imgs/like_songs.jpg','abcad','2023-4-9',2),
@@ -337,3 +337,45 @@ INSERT INTO `songs` VALUES
                     (98, 'Thói Quen', 'src/public/assets/songs/thoiquen.mp3', 'src/public/assets/imgs/img_songs/thoiquen.jpeg', CURRENT_TIMESTAMP(), 20, 2),
                     (99, 'Đoạn Kết Mới', 'src/public/assets/songs/doanketmoi.mp3', 'src/public/assets/imgs/img_songs/doanketmoi.jpeg', CURRENT_TIMESTAMP(), 20, 2),
                     (100, 'Tôi Là Ai Trong Em', 'src/public/assets/songs/toilaaitrongem.mp3', 'src/public/assets/imgs/img_songs/toilaaitrongem.jpeg', CURRENT_TIMESTAMP(), 20, 2);
+
+INSERT INTO `albums_songs` (`id_albums`,`id_songs`) VALUES
+                   (1,1),(1,2),(1,3),
+                   (2,4),(2,5),
+                   (3,6),(3,7),(3,8),
+                   (4,9),(4,10),
+                   (5,11),(5,12),(5,13),
+                   (6,14),(6,15),
+                   (7,16),(7,17),(7,18),
+                   (8,19),(8,20),
+                   (9,21),(9,22),(9,23),
+                   (10,24),(10,25),
+                   (11,26),(11,27),(11,28),
+                   (12,29),(12,30),
+                   (13,31),(13,32),(13,33),
+                   (14,34),(14,35),
+                   (15,36),(15,37),(15,38),
+                   (16,39),(16,40),
+                   (17,41),(17,42),(17,43),
+                   (18,44),(18,45),
+                   (19,46),(19,47),(19,48),
+                   (20,49),(20,50),
+                   (21,51),(21,52),(21,53),
+                   (22,54),(22,55),
+                   (23,56),(23,57),(23,58),
+                   (24,59),(24,60),
+                   (25,61),(25,62),(25,63),
+                   (26,64),(26,65),
+                   (27,66),(27,67),(27,68),
+                   (28,69),(28,70),
+                   (29,71),(29,72),(29,73),
+                   (30,74),(30,75),
+                   (31,76),(31,77),(31,78),
+                   (32,79),(32,80),
+                   (33,81),(33,82),(33,83),
+                   (34,84),(34,85),
+                   (35,86),(35,87),(35,88),
+                   (36,89),(36,90),
+                   (37,91),(37,92),(37,93),
+                   (38,94),(38,95),
+                   (39,96),(39,97),(39,98),
+                   (40,99),(40,100)
