@@ -109,7 +109,7 @@ class SongModel extends Model{
             "error" => "",
             "msg" => ""
         );
-        $sql = "SELECT * FROM `$this->table` ORDER BY FIELD(`id_topics`,'$id_topics') DESC";
+        $sql = "SELECT * FROM `$this->table` WHERE `id_topics` = '$id_topics'";
         $stmt = mysqli_query($this->con,$sql);
         $data = array();
         if(mysqli_num_rows($stmt)==0){

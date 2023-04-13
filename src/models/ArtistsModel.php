@@ -116,27 +116,18 @@ class ArtistsModel extends Model
         }
         return $response;
     }
-    function get_artists_by_username_with_songs($username){
+    function get_artists_by_id($id_artists){
         $response = array(
             "error" => "",
             "msg" => ""
         );
-        $data = array();
-        $stmt = "SELECT * FROM `$this->table` WHERE `name_artists` = '$username'";
-        $sql = mysqli_query($this->con,$stmt);
-        if(mysqli_num_rows($sql)==0){
+        $sql = "SELECT * FROM `$this->table` WHERE `id_artists` = '$id_artists'";
+        $stmt = mysqli_query($this->con,$sql);
+        if(mysqli_num_rows($stmt) == 0){
             $response["error"] = "Artist is not exists.";
         }else{
-            $row = mysqli_fetch_object($sql);
-            $stmt_song = "SELECT a.*,`name_songs` FROM `artists` a 
-                     INNER JOIN `songs` s 
-                     ON a.id_artists = s.id_artists 
-                     WHERE a.name_artists = '$username'";
-            $sql_song = mysqli_query($this->con,$stmt_song);
-            while($row = mysqli_fetch_object($sql_song)){
-                array_push($data,$row);
-            }
-            $response["msg"] = $data;
+            $row = mysqli_fetch_object($stmt);
+            $response["msg"] = $row;
         }
         return $response;
     }

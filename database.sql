@@ -223,8 +223,11 @@ INSERT INTO `playlists` VALUES
                             (2,'like songs','src/public/assets/imgs/like_songs.jpg','abcad','2023-4-9',3),
                             (3,'like songs','src/public/assets/imgs/like_songs.jpg','abcad','2023-4-9',4),
                             (4,'like songs','src/public/assets/imgs/like_songs.jpg','abcad','2023-4-9',5),
-                            (5,'like songs','src/public/assets/imgs/like_songs.jpg','abcad','2023-4-9',6);
-
+                            (5,'like songs','src/public/assets/imgs/like_songs.jpg','abcad','2023-4-9',6),
+                            (6,'Top 100','src/public/assets/imgs/like_songs.jpg','abcad','2023-4-9',1),
+                            (7,'US-UK Hits','src/public/assets/imgs/like_songs.jpg','abcad','2023-4-9',1),
+                            (8,'Indie Hits','src/public/assets/imgs/like_songs.jpg','abcad','2023-4-9',1),
+                            (9,'Rock Band','src/public/assets/imgs/like_songs.jpg','abcad','2023-4-9',1);
 INSERT INTO `topics`VALUES
                     (1, 'US-UK'),
                     (2, 'V-pop'),
@@ -252,11 +255,11 @@ INSERT INTO `songs` VALUES
                     (13,'This is what heartbreak feels like','src/public/assets/songs/thisiswhatheartbreakfeelslike.mp3','src/public/assets/imgs/img_songs/tiwfilfl.jpg',CURRENT_TIMESTAMP(),3,1),
                     (14,'This is what losing someone feels like','src/public/assets/songs/thisiswhatlosingsomeonefeels.mp3','src/public/assets/imgs/img_songs/tiwfilfl.jpg',CURRENT_TIMESTAMP(),3,1),
                     (15,'This is what falling in love feels like','src/public/assets/songs/thisiswhatfallinginlovefeelslike.mp3','src/public/assets/imgs/img_songs/tiwfilfl.jpg',CURRENT_TIMESTAMP(),3,1),
-                    (16,'Anh Đã Ổn Hơn','src/public/assets/songs/anhondahon.mp3','src/public/assets/imgs/img_songs/99%.jpg',CURRENT_TIMESTAMP(),4,4),
-                    (17,'Show Me Love','src/public/assets/songs/showmelove.mp3','src/public/assets/imgs/img_songs/99%.jpg',CURRENT_TIMESTAMP(),4,4),
-                    (18,'Thờ Er','src/public/assets/songs/thoer.mp3','src/public/assets/imgs/img_songs/99%.jpg',CURRENT_TIMESTAMP(),4,4),
-                    (19,'Thôi Em Đừng Đi','src/public/assets/songs/thoiemdungdi.mp3','src/public/assets/imgs/img_songs/99%.jpg',CURRENT_TIMESTAMP(),4,4),
-                    (20,'Suit & Tie','src/public/assets/songs/suittie.mp3','src/public/assets/imgs/img_songs/99%.jpg',CURRENT_TIMESTAMP(),4,4),
+                    (16,'Anh Đã Ổn Hơn','src/public/assets/songs/anhondahon.mp3','src/public/assets/imgs/img_songs/99percent.jpg',CURRENT_TIMESTAMP(),4,4),
+                    (17,'Show Me Love','src/public/assets/songs/showmelove.mp3','src/public/assets/imgs/img_songs/99percent.jpg',CURRENT_TIMESTAMP(),4,4),
+                    (18,'Thờ Er','src/public/assets/songs/thoer.mp3','src/public/assets/imgs/img_songs/99percent.jpg',CURRENT_TIMESTAMP(),4,4),
+                    (19,'Thôi Em Đừng Đi','src/public/assets/songs/thoiemdungdi.mp3','src/public/assets/imgs/img_songs/99percent.jpg',CURRENT_TIMESTAMP(),4,4),
+                    (20,'Suit & Tie','src/public/assets/songs/suittie.mp3','src/public/assets/imgs/img_songs/99percent.jpg',CURRENT_TIMESTAMP(),4,4),
                     (21,'Trance','src/public/assets/songs/trance.mp3','src/public/assets/imgs/img_songs/trance.jpg',CURRENT_TIMESTAMP(),5,4),
                     (22,'SICKO MODE','src/public/assets/songs/sickomode.mp3','src/public/assets/imgs/img_songs/sickomode.jpg',CURRENT_TIMESTAMP(),5,4),
                     (23,'HIGHEST IN THE ROOM','src/public/assets/songs/highestintheroom.mp3','src/public/assets/imgs/img_songs/highestintheroom.jpg',CURRENT_TIMESTAMP(),5,4),
@@ -378,4 +381,4 @@ INSERT INTO `albums_songs` (`id_albums`,`id_songs`) VALUES
                    (37,91),(37,92),(37,93),
                    (38,94),(38,95),
                    (39,96),(39,97),(39,98),
-                   (40,99),(40,100)
+                   (40,99),(40,100);
