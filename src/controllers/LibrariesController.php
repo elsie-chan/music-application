@@ -34,15 +34,21 @@ class LibrariesController extends Controller {
 
     public function get_album() {
         if (getId()) {
-            $model_response = $this->load_model('AlbumModel');
-            if (!isset($model_response)) {
-                    require_once (assets('views/layout/404.php'));
-                    return;
-            }
+            $model_response = $this->model_album;
+            $this->check_model($model_response);
 
-            $reponse = $model_response->get_album_by_id(getId());
-            
-            dd($reponse);
+            $response = $model_response->get_album_by_id(getId());
+            $_SESSION['album'] = getId();
+            $error = $response['error'];
+
+            if (empty($error)) {
+                $album = $response['msg'];
+                $this->load_view('album', [
+                    'album' => $album
+                ]);
+            } else {
+                $_SESSION['error'] = $error;
+            }
         }
     }
     public function liked_songs() {

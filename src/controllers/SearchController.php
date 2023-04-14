@@ -71,7 +71,7 @@ class SearchController extends Controller {
             header("Content-Type: application/json; charset=utf-8");
 
             if (empty($error)) {
-                $response = $model_response->get_all_playlists_of_user($response_playlist['msg']->id_playlists);
+                $response = $model_response->get_all_playlists($response_playlist['msg']->id_playlists);
                 $error = $response['error'];
                 $message  = $response['msg'];
 

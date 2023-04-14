@@ -30,7 +30,7 @@ class AuthController extends Controller {
                 if (empty($error)) {
                     if ($response['msg']->role == 1) {
                         $_SESSION['admin'] = $response['msg']->role;
-                        Redirect::to('/');
+                        Redirect::to('admin/dashboard');
                     } else if ($response['msg']->role == 0) {
                         $_SESSION['user'] = $response['msg']->id_users;
                         $_SESSION['username'] = $response['msg']->username;
@@ -81,7 +81,10 @@ class AuthController extends Controller {
                 dd("token is null");
             }
         }
+    }
 
+    public function forgot_pass() {
+        $this->load_view('auth/forgot_password');
     }
 
     public function check_code():bool|string {

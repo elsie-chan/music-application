@@ -28,7 +28,10 @@ $routes = [
     (new Route('test_song', 'POST', SongsController::class, 'test')),
     (new Route('admin/dashboard', 'GET', AdminController::class, 'index')),
     (new Route('response_topic', 'POST', SongsController::class, 'get_all_song_with_id_topic')),
-];
+    (new Route('auth/forgot_password', 'GET', AuthController::class, 'forgot_pass')),
+    (new Route('auth/forgot_password', 'POST', AuthController::class, 'check_email')),
+    (new Route('get_song_of_album', 'POST', SongsController::class, 'get_song_of_album')),
+    ];
 
 $flag = false;
 foreach( $routes as $route ) {

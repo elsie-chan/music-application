@@ -13,8 +13,8 @@ class AdminController extends Controller {
             if ($this->is_admin_login()) {
                 $this->load_view('admin/dashboard');
             } else {
-                if ($_SERVER['REQUEST_URI'] == url('admin/dashboard')) {
-                    $this->load_view('auth/auth.login');
+                if ($_SERVER['REQUEST_URI'] == '/music-application/admin/dashboard') {
+                    require_once (assets('views/layout/404.php'));
                 }
             }
         } else {
@@ -54,32 +54,57 @@ class AdminController extends Controller {
         }
     }
 
+    public function get_all_artist() {
+        $error = "";
+        $message = "";
+
+        if ($_POST) {
+            $model_response = $this->model_artist;
+            $this->check_model($model_response);
+
+            $response = $model_response->get_all_artists(1);
+            $error = $response['error'];
+
+            if (empty($error)) {
+                $message = $response['msg'];
+                foreach ($message as $value) {
+                    $value->picture = url($value->picture);
+                }
+                echo json_encode($message);
+            } else {
+                echo json_encode([
+                   'error' => $error
+                ]);
+            }
+        }
+    }
+
 
 //    User CRUD
-//    public function get_all_users() {
-//        $error = "";
-//        $message = "";
-//        if ($this->is_admin_login()) {
-//            if ($_POST) {
-//                $model_response = $this->model_user;
-//                $this->check_model($model_response);
-//
-//                $response = $model_response->get_all_user();
-//                $error = $response['error'];
-//
-//                if (empty($error)) {
-//                    $message = $response;
-//                    header('Content-Type: application/json; charset=utf-8');
-//                    return json_encode($message);
-//                } else {
-//                    return $_SESSION['error'] = $error;
-//                }
-//            }
-//        } else {
-//            $_SESSION['error'] = "You don't have permission to access this page.";
-//        }
-//        return NULL;
-//    }
+    public function get_all_user() {
+        $error = "";
+        $message = "";
+
+        if ($_POST) {
+            $model_response = $this->model_admin;
+            $this->check_model($model_response);
+
+            $response = $model_response->get_all_user();
+            $error = $response['error'];
+
+            if (empty($error)) {
+                $message = $response['msg'];
+                foreach ($message as $value) {
+                    $value->avatar_users = url($value->avatar_users);
+                }
+                echo json_encode($message);
+            } else {
+                echo json_encode([
+                    'error' => $error
+                ]);
+            }
+        }
+    }
     public function delete_user($username, $id_user) {
         if ($this->is_admin_login())
         {
@@ -297,7 +322,8 @@ class AdminController extends Controller {
 //        echo $this->is_admin_login();
 //        $test = $this->get_all_users();
 //        echo $test;
-        $this->check_login();
+//        $this->check_login();
+        $this->get_all_user();
 
     }
 }
