@@ -69,7 +69,7 @@ class UserModel extends Model {
             $row = mysqli_fetch_object($res);
             if (password_verify($password, $row->pass_users)) {
                 if ($row->email_users == NULL) {
-                    $response["error"] = "User does not exists";
+                    $response["error"] = "User is not exists";
                 } else {
                     $this->update_user_token($row->id_users, $token);
                     $response["msg"] = $row;
@@ -78,7 +78,7 @@ class UserModel extends Model {
                 $response["error"] = "Password does not match";
             }
         } else {
-            $response["error"] = "User does not exists";
+            $response["error"] = "User is not exists";
         }
         return $response;
     }
@@ -149,7 +149,7 @@ class UserModel extends Model {
         );
         $sql = "SELECT * FROM `$this->table` WHERE `id_users` = '$id_users'";
         if(mysqli_num_rows(mysqli_query($this->con,$sql)) == 0){
-            $response["error"] = "Users does not exists.";
+            $response["error"] = "Users is not exists.";
         }
         $sql = "UPDATE `$this->table` SET `avatar_users` = '$avt_users' AND `username` = '$username' WHERE `id_users` = '$id_users'";
         $stmt = mysqli_query($this->con,$sql);

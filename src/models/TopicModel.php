@@ -15,7 +15,7 @@ class TopicModel extends Model{
         $sql = "SELECT * FROM `$this->table` WHERE `name_topics` = '$name_topic'";
         $stmt = mysqli_query($this->con,$sql);
         if(mysqli_num_rows($stmt)>0){
-            $response["error"] = "Topic has exists.";
+            $response["error"] = "Topic has been exists.";
         }else{
             $sql = "INSERT INTO `$this->table` VALUES ('". $id ."','". $name_topic ."')";
             $stmt = mysqli_query($this->con,$sql);
@@ -32,7 +32,7 @@ class TopicModel extends Model{
             "msg" => ""
         );
         if(mysqli_num_rows($stmt)==0){
-            $response["error"] = "Topic has not exists.";
+            $response["error"] = "Topic is not exists.";
         }else{
             $data = array();
             while($row = mysqli_fetch_object($stmt)){
@@ -50,7 +50,7 @@ class TopicModel extends Model{
             "msg" => ""
         );
         if(mysqli_num_rows($stmt) == 0){
-            $response["error"] = "Topic has not exists.";
+            $response["error"] = "Topic is not exists.";
         }else{
             $row = mysqli_fetch_object($stmt);
             $response["msg"] = $row;
@@ -66,7 +66,7 @@ class TopicModel extends Model{
             "msg" => ""
         );
         if(mysqli_num_rows($stmt) == 0){
-            $response["error"] = "Topic has not exists.";
+            $response["error"] = "Topic is not exists.";
         }else{
             $sql = "UPDATE `$this->table` SET `name_topics` = '$name_topic' WHERE `id_topics` = '$id_topics'";
             $stmt = mysqli_query($this->con,$sql);
@@ -84,7 +84,7 @@ class TopicModel extends Model{
             "msg" => ""
         );
         if(mysqli_num_rows($stmt) == 0){
-            $response["error"] = "Topic has not exists.";
+            $response["error"] = "Topic is not exists.";
         }else{
             $sql = "DELETE FROM `$this->table` WHERE `name_topics` = '$name_topics'";
             $stmt = mysqli_query($this->con,$sql);
