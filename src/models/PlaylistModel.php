@@ -40,10 +40,28 @@ class PlaylistModel extends Model{
         $sql = "SELECT * FROM `$this->table` WHERE `name_playlists` = '$name_playlists'";
         $stmt = mysqli_query($this->con,$sql);
         if(mysqli_num_rows($stmt) == 0){
-            $response["error"] = "Playlist does not exists.";
+            $response["error"] = "Playlist is not exists.";
         }else{
             $row = mysqli_fetch_object($stmt);
             $response['msg'] = $row;
+        }
+        return $response;
+    }
+    function get_all_playlists($id_playlists){
+        $response = array(
+            "error" => "",
+            "msg" => ""
+        );
+        $stmt = "SELECT * FROM `$this->table` ORDER BY FIELD(`id_playlists`,'$id_playlists') DESC";
+        $sql = mysqli_query($this->con,$stmt);
+        $data = array();
+        if(mysqli_num_rows($sql)==0){
+            $response["error"] = "Playlist is not exists.";
+        }else{
+            while($row = mysqli_fetch_object($sql)){
+                array_push($data,$row);
+            }
+            $response["msg"] = $data;
         }
         return $response;
     }
@@ -56,7 +74,7 @@ class PlaylistModel extends Model{
         $stmt = mysqli_query($this->con,$sql);
         $data = array();
         if(mysqli_num_rows($stmt) == 0){
-            $response["error"] = "User does not exists.";
+            $response["error"] = "User is not exists.";
         }else{
             while ($row = mysqli_fetch_object($stmt)){
                 array_push($data,$row);
@@ -73,7 +91,7 @@ class PlaylistModel extends Model{
         );
         $stmt = mysqli_query($this->con,"SELECT * FROM `$this->table` WHERE `id_playlists` = '$id_playlists'");
         if(mysqli_num_rows($stmt)==0){
-            $response["error"] = "Playlist does not exists";
+            $response["error"] = "Playlist is not exists";
         }
         if ($playlists_image["error"] != 0){
             $response["error"] = "Please select image of playlist.";
@@ -98,7 +116,7 @@ class PlaylistModel extends Model{
         $stmt = mysqli_query($this->con,$sql);
         $id = mysqli_fetch_object(mysqli_query($this->con,$sql))->id_playlists;
         if(mysqli_num_rows($stmt) == 0){
-            $response["error"] = "Playlist does not exists.";
+            $response["error"] = "Playlist is not exists.";
         }else{
             $sql = "DELETE FROM `$this->table` WHERE `name_playlists` = '$name_playlists'";
             $stmt = mysqli_query($this->con,$sql);
