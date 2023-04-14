@@ -62,3 +62,15 @@ function authed(): bool
 {
     return !empty($_SESSION['token']);
 }
+
+function getId() : string | bool
+{
+    try {
+        $query = $_SERVER['REQUEST_URI'];
+        $path = parse_url($query);
+        $id = basename($path['path']);
+        return $id;
+    } catch (e) {
+        return false;
+    }
+}

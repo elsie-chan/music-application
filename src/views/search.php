@@ -189,7 +189,7 @@
                             const template = data.slice(0,5).map((artist, index) => {
                                 return `
                                     <div class="album__item col-md-2 col-sm-8 col-10 py-2">
-                                        <a href="#">
+                                        <a href="${artist.social_media}" target="_blank">
                                             <img src="${artist.picture}" alt="">
                                             <p class="py-2">${artist.name_artists}</p>
                                         </a>
@@ -267,7 +267,7 @@
                             
                             const template = data.slice(0,5).map((album, index) => {
                                 return `
-                                    <div class="album__item col-md-2 col-sm-8 col-10 py-2">
+                                    <div class="album-result album__item col-md-2 col-sm-8 col-10 py-2" data-id="${album.id_albums}">
                                         <a href="#">
                                             <img src="${album.image_albums}" alt="">
                                             <p class="py-2">${album.name_albums}</p>
@@ -278,6 +278,7 @@
                             // $('.search-result-artist').append( "<h2>Album</h2>" );
                             // $('h2').addClass("row");
                             $('.search-result-album').html(template);
+                            asignAlbumListener();
                         }
                         // console.log('hi');
                         console.log(data)
@@ -307,7 +308,7 @@
                             
                             const template = data.slice(0,5).map((playlist, index) => {
                                 return `
-                                    <div class="album__item col-md-2 col-sm-8 col-10 py-2">
+                                    <div class="playlist-result album__item col-md-2 col-sm-8 col-10 py-2" data-id="${playlist.id_playlists}">
                                         <a href="#">
                                             <img src="${playlist.playlists_image}" alt="">
                                             <p class="py-2">${playlist.name_playlists}</p>
@@ -317,7 +318,9 @@
                             })
                             // $('.search-result-artist').append( "<h2>Album</h2>" );
                             // $('h2').addClass("row");
-                            $('.search-result-album').html(template);
+                            $('.search-result-playlist').html(template);
+                            asignPlaylistListener();
+
                         }
                         // console.log('hi');
                         console.log(data)
@@ -331,14 +334,35 @@
                 })
             }
 
+            // click to show album view
+            function asignAlbumListener() {
+                console.log("in asign ")
+                console.log($('.album-result'))
+                $('.album-result').on('click', function (e) {
+                    console.log("when click")
+                    window.location.href = '<?php echo url('album') ?>' + '/' + $(this).data('id');
+                })
+            }
+
+            // click to show playlist view
+            function asignPlaylistListener() {
+                console.log($('.playlist-result'))
+                $('.playlist-result').on('click', function (e) {
+                    console.log('click playlist');
+                    window.location.href = '<?php echo url('playlist') ?>';
+                });
+            }
+
             // click event to show search
             $('.search-box').on('click ', (e) => {
                 search_artist();
                 search_song();
                 search_album();
                 search_playlist();
+                // asignAlbumListener();
             })
 
+            // enter event to show search
             $('.search-container').on('keypress', (e) => {
                 if (e.key === 'Enter') {
                     e.preventDefault();
@@ -346,8 +370,14 @@
                     search_song();
                     search_album();
                     search_playlist();
+                // asignAlbumListener();
+                    
                 }
             })
+
+            
+            
+            
 
             // ajax get song by topic
             $(".topic-card").on("click", function() {
