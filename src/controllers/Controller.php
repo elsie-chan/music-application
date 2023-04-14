@@ -33,16 +33,17 @@ class Controller
         return new $model_name;
     }
 
-    public function load_view($view_path) {
+    public function load_view($view_path, $data=[]) {
         if (!file_exists(assets('views/' . $view_path . '.php'))) {
             return false;
         }
-        require_once assets('/views/' . $view_path . '.php');
+
+        include_once assets('/views/' . $view_path . '.php');
         return true;
     }
 
     public function is_admin_login():bool {
-        return isset($_SESSION['username']);
+        return isset($_SESSION['admin']);
     }
 
     public function is_id_user() {
@@ -52,13 +53,7 @@ class Controller
     public function check_model($model_name) {
         if (!isset($model_name)) {
             require_once (assets('views/layout/404.php'));
+            return;
         }
-    }
-
-    public function get_specific() {
-        $query = $_SERVER['REQUEST_URI'];
-        $path = parse_url($query);
-        $id = basename($path['path']);
-        return $id;
     }
 }
