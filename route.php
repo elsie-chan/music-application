@@ -10,6 +10,7 @@ $routes = [
     (new Route('auth/register', 'POST', AuthController::class, 'handle_register')),
     (new Route('playlist', 'GET', LibrariesController::class, 'playlist_show')),
     (new Route('album', 'GET', LibrariesController::class, 'album')),
+    (new Route('album/:id', 'GET', LibrariesController::class, 'get_album')),
     (new Route('library', 'GET', LibrariesController::class, 'library')),
     (new Route('search', 'GET', SearchController::class, 'index')),
     (new Route('account', 'GET', UserController::class, 'index')),

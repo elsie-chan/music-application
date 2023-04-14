@@ -76,6 +76,23 @@ class AlbumModel extends Model{
         }
         return $response;
     }
+
+    function get_album_by_id ($id) {
+        $response = array(
+            "error" => "",
+            "msg" => ""
+        );
+
+         $sql = "SELECT * FROM `$this->table` WHERE `id_albums` = '$id'";
+        $stmt = mysqli_query($this->con,$sql);
+        if(mysqli_num_rows($stmt) == 0){
+            $response["error"] = "Album is not exists.";
+        }else{
+            $row = mysqli_fetch_object($stmt);
+            $response["msg"] = $row;
+        }
+        return $response;
+    }
     function get_album_by_name($name_albums){
         $response = array(
             "error" => "",
