@@ -76,7 +76,6 @@ class AlbumModel extends Model{
         }
         return $response;
     }
-
     function get_album_by_id ($id) {
         $response = array(
             "error" => "",
