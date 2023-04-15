@@ -79,6 +79,33 @@ class AdminController extends Controller {
         }
     }
 
+    public function edit_playlist() {
+        $error = "";
+        $message = "";
+
+        if (getId()) {
+            $name = $_GET['name'];
+            $img = $_FILES['img'];
+            $description = $_GET['description'];
+
+            $model_response = $this->model_playlist;
+            $this->check_model($model_response);
+
+            $response = $model_response->edit_playlists_by_id_playlists(getId(), $name, $img, $description);
+            $error = $response['error'];
+
+            if (empty($error)) {
+                $message = $response['msg'];
+            } else {
+                $_SESSION['error'] = $error;
+            }
+        }
+    }
+
+    public function delete_playlist() {
+        $error = "";
+//        $mes
+    }
 
 //    User CRUD
     public function get_all_user() {

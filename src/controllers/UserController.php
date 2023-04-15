@@ -73,8 +73,7 @@ class UserController extends Controller {
         $error = "";
         $message = "";
 
-        if ($_POST) {
-            $user_id = $_POST['id'];
+        if (getId()) {
             $name = $_POST['name'];
             $file = $_FILES['img'];
 
@@ -83,15 +82,29 @@ class UserController extends Controller {
             $destination = $destination . '.' . $extension;
             $is_moved = move_uploaded_file($file['tmp_name'], $destination);
 
-            echo json_encode([
-                'error' => $error,
-                'message' => $message,
-                'name' => $name,
-                'file' => $_FILES,
-                'img' => url($destination),
-                'is_moved' => $is_moved
-            ], JSON_PRETTY_PRINT);
+            $model_response = $this->model_user;
+            $this->check_model($model_response);
+            $path = 'src/public/assets/imgs/' . $file['tmp_name'];
+            $response = $model_response->edit_profile_by_id(getId(), $name, $path);
+            $error = $response['error'];
 
+            header("Content-Type: application/json; charset=UTF-8");
+
+            if(empty($error)) {
+                $message = $response['msg'];
+                echo json_encode([
+                    'error' => $error,
+                    'message' => $message,
+                    'name' => $name,
+                    'file' => $_FILES,
+                    'img' => url($destination),
+                    'is_moved' => $is_moved
+                ], JSON_PRETTY_PRINT);
+            } else {
+                echo json_encode([
+                    'error' => $error
+                ]);
+            }
         }
     }
 }
