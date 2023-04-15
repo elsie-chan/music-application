@@ -176,6 +176,22 @@ class SongModel extends Model{
         }
         return $response;
     }
+    function get_song_by_id($id_songs) {
+        $response = array(
+            "error" => "",
+            "msg" => ""
+        );
+
+        $sql = "SELECT * FROM `$this->table` WHERE `id_songs` = '$id_songs'";
+        $stmt = mysqli_query($this->con,$sql);
+        if(mysqli_num_rows($stmt) == 0){
+            $response["error"] = "Song is not exists.";
+        }else{
+            $row = mysqli_fetch_object($stmt);
+            $response["msg"] = $row;
+        }
+        return $response;
+    }
 //    EDIT / UPDATE
 //    DELETE SONGS
     function delete_song_by_name($name_songs){

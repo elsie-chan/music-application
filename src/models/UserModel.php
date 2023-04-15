@@ -116,6 +116,22 @@ class UserModel extends Model {
         }
         return $response;
     }
+    function get_user_by_id($id_users) {
+        $response = array(
+            "error" => "",
+            "msg" => ""
+        );
+
+        $sql = "SELECT * FROM `$this->table` WHERE `id_users` = '$id_users'";
+        $stmt = mysqli_query($this->con,$sql);
+        if(mysqli_num_rows($stmt) == 0){
+            $response["error"] = "User is not exists.";
+        }else{
+            $row = mysqli_fetch_object($stmt);
+            $response["msg"] = $row;
+        }
+        return $response;
+    }
     // Find All Users
     public function get_all_user(){
         $response = array(

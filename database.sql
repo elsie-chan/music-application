@@ -81,25 +81,25 @@ CREATE TABLE `users`(
 -- CREATE TABLE playlists_songs
 --
 CREATE TABLE `playlists_songs`(
-    `id_playlists_songs` int PRIMARY KEY AUTO_INCREMENT = 1,
+    `id_playlists_songs` int PRIMARY KEY AUTO_INCREMENT,
     `id_playlists` int,
     `id_songs` int
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `albums_songs`(
-    `id_albums_songs` int PRIMARY KEY AUTO_INCREMENT = 1,
+    `id_albums_songs` int PRIMARY KEY AUTO_INCREMENT,
     `id_albums` int,
     `id_songs` int
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `users_artists`(
-    `id_users_artists` int PRIMARY KEY AUTO_INCREMENT = 1,
+    `id_users_artists` int PRIMARY KEY AUTO_INCREMENT,
     `id_users` int,
     `id_artists` int
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `users_albums`(
-    `id_users_albums` int PRIMARY KEY AUTO_INCREMENT = 1,
+    `id_users_albums` int PRIMARY KEY AUTO_INCREMENT,
     `id_users` int,
     `id_albums` int
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -250,7 +250,7 @@ INSERT INTO `songs` VALUES
                     (8,'3 1 0 7 3','src/public/assets/songs/31073.mp3','src/public/assets/imgs/img_songs/31073.jpg',CURRENT_TIMESTAMP(),2,9),
                     (9,'3 1 0 7 4','src/public/assets/songs/31074.mp3','src/public/assets/imgs/img_songs/31074.jpg',CURRENT_TIMESTAMP(),2,9),
                     (10,'3 1 0 7 7','src/public/assets/songs/31077.mp3','src/public/assets/imgs/img_songs/31077.jpg',CURRENT_TIMESTAMP(),2,9),
-                    (11,"I'm not okay",'src/public/assets/songs/imnotokay.mp3','src/public/assets/imgs/img_songs/imnotokay.jpg',CURRENT_TIMESTAMP(),3,1),
+                    (11,'Im not okay','src/public/assets/songs/imnotokay.mp3','src/public/assets/imgs/img_songs/imnotokay.jpg',CURRENT_TIMESTAMP(),3,1),
                     (12,'Golden Hour','src/public/assets/songs/goldenhour.mp3','src/public/assets/imgs/img_songs/goldenhour.jpg',CURRENT_TIMESTAMP(),3,1),
                     (13,'This is what heartbreak feels like','src/public/assets/songs/thisiswhatheartbreakfeelslike.mp3','src/public/assets/imgs/img_songs/tiwfilfl.jpg',CURRENT_TIMESTAMP(),3,1),
                     (14,'This is what losing someone feels like','src/public/assets/songs/thisiswhatlosingsomeonefeels.mp3','src/public/assets/imgs/img_songs/tiwfilfl.jpg',CURRENT_TIMESTAMP(),3,1),
@@ -382,3 +382,9 @@ INSERT INTO `albums_songs` (`id_albums`,`id_songs`) VALUES
                    (38,94),(38,95),
                    (39,96),(39,97),(39,98),
                    (40,99),(40,100);
+INSERT INTO `playlists_songs` (`id_playlists`,`id_songs`) VALUES
+                      (6, 46), (6, 62), (6, 26), (6, 64), (6, 5), (6, 1), (6, 41), (6, 12),
+                      (6, 87), (6, 35), (7, 89), (7, 26), (7, 21), (7, 91), (7, 73), (7, 2),
+                      (7, 33), (7, 85), (7, 72), (7, 59), (8, 2), (8, 92), (8, 79), (8, 56),
+                      (8, 23), (8, 91), (8, 62), (8, 81), (8, 9), (8, 12), (9, 6), (9, 87),
+                      (9, 59), (9, 67), (9, 30), (9, 32), (9, 69), (9, 12), (9, 47), (9,55);

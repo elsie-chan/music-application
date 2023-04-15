@@ -76,13 +76,13 @@ class AlbumModel extends Model{
         }
         return $response;
     }
-    function get_album_by_id ($id) {
+    function get_album_by_id($id_albums) {
         $response = array(
             "error" => "",
             "msg" => ""
         );
 
-         $sql = "SELECT * FROM `$this->table` WHERE `id_albums` = '$id'";
+        $sql = "SELECT * FROM `$this->table` WHERE `id_albums` = '$id_albums'";
         $stmt = mysqli_query($this->con,$sql);
         if(mysqli_num_rows($stmt) == 0){
             $response["error"] = "Album is not exists.";

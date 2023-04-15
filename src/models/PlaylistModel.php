@@ -47,6 +47,22 @@ class PlaylistModel extends Model{
         }
         return $response;
     }
+    function get_playlist_by_id($id_playlists) {
+        $response = array(
+            "error" => "",
+            "msg" => ""
+        );
+
+        $sql = "SELECT * FROM `$this->table` WHERE `id_playlists` = '$id_playlists'";
+        $stmt = mysqli_query($this->con,$sql);
+        if(mysqli_num_rows($stmt) == 0){
+            $response["error"] = "Playlist is not exists.";
+        }else{
+            $row = mysqli_fetch_object($stmt);
+            $response["msg"] = $row;
+        }
+        return $response;
+    }
     function get_all_playlists($id_playlists){
         $response = array(
             "error" => "",
