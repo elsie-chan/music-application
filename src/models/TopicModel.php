@@ -57,6 +57,22 @@ class TopicModel extends Model{
         }
         return $response;
     }
+    function get_topic_by_id($id_topics) {
+        $response = array(
+            "error" => "",
+            "msg" => ""
+        );
+
+        $sql = "SELECT * FROM `$this->table` WHERE `id_topics` = '$id_topics'";
+        $stmt = mysqli_query($this->con,$sql);
+        if(mysqli_num_rows($stmt) == 0){
+            $response["error"] = "Topic is not exists.";
+        }else{
+            $row = mysqli_fetch_object($stmt);
+            $response["msg"] = $row;
+        }
+        return $response;
+    }
 //    update/ edit
     function edit_topic($id_topics,$name_topic){
         $sql = "SELECT * FROM `$this->table` WHERE `id_topics` = '$id_topics'";
