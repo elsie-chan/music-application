@@ -1,4 +1,15 @@
+<?php
+    if (authed()) {
+        if(!empty($_SESSION['user'])){
+            $user_id = $_SESSION['user'];
+            unset($_SESSION['user']);
+        } else {
+            $user_id = '';
+        }
+    }
+?>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -10,7 +21,7 @@
     <link rel="stylesheet" href="<?php echo url('src/public/vendors/font-awesome-6-pro-main/css/all.css')?>">
     <link rel="stylesheet" href="<?php echo url('src/public/css/style.css') ?>">
     <link rel="stylesheet" href="<?php echo url('src/public/css/account.css')?>">
-
+    <link rel="stylesheet" href="<?php echo url('src/public/css/components/loading.css')?>">
     <style>
         @import "<?php echo url('src/public/css/style.css') ?>";
         body {
@@ -47,6 +58,12 @@
     <?php require_once (assets('views/components/sidebar.php')) ?>
     <?php require_once (assets('views/components/controlbar.php')) ?>
     <div id="account">
+        <div class="loading">
+            <div class="loader">
+                <span>MISC</span>
+                <span>MISC</span>
+            </div>
+        </div>
         <?php require_once (assets('views/components/header.php')) ?>
         <div id="info" class="container-fluid d-flex align-items-center flex-row justify-content-md-start justify-content-center">
             <div class="info__img" id="edit-name" data-toggle="modal" data-target="#myModal">
@@ -77,41 +94,46 @@
     </div>
 
     <!-- Modal edit playlist name-->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Edit details</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-sm-4 col-12 avatar-container d-flex">
-                            <img id="srcAvatar" src="https://i.pinimg.com/564x/1b/a4/61/1ba461fd2d88660103a23c32037cb249.jpg" alt="">
-                            <input accept="image/*" type='file' id="inputAvatar"/>
-                            <i class="hide fa-regular fa-pen"></i>
-                        </div>
-                        <div class="col-sm-8 col-12 d-flex flex-column">
-                            <input type="text" class="form-control mb-2" name="name" placeholder="Enter new username">
-                            <button type="button" class="btn btn-primary saveChanges">Save changes</button>
+    <form action="<?php echo url('account/update').'/6' ?>" method="POST" class="form">
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Edit details</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-4 col-12 avatar-container d-flex form-group">
+                                <img id="srcAvatar" src="https://i.pinimg.com/564x/1b/a4/61/1ba461fd2d88660103a23c32037cb249.jpg" alt="">
+                                <input accept="image/*" type='file' id="inputAvatar" class="form-control-file "/>
+                                <i class="hide fa-regular fa-pen"></i>
+                            </div>
+                            <div class="col-sm-8 col-12 d-flex flex-column">
+                                <input type="text" class="form-control mb-2" name="name" placeholder="Enter new username" value="<?php echo $_SESSION['username'];?>">
+                                <button type="button" class="btn btn-primary saveChanges">Save changes</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
+
 
     <script src=<?php echo url('src/public/vendors/jquery/jquery.js')?>></script>
-     <script src="<?php echo url('src/public/vendors/bootstrap/js/bootstrap.js') ?>"></script>
+
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
+    <script src=<?php echo url('src/public/vendors/jquery/jquery.js')?>></script>
+
     <!-- js for sidebar resize -->
     <script>
-        const $ = document.querySelector.bind(document);
+        const _$ = document.querySelector.bind(document);
         const sidebar = document.querySelector('.sidebar');
         const home = document.querySelector('#account');
         document.addEventListener("DOMContentLoaded", function(event) {
@@ -134,37 +156,74 @@
             }
         }
 
-        const inputAvatar = $('#inputAvatar');
-        const srcAvatar = $('#srcAvatar');
-        const imgAvatar = $('.info__img img');
-        const bntSaveChanges = $('.saveChanges');
-        const infoName = $('.info__name');
 
-
-        inputAvatar.addEventListener('change', function(){
-            console.log('hello');
-            srcAvatar.src = URL.createObjectURL(this.files[0]);
-        });
-
-        bntSaveChanges.addEventListener("click", function(){
-            imgAvatar.src = srcAvatar.src;
-            infoName.innerHTML = $('input[name="name"]').value;
-        });
 
     //     js for show account modal
-        const myModal = $('#myModal');
-        myModal.modal('hide')
-        $('#edit-name').click(function(){
-            console.log('hello');
-            myModal.modal('show');
+        $(document).ready(function() {
+            const inputAvatar = _$('#inputAvatar');
+            const srcAvatar = _$('#srcAvatar');
+            const imgAvatar = _$('.info__img img');
+            const bntSaveChanges = _$('.saveChanges');
+            const infoName = _$('.info__name');
+
+            const myModal = $('#myModal');
+            console.log(myModal);
+            // console.log($('#myModal'))
+
+            $('#edit-name').on('click', () => {
+                myModal.modal('show');
+            });
+
+            inputAvatar.addEventListener('change', function () {
+                console.log('hello');
+                srcAvatar.src = URL.createObjectURL(this.files[0]);
+            });
+
+            function close_modal() {
+                myModal.removeClass('show')
+                myModal.css('display', 'none');
+                $('.modal-backdrop').remove();
+            }
+            $('.loading').hide();
+
+            $('#inputAvatar').on('change', function () {
+                srcAvatar.src = URL.createObjectURL(this.files[0]);
+            });
+
+            bntSaveChanges.addEventListener("click", function () {
+                const formData = new FormData($('.form')[0]);
+                formData.set('name', _$('input[name="name"]').value);
+                formData.set('id', 6);
+                formData.set('img', inputAvatar.files[0]);
+                if (_$('input[name="name"]').value !== '') {
+                    close_modal();
+                    $('.loading').show()
+                    $.ajax({
+                        url: "<?php echo url('account/update/') . $user_id?>",
+                        type: 'POST',
+                        enctype: 'multipart/form-data',
+                        data: formData,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        success: function (data) {
+                            console.log(data);
+                            data = JSON.parse(data)
+                            infoName.innerHTML = data.name;
+                            imgAvatar.src = data.img;
+                            $('.loading').hide(1000);
+
+                        },
+                        error: function (data) {
+                            console.log(data);
+                        }
+                    })
+                }
+            });
         });
 
-    //     js for upload avatar
-        $.ajax({
-            url: '',
-            type: GET|POST|DELETE,
-            sucess: function() {...}
-        })
+
+    //
 
     </script>
 
