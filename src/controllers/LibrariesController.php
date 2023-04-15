@@ -61,21 +61,18 @@ class LibrariesController extends Controller {
     }
 
     public function get_playlist_by_id() {
-        $error = "";
-        $message = "";
-
-        if ($_POST) {
+        if (getId()) {
             $model_response = $this->model_playlist;
             $this->check_model($model_response);
 
             $response = $model_response->get_playlist_by_id(getId());
-            $error = $response['error'];
             $_SESSION['playlist'] = getId();
+            $error = $response['error'];
 
             if (empty($error)) {
                 $playlist = $response['msg'];
-                $this->load_view('playlist', [
-                    'album' => $playlist
+                $this->load_view('playlistView', [
+                    'playlist' => $playlist
                 ]);
             } else {
                 $_SESSION['error'] = $error;
@@ -87,24 +84,24 @@ class LibrariesController extends Controller {
         $error = "";
         $message = "";
 
-        if ($_POST) {
-            $model_response = $this->model_playlist;
-            $this->check_model($model_response);
+        $model_response = $this->model_playlist;
+        $this->check_model($model_response);
 
-            $response = $model_response->get_all_playlists(1);
-            $error = $response['error'];
+        $response = $model_response->get_all_playlists(1);
+        $error = $response['error'];
 
-            if (empty($error)) {
-                $message = $response['msg'];
-                foreach ($message as $value) {
-                    $value->playlists_image = url($value->playlists_image);
-                }
-                echo json_encode($message);
-            } else {
-                echo json_encode([
-                    'error' => $error
-                ]);
+        header('Content-Type: application/json; charset=utf-8');
+
+        if (empty($error)) {
+            $message = $response['msg'];
+            foreach ($message as $value) {
+                $value->playlists_image = url($value->playlists_image);
             }
+            echo json_encode($message);
+        } else {
+            echo json_encode([
+                'error' => $error
+            ]);
         }
     }
 
@@ -134,6 +131,6 @@ class LibrariesController extends Controller {
 
     public function test() {
 //        $this->edit_playlist();
-        $this->get_playlist_by_id();
+        $this->get_all_playlist();
     }
 }
