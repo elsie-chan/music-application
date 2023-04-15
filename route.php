@@ -9,6 +9,7 @@ $routes = [
     (new Route('auth/register', 'GET', AuthController::class, 'register')),
     (new Route('auth/register', 'POST', AuthController::class, 'handle_register')),
     (new Route('playlist', 'GET', LibrariesController::class, 'playlist_show')),
+    (new Route('playlist/:id', 'POST', LibrariesController::class, 'get_playlist_by_id')),
     (new Route('album', 'GET', LibrariesController::class, 'album')),
     (new Route('album/:id', 'GET', LibrariesController::class, 'get_album')),
     (new Route('library', 'GET', LibrariesController::class, 'library')),
@@ -31,6 +32,11 @@ $routes = [
     (new Route('auth/forgot_password', 'GET', AuthController::class, 'forgot_pass')),
     (new Route('auth/forgot_password', 'POST', AuthController::class, 'check_email')),
     (new Route('get_song_of_album', 'POST', SongsController::class, 'get_song_of_album')),
+    (new Route('get_song_of_playlist', 'POST', LibrariesController::class, 'get_song_of_playlist')),
+    (new Route('get_artist_by_id', 'POST', ArtistsController::class, 'get_artist_by_id')),
+    (new Route('get_all_playlist', 'POST', LibrariesController::class, 'get_all_playlist')),
+    (new Route('test_artist', 'POST', ArtistsController::class, 'test')),
+    (new Route('test_library', 'POST', LibrariesController::class, 'test'))
     ];
 
 $flag = false;
