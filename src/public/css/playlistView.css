@@ -3,6 +3,7 @@
   padding-top: 64px;
   background: var(--blue-bg);
   color: var(--white);
+  min-height: 100vh;
 }
 
 /* .bg-card {
@@ -73,8 +74,8 @@
   /* display: none; */
   list-style-type: none;
   position: absolute;
-  right: 0.7rem;
-  top: 3.5rem;
+  right: 15%;
+  top: auto;
   background-color: #212529;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   min-width: 120px;
@@ -184,6 +185,12 @@
 .modal-body .avt-playlist:hover .hide {
   display: block;
   color: var(--blue-bg);
+}
+
+.avt-playlist input {
+  opacity: 0;
+  -moz-opacity: 0;
+  filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0)
 }
 
 .modal-body .hide {

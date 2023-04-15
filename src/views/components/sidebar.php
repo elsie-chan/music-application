@@ -5,7 +5,7 @@
 <div class="sidebar">
     <div class="banner">
         <a class="logo" href="#">
-            <img src="src/public/assets/imgs/logo.svg" width="40" height="40" class="d-inline-block align-top" alt="">
+            <img src="<?php echo url('src/public/assets/imgs/logo.svg') ?>" width="40" height="40" class="d-inline-block align-top" alt="">
             <span>MISC</span>
         </a>
     </div>
