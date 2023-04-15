@@ -59,21 +59,19 @@
         }
 
         .liked_songs{
-            left: 50%;
+            color: #FFFFFF;
+            left: 40%;
             position: absolute;
             bottom: 36px;
             border: none;
         } 
-        .liked_songs a{
-            color: #FFFFFF;
+        .liked_songs p{
             background-color: transparent;
-            text-shadow: 2px -4px 4px rgba(0, 0, 0, 0.25);
-            position: absolute;
             font-family: 'Roboto';
             font-style: normal;
             font-weight: 700;
-            font-size: 2.5rem;
-            line-height: 22px;display: flex;
+            font-size: 2.3rem;
+            line-height: 22px;
             bottom: 15px;
         }
         .card-body a{
@@ -130,136 +128,136 @@
         <div class="container-fluids albums">
             <div class="row row-cols-md albums__list">
                 <!-- fix responsive liked_song -->
-                <div class="col-md-4 col-sm-8 col-12 liked-song pr-3" >
-                    <div class="card liked_songs">
-                        <a class="card-text"  href ="#">Liked Songs</a>
+                <a class="col-md-4 col-sm-8 col-12 liked-song pr-3" href="<?php echo url('liked_songs') ?>">
+                    <div class="liked_songs" >
+                        <p>Liked Songs</p>  
                     </div>
-                </div>
+                </a>
                 <div class="col-md-2 col-sm-4 col-10 p-0 ">
                     <div class="card list mr-3 mb-3 mt-3">
                         <img src="https://images.unsplash.com/photo-1678257355149-6eda1755b1a2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <a class="card-text"  href ="#">Playlist Name</a>
+                        <div class="card-body"  href ="#">
+                            <a class="card-text" >Playlist Name</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-4 col-10 p-0 ">
                     <div class="card list mr-3 mb-3 mt-3">
                         <img src="https://images.unsplash.com/photo-1678257355149-6eda1755b1a2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <a class="card-text"  href ="#">Playlist Name</a>
+                        <div class="card-body"  href ="#">
+                            <a class="card-text" >Playlist Name</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-4 col-10 p-0 ">
                     <div class="card list mr-3 mb-3 mt-3">
                         <img src="https://images.unsplash.com/photo-1678257355149-6eda1755b1a2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <a class="card-text"  href ="#">Playlist Name</a>
+                        <div class="card-body"  href ="#">
+                            <a class="card-text" >Playlist Name</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-4 col-10 p-0 ">
+                    <div class="card list mr-3 mb-3 mt-3" href ="#">
+                        <img src="https://images.unsplash.com/photo-1678257355149-6eda1755b1a2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80" class="card-img-top" alt="...">
+                        <div class="card-body"  href ="#">
+                            <a class="card-text" >Playlist Name</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-4 col-10 p-0 ">
                     <div class="card list mr-3 mb-3 mt-3">
                         <img src="https://images.unsplash.com/photo-1678257355149-6eda1755b1a2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <a class="card-text"  href ="#">Playlist Name</a>
+                        <div class="card-body"  href ="#">
+                            <a class="card-text" >Playlist Name</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-4 col-10 p-0 ">
                     <div class="card list mr-3 mb-3 mt-3">
                         <img src="https://images.unsplash.com/photo-1678257355149-6eda1755b1a2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <a class="card-text"  href ="#">Playlist Name</a>
+                        <div class="card-body"  href ="#">
+                            <a class="card-text" >Playlist Name</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-4 col-10 p-0 ">
                     <div class="card list mr-3 mb-3 mt-3">
                         <img src="https://images.unsplash.com/photo-1678257355149-6eda1755b1a2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <a class="card-text"  href ="#">Playlist Name</a>
+                        <div class="card-body"  href ="#">
+                            <a class="card-text" >Playlist Name</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-4 col-10 p-0 ">
                     <div class="card list mr-3 mb-3 mt-3">
                         <img src="https://images.unsplash.com/photo-1678257355149-6eda1755b1a2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <a class="card-text"  href ="#">Playlist Name</a>
+                        <div class="card-body"  href ="#">
+                            <a class="card-text" >Playlist Name</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-4 col-10 p-0 ">
                     <div class="card list mr-3 mb-3 mt-3">
                         <img src="https://images.unsplash.com/photo-1678257355149-6eda1755b1a2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <a class="card-text"  href ="#">Playlist Name</a>
+                        <div class="card-body"  href ="#">
+                            <a class="card-text" >Playlist Name</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-4 col-10 p-0 ">
                     <div class="card list mr-3 mb-3 mt-3">
                         <img src="https://images.unsplash.com/photo-1678257355149-6eda1755b1a2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <a class="card-text"  href ="#">Playlist Name</a>
+                        <div class="card-body"  href ="#">
+                            <a class="card-text" >Playlist Name</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-4 col-10 p-0 ">
                     <div class="card list mr-3 mb-3 mt-3">
                         <img src="https://images.unsplash.com/photo-1678257355149-6eda1755b1a2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <a class="card-text"  href ="#">Playlist Name</a>
+                        <div class="card-body"  href ="#">
+                            <a class="card-text" >Playlist Name</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-4 col-10 p-0 ">
                     <div class="card list mr-3 mb-3 mt-3">
                         <img src="https://images.unsplash.com/photo-1678257355149-6eda1755b1a2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <a class="card-text"  href ="#">Playlist Name</a>
+                        <div class="card-body"  href ="#">
+                            <a class="card-text" >Playlist Name</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-4 col-10 p-0 ">
                     <div class="card list mr-3 mb-3 mt-3">
                         <img src="https://images.unsplash.com/photo-1678257355149-6eda1755b1a2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <a class="card-text"  href ="#">Playlist Name</a>
+                        <div class="card-body"  href ="#">
+                            <a class="card-text" >Playlist Name</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-4 col-10 p-0 ">
                     <div class="card list mr-3 mb-3 mt-3">
                         <img src="https://images.unsplash.com/photo-1678257355149-6eda1755b1a2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <a class="card-text"  href ="#">Playlist Name</a>
+                        <div class="card-body"  href ="#">
+                            <a class="card-text" >Playlist Name</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-4 col-10 p-0 ">
                     <div class="card list mr-3 mb-3 mt-3">
                         <img src="https://images.unsplash.com/photo-1678257355149-6eda1755b1a2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <a class="card-text"  href ="#">Playlist Name</a>
+                        <div class="card-body"  href ="#">
+                            <a class="card-text" >Playlist Name</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-4 col-10 p-0 ">
                     <div class="card list mr-3 mb-3 mt-3">
                         <img src="https://images.unsplash.com/photo-1678257355149-6eda1755b1a2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <a class="card-text"  href ="#">Playlist Name</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-2 col-sm-4 col-10 p-0 ">
-                    <div class="card list mr-3 mb-3 mt-3">
-                        <img src="https://images.unsplash.com/photo-1678257355149-6eda1755b1a2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <a class="card-text"  href ="#">Playlist Name</a>
+                        <div class="card-body"  href ="#">
+                            <a class="card-text" >Playlist Name</a>
                         </div>
                     </div>
                 </div>

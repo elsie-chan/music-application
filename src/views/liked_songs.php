@@ -48,16 +48,16 @@
             filter: blur(50px);
             -webkit-filter: blur(50px);
         }
-        .fa-heart{
+        .icon-heart{
             background: transparent;
             border: none;
             color: red;
         }
-        /* .fa-heart:focus{
+        /* .fa-heart icon-heart:focus{
             color: red;
         } */
 
-        .liked--song.song--active {
+        .icon-heart.song--active {
             color: white;
         }
     </style>
@@ -89,7 +89,7 @@
                         <div class="col media-right">
                             <i class="more fa-solid fa-ellipsis-vertical"></i>
                             <div class="song__like" >
-                                <button class="liked--song fa-solid fa-heart" name ="heart"></button>
+                                <button class="liked--song fa-solid fa-heart icon-heart" name ="heart"></button>
                             </div> 
                         </div>
                     </li>
@@ -111,7 +111,7 @@
                         <div class="col media-right">
                             <i class="more fa-solid fa-ellipsis-vertical"></i>
                             <div class="song__like">
-                                <button class="liked--song fa-solid fa-heart" name ="heart"></button>
+                                <button class="liked--song fa-solid fa-heart icon-heart" name ="heart"></button>
                             </div> 
                         </div>
                     </li>
@@ -133,7 +133,7 @@
                         <div class="col media-right">
                             <i class="more fa-solid fa-ellipsis-vertical"></i>
                             <div class="song__like">
-                                <button class="liked--song fa-solid fa-heart" name ="heart"></button>
+                                <button class="liked--song fa-solid fa-heart icon-heart" name ="heart"></button>
                             </div> 
                         </div>
                     </li>
@@ -155,7 +155,7 @@
                         <div class="col media-right">
                             <i class="more fa-solid fa-ellipsis-vertical"></i>
                             <div class="song__like">
-                                <button class="liked--song fa-solid fa-heart" name ="heart"></button>
+                                <button class="liked--song fa-solid fa-heart icon-heart" name ="heart"></button>
                             </div> 
                         </div>
                     </li>
@@ -177,7 +177,7 @@
                         <div class="col media-right">
                             <i class="more fa-solid fa-ellipsis-vertical"></i>
                             <div class="song__like">
-                                <button class="liked--song fa-solid fa-heart" name ="heart"></button>
+                                <i class="liked--song fa-solid fa-heart icon-heart"></i>
                             </div> 
                         </div>
                     </li>
@@ -199,7 +199,8 @@
                         <div class="col media-right">
                             <i class="more fa-solid fa-ellipsis-vertical"></i>
                             <div class="song__like">
-                                <button class="liked--song fa-solid fa-heart" name ="heart"></button>
+                            <i class="liked--song fa-solid fa-heart icon-heart"></i>
+
                             </div> 
                         </div>
                     </li>
@@ -221,7 +222,8 @@
                         <div class="col media-right">
                             <i class="more fa-solid fa-ellipsis-vertical"></i>
                             <div class="song__like">
-                                <button class="liked--song fa-solid fa-heart" name ="heart"></button>
+                            <i class="liked--song fa-solid fa-heart icon-heart"></i>
+
                             </div> 
                         </div>
                     </li>
@@ -243,7 +245,8 @@
                         <div class="col media-right">
                             <i class="more fa-solid fa-ellipsis-vertical"></i>
                             <div class="song__like">
-                                <button class="liked--song fa-solid fa-heart" name ="heart"></button>
+                            <i class="liked--song fa-solid fa-heart icon-heart"></i>
+
                             </div> 
                         </div>
                     </li>
@@ -265,7 +268,8 @@
                         <div class="col media-right">
                             <i class="more fa-solid fa-ellipsis-vertical"></i>
                             <div class="song__like">
-                                <button class="liked--song fa-solid fa-heart" name ="heart"></button>
+                            <i class="liked--song fa-solid fa-heart icon-heart"></i>
+
                             </div> 
                         </div>
                     </li>
@@ -287,7 +291,8 @@
                         <div class="col media-right">
                             <i class="more fa-solid fa-ellipsis-vertical"></i>
                             <div class="song__like">
-                                <button class="liked--song fa-solid fa-heart" name ="heart"></button>
+                            <i class="liked--song fa-solid fa-heart icon-heart"></i>
+
                             </div> 
                         </div>
                     </li>
@@ -309,7 +314,8 @@
                         <div class="col media-right">
                             <i class="more fa-solid fa-ellipsis-vertical"></i>
                             <div class="song__like">
-                                <button class="liked--song fa-solid fa-heart" name ="heart"></button>
+                            <i class="liked--song fa-solid fa-heart icon-heart"></i>
+
                             </div> 
                         </div>
                     </li>
@@ -331,7 +337,8 @@
                         <div class="col media-right">
                             <i class="more fa-solid fa-ellipsis-vertical"></i>
                             <div class="song__like">
-                                <button class="liked--song fa-solid fa-heart" name ="heart"></button>
+                            <i class="liked--song fa-solid fa-heart icon-heart"></i>
+
                             </div> 
                         </div>
                     </li>
@@ -353,7 +360,7 @@
                         <div class="col media-right">
                             <i class="more fa-solid fa-ellipsis-vertical"></i>
                             <div class="song__like">
-                                <button class="liked--song fa-solid fa-heart" name ="heart"></button>
+                                <i class="liked--song fa-solid fa-heart icon-heart"></i>
                             </div> 
                         </div>
                     </li>
@@ -392,24 +399,25 @@
 
         // Display modal 
 
-        const moreFunction = document.querySelector('.more-function');
-        const moreButton = document.querySelector('.more-info');
-        moreButton.addEventListener('click', () => {
-            if(moreFunction.style.display === 'none') {
-                moreFunction.style.display = 'inline-block';
-            } else {
-                moreFunction.style.display = 'none';
-            }
-        });
+        // const moreFunction = document.querySelector('.more-function');
+        // const moreButton = document.querySelector('.more-info');
+        // moreButton.addEventListener('click', () => {
+        //     if(moreFunction.style.display === 'none') {
+        //         moreFunction.style.display = 'inline-block';
+        //     } else {
+        //         moreFunction.style.display = 'none';
+        //     }
+        // });
 
         
 
         // js for change heart icon on click 
-        let hearts = document.querySelectorAll(".liked--song");
-        // console.log(hearts.length);
+        let hearts = document.querySelectorAll(".icon-heart");
+        console.log(hearts.length);
         for(let i = 0; i < hearts.length; i++) {
             hearts[i].addEventListener("click", function() {
                 hearts[i].classList.toggle("song--active");
+                console.log(hearts[i])
             })
         }
 
