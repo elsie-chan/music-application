@@ -349,7 +349,7 @@
                 console.log($('.playlist-result'))
                 $('.playlist-result').on('click', function (e) {
                     console.log('click playlist');
-                    window.location.href = '<?php echo url('playlist') ?>';
+                    window.location.href = '<?php echo url('playlist') ?>' + '/' + $(this).data('id');
                 });
             }
 
@@ -408,6 +408,7 @@
                                                 </div>
                                                 <div class="card-info">
                                                     <h6>${song.name_songs}</h6>
+                                                    <a href="#">${song.id_artists}</a>
                                                 </div>
                                             </div>
                                         </div>

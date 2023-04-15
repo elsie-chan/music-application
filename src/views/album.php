@@ -43,13 +43,13 @@
         }
         .back-side {
             width: 100%;
-            background-image: url(<?php echo url('src/public/assets/imgs/song1.png') ?>);
+            background-image: url(<?php echo url  ($data['album']->image_albums) ?>);
             background-repeat: no-repeat;
             background-size: cover;
             background-position: center;
             position: relative;
             filter: blur(50px);
-            -webkit-filter: blur(50px);
+            -webkit-filter: blur(50px) brightness(0.5);
         }
         .album-hide {
             display: none;
@@ -62,83 +62,7 @@
     <?php require_once 'components/controlbar.php' ?>
     <div id="playlist">
         <?php require_once 'components/header.php' ?>
-        <?php 
-            $author = [
-                'Lana Del Rey', 'Lam_Si-chan', 'Elsie_nè', 'Hahah'
-            ];
-
-            $name = [
-                'AtlanTa', 'Florentino', 'hí',  'Elsie_nè'
-            ];
-
-            $songs = [
-                [
-                    'link_song' => 'src/public/assets/imgs/song1.png',
-                    'author' => $author[rand()&3],
-                    'name' => $name[rand()&3]
-                ],
-                [
-                    'link_song' => 'src/public/assets/imgs/song1.png',
-                    'author' => $author[rand()&3],
-                    'name' => $name[rand()&3]
-                ],
-                [
-                    'link_song' => 'src/public/assets/imgs/song1.png',
-                    'author' => $author[rand()&3],
-                    'name' => $name[rand()&3]
-                ],
-                [
-                    'link_song' => 'src/public/assets/imgs/song1.png',
-                    'author' => $author[rand()&3],
-                    'name' => $name[rand()&3]
-                ],
-                [
-                    'link_song' => 'src/public/assets/imgs/song1.png',
-                    'author' => $author[rand()&3],
-                    'name' => $name[rand()&3]
-                ],
-                [
-                    'link_song' => 'src/public/assets/imgs/song1.png',
-                    'author' => $author[rand()&3],
-                    'name' => $name[rand()&3]
-                ],
-                [
-                    'link_song' => 'src/public/assets/imgs/song1.png',
-                    'author' => $author[rand()&3],
-                    'name' => $name[rand()&3]
-                ],
-                [
-                    'link_song' => 'src/public/assets/imgs/song1.png',
-                    'author' => $author[rand()&3],
-                    'name' => $name[rand()&3]
-                ],
-                [
-                    'link_song' => 'src/public/assets/imgs/song1.png',
-                    'author' => $author[rand()&3],
-                    'name' => $name[rand()&3]
-                ],
-                [
-                    'link_song' => 'src/public/assets/imgs/song1.png',
-                    'author' => $author[rand()&3],
-                    'name' => $name[rand()&3]
-                ],
-                [
-                    'link_song' => 'src/public/assets/imgs/song1.png',
-                    'author' => $author[rand()&3],
-                    'name' => $name[rand()&3]
-                ],
-                [
-                    'link_song' => 'src/public/assets/imgs/song1.png',
-                    'author' => $author[rand()&3],
-                    'name' => $name[rand()&3]
-                ],
-                [
-                    'link_song' => 'src/public/assets/imgs/song1.png',
-                    'author' => $author[rand()&3],
-                    'name' => $name[rand()&3]
-                ]
-            ]
-        ?>
+        
         <div class="row content m-0">
             <!-- <?php require_once 'components/contextMenu.php' ?> -->
 
@@ -147,12 +71,12 @@
                 </div>
                 <div class="front-side col py-md-4 pr-md-3 h-auto" style=" padding:15px;">
                     <div class="card flex-md-column flex-row" style="border: none;background-color: transparent; top: 0;">
-                        <img src="<?php echo url ('src/public/assets/imgs/song1.png')?>" alt="" style="">
+                        <img src="<?php echo url($data['album']->image_albums) ?>" alt="" style="">
                         <div class="info">
                             <div class="title d-flex">
-                                <h2 class="mr-auto pl-0 p-2" style="padding-left: 0 !important;">Normal Fucking Rockwell</h2>
+                                <h2 class="mr-auto pl-0 p-2" style="padding-left: 0 !important;"><?php echo $data['album']->name_albums ?></h2>
                             </div>
-                            <p>13 songs</p>
+                            <p class="number-of-songs"><span>10</span> songs</p>
                             <!-- <p></p> -->
                             <div class="functional d-flex">
                                 <i class="play-song fa-solid fa-circle-play p-2 " style="padding-left: 0 !important;"></i>
@@ -169,30 +93,8 @@
 
             </div>
             <div class="col">
-                <!-- <h2>hwihdwiduw</h2> -->
                 <ul class="list-unstyled mt-3">
-                    <?php foreach ($songs as $key => $song) { ?>
-                        <li class="media">
-                            <div class="col-10">
-                                <div class="row media-left">
-                                    <div class="songThumbnail">
-                                        <img src="<?php echo url($song['link_song']) ?>" alt="song avatar" >
-                                        <span class="icon-play-song">
-                                            <i class="fa-duotone fa-play"></i>
-                                        </span>
-                                    </div>
-                                    <div class="card-info">
-                                        <h6><?php echo $song['name']?></h6>
-                                        <a href="#"><?php echo $song['author']?></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col media-right more-option">
-                                <i class="more fa-solid fa-ellipsis-vertical"></i>
-                                <?php require 'components/contextMenu.php' ?>
-                            </div>
-                        </li>
-                    <?php } ?>
+                    
                 </ul>
             </div>
         </div>
@@ -200,14 +102,44 @@
     
 
 
-<script src=<?php echo url('src/public/vendors/jquery/jquery.js')?>></script>
-<!-- <script src="<?php echo url('src/public/vendors/bootstrap/js/bootstrap.js') ?>"></script> -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<script src='<?php echo url('src/public/js/contextMenu.js')?>' type="text/javascript"></script>
+<script src="<?php echo url('src/public/vendors/bootstrap/js/bootstrap.js') ?>"></script>
+<script src="<?php echo url('src/public/vendors/jquery/jquery.js')?>"></script>
+<script src="<?php echo url('src/public/vendors/bootstrap/js/bootstrap.bundle.min.js')?>"></script>
 
 <script type="text/javascript">
+
+        // js for context menu
+        const left = document.documentElement.clientWidth;
+        const header = $(".header");
+        function clear() {
+            $(".context-menu").each((index, menu) => {
+            $(menu).css({
+                display: "none",
+            });
+            });
+        }
+
+        function asignContextMenu() {
+            $(".more-option").each((index, option) => {
+            $(option).on("click", function (e) {
+                clear();
+                const contextMenu = $(this).parent().find(".context-menu");
+                contextMenu.css({
+                display: "inline-block",
+                });
+
+                contextMenu.on("mouseleave", function (e) {
+                $(this).css({
+                    transition: "all 0.25s",
+                    display: "none",
+                });
+                });
+            });
+            });
+        }
 
         // <!-- js for sidebar resize -->
         // const $ = document.querySelector.bind(document);
@@ -247,10 +179,79 @@
         });
 
         
+        // asignContextMenu();
+        $(document).ready(function () {
+            $.ajax({
+                    url: '<?php echo url('get_song_of_album') ?>',
+                    type: 'POST',
+                    data: {
+                        name: <?php echo $data['album']->id_albums ?>,
+                    },
+                    success: function (data) {
+                        console.log(data);
+                        const template = data[0].map((song, index) => {
+                                return `
+                                    <li class="media">
+                                        <div class="col-10">
+                                            <div class="row media-left">
+                                                <div class="songThumbnail">
+                                                    <img src="${song.image_song}" alt="song avatar" >
+                                                    <span class="icon-play-song">
+                                                        <i class="fa-duotone fa-play"></i>
+                                                    </span>
+                                                </div>
+                                                <div class="card-info">
+                                                    <h6>${song.name_songs}</h6>
+                                                    <a href="<?php echo url('album') ?>/${song.id_artists}">${get_artist_by_id(song.id_artists)}</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col media-right more-option">
+                                            <i class="more fa-solid fa-ellipsis-vertical"></i>
+                                            <?php require 'components/contextMenu.php' ?>
+                                        </div>
+                                    </li>
+                                `;
+                            })
+                        $('.list-unstyled').html(template);
+                        asignContextMenu();
+                        $('.number-of-songs span').text(data[0].length);
+                    },
+                    error: function(error) {
+                        console.log(error);
+                        console.log('error');
+                    }
+            });
 
+            function get_artist_by_id(id) {
+                let name_artist = "";
+                $.ajax({
+                    url: '<?php echo url('get_artist_by_id') ?>',
+                    type: 'POST',
+                    data: {
+                        name: id,
+                    },
+                    async: false,
+                    success: function (data) {
+                        console.log(data);
+                        
+                        name_artist =  data.name_artists;
+                        
+                        
+                        // $('.list-unstyled').html(template);
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+            });
+            return name_artist;
+            }
+        })
 
         
 
     </script>
+
+
 </body>
 </html>
