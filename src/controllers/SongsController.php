@@ -90,7 +90,7 @@ class SongsController extends Controller {
                     $value->image_song = url($value->image_song);
                 }
                 $count = count($message);
-                echo json_encode([$message]);
+                echo json_encode([$message, $count]);
             } else {
                 echo json_encode([
                     'error' => $error,
@@ -99,10 +99,39 @@ class SongsController extends Controller {
         }
     }
 
+    public function get_song_of_playlist() {
+        $error = "";
+        $message = "";
+
+        if ($_POST) {
+            $id_playlist = $_POST['name'];
+            $model_response = $this->model_song;
+            $this->check_model($model_response);
+
+            $response = $model_response->get_song_of_playlist($id_playlist);
+            $error = $response['error'];
+
+            header("Content-Type: application/json; charset=UTF-8");
+
+            if (empty($error)) {
+                $message = $response['msg'];
+                foreach ($message as $value) {
+                    $value->src = url($value->src);
+                    $value->image_song = url($value->image_song);
+                }
+                $count = count($message);
+                echo json_encode([$message, $count]);
+            } else {
+                echo json_encode([
+                    'error' => $error,
+                ]);
+            }
+        }
+    }
 
 //    public function get_all_song_wit
     public function test() {
 //        dd($_SESSION['album']);
-        $this->get_song_of_album();
+        $this->get_song_of_playlist();
     }
 }

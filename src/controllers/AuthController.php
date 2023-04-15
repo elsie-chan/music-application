@@ -84,7 +84,7 @@ class AuthController extends Controller {
     }
 
     public function forgot_pass() {
-        $this->load_view('auth/forgot_password');
+        $this->load_view('auth/forgotPassword');
     }
 
     public function check_code():bool|string {
