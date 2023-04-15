@@ -51,14 +51,14 @@
         .fa-heart{
             background: transparent;
             border: none;
-            color: white;
+            color: red;
         }
         /* .fa-heart:focus{
             color: red;
         } */
 
         .liked--song.song--active {
-            color: red;
+            color: white;
         }
     </style>
 </head>
@@ -392,15 +392,15 @@
 
         // Display modal 
 
-        // const moreFunction = document.querySelector('.more-function');
-        // const moreButton = document.querySelector('.more-info');
-        // moreButton.addEventListener('click', () => {
-        //     if(moreFunction.style.display === 'none') {
-        //         moreFunction.style.display = 'inline-block';
-        //     } else {
-        //         moreFunction.style.display = 'none';
-        //     }
-        // });
+        const moreFunction = document.querySelector('.more-function');
+        const moreButton = document.querySelector('.more-info');
+        moreButton.addEventListener('click', () => {
+            if(moreFunction.style.display === 'none') {
+                moreFunction.style.display = 'inline-block';
+            } else {
+                moreFunction.style.display = 'none';
+            }
+        });
 
 
         // js for change heart icon on click 

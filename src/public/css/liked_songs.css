@@ -4,8 +4,71 @@
   background: var(--blue-bg);
   color: var(--white);
 }
+.front-side {
+  position: absolute;
+  /* top: 20px; */
+  left: 0;
+  width: 100%;
+}
+
+.info {
+  color: var(--white);
+}
+
+.info p {
+  color: var(--white);
+}
+
+.info .edit-name {
+  background: transparent;
+  color: var(--white);
+}
+
+.info .edit-name:focus {
+  box-shadow: none !important;
+}
+
+.functional {
+  align-items: center;
+  position: relative;
+}
+
+.play-song {
+  font-size: 3rem;
+  color: var(--hightlight);
+}
+.more-info {
+  font-size: 2rem;
+}
+
+.more {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.repeat-song:hover,
+.more-info:hover,
+.more:hover,
+.edit-name:hover {
+  cursor: pointer;
+  opacity: 0.8;
+  transition: 0.5s;
+}
+
+.play-song:hover {
+  cursor: pointer;
+  font-size: 3.3rem;
+  transition: 0.5s;
+}
+
+.more-function li:hover a {
+  border-radius: 4px;
+  background-color: var(--grey);
+}
 
 .media {
+  display: flex;
   justify-content: space-between;
   padding: 10px;
   gap: 1em;
@@ -17,11 +80,6 @@
   transition: 0.5s;
 }
 
-.playlist-header {
-  background-image: url("src/public/assets/imgs/song1.png");
-  /* color: black; */
-}
-
 .card-title,
 .card-text {
   color: black;
@@ -31,9 +89,13 @@
   height: 3rem;
 }
 
-.media-left .card-info p {
+.media-left .card-info a {
   font-size: 0.9em;
   color: var(--grey);
+}
+
+.media-left .card-info a:hover {
+  text-decoration: underline;
 }
 
 .media-right .fa-solid {
@@ -55,7 +117,7 @@
 }
 
 .songThumbnail .icon-play-song {
-  visibility:hidden;
+  visibility: hidden;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -66,7 +128,63 @@
   visibility: visible;
 }
 
+/* Modal  */
+.modal-header .modal-title {
+  color: var(--blue-bg);
+}
 
+.modal-body .avt-playlist {
+  position: relative;
+}
+
+.modal-body .avt-playlist img {
+  width: 100%;
+}
+
+.modal-body .avt-playlist:hover img {
+  opacity: 0.5;
+}
+
+.modal-body .avt-playlist:hover .hide {
+  display: block;
+  color: var(--blue-bg);
+}
+
+.modal-body .hide {
+  display: none;
+  font-size: 3rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
+.modal-body .form-control:focus {
+  box-shadow: none;
+}
+
+.modal-body .content-playlist .description {
+  height: 92px;
+  resize: none;
+}
+
+.modal-footer .btn-primary {
+  background-color: var(--hightlight);
+  border: 1px solid var(--hightlight);
+}
+
+.modal-footer .btn-primary:hover {
+  font-weight: 700;
+  background-color: var(--hightlight);
+  border: 1px solid var(--hightlight);
+  transition: 0.5s;
+}
+
+/* menu */
+.more-option {
+  position: relative;
+}
 
 .fa-heart{
     background: transparent;
