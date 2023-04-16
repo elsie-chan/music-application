@@ -25,7 +25,7 @@ class PlaylistModel extends Model{
         return $response;
     }
 
-    function add_playlists($name_playlists,$playlists_image,$create_at,$id_users){
+    function add_playlists($name_playlists,$playlists_image,$description,$create_at,$id_users){
         $response = array(
             "error" => "",
             "msg" => ""
@@ -43,7 +43,7 @@ class PlaylistModel extends Model{
         }
         $path = "public/assets/imgs/img_playlists/".$playlists_image['name'];
         move_uploaded_file($playlists_image['tmp-name'],$path);
-        $sql = "INSERT INTO `$this->table` VALUES('".$id."','".$name_playlists."','".$playlists_image."','".$create_at."','".$id_users."')";
+        $sql = "INSERT INTO `$this->table` VALUES('".$id."','".$name_playlists."','".$playlists_image."','".$description."','".$create_at."','".$id_users."')";
         $stmt = mysqli_query($this->con,$sql);
         if($stmt){
             $response["msg"] = "Add playlist successfully.";
@@ -126,7 +126,6 @@ class PlaylistModel extends Model{
         );
         $sql = "SELECT * FROM `$this->table` WHERE `id_users` = '$id_user' AND `name_playlists` = '$name_playlist'";
         $stmt = mysqli_query($this->con,$sql);
-        $data = array();
         if(mysqli_num_rows($stmt) == 0){
             $response["error"] = "User is not exists.";
         }else{
