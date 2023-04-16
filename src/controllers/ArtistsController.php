@@ -52,7 +52,11 @@ class ArtistsController extends Controller
 
             if (empty($error)) {
                 $message = $response['msg'];
-                echo json_encode($message);
+                foreach ($message as $value) {
+                    $value->image_albums = url($value->image_albums);
+                }
+                $count = count($message);
+                echo json_encode([$message, $count]);
             } else {
                 echo json_encode([
                     'error' => $error
