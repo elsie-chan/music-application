@@ -183,7 +183,8 @@ class UserModel extends Model {
         );
         if(mysqli_num_rows($stmt) > 0 ){
             if(strcmp($new_pass,$confirm_new_pass)==0){
-                $sql = "UPDATE `$this->table` SET `pass_users` = '$new_pass' WHERE `email_users` = '$email'";
+                $pass = password_hash($new_pass);
+                $sql = "UPDATE `$this->table` SET `pass_users` = '$pass' WHERE `email_users` = '$email'";
                 $stmt = mysqli_query($this->con,$sql);
                 $response["msg"] = "Your password has been changed";
             }else{

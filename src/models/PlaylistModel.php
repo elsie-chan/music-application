@@ -22,7 +22,7 @@ class PlaylistModel extends Model{
         if (getimagesize($playlists_image['tmp-name'])==false){
              $response["error"] = "Please upload valid image.";
         }
-        $path = "public/assets/imgs/".$playlists_image['name'];
+        $path = "public/assets/imgs/img_playlists/".$playlists_image['name'];
         move_uploaded_file($playlists_image['tmp-name'],$path);
         $sql = "INSERT INTO `$this->table` VALUES('".$id."','".$name_playlists."','".$playlists_image."','".$create_at."','".$id_users."')";
         $stmt = mysqli_query($this->con,$sql);
@@ -100,7 +100,7 @@ class PlaylistModel extends Model{
         return $response;
     }
 //    update / edit
-    function edit_playlists_by_id_playlists($id_playlists,$name_playlists,$playlists_image){
+    function edit_playlists_by_id_playlists($id_playlists,$name_playlists,$playlists_image,$description){
         $response = array(
             "error" => "",
             "msg" => ""
@@ -115,7 +115,7 @@ class PlaylistModel extends Model{
         if (getimagesize($playlists_image['tmp-name']) == False){
             $response["error"] = "Please upload valid image.";
         }
-        $sql = "UPDATE `$this->table` SET `name_playlists` = '$name_playlists', `playlists_image` = '$playlists_image' WHERE `id_playlists` = '$id_playlists'";
+        $sql = "UPDATE `$this->table` SET `name_playlists` = '$name_playlists', `playlists_image` = '$playlists_image', `description` = '$description' WHERE `id_playlists` = '$id_playlists'";
         $stmt = mysqli_query($this->con,$sql);
         if($stmt){
             $response["msg"] = "Your playlist has been updated.";
