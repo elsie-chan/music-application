@@ -6,6 +6,25 @@ class PlaylistModel extends Model{
         parent::__construct();
     }
 //    create
+
+    public function add_playlist_like_song($name_playlists,$playlists_image,$create_at, $description, $id_users) {
+        $response = array(
+            "error" => "",
+            "msg" => ""
+        );
+        $id = $this->countID($this->table)+1;
+        $stmt = mysqli_query($this->con,"SELECT * FROM `$this->table` WHERE `id_users` = '$id_users' AND `name_playlists` = '$name_playlists'");
+        if(mysqli_num_rows($stmt)!=0){
+            $response["error"] = "Your playlist is exists";
+        }
+        $sql = "INSERT INTO `$this->table` VALUES('".$id."','".$name_playlists."','".$playlists_image."','".$description."','".$create_at."','".$id_users."')";
+        $stmt = mysqli_query($this->con,$sql);
+        if($stmt){
+            $response["msg"] = "Add playlist successfully.";
+        }
+        return $response;
+    }
+
     function add_playlists($name_playlists,$playlists_image,$create_at,$id_users){
         $response = array(
             "error" => "",
@@ -13,7 +32,7 @@ class PlaylistModel extends Model{
         );
         $id = $this->countID($this->table)+1;
         $stmt = mysqli_query($this->con,"SELECT * FROM `$this->table` WHERE `id_users` = '$id_users' AND `name_playlists` = '$name_playlists'");
-        if(mysqli_num_rows($stmt)==0){
+        if(mysqli_num_rows($stmt)!=0){
             $response["error"] = "Your playlist is exists";
         }
         if ($playlists_image["error"] != 0){
@@ -99,6 +118,24 @@ class PlaylistModel extends Model{
         }
         return $response;
     }
+
+    function get_playlist_of_user($id_user, $name_playlist) {
+        $response = array(
+            "error" => "",
+            "msg" => ""
+        );
+        $sql = "SELECT * FROM `$this->table` WHERE `id_users` = '$id_user' AND `name_playlists` = '$name_playlist'";
+        $stmt = mysqli_query($this->con,$sql);
+        $data = array();
+        if(mysqli_num_rows($stmt) == 0){
+            $response["error"] = "User is not exists.";
+        }else{
+            $row = mysqli_fetch_object($stmt);
+            $response["msg"] = $row;
+        }
+        return $response;
+    }
+
 //    update / edit
     function edit_playlists_by_id_playlists($id_playlists,$name_playlists,$playlists_image,$description){
         $response = array(

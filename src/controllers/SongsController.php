@@ -129,6 +129,10 @@ class SongsController extends Controller {
         }
     }
 
+    public function get_song_by_id() {
+
+    }
+
 //    public function get_all_song_wit
     public function test() {
 //        dd($_SESSION['album']);
