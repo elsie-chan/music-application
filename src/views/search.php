@@ -117,7 +117,9 @@
     <script src="<?php echo url('src/public/vendors/jquery/jquery.js')?>"></script>
     <script src="<?php echo url('src/public/vendors/bootstrap/js/bootstrap.bundle.min.js')?>"></script>
 
-    <script type="text/javascript">
+    <script type="module">
+        import ajaxRequest from '<?php echo url('src/public/js/ajaxRequest.js')?>'
+        import getArtistById from '<?php echo url('src/public/js/getArtistById.js')?>'
         // <!-- js for sidebar resize -->
         // const $ = document.querySelector.bind(document);
         const sidebar = document.querySelector('.sidebar');
@@ -150,6 +152,8 @@
             const header = $('.header')
             const heightHeader = header[0].offsetHeight;
             const searchContainer = $('.search-container');
+            const GET_ARTIST_PATH = '<?php echo url('get_artist_by_id') ?>';
+
             $(window).on('resize', function () {
                 resizeSidebar();
 
@@ -172,7 +176,7 @@
             // search artist
             function search_artist() {
                 $.ajax({
-                    url: '<?php echo url('search_artist') ?>' || '<?php echo url('search_song') ?>' || '<?php echo url('search_playlist') ?>',
+                    url: '<?php echo url('search_artist') ?>',
                     type: 'POST',
                     data: {
                         name: $('.search-input').val(),
@@ -189,7 +193,7 @@
                             const template = data.slice(0,5).map((artist, index) => {
                                 return `
                                     <div class="album__item col-md-2 col-sm-8 col-10 py-2">
-                                        <a href="${artist.social_media}" target="_blank">
+                                        <a href="<?php echo url('artist') ?>/${artist.id_artists}">
                                             <img src="${artist.picture}" alt="">
                                             <p class="py-2">${artist.name_artists}</p>
                                         </a>
@@ -383,19 +387,26 @@
             $(".topic-card").on("click", function() {
                 $('.form-search').css("visibility","hidden");
                 $('.card').css("display","none");
-                let dataId = $(this).attr("data-id");
+                const dataId = $(this).attr("data-id");
+                // console.log("data id " + dataId);
                 // alert("The data-id of clicked item is: " + dataId);
                 $.ajax({
-                    type: 'POST',
                     url: '<?php echo url('response_topic') ?>',
-                    data: { name: $(this).attr("data-id"), },
+                    type: 'POST',
+                    async: true,
+                    data: { name: dataId },
                     success: function(data) {
-                        console.log(data);
                         if (data?.error) {
-                            console.log(data);
+                            console.log("loi " + data);
                         } else {
-                            
-                            const template = data.map((song, index) => {
+                            // console.log(data);
+
+                            // console.log(data + " in 401")
+                            if (data) {
+                                
+                                const template = data.map((song, index) => {
+                                    const artist = getArtistById(GET_ARTIST_PATH, song.id_artists);
+                                    // console.log(artist)
                                 return `
                                     <li class="media container">
                                         <div class="col-10">
@@ -408,22 +419,28 @@
                                                 </div>
                                                 <div class="card-info">
                                                     <h6>${song.name_songs}</h6>
-                                                    <a href="#">${song.id_artists}</a>
+                                                    <a href="<?php echo url('artist') ?>/${artist.id_artists}"">${artist.name_artists}</a>
                                                 </div>
                                             </div>
                                         </div>
                                     </li>
-                                    
-                                `;
-                            })
-                            // $('.search-result-artist').append( "<h2>Album</h2>" );
-                            // $('h2').addClass("row");
-                            $('.topic-type').html(template);
+                                        
+                                    `;
+                                })
+                                // $('.search-result-artist').append( "<h2>Album</h2>" );
+                                // $('h2').addClass("row");
+                                $('.topic-type').html(template);
+                            }
                         }
+                    },
+                    error: function (err) {
+                        console.log(err)
                     }
 
                 })
             });
+
+            
         })
         
 
