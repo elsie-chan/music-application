@@ -67,7 +67,7 @@ class AuthController extends Controller {
                 $this->check_model($model_response);
 
 //                Mail::send_code_to_email($_SESSION['email'], $_SESSION['username']);
-                $response = $model_response->register($_SESSION['username'], $_SESSION['email'], $_SESSION['password'], $_SESSION['confirm_pass'], $_SESSION['mobile'], $_SESSION['token']);
+                $response = $model_response->register($_SESSION['username'], $_SESSION['email'], $_SESSION['password'], $_SESSION['confirm_pass'], $_SESSION['mobile'], $token);
                 $error = $response['error'];
                 if (empty($error)) {
 //                    $this->liked_song();
@@ -84,67 +84,72 @@ class AuthController extends Controller {
     }
 
     public function forgot_pass() {
-        $this->load_view('auth/forgotPassword');
+        $this->load_view('auth/forgot_password');
     }
 
-    public function check_code():bool|string {
+    public function check_code() {
 
-        if ($_POST) {
-            $code = $_POST['code'];
-            if ($_SESSION['random_number'] == $code) {
-                return true;
-            } else {
-                return false;
-            }
+        $code = $_POST['code'];
+        header('Content-Type: application/json;');
+        if ($_SESSION['number'] == $code) {
+            echo json_encode([
+                'message' => "Valid Code"
+            ]);
+        } else {
+            echo json_encode([
+                'error' => "Invalid Code. Please try again!"
+            ]);
         }
-        return false;
     }
 
     public function check_email() {
         $error = "";
 
-        if ($_POST) {
-            $email = $_POST['email'];
-            $model_response = $this->model_user;
-            $this->check_model($model_response);
-            $response = $model_response->get_user_by_email($email);
-            $error= $response['error'];
+        $email = $_POST['email'];
+//        $_SESSION['email'] = $email;
+        $model_response = $this->model_user;
+        $this->check_model($model_response);
+        $response = $model_response->get_user_by_email($email);
+        $error= $response['error'];
 
-            if (empty($error)) {
-                Mail::send_code_to_email($email, $_SESSION['username']);
-                $verify_code = $this->check_code();
-                if ($verify_code) {
-                    $this->forgot_password($email);
-                } else {
-                    $error = "Invalid Code. Please try again!";
-                    $_SESSION['error'] = $error;
-                }
-            } else {
-                $_SESSION['error'] = $error;
-                Redirect::to('auth/forgot_password');
-            }
+        header('Content-Type: application/json');
+
+        Mail::send_code_to_email($email, $_SESSION['username']);
+//            $verify_code = $this->check_code();
+        if (empty($error)) {
+//                $this->forgot_password($email);
+            $message = $response['msg'];
+            echo json_encode([$message]);
+        } else {
+           echo json_encode([
+               'error' => $error
+           ]);
         }
     }
 
-    public function forgot_password($email) {
+    public function forgot_password() {
         $error = "";
 
-        if ($_POST) {
-            $_SESSION['password']= $_POST['password'];
-            $_SESSION['confirm_pass'] = $_POST['confirm_pass'];
+//        $email = $_SESSION['email'];
+//        dd($email);
+        $email = $_POST['email'];
+        $pass = $_POST['password'];
+        $confirm_pass = $_POST['confirm_pass'];
 
-            $model_response = $this->model_user;
-            $this->check_model($model_response);
+        $model_response = $this->model_user;
+        $this->check_model($model_response);
 
-            $response = $model_response->forgot_password($email, $_SESSION['password'], $_SESSION['confirm_pass']);
-            $error = $response['error'];
+        header('Content-Type: application/json');
+        $response = $model_response->forgot_pass($email, $pass, $confirm_pass);
+        $error = $response['error'];
 
-            if (empty($error)) {
-                $_SESSION['message'] = $response['msg'];
-                Redirect::to('auth/login');
-            } else {
-                $_SESSION['error'] = $error;
-            }
+        if (empty($error)) {
+            $message = $response['msg'];
+            echo json_encode([$message]);
+        } else {
+           echo json_encode([
+               'error' => $error
+           ]);
         }
     }
 

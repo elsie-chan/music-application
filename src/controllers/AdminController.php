@@ -112,47 +112,45 @@ class AdminController extends Controller {
         $error = "";
         $message = "";
 
-        if ($_POST) {
-            $model_response = $this->model_admin;
-            $this->check_model($model_response);
+        $model_response = $this->model_admin;
+        $this->check_model($model_response);
 
-            $response = $model_response->get_all_user();
-            $error = $response['error'];
+        $response = $model_response->get_all_user();
+        $error = $response['error'];
 
-            if (empty($error)) {
-                $message = $response['msg'];
-                foreach ($message as $value) {
-                    $value->avatar_users = url($value->avatar_users);
-                }
-                echo json_encode($message);
-            } else {
-                echo json_encode([
-                    'error' => $error
-                ]);
+        if (empty($error)) {
+            $message = $response['msg'];
+            foreach ($message as $value) {
+                $value->avatar_users = url($value->avatar_users);
             }
+            echo json_encode($message);
+        } else {
+            echo json_encode([
+                'error' => $error
+            ]);
         }
     }
-    public function delete_user($username, $id_user) {
-        if ($this->is_admin_login())
-        {
+    public function delete_user() {
             if($_POST) {
-//            $username = $_POST['username'];
-//            $id_user = $_POST['id_user'];
+            $username = $_POST['username'];
+            $id_user = $_POST['id_user'];
 
                 $model_response = $this->model_admin;
                 $this->check_model($model_response);
 
+                header('Content-Type: application/json; charset=utf-8');
+
                 $response = $model_response->delete_user_by_username($username, $id_user);
                 if ($response) {
-                    return $_SESSION['message'] = 'Successfully deleted';
+                   echo json_encode([
+                       'message' => 'Successfully deleted user'
+                   ]);
                 } else {
-                    return $_SESSION['error'] = 'User does not exist';
+                     echo json_encode([
+                         'error' => 'User does not exist'
+                     ]);
                 }
             }
-        } else {
-            return $_SESSION['error'] = "You don't have permission to access this page.";
-        }
-            return NULL;
     }
 
     public function delete_all_user() {
@@ -350,7 +348,7 @@ class AdminController extends Controller {
 //        $test = $this->get_all_users();
 //        echo $test;
 //        $this->check_login();
-        $this->get_all_user();
+        $this->delete_user();
 
     }
 }

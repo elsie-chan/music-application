@@ -16,19 +16,23 @@ class ArtistsController extends Controller
         }
     }
 
-    public function get_album_by_artist() {
-        $error = "";
-        $message = "";
+    public function get_album_by_id_artist() {
+        if (getId()) {
+            $model_response = $this->model_album;
+            $this->check_model($model_response);
 
-        if ($_POST) {
-            $id = $_POST['name'];
-            $model_response_artist = $this->model_artist;
-            $model_response_album = $this->model_album;
+            $response = $model_response->get_album_of_artists(getId());
+            $_SESSION['artist'] = getId();
+            $error = $response['error'];
 
-            $this->check_model($model_response_artist);
-            $this->check_model($model_response_album);
-
-            $response_artist = $model_response_artist->get_artist;
+            if (empty($error)) {
+                $artist = $response['msg'];
+                $this->load_view('artist', [
+                    'artist' => $artist
+                ]);
+            } else {
+                $_SESSION['error'] = $error;
+            }
         }
     }
 
