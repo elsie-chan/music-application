@@ -7,21 +7,21 @@ class ArtistsController extends Controller
         parent::__construct();
     }
 
-    public function index()
-    {
-        if(authed()) {
-            $this->load_view('artist');
-        } else {
-            $this->load_view('auth/auth.login');
-        }
-    }
+//    public function index()
+//    {
+//        if(authed()) {
+//            $this->load_view('artist');
+//        } else {
+//            $this->load_view('auth/auth.login');
+//        }
+//    }
 
-    public function get_album_by_id_artist() {
+    public function get_artist() {
         if (getId()) {
-            $model_response = $this->model_album;
+            $model_response = $this->model_artist;
             $this->check_model($model_response);
 
-            $response = $model_response->get_album_of_artists(getId());
+            $response = $model_response->get_artists_by_id(getId());
             $_SESSION['artist'] = getId();
             $error = $response['error'];
 
@@ -32,6 +32,31 @@ class ArtistsController extends Controller
                 ]);
             } else {
                 $_SESSION['error'] = $error;
+            }
+        }
+    }
+
+    public function get_album_by_id_artist() {
+        $error = "";
+
+        if ($_POST) {
+            $id_artist = $_POST['id_artist'];
+            $model_response = $this->model_album;
+            $this->check_model($model_response);
+
+
+            $response = $model_response->get_album_of_artists($id_artist);
+            $error = $response['error'];
+
+            header("Content-Type: application/json; charset=utf-8");
+
+            if (empty($error)) {
+                $message = $response['msg'];
+                echo json_encode($message);
+            } else {
+                echo json_encode([
+                    'error' => $error
+                ]);
             }
         }
     }
@@ -64,6 +89,6 @@ class ArtistsController extends Controller
     }
 
     public function test() {
-        $this->get_artist_by_id();
+//        $this->get_album_by_id_artist();
     }
 }
