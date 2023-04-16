@@ -6,15 +6,6 @@ class LibrariesController extends Controller {
     }
 
 
-    public function playlist_show()
-    {
-        if (authed()) {
-            $this->load_view('playlistView');
-        } else {
-            $this->load_view('auth/auth.login');
-        }
-    }
-
     public function library() {
         if (authed()) {
             $_SESSION['page'] = 'library';
@@ -24,14 +15,29 @@ class LibrariesController extends Controller {
         }
     }
 
-    public function album() {
-        if (authed()) {
-            $this->load_view('album');
-        } else {
-            $this->load_view('auth/auth.login');
+//    Like Song
+    public function get_liked_songs() {
+        if(getId()) {
+            $_SESSION['page'] = 'liked_songs';
+            $model_response = $this->model_playlist;
+            $this->check_model($model_response);
+
+            $response = $model_response->get_playlist_of_user(getId(), "Like Songs");
+//            dd($response);
+            $error = $response['error'];
+
+            if (empty($error)) {
+                $like_song = $response['msg'];
+                $this->load_view('liked_songs', [
+                    'liked_songs' => $like_song
+                ]);
+            } else {
+                $_SESSION['error'] = $error;
+            }
         }
     }
 
+//    Album
     public function get_album() {
         if (getId()) {
             $model_response = $this->model_album;
@@ -51,15 +57,37 @@ class LibrariesController extends Controller {
             }
         }
     }
-    public function liked_songs() {
-        if (authed()) {
-            $_SESSION['page'] = 'liked_songs';
-            $this->load_view('liked_songs');
-        } else {
-            $this->load_view('auth/auth.login');
+
+    public function edit_album() {
+        $error = "";
+        $message = "";
+
+        if (getId()) {
+            $name = $_POST['name_album'];
+            $img = $_FILES['img'];
+            $id_artist = $_POST['id_artist'];
+            $model_response = $this->model_album;
+            $this->check_model($model_response);
+
+            $response = $model_response->edit_album_by_id(getId(), $name, $img, $id_artist);
+            $error = $response['error'];
+
+            header('Content-Type:application/json; charset=utf-8');
+
+            if (empty($error)) {
+                $message = $response['msg'];
+                echo json_encode([
+                   'message' => $message
+                ]);
+            } else {
+                echo json_encode([
+                    'error' => $error
+                ]);
+            }
         }
     }
 
+//    Playlist
     public function get_playlist_by_id() {
         if (getId()) {
             $model_response = $this->model_playlist;
@@ -105,26 +133,61 @@ class LibrariesController extends Controller {
         }
     }
 
-    public function edit_playlist() {
+    public function add_playlist() {
         $error = "";
         $message = "";
 
         if ($_POST) {
-//            $id = getId();
-            $id = $_POST['id'];
             $name = $_POST['name'];
             $img = $_FILES['img'];
+            $today = date("Y-m-d H:i:s");
+            $id_user = $this->is_id_user();
+
+            $model_response  = $this->model_playlist;
+            $this->check_model($model_response);
+
+            $response = $model_response->add_playlists($name, $img, $today, $id_user);
+            $error = $response['error'];
+
+            if (empty($error)) {
+                $message = $response['msg'];
+                $_SESSION['message'] = $message;
+                Redirect::to('admin/dashboard');
+            } else {
+                $_SESSION['error'] = $error;
+                Redirect::to('admin/dashboard');
+            }
+        }
+    }
+
+    public function edit_playlist() {
+        $error = "";
+        $message = "";
+
+        if (getID()) {
+//            $id = $_POST['id'];
+            $name = $_POST['name_playlist'];
+            $img = $_FILES['img'];
+            $description = $_POST['description'];
+
 
             $model_response = $this->model_playlist;
             $this->check_model($model_response);
 
-            $response = $model_response->edit_playlists_by_id_playlists($id, $name, $img);
+            $response = $model_response->edit_playlists_by_id_playlists(getId(), $name, $img, $description);
             $error = $response['error'];
 
+            header('Content-Type: application/json; charset=utf-8');
+
             if (empty($error)) {
-                echo $response['msg'];
+                 $message = $response['msg'];
+                 echo json_encode([
+                     'message' => $message
+                 ]);
             } else {
-                echo $error;
+                echo json_encode([
+                    'error' => $error
+                ]);
             }
         }
     }
@@ -156,18 +219,31 @@ class LibrariesController extends Controller {
         }
     }
 
-    public function get_album_by_artist_id() {
+    public function delete_playlist_by_name() {
         $error = "";
         $message = "";
 
-        if(getId()) {
-            $model_response_album = $this->model_album;
-            $model_response_artist = $this->model_artist;
+        if ($_POST) {
+            $name = $_POST['name'];
 
-            $this->check_model($model_response_album);
-            $this->check_model($model_response_artist);
+            $model_response = $this->model_playlist;
+            $this->check_model($model_response);
 
-            $response_album = $model_response_album->get_album_by_id();
+            $response = $model_response->delete_playlists_by_name($name);
+            $error = $response['error'];
+
+            header('Content-Type: application/json; charset=utf-8');
+
+            if (empty($error)) {
+                $message = $response['message'];
+                echo json_encode([
+                    'message' => $message
+                ]);
+            } else {
+                echo json_encode([
+                    'error' => $error
+                ]);
+            }
         }
     }
 

@@ -70,8 +70,7 @@ class AuthController extends Controller {
                 $response = $model_response->register($_SESSION['username'], $_SESSION['email'], $_SESSION['password'], $_SESSION['confirm_pass'], $_SESSION['mobile'], $token);
                 $error = $response['error'];
                 if (empty($error)) {
-//                    $this->liked_song();
-
+                    $this->liked_song($_SESSION['username']);
                     Redirect::to('auth/login');
                 } else {
                     $_SESSION['error'] = $error;
@@ -160,45 +159,30 @@ class AuthController extends Controller {
     }
 
     public function liked_song($username) {
-            $error = "";
-            $message = "";
+        $error = "";
 
-            $img =  url('src/public/assets/imgs/like_song.png');
+        $img =  'src/public/assets/imgs/like_songs.png';
+        $today = date('Y-m-d');
 
-            $model_response = $this->model_user;
-            $model_response_playlist = $this->model_playlist;
+        $model_response = $this->model_playlist;
+        $model_response_user = $this->model_user;
+        $this->check_model($model_response);
+        $this->check_model($model_response_user);
 
+        $response_user = $model_response_user->get_user_by_username($username);
+        $error = $response_user['error'];
 
-            if ($img == NULL) {
-                require_once (assets('views/layout/404.php'));
-            }
-
-            if ($username == NULL) {
-                require_once (assets('views/layout/404.php'));
-            }
-
-            if (!isset($model_response) or !isset($model_response_playlist)) {
-                require_once (assets('views/layout/404.php'));
-            }
-
-            $response = $model_response->get_user_by_username($username);
+        if (empty($error)) {
+            $message = $response_user['msg'];
+            $response = $model_response->add_playlist_like_song("Like Songs", $img, $today, "Like Song of User", $message->id_users);
             $error = $response['error'];
             if (empty($error)) {
-                $response_playlist = $model_response_playlist->add_playlists("liked_song", $img, date('Y-m-d H:i:s', time()), $response['msg']->id_users);
-                $error = $response_playlist['error'];
-                if (empty($error)) {
-                    $message = $response_playlist['msg'];
-                } else {
-                    $_SESSION['error'] = $error;
-                }
+                $message = $response['msg'];
             } else {
                 $_SESSION['error'] = $error;
             }
-
-        return NULL;
-    }
-    public function test() {
-        $test_w = $this->liked_song($_POST['username']);
-        echo $test_w;
+        } else {
+            $_SESSION['error'] = $error;
+        }
     }
 }
