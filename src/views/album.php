@@ -202,7 +202,7 @@
                                                 </div>
                                                 <div class="card-info">
                                                     <h6>${song.name_songs}</h6>
-                                                    <a href="<?php echo url('album') ?>/${song.id_artists}">${get_artist_by_id(song.id_artists)}</a>
+                                                    <a href="<?php echo url('artist') ?>/${song.id_artists}" data-id="${song.id_artists}">${get_artist_by_id(song.id_artists)}</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -243,8 +243,8 @@
                     error: function(error) {
                         console.log(error);
                     }
-            });
-            return name_artist;
+                });
+                return name_artist;
             }
         })
 

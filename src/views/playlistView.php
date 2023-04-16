@@ -43,7 +43,7 @@
         }
         .back-side {
             width: 100%;
-            background-image: url(<?php echo url('src/public/assets/imgs/song1.png') ?>);
+            background-image: url(<?php echo url  ($data['playlist']->playlists_image) ?>);
             background-repeat: no-repeat;
             background-size: cover;
             background-position: center;
@@ -107,7 +107,7 @@
     
     
     <!-- Modal edit playlist name-->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <form class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -119,8 +119,8 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-sm-4 col-12 avt-playlist">
-                            <img src="src/public/assets/imgs/song1.png" alt="avatar-playlist">
-                            <input accept="image/*" type='file' id="inputAvatar"/>
+                            <img src="<?php echo url ($data['playlist']->playlists_image) ?>" alt="avatar-playlist">
+                            <input accept="image/*" type='file' id="inputAvatar" class="form-control-file "/>
                             <i class="hide fa-regular fa-pen"></i>
                         </div>
                         <div class="col-sm-8 col-12 d-flex flex-column content-playlist">
@@ -134,7 +134,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </form>
     
 
     
@@ -249,7 +249,7 @@
                                                 </div>
                                                 <div class="card-info">
                                                     <h6>${song.name_songs}</h6>
-                                                    <a href="#">${get_artist_by_id(song.id_artists)}</a>
+                                                    <a href="<?php echo url('artist') ?>/${song.id_artists}"">${get_artist_by_id(song.id_artists)}</a>
                                                 </div>
                                             </div>
                                         </div>
