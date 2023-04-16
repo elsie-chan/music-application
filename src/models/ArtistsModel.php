@@ -25,7 +25,7 @@ class ArtistsModel extends Model
         if (getimagesize($picture['tmp-name'])==false){
             $response["error"] = "Please upload valid image.";
         }
-        $path = "public/assets/imgs/".$picture['name'];
+        $path = "public/assets/imgs/artists/".$picture['name'];
         move_uploaded_file($picture['tmp-name'],$path);
         $stmt = "INSERT INTO `artists` VALUES ('".$id."','".$username."','".$picture."','".$birthday."','".$social_media."')";
         $sql = mysqli_query($this->con,$stmt);

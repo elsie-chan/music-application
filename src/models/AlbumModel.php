@@ -81,7 +81,6 @@ class AlbumModel extends Model{
             "error" => "",
             "msg" => ""
         );
-
         $sql = "SELECT * FROM `$this->table` WHERE `id_albums` = '$id_albums'";
         $stmt = mysqli_query($this->con,$sql);
         if(mysqli_num_rows($stmt) == 0){
@@ -89,6 +88,30 @@ class AlbumModel extends Model{
         }else{
             $row = mysqli_fetch_object($stmt);
             $response["msg"] = $row;
+        }
+        return $response;
+    }
+    function get_album_of_artists($id_artists){
+        $response = array(
+            "error" => "",
+            "msg" => ""
+        );
+        $sql = "SELECT * FROM `artists` WHERE `id_artists` = '$id_artists'";
+        $stmt = mysqli_query($this->con,$sql);
+        if(mysqli_num_rows($stmt) == 0){
+            $response["error"] = "Aritst is not exists.";
+        }else{
+            $sql = "SELECT * FROM `$this->table` WHERE `id_artists` = '$id_artists'";
+            $stmt = mysqli_query($this->con,$sql);
+            if(mysqli_num_rows($stmt) == 0){
+                $response["error"] = "Album is not exists.";
+            }else{
+                $data = array();
+                while($row = mysqli_fetch_object($stmt)){
+                    array_push($data,$row);
+                }
+                $response["msg"] = $data;
+            }
         }
         return $response;
     }

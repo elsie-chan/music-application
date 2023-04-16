@@ -219,15 +219,15 @@ INSERT INTO `albums` VALUES
                          (40,'25','src/public/assets/imgs/img_albums/25.jpg',20);
 
 INSERT INTO `playlists` VALUES
-                            (1,'like songs','src/public/assets/imgs/like_songs.jpg','abcad','2023-4-9',2),
-                            (2,'like songs','src/public/assets/imgs/like_songs.jpg','abcad','2023-4-9',3),
-                            (3,'like songs','src/public/assets/imgs/like_songs.jpg','abcad','2023-4-9',4),
-                            (4,'like songs','src/public/assets/imgs/like_songs.jpg','abcad','2023-4-9',5),
-                            (5,'like songs','src/public/assets/imgs/like_songs.jpg','abcad','2023-4-9',6),
-                            (6,'Top 100','src/public/assets/imgs/like_songs.jpg','abcad','2023-4-9',1),
-                            (7,'US-UK Hits','src/public/assets/imgs/like_songs.jpg','abcad','2023-4-9',1),
-                            (8,'Indie Hits','src/public/assets/imgs/like_songs.jpg','abcad','2023-4-9',1),
-                            (9,'Rock Band','src/public/assets/imgs/like_songs.jpg','abcad','2023-4-9',1);
+                            (1,'like songs','src/public/assets/imgs/like_songs.png','abcad','2023-4-9',2),
+                            (2,'like songs','src/public/assets/imgs/like_songs.png','abcad','2023-4-9',3),
+                            (3,'like songs','src/public/assets/imgs/like_songs.png','abcad','2023-4-9',4),
+                            (4,'like songs','src/public/assets/imgs/like_songs.png','abcad','2023-4-9',5),
+                            (5,'like songs','src/public/assets/imgs/like_songs.png','abcad','2023-4-9',6),
+                            (6,'Top 100','src/public/assets/imgs/img_playlists/top100.jpg','abcad','2023-4-9',1),
+                            (7,'US-UK Hits','src/public/assets/imgs/img_playlists/usukhits.jpg','abcad','2023-4-9',1),
+                            (8,'Indie Hits','src/public/assets/imgs/img_playlists/indiehits.jpg','abcad','2023-4-9',1),
+                            (9,'Rock Band','src/public/assets/imgs/img_playlists/rockband.jpg','abcad','2023-4-9',1);
 INSERT INTO `topics`VALUES
                     (1, 'US-UK'),
                     (2, 'V-pop'),
