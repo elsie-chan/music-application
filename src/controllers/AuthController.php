@@ -21,6 +21,7 @@ class AuthController extends Controller {
                 $_SESSION['username'] = $_POST['username'];
                 $_SESSION['email'] = $_POST["email"];
                 $_SESSION['password'] = $_POST["password"];
+//                dd($token);
 
                 $model_response = $this->model_user;
                 $this->check_model($model_response);
@@ -62,6 +63,7 @@ class AuthController extends Controller {
                 $_SESSION['password'] = $_POST['password'];
                 $_SESSION['confirm_pass'] = $_POST['confirm_pass'];
                 $_SESSION['mobile'] = $_POST['mobile'];
+//                $_SESSION['token'] = $token;
 
                 $model_response = $this->model_user;
                 $this->check_model($model_response);
@@ -105,19 +107,17 @@ class AuthController extends Controller {
         $error = "";
 
         $email = $_POST['email'];
-//        $_SESSION['email'] = $email;
         $model_response = $this->model_user;
         $this->check_model($model_response);
         $response = $model_response->get_user_by_email($email);
+//        dd($response);
         $error= $response['error'];
 
         header('Content-Type: application/json');
 
-        Mail::send_code_to_email($email, $_SESSION['username']);
-//            $verify_code = $this->check_code();
         if (empty($error)) {
-//                $this->forgot_password($email);
             $message = $response['msg'];
+            Mail::send_code_to_email($message->email_users, $_SESSION['username']);
             echo json_encode([$message]);
         } else {
            echo json_encode([
@@ -129,8 +129,6 @@ class AuthController extends Controller {
     public function forgot_password() {
         $error = "";
 
-//        $email = $_SESSION['email'];
-//        dd($email);
         $email = $_POST['email'];
         $pass = $_POST['password'];
         $confirm_pass = $_POST['confirm_pass'];
@@ -184,5 +182,9 @@ class AuthController extends Controller {
         } else {
             $_SESSION['error'] = $error;
         }
+    }
+
+    public function test() {
+        $this->check_email();
     }
 }

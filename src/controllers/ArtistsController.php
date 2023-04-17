@@ -92,6 +92,40 @@ class ArtistsController extends Controller
         }
     }
 
+
+    public function add_artist_to_user() {
+        $error ="";
+        $message = "";
+
+        if (getId()) {
+            $token = $_POST['token'];
+
+            $model_response = $this->model_artist;
+            $this->check_model($model_response);
+
+            $get_token = $this->get_user_use_token($token);
+
+            if ($get_token != NULL) {
+                $id_user = $get_token->id_users;
+                $response = $model_response->add_artists_to_users($id_user, getId());
+                $error = $response['error'];
+
+                header("Content-Type: application/json; charset=utf-8");
+
+                if (empty($error)) {
+                    $message = $response['msg'];
+                    echo json_encode([
+                        'message' => $message
+                    ]);
+                } else {
+                    echo json_encode([
+                        'error' => $error
+                    ]);
+                }
+            }
+
+        }
+    }
     public function test() {
 //        $this->get_album_by_id_artist();
     }

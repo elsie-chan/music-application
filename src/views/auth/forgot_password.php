@@ -45,7 +45,7 @@
                             <div class="form-group d-flex justify-content-center ">
                                 <input class="form-control glass confirm-pass" type="password" name="confirm-new-password" placeholder="Confirm  new password">
                             </div>
-                            <button style="background-color: var(--hightlight); border-color: var(--hightlight);" class="btn btn-primary btn-lg mb-3 btn-send-pass">MK moi ne</button>
+                            <button style="background-color: var(--hightlight); border-color: var(--hightlight);" class="btn btn-primary btn-lg mb-3 btn-send-pass">Reset Password</button>
                         </div>
                         
                     </form>
@@ -79,7 +79,7 @@
     })
     $('.btn-send-pass').on('click', (e) => {
         forgot_password();
-        window.location.href = "<?php echo url('auth/login') ?>";
+        //window.location.href = "<?php //echo url('auth/login') ?>//";
     })
 
 
@@ -133,7 +133,7 @@
             success: (data) => {
                 if (data?.error) {
                     // console.log(data)
-                    //window.location.href = "<?php //echo url('auth/login') ?>//";
+                    window.location.href = "<?php echo url('auth/login') ?>";
                 }
             },
             error: function(error) {

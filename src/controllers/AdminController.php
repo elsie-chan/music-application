@@ -22,35 +22,39 @@ class AdminController extends Controller {
         }
     }
 
-
     //  Artist CRUD
     public function add_artist() {
         $error = "";
         $message = "";
-        if ($this->is_admin_login()) {
-            if ($_POST) {
-                $name = $_POST['name'];
-                $img = $_POST['img'];
-                $birthday = $_POST['birthday'];
-                $media = $_POST['media'];
+        if ($_POST) {
+            $name = $_POST['name'];
+            $img = $_FILES['img'];
+            $birthday = $_POST['birthday'];
+            $media = $_POST['media'];
 
-                $model_response = $this->model_artist;
-                $this->check_model($model_response);
+            $model_response = $this->model_artist;
+            $this->check_model($model_response);
 
-                $response = $model_response->add_artist($name, $img, $birthday, $media);
-                $error = $response['error'];
-                $message = $error['msg'];
+            $destination = 'src/public/assets/artists/' . time();
+            $extension = pathinfo($img['name'], PATHINFO_EXTENSION);
+            $destination = $destination . '.' . $extension;
+            move_uploaded_file($img['tmp_name'], $destination);
 
-                if (empty($error)) {
-                    $_SESSION['message'] = $message;
-                    Redirect::to('admin/dashboard');
-                } else {
-                    $_SESSION['$error'] = $error;
-                    Redirect::to('admin/dashboard');
-                }
+            $response = $model_response->add_artist($name, $destination, $birthday, $media);
+            $error = $response['error'];
+
+            header('Content-Type: application/json; charset=utf-8');
+
+            if (empty($error)) {
+                $message = $response['msg'];
+                echo json_encode([
+                    'message' => $message
+                    ]);
+            } else {
+                 echo json_encode([
+                    'error' => $error
+                ]);
             }
-        } else {
-            $_SESSION['error'] = "You don't have permission to access this page.";
         }
     }
 
@@ -58,53 +62,79 @@ class AdminController extends Controller {
         $error = "";
         $message = "";
 
-        if ($_POST) {
-            $model_response = $this->model_artist;
-            $this->check_model($model_response);
+        $model_response = $this->model_artist;
+        $this->check_model($model_response);
 
-            $response = $model_response->get_all_artists(1);
-            $error = $response['error'];
+        $response = $model_response->get_all_artists(1);
+        $error = $response['error'];
 
-            if (empty($error)) {
-                $message = $response['msg'];
-                foreach ($message as $value) {
-                    $value->picture = url($value->picture);
-                }
-                echo json_encode($message);
-            } else {
-                echo json_encode([
-                   'error' => $error
-                ]);
+        if (empty($error)) {
+            $message = $response['msg'];
+            foreach ($message as $value) {
+                $value->picture = url($value->picture);
             }
+            echo json_encode($message);
+        } else {
+            echo json_encode([
+               'error' => $error
+            ]);
         }
     }
 
-    public function edit_playlist() {
+    public function edit_artist() {
         $error = "";
         $message = "";
 
-        if (getId()) {
-            $name = $_GET['name'];
-            $img = $_FILES['img'];
-            $description = $_GET['description'];
+        $id_artist = $_POST['id_artist'];
+        $name_artist = $_POST['name_artist'];
+        $picture_artist = $_FILES['picture_artist'];
+        $social_media_artist = $_POST['social_media_artist'];
 
-            $model_response = $this->model_playlist;
-            $this->check_model($model_response);
+        $model_response = $this->model_artist;
+        $this->check_model($model_response);
 
-            $response = $model_response->edit_playlists_by_id_playlists(getId(), $name, $img, $description);
-            $error = $response['error'];
+        $destination = 'src/public/assets/artists/' . time();
+        $extension = pathinfo($picture_artist['name'], PATHINFO_EXTENSION);
+        $destination = $destination . '.' . $extension;
+        move_uploaded_file($picture_artist['tmp_name'], $destination);
 
-            if (empty($error)) {
-                $message = $response['msg'];
-            } else {
-                $_SESSION['error'] = $error;
-            }
+        $response = $model_response->edit_profile_artists($id_artist, $name_artist, $destination, $social_media_artist);
+        $error = $response['error'];
+
+        header("Content-Type: application/json; charset=utf-8");
+
+        if (empty($error)) {
+            $message = $response['msg'];
+            echo json_encode([$message]);
+        } else {
+            echo json_encode([
+                'error' => $error
+            ]);
         }
     }
 
-    public function delete_playlist() {
+    public function delete_artist() {
         $error = "";
-//        $mes
+        $message = "";
+
+        $name = $_POST['name'];
+
+        $model_response = $this->model_artist;
+        $this->check_model($model_response);
+
+        $response = $model_response->delete_artists_by_username($name);
+        $error = $response['error'];
+
+        header("Content-Type: application/json; charset=utf-8");
+
+        if (empty($error)) {
+            $message = $response['msg'];
+            echo json_encode($message);
+        } else {
+            echo json_encode([
+                'error' => $error
+            ]);
+        }
     }
 
 //    User CRUD
@@ -130,6 +160,8 @@ class AdminController extends Controller {
             ]);
         }
     }
+
+
     public function delete_user() {
             if($_POST) {
             $username = $_POST['username'];
@@ -168,21 +200,26 @@ class AdminController extends Controller {
         return NULL;
     }
 
-//    Playlist
+//    CRUD Playlist
     public function add_playlist() {
         $error = "";
         $message = "";
 
         if ($_POST) {
+            $id_user = $_POST['id_user'];
             $name = $_POST['name'];
             $img = $_FILES['img'];
             $today = date("Y-m-d H:i:s");
-            $id_user = $this->is_id_user();
 
             $model_response  = $this->model_playlist;
             $this->check_model($model_response);
 
-            $response = $model_response->add_playlists($name, $img, $today, $id_user);
+            $destination = 'src/public/assets/artists/' . time();
+            $extension = pathinfo($img['name'], PATHINFO_EXTENSION);
+            $destination = $destination . '.' . $extension;
+            move_uploaded_file($img['tmp_name'], $destination);
+
+            $response = $model_response->add_playlists($name, $destination, $today, $id_user);
             $error = $response['error'];
 
             if (empty($error)) {
@@ -221,29 +258,41 @@ class AdminController extends Controller {
         }
     }
 
-    public function update_playlists() {
-        $errors = "";
-        $message = "";
+        public function edit_playlist() {
+            $error = "";
+            $message = "";
 
-        if ($_POST) {
-            $id = $_POST["id"];
-            $name = $_POST["name"];
-            $img = $_FILES["img"];
+            $id = $_POST['id'];
+            $name = $_POST['name'];
+            $img = $_FILES['img'];
+            $description = $_POST['description'];
 
             $model_response = $this->model_playlist;
             $this->check_model($model_response);
 
-            $response = $model_response->edit_playlists_by_id_playlists($id, $name, $img);
+            $destination = 'src/public/assets/artists/' . time();
+            $extension = pathinfo($img['name'], PATHINFO_EXTENSION);
+            $destination = $destination . '.' . $extension;
+            move_uploaded_file($img['tmp_name'], $destination);
+
+            $response = $model_response->edit_playlists_by_id_playlists($id, $name, $destination, $description);
             $error = $response['error'];
-            $message = $error['msg'];
+
+            header('Content-Type: application/json; charset=utf-8');
 
             if (empty($error)) {
-
+                $message = $response['msg'];
+                echo json_encode([
+                    'message' => $message
+                ]);
+            } else {
+                echo json_encode([
+                    'error' => $error
+                ]);
             }
         }
-    }
 
-//    Album
+//    CRUD Album
     public function add_album() {
         $error = "";
 
@@ -255,7 +304,12 @@ class AdminController extends Controller {
             $model_response = $this->model_album;
             $this->check_model($model_response);
 
-            $response = $model_response->add_albums($name, $img, $id_user);
+            $destination = 'src/public/assets/artists/' . time();
+            $extension = pathinfo($img['name'], PATHINFO_EXTENSION);
+            $destination = $destination . '.' . $extension;
+            move_uploaded_file($img['tmp_name'], $destination);
+
+            $response = $model_response->add_albums($name, $destination, $id_user);
             $error = $response['error'];
             $message  = $response['msg'];
 
@@ -308,7 +362,12 @@ class AdminController extends Controller {
             $model_response = $this->model_album;
             $this->check_model($model_response);
 
-            $response = $model_response->edit_album_by_id($id, $name, $img, $id_artist);
+            $destination = 'src/public/assets/artists/' . time();
+            $extension = pathinfo($img['name'], PATHINFO_EXTENSION);
+            $destination = $destination . '.' . $extension;
+            move_uploaded_file($img['tmp_name'], $destination);
+
+            $response = $model_response->edit_album_by_id($id, $name, $destination, $id_artist);
             $error = $response['error'];
             $message = $response['msg'];
 
@@ -343,12 +402,157 @@ class AdminController extends Controller {
             }
         }
     }
+
+//    CRUD Song
+    public function add_song() {
+        $error = "";
+        $message = "";
+
+        $name_songs = $_POST['name_songs'];
+        $src = $_FILES['src'];
+        $image_songs = $_FILES['image_songs'];
+        $release = $_POST['release'];
+        $id_artists = $_POST['id_artists'];
+        $id_topics = $_POST['id_topics'];
+
+        $model_response = $this->model_song;
+        $this->check_model($model_response);
+
+        $destination_src = 'src/public/assets/img_songs/' . time();
+        $extension_src = pathinfo($src['name'], PATHINFO_EXTENSION);
+        $destination_src = $destination_src . '.' . $extension_src;
+        move_uploaded_file($src['tmp_name'], $destination_src);
+
+        $destination_img = 'src/public/assets/songs/' . time();
+        $extension_img = pathinfo($image_songs['name'], PATHINFO_EXTENSION);
+        $destination_img = $destination_img . '.' . $extension_img;
+        move_uploaded_file($image_songs['tmp_name'], $destination_img);
+
+        $response = $model_response->add_song($name_songs, $destination_src, $destination_img, $release, $id_artists, $id_topics);
+        $error = $response['error'];
+
+        header("Content-Type: application/json; charset=UTF-8");
+
+        if(empty($error)) {
+            $message = $response['msg'];
+            echo json_encode([
+                'message' => $message
+            ]);
+        } else {
+            echo json_encode([
+                'error' => $error
+            ]);
+        }
+    }
+
+    public function add_song_to_album() {
+        $error = "";
+        $message = "";
+
+        $id_album = $_POST['id_album'];
+        $id_song = $_POST['id_song'];
+
+        $model_response = $this->model_song;
+        $this->check_model($model_response);
+
+        $response = $model_response->add_songs_to_albums($id_album, $id_song);
+        $error = $response['error'];
+
+        header("Content-Type: application/json; charset=UTF-8");
+
+        if (empty($error)) {
+            $message = $response['msg'];
+            echo json_encode([
+                'message' => $message
+            ]);
+        } else {
+            echo json_encode([
+                'error' => $error
+            ]);
+        }
+    }
+
+    public function get_all_song()
+    {
+        $error = "";
+        $message = "";
+
+        $name = $_POST['name'];
+
+        $model_response = $this->model_song;
+        $this->check_model($model_response);
+
+        $response = $model_response->get_all_songs_with_name($name);
+        $error = $response['error'];
+
+        header('Content-Type: application/json; charset=utf-8');
+
+        if (empty($error)) {
+            $message = $response['msg'];
+            foreach ($message as $value) {
+                $value->src = url($value->src);
+                $value->image_song = url($value->image_song);
+            }
+            echo json_encode($message);
+        } else {
+            echo json_encode([
+                'error' => $error
+            ]);
+        }
+    }
+     public function delete_song() {
+        $error = "";
+        $message = "";
+
+        $name = $_POST['name'];
+
+        $model_response = $this->model_song;
+        $this->check_model($model_response);
+
+        $response = $model_response->delete_song_by_name($name);
+        $error = $response['error'];
+
+        header('Content-Type: application/json; charset=utf-8');
+
+        if (empty($error)) {
+            $message = $response['msg'];
+            echo json_encode([
+                'message' => $message
+            ]);
+        } else {
+            echo json_encode([
+                'error' => $error
+            ]);
+        }
+    }
+
+//    CRUD Topic
+    public function add_topic() {
+        $error = "";
+        $message = "";
+
+        $name_topic = $_POST['name_topic'];
+
+        $model_response = $this->model_topic;
+        $this->check_model($model_response);
+
+        $response = $model_response->add_topics($name_topic);
+        $error = $response['error'];
+
+        header('Content-Type: application/json; charset=utf-8');
+
+        if (empty($error)) {
+            $message = $response['msg'];
+
+        }
+    }
+
     public function test() {
 //        echo $this->is_admin_login();
-//        $test = $this->get_all_users();
+        $this->get_all_user();
 //        echo $test;
 //        $this->check_login();
-        $this->delete_user();
+//        $this->delete_user();
 
     }
 }
