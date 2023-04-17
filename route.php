@@ -18,6 +18,7 @@ $routes = [
     (new Route('auth/forgot_password', 'POST', AuthController::class, 'forgot_password')),
 //    user routes
     (new Route('account', 'GET', UserController::class, 'index')),
+    (new Route('account/get_user', 'POST', UserController::class, 'get_user')),
     (new Route('account/update/:id', 'POST', UserController::class, 'update_profile')),
 //    library routes
     (new Route('library', 'GET', LibrariesController::class, 'library')),
