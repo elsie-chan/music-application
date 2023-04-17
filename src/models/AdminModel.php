@@ -49,7 +49,7 @@ class AdminModel extends Model{
             "error" => "",
             "msg" => ""
         );
-        $sql = "SELECT * FROM `$this->table` WHERE `id_users` = '$id_users'";
+        $sql = "SELECT * FROM `$this->table` WHERE `id_users` like '$id_users'";
         if(mysqli_num_rows(mysqli_query($this->con,$sql)) == 0){
             $response["error"] = "Users is not exists.";
         }
@@ -67,7 +67,7 @@ class AdminModel extends Model{
                 FROM 
                       $this->table 
                 WHERE 
-                      `username` = '$username'";
+                      `username` like '$username'";
         $stmt = mysqli_query($this->con, $sql);
         $response = array(
             "error" => "",
@@ -81,7 +81,7 @@ class AdminModel extends Model{
         return $response;
     }
     function get_user_by_email($email){
-        $sql = "SELECT * FROM `$this->table` WHERE `email_users` = '$email'";
+        $sql = "SELECT * FROM `$this->table` WHERE `email_users` like '$email'";
         $stmt = mysqli_query($this->con,$sql);
         $response = array(
             "error" => "",
@@ -125,7 +125,7 @@ class AdminModel extends Model{
             "msg" => ""
         );
 
-        $sql = "SELECT * FROM `$this->table` WHERE `id_users` = '$id_users'";
+        $sql = "SELECT * FROM `$this->table` WHERE `id_users` like '$id_users'";
         $stmt = mysqli_query($this->con,$sql);
         if(mysqli_num_rows($stmt) == 0){
             $response["error"] = "User is not exists.";

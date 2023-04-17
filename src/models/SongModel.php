@@ -109,7 +109,7 @@ class SongModel extends Model{
             "error" => "",
             "msg" => ""
         );
-        $sql = "SELECT * FROM `$this->table` WHERE `id_topics` = '$id_topics'";
+        $sql = "SELECT * FROM `$this->table` WHERE `id_topics` like '$id_topics'";
         $stmt = mysqli_query($this->con,$sql);
         $data = array();
         if(mysqli_num_rows($stmt)==0){
@@ -147,7 +147,7 @@ class SongModel extends Model{
             "error" => "",
             "msg" => ""
         );
-        $sql = "SELECT * FROM `albums_songs` WHERE `id_albums` = '$id_albums'";
+        $sql = "SELECT * FROM `albums_songs` WHERE `id_albums` like '$id_albums'";
         $stmt = mysqli_query($this->con,$sql);
         $data = array();
         if(mysqli_num_rows($stmt) == 0){
@@ -215,12 +215,12 @@ class SongModel extends Model{
         }
         return $response;
     }
-    function delete_song_of_playlist($id_songs){
+    function delete_song_of_playlist($id_songs,$id_playlists){
         $response = array(
             "error" => "",
             "msg" => ""
         );
-        $sql = "DELETE FROM `playlists_songs` WHERE `id_songs` = '$id_songs'";
+        $sql = "DELETE FROM `playlists_songs` WHERE `id_songs` = '$id_songs' AND `id_playlists` = '$id_playlists'";
         $stmt = mysqli_query($this->con,$sql);
         if($stmt){
             $response["msg"] = "Song has been removed.";
@@ -229,12 +229,12 @@ class SongModel extends Model{
         }
         return $response;
     }
-    function delete_song_of_album($id_songs){
+    function delete_song_of_album($id_songs,$id_albums){
         $response = array(
             "error" => "",
             "msg" => ""
         );
-        $sql = "DELETE FROM `albums_songs` WHERE `id_songs` = '$id_songs'";
+        $sql = "DELETE FROM `albums_songs` WHERE `id_songs` = '$id_songs' AND `id_albums` = '$id_albums'";
         $stmt = mysqli_query($this->con,$sql);
         if($stmt){
             $response["msg"] = "Song has been removed.";

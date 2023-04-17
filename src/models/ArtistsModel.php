@@ -15,18 +15,10 @@ class ArtistsModel extends Model
             "msg" => ""
         );
         $id = $this->countID($this->table)+1;
-        $stmt = "SELECT * FROM `$this->table` WHERE `name_artists` = '$username'";
+        $stmt = "SELECT * FROM `$this->table` WHERE `name_artists` like '$username'";
         if(mysqli_num_rows(mysqli_query($this->con,$stmt))>0){
             $response['error'] = "Artist has been exists";
         }
-        if ($picture["error"] != 0){
-            $response["error"] = "Please select picture of artists.";
-        }
-        if (getimagesize($picture['tmp-name'])==false){
-            $response["error"] = "Please upload valid image.";
-        }
-        $path = "public/assets/imgs/artists/".$picture['name'];
-        move_uploaded_file($picture['tmp-name'],$path);
         $stmt = "INSERT INTO `artists` VALUES ('".$id."','".$username."','".$picture."','".$birthday."','".$social_media."')";
         $sql = mysqli_query($this->con,$stmt);
         if ($sql){
@@ -39,17 +31,17 @@ class ArtistsModel extends Model
             "error" => "",
             "msg" => ""
         );
-        $sql = "SELECT * FROM `users` WHERE `id_users` = '$id_users'";
+        $sql = "SELECT * FROM `users` WHERE `id_users` like '$id_users'";
         $stmt = mysqli_query($this->con,$sql);
         if(mysqli_num_rows($stmt)==0) {
             $response["error"] = "User is not exists.";
         }else{
-            $sql = "SELECT * FROM `$this->table` WHERE `id_artists` = '$id_artists'";
+            $sql = "SELECT * FROM `$this->table` WHERE `id_artists` like '$id_artists'";
             $stmt = mysqli_query($this->con,$sql);
             if(mysqli_num_rows($stmt) == 0){
                 $response["error"] = "Artists is not exists.";
             }else{
-                $sql = "SELECT * FROM `users_artists` WHERE `id_artists` = '$id_artists' AND `id_users` = '$id_users'";
+                $sql = "SELECT * FROM `users_artists` WHERE `id_artists` like '$id_artists' AND `id_users` like '$id_users'";
                 $stmt = mysqli_query($this->con,$sql);
                 if(mysqli_num_rows($stmt) > 0){
                     $response["error"] = "Artists is exists.";
@@ -68,7 +60,7 @@ class ArtistsModel extends Model
             "error" => "",
             "msg" => ""
         );
-        $sql = "SELECT * FROM `users_artists` WHERE `id_users` = '$id_users'";
+        $sql = "SELECT * FROM `users_artists` WHERE `id_users` like '$id_users'";
         $stmt = mysqli_query($this->con,$sql);
         if(mysqli_num_rows($stmt) == 0){
             $response["error"] = "User is not exists.";
@@ -106,7 +98,7 @@ class ArtistsModel extends Model
             "error" => "",
             "msg" => ""
         );
-        $sql = "SELECT * FROM `$this->table` WHERE `name_artists` = '$username'";
+        $sql = "SELECT * FROM `$this->table` WHERE `name_artists` like '$username'";
         $stmt = mysqli_query($this->con,$sql);
         if(mysqli_num_rows($stmt) == 0){
             $response["error"] = "Artist is not exists.";
@@ -121,7 +113,7 @@ class ArtistsModel extends Model
             "error" => "",
             "msg" => ""
         );
-        $sql = "SELECT * FROM `$this->table` WHERE `id_artists` = '$id_artists'";
+        $sql = "SELECT * FROM `$this->table` WHERE `id_artists` like '$id_artists'";
         $stmt = mysqli_query($this->con,$sql);
         if(mysqli_num_rows($stmt) == 0){
             $response["error"] = "Artist is not exists.";
@@ -137,20 +129,12 @@ class ArtistsModel extends Model
             "error" => "",
             "msg" => ""
         );
-        $sql = "SELECT * FROM `$this->table` WHERE `id_artists` = '$id_artists'";
+        $sql = "SELECT * FROM `$this->table` WHERE `id_artists` like '$id_artists'";
         $stmt = mysqli_query($this->con,$sql);
         $row = mysqli_fetch_object($stmt);
         if(mysqli_num_rows($stmt)==0){
             $response['error'] = "Artist is not exists";
         }
-        if ($picture["error"] != 0){
-            $response["error"] = "Please select picture of artists.";
-        }
-        if (getimagesize($picture['tmp-name'])==false){
-            $response["error"] = "Please upload valid image.";
-        }
-        $path = "public/assets/".$picture['name'];
-        move_uploaded_file($picture['tmp-name'],$path);
         $sql = "UPDATE `$this->table` SET `name_artists` = '$username', `picture` = '$picture', `social_media` = '$social_media' WHERE `id_artists` = '$id_artists'";
         $stmt = mysqli_query($this->con,$sql);
         if ($stmt){
@@ -166,7 +150,7 @@ class ArtistsModel extends Model
             "error" => "",
             "msg" => ""
         );
-        $stmt = "SELECT * FROM `$this->table` WHERE `name_artists` = '$username'";
+        $stmt = "SELECT * FROM `$this->table` WHERE `name_artists` like '$username'";
         $sql = mysqli_query($this->con,$stmt);
         if(mysqli_num_rows($sql)==0){
             $response['error'] = "Artist is not exists";
