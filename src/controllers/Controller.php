@@ -56,4 +56,20 @@ class Controller
             return;
         }
     }
+
+    public function get_user_use_token($token) {
+        $error = "";
+        $message = "";
+
+        $model_response = $this->model_user;
+        $this->check_model($model_response);
+
+        $response = $model_response->get_user_by_token($token);
+        $error = $response['error'];
+
+        if (empty($error)) {
+            return $response['msg'];
+        }
+        return NULL;
+    }
 }

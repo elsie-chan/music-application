@@ -84,8 +84,7 @@ class UserController extends Controller {
 
             $model_response = $this->model_user;
             $this->check_model($model_response);
-            $path = 'src/public/assets/imgs/' . $file['tmp_name'];
-            $response = $model_response->edit_profile_by_id(getId(), $name, $path);
+            $response = $model_response->edit_profile_by_id(getId(), $name, $destination);
             $error = $response['error'];
 
             header("Content-Type: application/json; charset=UTF-8");

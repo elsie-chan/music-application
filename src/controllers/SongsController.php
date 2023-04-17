@@ -29,12 +29,39 @@ class SongsController extends Controller {
 
             if (empty($error)) {
                 $message = $response['msg'];
-//                echo json_encode([$message]);
+                echo json_encode([$message]);
             } else {
                 echo json_encode([
                     'error' => $error
                 ]);
             }
+        }
+    }
+
+    public function add_song_to_album() {
+        $error = "";
+        $message = "";
+
+        $id_album = $_POST['id_album'];
+        $id_song = $_POST['id_song'];
+
+        $model_response = $this->model_song;
+        $this->check_model($model_response);
+
+        $response = $model_response->add_songs_to_albums($id_album, $id_song);
+        $error = $response['error'];
+
+        header("Content-Type: application/json; charset=UTF-8");
+
+        if (empty($error)) {
+            $message = $response['msg'];
+            echo json_encode([
+                'message' => $message
+            ]);
+        } else {
+            echo json_encode([
+                'error' => $error
+            ]);
         }
     }
 
@@ -129,9 +156,42 @@ class SongsController extends Controller {
         }
     }
 
-    public function get_song_by_id() {
+    public function add_song_to_playlist() {
+        $error = "";
+        $message = "";
 
+        if (getId()) {
+            $id_song = $_POST['id_song'];
+
+            $model_response = $this->model_song;
+            $this->check_model($model_response);
+
+            $response = $model_response->add_songs_to_playlists($id_song, getId());
+            $error = $response['error'];
+
+            header('Content-Type: application/json; charset=utf-8');
+
+            if (empty($error)) {
+                $message = $response['msg'];
+                echo json_encode([
+                    'message' => $message
+                ]);
+            } else {
+                echo json_encode([
+                    'error' => $error
+                ]);
+            }
+        }
     }
+
+//    public function delete_song_of_playlist() {
+//        $error = "";
+//        $message = "";
+//
+//        if (getId()) {
+//
+//        }
+//    }
 
 //    public function get_all_song_wit
     public function test() {
