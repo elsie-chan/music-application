@@ -45,7 +45,7 @@
                             <div class="form-group d-flex justify-content-center ">
                                 <input class="form-control glass confirm-pass" type="password" name="confirm-new-password" placeholder="Confirm  new password">
                             </div>
-                            <button style="background-color: var(--hightlight); border-color: var(--hightlight);" class="btn btn-primary btn-lg mb-3 btn-send-pass">MK moi ne</button>
+                            <button style="background-color: var(--hightlight); border-color: var(--hightlight);" class="btn btn-primary btn-lg mb-3 btn-send-pass">Reset Password</button>
                         </div>
                         
                     </form>
