@@ -1,15 +1,6 @@
-<?php
-    if (authed()) {
-        if(!empty($_SESSION['user'])){
-            $user_id = $_SESSION['user'];
-            unset($_SESSION['user']);
-        } else {
-            $user_id = '';
-        }
-    }
-?>
-<html>
 
+
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -190,16 +181,37 @@
                 srcAvatar.src = URL.createObjectURL(this.files[0]);
             });
 
+
+
             bntSaveChanges.addEventListener("click", function () {
+                let user_id = '';
+                $.ajax({
+                    url: '<?php echo url('account/get_user')?>',
+                    type: 'POST',
+                    async: false,
+                    data: {
+                        token: '<?php echo $_SESSION['token'] ?>'
+                    },
+                    success: (data) => {
+                        // data = JSON.parse(data);
+                        console.log(data)
+                        user_id = data.message.id_users;
+                    }
+
+                })
+
+
+                console.log(user_id);
+
                 const formData = new FormData($('.form')[0]);
                 formData.set('name', _$('input[name="name"]').value);
-                formData.set('id', 6);
+                // formData.set('id', 6);
                 formData.set('img', inputAvatar.files[0]);
                 if (_$('input[name="name"]').value !== '') {
                     close_modal();
                     $('.loading').show()
                     $.ajax({
-                        url: "<?php echo url('account/update/') . $user_id?>",
+                        url: "<?php echo url('account/update/')?>" +user_id,
                         type: 'POST',
                         enctype: 'multipart/form-data',
                         data: formData,
@@ -208,7 +220,6 @@
                         processData: false,
                         success: function (data) {
                             console.log(data);
-                            data = JSON.parse(data)
                             infoName.innerHTML = data.name;
                             imgAvatar.src = data.img;
                             $('.loading').hide(1000);

@@ -170,6 +170,7 @@ class UserModel extends Model {
             $row = mysqli_fetch_object($stmt);
             $response["msg"] = $row;
         }
+
         return $response;
     }
     // Update Profile User
@@ -182,7 +183,7 @@ class UserModel extends Model {
         if(mysqli_num_rows(mysqli_query($this->con,$sql)) == 0){
             $response["error"] = "Users is not exists.";
         }
-        $sql = "UPDATE `$this->table` SET `avatar_users` = '$avt_users' AND `username` = '$username' WHERE `id_users` = '$id_users'";
+        $sql = "UPDATE `$this->table` SET `avatar_users` = '$avt_users', `username` = '$username' WHERE `id_users` = '$id_users'";
         $stmt = mysqli_query($this->con,$sql);
         if($stmt){
             $response["msg"] = "Edit profile successfully";
