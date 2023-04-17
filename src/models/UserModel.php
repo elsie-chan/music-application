@@ -157,6 +157,21 @@ class UserModel extends Model {
         }
         return $response;
     }
+    function get_user_by_token($token){
+        $response = array(
+            "error" => "",
+            "msg" => ""
+        );
+        $sql = "SELECT * FROM `$this->table` WHERE `token` = '$token'";
+        $stmt = mysqli_query($this->con,$sql);
+        if(mysqli_num_rows($stmt)==0){
+            $response["error"] = "User is not exists.";
+        }else{
+            $row = mysqli_fetch_object($stmt);
+            $response["msg"] = $row;
+        }
+        return $response;
+    }
     // Update Profile User
     function edit_profile_by_id($id_users,$avt_users,$username){
         $response = array(
