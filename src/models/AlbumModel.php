@@ -11,13 +11,13 @@ class AlbumModel extends Model{
             "error" => "",
             "msg" => ""
         );
-        $sql = "SELECT * FROM `artists` WHERE `id_artists` = '$id_artists'";
+        $sql = "SELECT * FROM `artists` WHERE `id_artists` like '$id_artists'";
         $stmt = mysqli_query($this->con,$sql);
         if(mysqli_num_rows($stmt) == 0){
             $response["error"] = "Artist is not exists.";
         }else{
             $id = $this->countID($this->table)+1;
-            $sql = "SELECT * FROM `$this->table` WHERE `name_albums` = '$name_albums'";
+            $sql = "SELECT * FROM `$this->table` WHERE `name_albums` like '$name_albums'";
             $stmt = mysqli_query($this->con,$sql);
             if(mysqli_num_rows($stmt)>0){
                 $response["error"] = "Album is exists.";
@@ -34,17 +34,17 @@ class AlbumModel extends Model{
             "error" => "",
             "msg" => ""
         );
-        $sql = "SELECT * FROM `users` WHERE `id_users` = '$id_users'";
+        $sql = "SELECT * FROM `users` WHERE `id_users` like '$id_users'";
         $stmt = mysqli_query($this->con,$sql);
         if(mysqli_num_rows($stmt)==0){
             $response["error"] = "User is not exists.";
         }else{
-            $sql = "SELECT * FROM `$this->table` WHERE `id_albums` = '$id_albums'";
+            $sql = "SELECT * FROM `$this->table` WHERE `id_albums` like '$id_albums'";
             $stmt = mysqli_query($this->con,$sql);
             if(mysqli_num_rows($stmt) == 0){
                 $response["error"] = "Album is not exists.";
             }else{
-                $sql = "SELECT * FROM `users_albums` WHERE `id_albums` = '$id_albums' AND `id_users` = '$id_users'";
+                $sql = "SELECT * FROM `users_albums` WHERE `id_albums` like '$id_albums' AND `id_users` like '$id_users'";
                 $stmt = mysqli_query($this->con,$sql);
                 if(mysqli_num_rows($stmt) > 0){
                     $response["error"] = "Album is exists.";
@@ -81,7 +81,7 @@ class AlbumModel extends Model{
             "error" => "",
             "msg" => ""
         );
-        $sql = "SELECT * FROM `$this->table` WHERE `id_albums` = '$id_albums'";
+        $sql = "SELECT * FROM `$this->table` WHERE `id_albums` like '$id_albums'";
         $stmt = mysqli_query($this->con,$sql);
         if(mysqli_num_rows($stmt) == 0){
             $response["error"] = "Album is not exists.";
@@ -96,12 +96,12 @@ class AlbumModel extends Model{
             "error" => "",
             "msg" => ""
         );
-        $sql = "SELECT * FROM `artists` WHERE `id_artists` = '$id_artists'";
+        $sql = "SELECT * FROM `artists` WHERE `id_artists` like '$id_artists'";
         $stmt = mysqli_query($this->con,$sql);
         if(mysqli_num_rows($stmt) == 0){
             $response["error"] = "Aritst is not exists.";
         }else{
-            $sql = "SELECT * FROM `$this->table` WHERE `id_artists` = '$id_artists'";
+            $sql = "SELECT * FROM `$this->table` WHERE `id_artists` like '$id_artists'";
             $stmt = mysqli_query($this->con,$sql);
             if(mysqli_num_rows($stmt) == 0){
                 $response["error"] = "Album is not exists.";
@@ -120,7 +120,7 @@ class AlbumModel extends Model{
             "error" => "",
             "msg" => ""
         );
-        $sql = "SELECT * FROM `$this->table` WHERE `name_albums` = '$name_albums'";
+        $sql = "SELECT * FROM `$this->table` WHERE `name_albums` like '$name_albums'";
         $stmt = mysqli_query($this->con,$sql);
         if(mysqli_num_rows($stmt) == 0){
             $response["error"] = "Album is not exists.";
@@ -135,7 +135,7 @@ class AlbumModel extends Model{
             "error" => "",
             "msg" => ""
         );
-        $sql = "SELECT * FROM `users_albums` WHERE `id_users` = '$id_users'";
+        $sql = "SELECT * FROM `users_albums` WHERE `id_users` like '$id_users'";
         $stmt = mysqli_query($this->con,$sql);
         if(mysqli_num_rows($stmt) == 0){
             $response["error"] = "User is not exists.";
@@ -156,7 +156,7 @@ class AlbumModel extends Model{
             "error" => "",
             "msg" => ""
         );
-        $sql = "SELECT * FROM `artists` WHERE `id_artists` = '$id_artist'";
+        $sql = "SELECT * FROM `artists` WHERE `id_artists` like '$id_artist'";
         $stmt = mysqli_query($this->con,$sql);
         if(mysqli_num_rows($stmt) == 0){
             $response["error"] = "Artist is not exists.";
@@ -173,7 +173,7 @@ class AlbumModel extends Model{
             "error" => "",
             "msg" => ""
         );
-        $sql = "SELECT * FROM `$this->table` WHERE `name_albums` = '$name_album'";
+        $sql = "SELECT * FROM `$this->table` WHERE `name_albums` like '$name_album'";
         $id = mysqli_fetch_object(mysqli_query($this->con,$sql))->id_albums;
         $sql = "DELETE FROM `users_albums` WHERE `id_albums` = '$id'";
         $stmt = mysqli_query($this->con,$sql);

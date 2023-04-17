@@ -35,14 +35,6 @@ class PlaylistModel extends Model{
         if(mysqli_num_rows($stmt)!=0){
             $response["error"] = "Your playlist is exists";
         }
-        if ($playlists_image["error"] != 0){
-             $response["error"] = "Please select image of playlist.";
-        }
-        if (getimagesize($playlists_image['tmp-name'])==false){
-             $response["error"] = "Please upload valid image.";
-        }
-        $path = "public/assets/imgs/img_playlists/".$playlists_image['name'];
-        move_uploaded_file($playlists_image['tmp-name'],$path);
         $sql = "INSERT INTO `$this->table` VALUES('".$id."','".$name_playlists."','".$playlists_image."','".$description."','".$create_at."','".$id_users."')";
         $stmt = mysqli_query($this->con,$sql);
         if($stmt){
@@ -105,7 +97,7 @@ class PlaylistModel extends Model{
             "error" => "",
             "msg" => ""
         );
-        $sql = "SELECT * FROM `$this->table` WHERE `id_users` = '$id_user'";
+        $sql = "SELECT * FROM `$this->table` WHERE `id_users` like '$id_user'";
         $stmt = mysqli_query($this->con,$sql);
         $data = array();
         if(mysqli_num_rows($stmt) == 0){
@@ -124,7 +116,7 @@ class PlaylistModel extends Model{
             "error" => "",
             "msg" => ""
         );
-        $sql = "SELECT * FROM `$this->table` WHERE `id_users` = '$id_user' AND `name_playlists` = '$name_playlist'";
+        $sql = "SELECT * FROM `$this->table` WHERE `id_users` like '$id_user' AND `name_playlists` like '$name_playlist'";
         $stmt = mysqli_query($this->con,$sql);
         if(mysqli_num_rows($stmt) == 0){
             $response["error"] = "User is not exists.";
@@ -141,15 +133,9 @@ class PlaylistModel extends Model{
             "error" => "",
             "msg" => ""
         );
-        $stmt = mysqli_query($this->con,"SELECT * FROM `$this->table` WHERE `id_playlists` = '$id_playlists'");
+        $stmt = mysqli_query($this->con,"SELECT * FROM `$this->table` WHERE `id_playlists` like '$id_playlists'");
         if(mysqli_num_rows($stmt)==0){
             $response["error"] = "Playlist is not exists";
-        }
-        if ($playlists_image["error"] != 0){
-            $response["error"] = "Please select image of playlist.";
-        }
-        if (getimagesize($playlists_image['tmp-name']) == False){
-            $response["error"] = "Please upload valid image.";
         }
         $sql = "UPDATE `$this->table` SET `name_playlists` = '$name_playlists', `playlists_image` = '$playlists_image', `description` = '$description' WHERE `id_playlists` = '$id_playlists'";
         $stmt = mysqli_query($this->con,$sql);
