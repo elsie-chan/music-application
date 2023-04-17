@@ -1,69 +1,41 @@
 <?php
 use App\Controller\Controller;
-class SongsController extends Controller {
-    public function __construct() {
+class SongsController extends Controller
+{
+    public function __construct()
+    {
         parent::__construct();
     }
 
-//    public function liked_song() {
-//        if (authed()) {
-//            $this->load_view('')
-//        }
-//    }
-    public function add_song_to_playlists()
+    public function get_song_by_id()
     {
         $error = "";
         $message = "";
 
-        if ($_POST) {
-            $id_song = $_POST['id_song'];
-            $id_playlist = $_POST['name_playlist'];
-
-            $model_response_song = $this->model_song;
-            $this->check_model($model_response_song);
-
-            $response = $model_response_song->add_songs_to_playlists($id_song, $id_playlist);
-            $error = $response['error'];
-
-            header("Content-Type: application/json; charset=UTF-8");
-
-            if (empty($error)) {
-                $message = $response['msg'];
-                echo json_encode([$message]);
-            } else {
-                echo json_encode([
-                    'error' => $error
-                ]);
-            }
-        }
-    }
-
-    public function add_song_to_album() {
-        $error = "";
-        $message = "";
-
-        $id_album = $_POST['id_album'];
         $id_song = $_POST['id_song'];
 
         $model_response = $this->model_song;
         $this->check_model($model_response);
 
-        $response = $model_response->add_songs_to_albums($id_album, $id_song);
+        $response = $model_response->get_song_by_id($id_song);
         $error = $response['error'];
 
-        header("Content-Type: application/json; charset=UTF-8");
+        header('Content-Type: application/json; charset=utf-8');
 
         if (empty($error)) {
             $message = $response['msg'];
-            echo json_encode([
-                'message' => $message
-            ]);
+            $message->src = url($message->src);
+            $message->image_song = url($message->image_song);
+            echo json_encode([$message]);
         } else {
             echo json_encode([
                 'error' => $error
             ]);
         }
     }
+
+
+
 
 
     public function get_all_song_with_id_topic() {
@@ -184,14 +156,33 @@ class SongsController extends Controller {
         }
     }
 
-//    public function delete_song_of_playlist() {
-//        $error = "";
-//        $message = "";
-//
-//        if (getId()) {
-//
-//        }
-//    }
+    public function delete_song_of_playlist() {
+        $error = "";
+        $message = "";
+
+        if (getId()) {
+            $id_song = $_POST['id_song'];
+
+            $model_response = $this->model_song;
+            $this->check_model($model_response);
+
+            header('Content-Type: application/json; charset=utf-8');
+
+            $response = $model_response->delete_song_of_playlist($id_song, getId());
+            $error = $response['error'];
+
+            if (empty($error)) {
+                $message = $response['msg'];
+                echo json_encode([
+                    'message' => $message
+                ]);
+            } else {
+                echo json_encode([
+                    'error' => $error
+                ]);
+            }
+        }
+    }
 
 //    public function get_all_song_wit
     public function test() {
