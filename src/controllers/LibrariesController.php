@@ -16,26 +16,35 @@ class LibrariesController extends Controller {
     }
 
 //    Like Song
-    public function get_liked_songs() {
-        if(getId()) {
-            $_SESSION['page'] = 'liked_songs';
-            $model_response = $this->model_playlist;
-            $this->check_model($model_response);
 
-            $response = $model_response->get_playlist_of_user(getId(), "Like Songs");
-//            dd($response);
-            $error = $response['error'];
-
-            if (empty($error)) {
-                $like_song = $response['msg'];
-                $this->load_view('liked_songs', [
-                    'liked_songs' => $like_song
-                ]);
-            } else {
-                $_SESSION['error'] = $error;
-            }
+public function liked_songs() {
+        if (authed()) {
+            $_SESSION['page'] = 'like_songs';
+            $this->load_view('liked_songs');
+        } else {
+            $this->load_view('auth/auth.login');
         }
-    }
+}
+//    public function get_liked_songs() {
+//        if(getId()) {
+//            $_SESSION['page'] = 'liked_songs';
+//            $model_response = $this->model_playlist;
+//            $this->check_model($model_response);
+//
+//            $response = $model_response->get_playlist_of_user(getId(), "Like Songs");
+////            dd($response);
+//            $error = $response['error'];
+//
+//            if (empty($error)) {
+//                $like_song = $response['msg'];
+//                $this->load_view('liked_songs', [
+//                    'liked_songs' => $like_song
+//                ]);
+//            } else {
+//                $_SESSION['error'] = $error;
+//            }
+//        }
+//    }
 
 //    Album
     public function get_album() {
@@ -192,15 +201,50 @@ class LibrariesController extends Controller {
         }
     }
 
-    public function get_all_playlists_of_user() {
+    public function get_playlist_of_user()
+    {
         $error = "";
-        $messages = "";
+        $message = "";
 
-        if (getId()) {
-            $model_response = $this->model_playlist;
-            $this->check_model($model_response);
+        $token = $_POST['token'];
 
-            $response = $model_response->get_all_playlists_of_user(getId());
+        $model_response = $this->model_playlist;
+        $this->check_model($model_response);
+
+        $get_token = $this->get_user_use_token($token);
+
+        if ($get_token != NULL) {
+            $id_user = $get_token->id_users;
+            $response = $model_response->get_playlist_of_user($id_user, "Like Songs");
+            $error = $response['error'];
+
+            header('Content-Type: application/json; charset=utf-8');
+
+            if (empty($error)) {
+                $message = $response['msg'];
+                $message->playlists_image = url($message->playlists_image);
+                echo json_encode($message);
+            } else {
+                echo json_encode([
+                    'error' => $error
+                ]);
+            }
+        }
+    }
+
+    public function get_all_playlist_of_user() {
+        $error = "";
+        $message = "";
+
+        $token = $_POST['token'];
+
+        $model_response = $this->model_playlist;
+        $this->check_model($model_response);
+
+        $get_token = $this->get_user_use_token($token);
+        if ($get_token != NULL) {
+            $id_user = $get_token->id_users;
+            $response = $model_response->get_all_playlists_of_user($id_user);
             $error = $response['error'];
 
             header('Content-Type: application/json; charset=utf-8');

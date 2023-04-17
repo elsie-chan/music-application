@@ -79,7 +79,7 @@
     })
     $('.btn-send-pass').on('click', (e) => {
         forgot_password();
-        window.location.href = "<?php echo url('auth/login') ?>";
+        //window.location.href = "<?php //echo url('auth/login') ?>//";
     })
 
 
@@ -133,7 +133,7 @@
             success: (data) => {
                 if (data?.error) {
                     // console.log(data)
-                    //window.location.href = "<?php //echo url('auth/login') ?>//";
+                    window.location.href = "<?php echo url('auth/login') ?>";
                 }
             },
             error: function(error) {
