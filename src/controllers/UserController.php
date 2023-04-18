@@ -83,7 +83,6 @@ class UserController extends Controller
 
         if (getId()) {
             $name = $_POST['name'];
-//            $file = $_FILES['img'];
             if(!empty($_FILES['img'])) {
                 $file = $_FILES['img'];
             } else {
@@ -103,16 +102,10 @@ class UserController extends Controller
                 $is_moved = false;
             }
 
-
-//            $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
-
-
-
-
-
             $response = $model_response->edit_profile_by_id(getId(), $destination, $name);
             $error = $response['error'];
             $_SESSION['img'] = $destination;
+            $_SESSION['username'] = $name;
             header("Content-Type: application/json; charset=UTF-8");
 
             if (empty($error)) {
