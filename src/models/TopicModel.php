@@ -43,7 +43,7 @@ class TopicModel extends Model{
         return $response;
     }
     function get_topic_by_name($name_topic){
-        $sql = "SELECT * FROM `$this->table` WHERE `name_topics` = '$name_topic'";
+        $sql = "SELECT * FROM `$this->table` WHERE `name_topics` like '$name_topic'";
         $stmt = mysqli_query($this->con,$sql);
         $response = array(
             "error" => "",

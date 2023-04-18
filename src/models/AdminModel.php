@@ -29,17 +29,18 @@ class AdminModel extends Model{
             "error" => "",
             "msg" => ""
         );
-        $sql = "DELETE FROM `playlists` WHERE `id_users` = '$id_users'";
+        $sql = "SELECT * FROM `$this->table` WHERE `id_users` = '$id_users'";
         $stmt = mysqli_query($this->con,$sql);
-        $sql = "DELETE FROM 
-                            $this->table 
-                WHERE 
-                     `username` = '$username'";
-        $stmt = mysqli_query($this->con,$sql);
-        if($stmt){
-            $response["msg"] = "User has been removed.";
+        if(mysqli_num_rows($stmt) == 0){
+            $response["error"] = "User is not exists.";
         }else{
-            $response["error"] = "Failed";
+            $sql = "DELETE FROM `playlists` WHERE `id_users` = '$id_users'";
+            $stmt = mysqli_query($this->con,$sql);
+            $sql = "DELETE FROM $this->table WHERE `username` = '$username'";
+            $stmt = mysqli_query($this->con,$sql);
+            $sql = "UPDATE `$this->table` SET `id_users` = `id_users` - 1 WHERE `id_users` > '$id_users'";
+            $stmt = mysqli_query($this->con,$sql);
+            $response["msg"] = "User has been removed.";
         }
         return $response;
     }

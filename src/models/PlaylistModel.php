@@ -13,7 +13,7 @@ class PlaylistModel extends Model{
             "msg" => ""
         );
         $id = $this->countID($this->table)+1;
-        $stmt = mysqli_query($this->con,"SELECT * FROM `$this->table` WHERE `id_users` = '$id_users' AND `name_playlists` = '$name_playlists'");
+        $stmt = mysqli_query($this->con,"SELECT * FROM `$this->table` WHERE `id_users` = '$id_users' AND `name_playlists` like '%$name_playlists'");
         if(mysqli_num_rows($stmt)!=0){
             $response["error"] = "Your playlist is exists";
         }
@@ -42,13 +42,25 @@ class PlaylistModel extends Model{
         }
         return $response;
     }
+    function add_album_to_playlist($id_albums,$id_playlists){
+        $response = array(
+            "error" => "",
+            "msg" => ""
+        );
+        $sql = "SELECT * FROM `albums` WHERE `id_albums` = '$id_albums'";
+        $stmt = mysqli_query($this->con,$stmt);
+        if(mysqli_num_rows($stmt) == 0){
+            $response["error"] = "Album is not exists.";
+        }
+
+    }
 //    read / find
     function get_playlists_by_name($name_playlists){
         $response = array(
             "error" => "",
             "msg" => ""
         );
-        $sql = "SELECT * FROM `$this->table` WHERE `name_playlists` = '$name_playlists'";
+        $sql = "SELECT * FROM `$this->table` WHERE `name_playlists` like '%$name_playlists'";
         $stmt = mysqli_query($this->con,$sql);
         if(mysqli_num_rows($stmt) == 0){
             $response["error"] = "Playlist is not exists.";
@@ -63,7 +75,6 @@ class PlaylistModel extends Model{
             "error" => "",
             "msg" => ""
         );
-
         $sql = "SELECT * FROM `$this->table` WHERE `id_playlists` = '$id_playlists'";
         $stmt = mysqli_query($this->con,$sql);
         if(mysqli_num_rows($stmt) == 0){
@@ -79,7 +90,7 @@ class PlaylistModel extends Model{
             "error" => "",
             "msg" => ""
         );
-        $stmt = "SELECT * FROM `$this->table` ORDER BY FIELD(`id_playlists`,'$id_playlists') DESC";
+        $stmt = "SELECT * FROM `$this->table` WHERE `name_playlists` not like '%like songs' ORDER BY FIELD(`id_playlists`,'$id_playlists') DESC";
         $sql = mysqli_query($this->con,$stmt);
         $data = array();
         if(mysqli_num_rows($sql)==0){
@@ -116,7 +127,7 @@ class PlaylistModel extends Model{
             "error" => "",
             "msg" => ""
         );
-        $sql = "SELECT * FROM `$this->table` WHERE `id_users` like '$id_user' AND `name_playlists` like '$name_playlist'";
+        $sql = "SELECT * FROM `$this->table` WHERE `id_users` like '$id_user' AND `name_playlists` like '%$name_playlist'";
         $stmt = mysqli_query($this->con,$sql);
         if(mysqli_num_rows($stmt) == 0){
             $response["error"] = "User is not exists.";
@@ -156,6 +167,8 @@ class PlaylistModel extends Model{
         if(mysqli_num_rows($stmt) == 0){
             $response["error"] = "Playlist is not exists.";
         }else{
+            $sql = "DELETE FROM `playlists_songs` WHERE `id_playlists` = '$id'";
+            $stmt = mysqli_query($this->con,$sql);
             $sql = "DELETE FROM `$this->table` WHERE `name_playlists` = '$name_playlists'";
             $stmt = mysqli_query($this->con,$sql);
             $sql = "UPDATE `$this->table` SET `id_playlists` = `id_playlists` - 1 WHERE `id_playlists` > '$id'";
