@@ -144,7 +144,8 @@
 
 
 
-.song__img .song--play {
+.song__img .song--play,
+.song__img .wave--icon{
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -161,8 +162,12 @@
 	cursor: auto;
 }
 
-.song:hover img{
+.song:hover img.song__img--src{
 	filter: brightness(50%);
+}
+
+.active--current .wave--icon {
+	display: block;
 }
 
 .song:hover i {

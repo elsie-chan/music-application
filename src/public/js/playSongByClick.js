@@ -10,26 +10,40 @@ function playSongByClick(className, url) {
         let songId;
 
         let songs = $(className);
+        let songImg;
+        let songCard;
         songs.each(function (index, song) {
-            $(song).on('click', function () {
-                console.log("song clicked")
-                songId = $(this).attr('data-song_id');
+            songImg =  $(song).find('.songThumbnail');
+            songImg.on('click', function () {
+                clearAllActiveCurrent();
+                songCard = $(this).closest(song);
+                songCard.addClass('active--current');
+                songId = $(songCard).attr('data-song_id');
                 getSongById(songId)
 
-                let imgSrc = $(this).find('img').attr('src');
+                let imgSrc = $(songCard).find('.song__img--src').attr('src');
                 currentImg.attr('src', imgSrc)
 
-                currentArtistName.innerText = $(this).find('.song__info--artist').text();
+                currentArtistName.innerText = $(songCard).find('.song__info--artist').text();
 
 
                 audio[0].play();
                 if (audio[0].paused) {
                     playBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
+                    songCard.removeClass('active--current');
                 } else {
                     playBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+                    songCard.addClass('active--current');
                 }
             })
         })
+
+        function clearAllActiveCurrent() {
+            let activeCurrent = $('.active--current');
+            activeCurrent.each(function (index, song) {
+                $(song).removeClass('active--current');
+            })
+        }
 
         function getSongById(songId) {
             $.ajax({
