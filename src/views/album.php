@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Album</title>
-
+    <link rel="icon" type="image/x-icon" href="<?php echo url("src/public/assets/imgs/favicon.ico") ?>">
     <link rel="stylesheet" href="<?php echo url('src/public/vendors/bootstrap/css/bootstrap.css')?>">
    
     <link rel="stylesheet" href="<?php echo url('src/public/vendors/font-awesome-6-pro-main/css/all.css')?>">
@@ -94,7 +94,6 @@
             </div>
             <div class="col">
                 <ul class="list-unstyled mt-3">
-                    
                 </ul>
             </div>
         </div>
@@ -109,11 +108,12 @@
 <script src="<?php echo url('src/public/vendors/jquery/jquery.js')?>"></script>
 <script src="<?php echo url('src/public/vendors/bootstrap/js/bootstrap.bundle.min.js')?>"></script>
 
-<script type="text/javascript">
-
-        // js for context menu
+<script type="module">
+    import ajaxRequest from '<?php echo url('src/public/js/ajaxRequest.js')?>'
+    // js for context menu
         const left = document.documentElement.clientWidth;
         const header = $(".header");
+
         function clear() {
             $(".context-menu").each((index, menu) => {
             $(menu).css({
@@ -123,23 +123,133 @@
         }
 
         function asignContextMenu() {
+            // toggle context menu
             $(".more-option").each((index, option) => {
-            $(option).on("click", function (e) {
-                clear();
-                const contextMenu = $(this).parent().find(".context-menu");
-                contextMenu.css({
-                    display: "inline-block",
-                });
+                $(option).on("click", function (e) {
+                    clear();
+                    const contextMenu = $(this).parent().find(".context-menu");
+                    contextMenu.css({
+                        display: "inline-block",
+                    });
 
-                contextMenu.on("click", function (e) {
-                $(this).css({
-                    transition: "all 0.25s",
-                    display: "none",
-                });
+                    contextMenu.on("mouseleave", function (e) {
+                        $(this).css({
+                            transition: "all 0.25s",
+                            display: "none",
+                        });
+                    });
                 });
             });
-            });
+            // add to playlist
+            $('.add-to-playlist').each(function (index, add_item) {
+                $(add_item).on('click', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    $('.playlist-list').removeClass('hide');
+                    console.log('click')
+                    ajaxRequest(
+                        '<?php echo url('get_all_playlist_by_user') ?>',
+                        "POST",
+                        {token: '<?php echo $_SESSION['token'] ?>'},
+                        function (data) {
+                            console.log(data)
+                            console.log('success clicked');
+                            const template = data.map((playlist, index) => {
+                                return `
+                                 <li class="item list-group-item your-playlist" data-playlist-id="${playlist.id_playlists}"><a href="#">${playlist.name_playlists}</a></li>
+                                `;
+                            })
+                            $('.playlist-list').html(template);
+                            choosePlaylistToAdd();
+                        },
+                        function (err) {
+                            console.log("get playlist error");
+                        },
+                        {
+                            async: false,
+                        }
+                    );
+
+                })
+                // close the menu
+                $('.playlist-list').on("mouseleave", function (e) {
+                    $(this).css({
+                        transition: "all 0.25s",
+                        // display: "none",
+                        // visibility: "hidden",
+                    });
+                    $(this).addClass('hide');
+                });
+            })
+
+            // add to liked song
+            $('.add-to-liked-songs').each(function (index, liked_song_item) {
+                $(liked_song_item).click(function (e) {
+                    console.log("click add to liked song");
+                    e.preventDefault();
+
+                    let songId = findSongIdAttr($(this));
+                    ajaxRequest(
+                        '<?php echo url('add_to_liked_songs')?>',
+                        "POST",
+                        {song_id: songId},
+                        function (data) {
+                            console.log(data);
+                            console.log('success added to liked song');
+                            console.log(songId);
+                        },
+                        function (err) {
+                            console.log("add song to liked song error");
+                        },
+                        {
+                            async: false,
+                        },
+                    )
+                })
+            })
         }
+    // find root element
+    function findSongIdAttr (element) {
+        if (element.data('song-id')) {
+            return element.data('song-id');
+        } else {
+            return findSongIdAttr(element.parent());
+        }
+    }
+    // function choose playlist to add
+    function choosePlaylistToAdd() {
+        // choose playlist to add
+        $('.your-playlist').each(function(index, playlist) {
+            $(playlist).click(function(e) {
+                console.log("click on playlist")
+                e.preventDefault();
+
+                // console.log('song id' ,findSongIdAttr($(this)))
+                let songId = findSongIdAttr($(this));
+                let playlistId = $(this).data('playlist-id');
+                console.log('song id' ,songId)
+                console.log('playlist id',playlistId)
+                ajaxRequest(
+                    '<?php echo url('add_song_to_playlist')?>',
+                    'POST',
+                    {
+                        id_song: songId,
+                        id_playlist: playlistId,
+                    },
+                    function (data) {
+                        console.log(data)
+                        console.log('added song')
+                        console.log(songId);
+                        console.log(playlistId);
+                    },
+                    function (err) {
+                        console.log(err)
+                        console.log("get song error");
+                    }
+                );
+            });
+        });
+    }
 
         // <!-- js for sidebar resize -->
         // const $ = document.querySelector.bind(document);
@@ -188,7 +298,7 @@
                         name: <?php echo $data['album']->id_albums ?>,
                     },
                     success: function (data) {
-                        console.log(data);
+                        // console.log(data);
                         const template = data[0].map((song, index) => {
                                 return `
                                     <li class="media">
@@ -206,7 +316,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col media-right more-option">
+                                        <div class="col media-right more-option" data-song-id="${song.id_songs}">
                                             <i class="more fa-solid fa-ellipsis-vertical"></i>
                                             <?php require 'components/contextMenu.php' ?>
                                         </div>
@@ -214,8 +324,8 @@
                                 `;
                             })
                         $('.list-unstyled').html(template);
-                        asignContextMenu();
                         $('.number-of-songs span').text(data[0].length);
+                        asignContextMenu();
                     },
                     error: function(error) {
                         console.log(error);

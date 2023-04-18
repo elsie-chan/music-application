@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Playlist</title>
-
+    <link rel="icon" type="image/x-icon" href="<?php echo url("src/public/assets/imgs/favicon.ico") ?>">
     <link rel="stylesheet" href="<?php echo url('src/public/vendors/bootstrap/css/bootstrap.css') ?>">
 
     <link rel="stylesheet" href="<?php echo url('src/public/vendors/font-awesome-6-pro-main/css/all.css') ?>">
@@ -81,7 +81,7 @@
                             </button>
 
                         </div>
-                        <p class="number-of-songs"><span></span> songs</p>
+                        <p class="number-of-songs"><span>0</span> songs</p>
                         <!-- <p></p> -->
                         <div class="functional d-flex">
                             <i class="play-song fa-solid fa-circle-play p-2 " style="padding-left: 0 !important;"></i>
@@ -293,7 +293,7 @@
         })
 
     }
-    // function choose playlist to add
+    // find root element
     function findSongIdAttr (element) {
         if (element.data('song-id')) {
             return element.data('song-id');
@@ -301,6 +301,7 @@
             return findSongIdAttr(element.parent());
         }
     }
+    // function choose playlist to add
     function choosePlaylistToAdd() {
         // choose playlist to add
         $('.your-playlist').each(function(index, playlist) {
