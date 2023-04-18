@@ -30,7 +30,7 @@
                 </a>
             </li>
              <li class="navigation--item <?php echo (empty($_SESSION['page']) ? '' : $_SESSION['page'] == 'liked_songs') ? 'page__active' : '' ?>">
-                <a href="/music-application/liked_songs/" class="navigation--link">
+                <a href="<?php echo url('liked_songs')?>" class="navigation--link">
                     <i class="fa-solid fa-heart"></i>
                     <span>Liked songs</span>
                 </a>

@@ -30,8 +30,8 @@ $routes = [
     (new Route('edit_album_of_user', 'POST', LibrariesController::class, 'edit_album_of_user')),
     (new Route('delete_album_of_user', 'POST', LibrariesController::class, 'delete_album_of_user')),
 //    playlist routes
-    (new Route('liked_songs', 'GET', LibrariesController::class, 'liked_songs')),
-    (new Route('get_liked_songs', 'POST', LibrariesController::class, 'get_like_songs')),
+//    (new Route('liked_songs', 'GET', LibrariesController::class, 'liked_songs')),
+    (new Route('liked_songs', 'GET', LibrariesController::class, 'get_like_songs')),
     (new Route('playlist/:id', 'GET', LibrariesController::class, 'get_playlist_by_id')),
     (new Route('get_all_playlist', 'POST', LibrariesController::class, 'get_all_playlist')),
     (new Route('get_public_playlist', 'POST', LibrariesController::class, 'get_public_playlist')),
