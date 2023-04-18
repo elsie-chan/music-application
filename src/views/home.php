@@ -102,9 +102,10 @@
             <?php foreach ($data['songs'] as $song) { ?>
                 <div class="col-12 col-md-6 col-xl-4 p-0">
                     <div class="song" data-song_id="<?php echo $song->id_songs?>">
-                        <div class="song__img">
-                            <img src="<?php echo $song->image_song?>" alt="">
+                        <div class="song__img songThumbnail">
+                            <img class="song__img--src" src="<?php echo $song->image_song?>" alt="">
                             <i class="fa-solid fa-play song--play"></i>
+                            <img class="wave--icon" src="<?php echo url('src/public/assets/imgs/yes.gif')?>" alt="sound wave" style="width:32px;height:32px; object-fit: contain;">
                         </div>
                         <div class="song__info">
                             <div class="song__info--name">

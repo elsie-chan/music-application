@@ -159,13 +159,14 @@
   margin-right: 1em;
 }
 
-.songThumbnail img {
+.songThumbnail .song__img--src {
   height: 100%;
   aspect-ratio : 1 / 1;
   border-radius: 4px;
 }
 
-.songThumbnail .icon-play-song {
+.songThumbnail .icon-play-song ,
+.songThumbnail .wave--icon {
   visibility: hidden;
   position: absolute;
   top: 50%;
@@ -176,6 +177,11 @@
 .media:hover .icon-play-song {
   visibility: visible;
 }
+
+.active--current .wave--icon {
+  visibility: visible;
+}
+
 
 /* Modal  */
 .modal-header .modal-title {
