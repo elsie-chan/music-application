@@ -192,7 +192,6 @@
                         token: '<?php echo $_SESSION['token'] ?>'
                     },
                     success: (data) => {
-                        // data = JSON.parse(data);
                         console.log(data)
                         user_id = data.message.id_users;
                     }
@@ -203,9 +202,24 @@
                 console.log(user_id);
 
                 const formData = new FormData($('.form')[0]);
-                formData.set('name', _$('input[name="name"]').value);
-                // formData.set('id', 6);
-                formData.set('img', inputAvatar.files[0]);
+                let oldName = '<?php echo $_SESSION['username']?>';
+
+                let newName = _$('input[name="name"]').value;
+                if(oldName === newName || newName === '') {
+                    formData.set('name', oldName);
+                } else {
+                    formData.set('name', newName);
+                }
+
+                if(inputAvatar.files.length != 0) { //kiểm tra ròi nè
+                    formData.set('img', inputAvatar.files[0]) //type là File
+                } else {
+                    let oldImg = '<?php echo $_SESSION['img']?>'; //đúm đúm
+                    
+
+                }
+                console.log(formData.get('img'));
+
                 if (_$('input[name="name"]').value !== '') {
                     close_modal();
                     $('.loading').show()
