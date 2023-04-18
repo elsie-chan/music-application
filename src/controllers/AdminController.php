@@ -267,9 +267,10 @@ class AdminController extends Controller {
 
         if (empty($error)) {
             $message = $response['msg'];
-            foreach ($message as $value) {
-
-            }
+//            foreach ($message as $value) {
+//
+//            }
+            echo json_encode($message);
         } else {
             $_SESSION['error'] = $error;
         }
@@ -481,6 +482,89 @@ class AdminController extends Controller {
         }
     }
 
+    public function delete_song_of_album() {
+        $error = "";
+        $message = "";
+
+        $id_album = $_POST['id_album'];
+        $id_song = $_POST['id_song'];
+
+        $model_response = $this->model_song;
+        $this->check_model($model_response);
+
+        $response = $model_response->delete_song_of_album($id_album, $id_song);
+        $error = $response['error'];
+
+        header("Content-Type: application/json; charset=UTF-8");
+
+        if (empty($error)) {
+            $message = $response['msg'];
+            echo json_encode([
+                'message' => $message
+            ]);
+        } else {
+            echo json_encode([
+                'error' => $error
+            ]);
+        }
+    }
+
+    public function add_song_to_playlist() {
+        $error = "";
+        $message = "";
+
+        $id_song = $_POST['id_song'];
+        $id_playlist = $_POST['id_playlist'];
+
+        $model_response = $this->model_song;
+        $this->check_model($model_response);
+
+        $response = $model_response->add_songs_to_playlists($id_song, $id_playlist);
+//        dd($response);
+        $error = $response['error'];
+
+        header('Content-Type: application/json; charset=utf-8');
+
+        if (empty($error)) {
+            $message = $response['msg'];
+            echo json_encode([
+                'message' => $message
+            ]);
+        } else {
+            echo json_encode([
+                'error' => $error
+            ]);
+        }
+    }
+
+    public function delete_song_of_playlist() {
+        $error = "";
+        $message = "";
+
+        $id_song = $_POST['id_song'];
+        $id_playlist = $_POST['id_playlist'];
+
+
+        $model_response = $this->model_song;
+        $this->check_model($model_response);
+
+        header('Content-Type: application/json; charset=utf-8');
+
+        $response = $model_response->delete_song_of_playlist($id_song, $id_playlist);
+        $error = $response['error'];
+
+        if (empty($error)) {
+            $message = $response['msg'];
+            echo json_encode([
+                'message' => $message
+            ]);
+        } else {
+            echo json_encode([
+                'error' => $error
+            ]);
+        }
+    }
+
     public function get_all_song()
     {
         $error = "";
@@ -640,7 +724,7 @@ class AdminController extends Controller {
 
     public function test() {
 //        echo $this->is_admin_login();
-        $this->get_all_user();
+        $this->get_all_playlist();
 //        echo $test;
 //        $this->check_login();
 //        $this->delete_user();

@@ -34,6 +34,7 @@ $routes = [
     (new Route('get_liked_songs', 'POST', LibrariesController::class, 'get_like_songs')),
     (new Route('playlist/:id', 'GET', LibrariesController::class, 'get_playlist_by_id')),
     (new Route('get_all_playlist', 'POST', LibrariesController::class, 'get_all_playlist')),
+    (new Route('get_public_playlist', 'POST', LibrariesController::class, 'get_public_playlist')),
     (new Route('add_playlist_of_user', 'POST', LibrariesController::class, 'add_playlist_of_user')),
     (new Route('edit_playlist_of_user', 'POST', LibrariesController::class, 'edit_playlist_of_user')),
     (new Route('get_all_playlist_by_user', 'POST', LibrariesController::class, 'get_all_playlist_of_user')),

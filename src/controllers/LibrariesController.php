@@ -410,6 +410,31 @@ public function liked_songs() {
         }
     }
 
+    public function get_public_playlist() {
+        $error = "";
+        $message = "";
+
+        $model_response = $this->model_playlist;
+        $this->check_model($model_response);
+
+        $response = $model_response->get_all_playlists_of_user(1);
+        $error = $response['error'];
+
+        header('Content-Type: application/json; charset=utf-8');
+
+        if (empty($error)) {
+            $message = $response['msg'];
+            foreach ($message as $value) {
+                $value->playlists_image = url($value->playlists_image);
+            }
+            echo json_encode($message);
+        } else {
+            echo json_encode([
+                'error' => $error
+            ]);
+        }
+    }
+
     public function delete_playlist_by_name() {
         $error = "";
         $message = "";
@@ -442,6 +467,6 @@ public function liked_songs() {
 
     public function test() {
 //        $this->edit_playlist();
-        $this->get_all_playlist();
+        $this->get_public_playlist();
     }
 }
