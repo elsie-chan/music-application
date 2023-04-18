@@ -60,6 +60,7 @@
                 <p style="">Profile</p>
                 <h1 class="info__name"><?php echo $data['artist']->name_artists ?></h1>
                 <p class="info__playlist text--inline"><span class="info__playlist--numb">7</span> Albums</p>
+                <button type="button" class="btn btn-outline-success button__playlist">Follow</button>
             </div>
         </div>
         <!--    Trending albums-->
@@ -121,7 +122,7 @@
                                 return `
                                     <div class="col-6 col-xl-2 col-md-3 col-sm-4">
                                         <div class="album__item">
-                                            <a href="#">
+                                            <a href="<?php echo url('album') ?>/${album.id_albums}">
                                                 <img src="${album.image_albums}" alt="loi">
                                                 <p class="py-2">${album.name_albums}</p>
                                             </a>
@@ -138,6 +139,18 @@
                         console.log('error');
                     }
             });
+        })
+
+        // handle button press
+        $('.button__playlist').click(function() {
+            if ($(this).hasClass('following')) {
+                $(this).removeClass('following');
+                $('.button__playlist').text('Follow');
+            }
+            else {
+                $(this).addClass('following');
+                $('.button__playlist').text('Following');
+            }
         })
 
     </script>

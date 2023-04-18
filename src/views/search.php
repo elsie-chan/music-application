@@ -405,7 +405,7 @@
                             if (data) {
                                 
                                 const template = data.map((song, index) => {
-                                    const artist = getArtistById(GET_ARTIST_PATH, song.id_artists);
+                                const artist = getArtistById(GET_ARTIST_PATH, song.id_artists);
                                     // console.log(artist)
                                 return `
                                     <li class="media container">

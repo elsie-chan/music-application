@@ -76,7 +76,7 @@
                             <div class="title d-flex">
                                 <h2 class="mr-auto pl-0 p-2" style="padding-left: 0 !important;"><?php echo $data['album']->name_albums ?></h2>
                             </div>
-                            <p class="number-of-songs"><span>10</span> songs</p>
+                            <p class="number-of-songs"><span></span> songs</p>
                             <!-- <p></p> -->
                             <div class="functional d-flex">
                                 <i class="play-song fa-solid fa-circle-play p-2 " style="padding-left: 0 !important;"></i>
@@ -128,10 +128,10 @@
                 clear();
                 const contextMenu = $(this).parent().find(".context-menu");
                 contextMenu.css({
-                display: "inline-block",
+                    display: "inline-block",
                 });
 
-                contextMenu.on("mouseleave", function (e) {
+                contextMenu.on("click", function (e) {
                 $(this).css({
                     transition: "all 0.25s",
                     display: "none",
@@ -233,7 +233,7 @@
                     },
                     async: false,
                     success: function (data) {
-                        console.log(data);
+                        // console.log(data);
                         
                         name_artist =  data.name_artists;
                         

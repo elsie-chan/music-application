@@ -38,7 +38,7 @@ $routes = [
     (new Route('add_playlist_of_user', 'POST', LibrariesController::class, 'add_playlist_of_user')),
     (new Route('edit_playlist_of_user', 'POST', LibrariesController::class, 'edit_playlist_of_user')),
     (new Route('get_all_playlist_by_user', 'POST', LibrariesController::class, 'get_all_playlist_of_user')),
-    (new Route('delete_playlist_by_name', 'POST', LibrariesController::class, 'delete_playlist_by_name')),
+    (new Route('delete_playlist_by_id', 'POST', LibrariesController::class, 'delete_playlist_by_id')),
 //    search routes
     (new Route('search', 'GET', SearchController::class, 'index')),
     (new Route('search_artist', 'POST', SearchController::class, 'get_artist_by_name')),

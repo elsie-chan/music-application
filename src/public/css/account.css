@@ -60,6 +60,14 @@
 .info__text .text--inline {
     display: inline;
 }
+.button__playlist {
+    display: block;
+    margin-top: 1rem;
+    color: var(--white);
+    font-weight: 500;
+    border-color: var(--white);
+    border-radius: 10px;
+}
 
 #liked_artists .albums__list .album__item p{
     text-align: center;
