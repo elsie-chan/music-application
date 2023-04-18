@@ -127,13 +127,13 @@ class SongModel extends Model{
             "error" => "",
             "msg" => ""
         );
-        $sql = "SELECT * FROM `playlists_songs` WHERE `id_playlists` = '$id_playlists'";
+        $sql = "SELECT * FROM `playlists_songs` WHERE `id_playlists` like '$id_playlists'";
         $stmt = mysqli_query($this->con,$sql);
         $data = array();
         if(mysqli_num_rows($stmt) == 0){
             $response["error"] = "Playlist is not exists.";
         }else{
-            $sql = "SELECT s.* FROM `$this->table` s, `playlists_songs` p WHERE s.`id_songs` = p.`id_songs` AND p.`id_playlists` = '$id_playlists'";
+            $sql = "SELECT s.* FROM `$this->table` s, `playlists_songs` p WHERE s.`id_songs` like p.`id_songs` AND p.`id_playlists` like '$id_playlists'";
             $stmt = mysqli_query($this->con,$sql);
             while($row = mysqli_fetch_object($stmt)) {
                 array_push($data, $row);
@@ -153,7 +153,7 @@ class SongModel extends Model{
         if(mysqli_num_rows($stmt) == 0){
             $response["error"] = "Album is not exists.";
         }else{
-            $sql = "SELECT s.* FROM `$this->table` s, `albums_songs` p WHERE s.`id_songs` = p.`id_songs` AND p.`id_albums` = '$id_albums'";
+            $sql = "SELECT s.* FROM `$this->table` s, `albums_songs` p WHERE s.`id_songs` like p.`id_songs` AND p.`id_albums` like '$id_albums'";
             $stmt = mysqli_query($this->con,$sql);
             while($row = mysqli_fetch_object($stmt)) {
                 array_push($data, $row);
@@ -167,7 +167,7 @@ class SongModel extends Model{
             "error" => "",
             "msg" => ""
         );
-        $sql = "SELECT * FROM `$this->table` WHERE `name_songs` = '$name_songs'";
+        $sql = "SELECT * FROM `$this->table` WHERE `name_songs` like '%$name_songs'";
         $stmt = mysqli_query($this->con,$sql);
         if(mysqli_num_rows($stmt) == 0){
             $response["error"] = "Song is not exists.";
@@ -181,7 +181,6 @@ class SongModel extends Model{
             "error" => "",
             "msg" => ""
         );
-
         $sql = "SELECT * FROM `$this->table` WHERE `id_songs` = '$id_songs'";
         $stmt = mysqli_query($this->con,$sql);
         if(mysqli_num_rows($stmt) == 0){
@@ -206,6 +205,8 @@ class SongModel extends Model{
             $response["error"] = "Song is not exists.";
         }else{
             $sql = "DELETE FROM `playlists_songs` WHERE `id_songs` = '$id'";
+            $stmt = mysqli_query($this->con,$sql);
+            $sql = "DELETE FROM `albums_songs` WHERE `id_songs` = '$id'";
             $stmt = mysqli_query($this->con,$sql);
             $sql = "DELETE FROM `$this->table` WHERE `name_songs` = '$name_songs'";
             $stmt = mysqli_query($this->con,$sql);
