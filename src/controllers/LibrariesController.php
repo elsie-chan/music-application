@@ -360,6 +360,7 @@ public function liked_songs() {
 
             if (empty($error)) {
                 $message = $response['msg'];
+                $_SESSION['liked_songs'] = $message->id_playlists;
                 $this->load_view('playlistView', [
                     'playlist' => $message
                 ]);
