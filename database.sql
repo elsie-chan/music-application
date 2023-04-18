@@ -147,7 +147,7 @@ ALTER TABLE `users_albums`
 
 -- INSERT INTO TABLE
 INSERT INTO `users` VALUES
-    (1, 'src/public/assets/imgs/avt_users.jpg', 'admin', 'admin@gmail.com', '$2y$10$/Jj4b/w.6RNRzD6eeuFKMeyoYgHASRhQyXkkyQnlviwXQZhw8nE6q', '0928416379', 1,'ce7271f7de9e726472d2c18f8f287c18'),
+    (1, 'src/public/assets/imgs/avt_users.png', 'admin', 'admin@gmail.com', '$2y$10$/Jj4b/w.6RNRzD6eeuFKMeyoYgHASRhQyXkkyQnlviwXQZhw8nE6q', '0928416379', 1,'ce7271f7de9e726472d2c18f8f287c18'),
     (2, 'src/public/assets/imgs/avt_users.png', 'baola', 'baola@gmail.com', '$2y$10$elkUs54HigTgf4B/mf39aeyXRTzM4iG0sLTkq.gxYEmpgM8pBioJ6', '0839583158', 0, '1948f28826be284578f83308cedbc688'),
     (3, 'src/public/assets/imgs/avt_users.png', 'lamnhu', 'lamnhu@gmail.com', '$2y$10$p36CYHi.jaFapbO6RD5eS.1WQiB91dNuTp8KMLx5QvJXxpBo.BNpG', '0839583158', 0, '73f2f950bc412c8c96a332110a7ea86a'),
     (4, 'src/public/assets/imgs/avt_users.png', 'trongdat', 'trongdat@gmail.com', '$2y$10$BrjfKr0uN429tGs6u3ZoWOjlJciwkKcxZufg2ba9f/MXCez0AoVYu', '0839583158', 0, '7f4778189ea9e3ec68e54f3ec2e51b54'),

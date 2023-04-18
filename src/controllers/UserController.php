@@ -83,15 +83,32 @@ class UserController extends Controller
 
         if (getId()) {
             $name = $_POST['name'];
-            $file = $_FILES['img'];
-
-            $destination = 'src/public/assets/imgs/' . time();
-            $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
-            $destination = $destination . '.png';
-            $is_moved = move_uploaded_file($file['tmp_name'], $destination);
+//            $file = $_FILES['img'];
+            if(!empty($_FILES['img'])) {
+                $file = $_FILES['img'];
+            } else {
+                $file = null;
+            }
 
             $model_response = $this->model_user;
             $this->check_model($model_response);
+            $destination = 'src/public/assets/imgs/' . time();
+            $destination = $destination . '.png';
+
+            if($file != null) {
+                $is_moved = move_uploaded_file($file['tmp_name'], $destination);
+            } else {
+                $user = $model_response->get_user_by_token($_SESSION['token'])['msg'];
+                $destination = $user->avatar_users;
+                $is_moved = false;
+            }
+
+
+//            $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
+
+
+
+
 
             $response = $model_response->edit_profile_by_id(getId(), $destination, $name);
             $error = $response['error'];
