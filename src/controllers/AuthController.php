@@ -35,6 +35,7 @@ class AuthController extends Controller {
                     } else if ($response['msg']->role == 0) {
                         $_SESSION['user'] = $response['msg']->id_users;
                         $_SESSION['username'] = $response['msg']->username;
+                        $_SESSION['img'] = $response['msg']->avatar_users;
                         Redirect::to('/');
                     }
                 } else {

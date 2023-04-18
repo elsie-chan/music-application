@@ -42,7 +42,7 @@
             <p class="time--duration">0:00</p>
         </div>
     </div>
-    <audio id="current--audio" autoplay src="<?php echo url('src/public/assets/songs/cupid.mp3')?>" preload="metadata"></audio>
+    <audio id="current--audio" src="<?php echo url('src/public/assets/songs/cupid.mp3')?>" preload="metadata"></audio>
     <div class="btn--playlist">
         <i class="fa-solid fa-list-music"></i>
     </div>

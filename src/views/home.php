@@ -78,7 +78,7 @@
     <!--    Popular albums-->
     <div class="container-fluid albums" id="popular_albums">
         <div class="row albums__title">
-            <h4 style="padding: 0 1rem; color: var(--hightlight);">POPULAR ALBUMS</h4>
+            <h4 style="padding: 0 1rem; color: var(--hightlight);">POPULAR PLAYLIST</h4>
         </div>
         <div class="row albums__list" id="playlist--container">
             <?php foreach ($data['playlists'] as $playlist) { ?>
@@ -96,7 +96,7 @@
     <!--    Trending albums-->
     <div class="container-fluid albums list__songs" id="trending_albums">
         <div class="row albums__title">
-            <h4 style="padding: 0 1rem; color: var(--hightlight);">US UK SONGS</h4>
+            <h4 style="padding: 0 1rem; color: var(--hightlight);"><?php echo $data['playlist_info']->name_playlists?></h4>
         </div>
         <div class="songs row mx-auto my-auto p-0">
             <?php foreach ($data['songs'] as $song) { ?>
