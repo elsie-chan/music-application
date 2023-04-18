@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="<?php echo url('src/public/vendors/font-awesome-6-pro-main/css/all.css')?>">
     <link rel="stylesheet" href="<?php echo url('src/public/css/search.css')?>">
     <link rel="stylesheet" href="<?php echo url('src/public/css/playlistView.css')?>">
+    <link rel="stylesheet" href="<?php echo url('src/public/css/components/contextMenu.css')?>">
     
 
     <style>
@@ -119,6 +120,8 @@
     <script src="<?php echo url('src/public/vendors/bootstrap/js/bootstrap.bundle.min.js')?>"></script>
 
     <script type="module">
+        import playSongByClick from '<?php echo url('src/public/js/playSongByClick.js')?>'
+
         import ajaxRequest from '<?php echo url('src/public/js/ajaxRequest.js')?>'
         import getArtistById from '<?php echo url('src/public/js/getArtistById.js')?>'
         // <!-- js for sidebar resize -->
@@ -380,9 +383,9 @@
                 }
             })
 
-            
-            
-            
+
+
+
 
             // ajax get song by topic
             $(".topic-card").on("click", function() {
@@ -404,25 +407,31 @@
 
                             // console.log(data + " in 401")
                             if (data) {
+                                console.log(data)
                                 
                                 const template = data.map((song, index) => {
                                 const artist = getArtistById(GET_ARTIST_PATH, song.id_artists);
                                     // console.log(artist)
                                 return `
-                                    <li class="media container">
+                                    <li class="media container" data-song_id="${song.id_songs}">
                                         <div class="col-10">
                                             <div class="row media-left">
                                                 <div class="songThumbnail">
-                                                    <img src="${song.image_song}" alt="song avatar" >
-                                                    <span class="icon-play-song">
-                                                        <i class="fa-duotone fa-play"></i>
+                                                    <img class="song__img--src" src="${song.image_song}" alt="song avatar" >
+                                                    <span class="">
+                                                        <i class="fa-duotone fa-play icon-play-song"></i>
+                                                        <img class="wave--icon" src="<?php echo url('src/public/assets/imgs/yes.gif')?>" alt="sound wave" style="width:40px;height:40px; object-fit: contain;">
                                                     </span>
                                                 </div>
                                                 <div class="card-info">
                                                     <h6>${song.name_songs}</h6>
-                                                    <a href="<?php echo url('artist') ?>/${artist.id_artists}"">${artist.name_artists}</a>
+                                                    <a class="song__info--artist" href="<?php echo url('artist') ?>/${artist.id_artists}"">${artist.name_artists}</a>
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="col media-right more-option"  data-song-id="${song.id_songs}">
+                                            <i class="more fa-solid fa-ellipsis-vertical"></i>
+                                            <?php require 'components/contextMenu.php' ?>
                                         </div>
                                     </li>
                                         
@@ -431,6 +440,7 @@
                                 // $('.search-result-artist').append( "<h2>Album</h2>" );
                                 // $('h2').addClass("row");
                                 $('.topic-type').html(template);
+                                playSongByClick('.media', '<?php echo url()?>');
                             }
                         }
                     },
