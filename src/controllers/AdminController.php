@@ -724,7 +724,7 @@ class AdminController extends Controller {
 
     public function test() {
 //        echo $this->is_admin_login();
-        $this->get_all_playlist();
+        $this->get_all_user();
 //        echo $test;
 //        $this->check_login();
 //        $this->delete_user();

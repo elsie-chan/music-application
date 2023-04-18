@@ -67,6 +67,37 @@ public function liked_songs() {
         }
     }
 
+    public function add_album_to_user() {
+        $error = "";
+        $message = "";
+
+        $token = $_POST['token'];
+        $id_album = $_POST['id_album'];
+
+        $model_response = $this->model_album;
+        $this->check_model($model_response);
+
+        $get_token = $this->get_user_use_token($token);
+
+        header('Content-Type: application/json; charset=utf-8');
+
+        if ($get_token != null) {
+            $response = $model_response->add_album_to_user($get_token->id_users, $id_album);
+            $error = $response['error'];
+
+            if (empty($error)) {
+                $message = $response['msg'];
+                echo json_encode([
+                    'message' => $message
+                ]);
+            } else {
+                echo json_encode([
+                    'error' => $error
+                ]);
+            }
+        }
+    }
+
     public function edit_album_of_user() {
         $error = "";
         $message = "";
@@ -74,16 +105,16 @@ public function liked_songs() {
         if (getId()) {
             $name = $_POST['name_album'];
             $img = $_FILES['img'];
-            $id_artist = $_POST['id_artist'];
+            $id_album = $_POST['id_album'];
             $model_response = $this->model_album;
             $this->check_model($model_response);
 
-            $destination = 'src/public/assets/artists/' . time();
+            $destination = 'src/public/assets/imgs_album/' . time();
             $extension = pathinfo($img['name'], PATHINFO_EXTENSION);
             $destination = $destination . '.' . $extension;
             move_uploaded_file($img['tmp_name'], $destination);
 
-            $response = $model_response->edit_album_by_id(getId(), $name, $destination, $id_artist);
+            $response = $model_response->edit_album_by_id(getId(), $name, $destination, $id_album);
             $error = $response['error'];
 
             header('Content-Type:application/json; charset=utf-8');
@@ -101,7 +132,7 @@ public function liked_songs() {
         }
     }
 
-    public function add_album_to_user() {
+    public function get_album_to_user() {
         $error = "";
         $message = "";
 
@@ -114,16 +145,17 @@ public function liked_songs() {
             $get_token = $this->get_user_use_token($token);
 
             if ($get_token != null) {
-                $response = $model_response->add_album_to_user(getId(), $get_token->id_users);
+                $response = $model_response->get_albums_of_users($get_token->id_users);
                 $error = $response['error'];
 
                 header("Content-Type: application/json; charset=utf-8");
 
                 if(empty($error)) {
                     $message = $response['msg'];
-                    echo json_encode([
-                        'message' => $message
-                    ]);
+                    foreach ($message as $value) {
+                        $value->image_albums = url($value->image_albums);
+                    }
+                    echo json_encode($message);
                 } else {
                     echo json_encode([
                         'error' => $error
@@ -350,10 +382,11 @@ public function liked_songs() {
 
     public function get_like_songs()
     {
+        $_SESSION['page'] = 'liked_songs';
         $error = "";
         $message = "";
 
-        $token = $_POST['token'];
+        $token = $_SESSION['token'];
 
         $model_response = $this->model_playlist;
         $this->check_model($model_response);
@@ -365,16 +398,15 @@ public function liked_songs() {
             $response = $model_response->get_playlist_of_user($id_user, "Like Songs");
             $error = $response['error'];
 
-            header('Content-Type: application/json; charset=utf-8');
+//            header('Content-Type: application/json; charset=utf-8');
 
             if (empty($error)) {
                 $message = $response['msg'];
-                $message->playlists_image = url($message->playlists_image);
-                echo json_encode($message);
-            } else {
-                echo json_encode([
-                    'error' => $error
+                $this->load_view('playlistView', [
+                    'playlist' => $message
                 ]);
+            } else {
+                $_SESSION['error'] = $error;
             }
         }
     }
@@ -410,30 +442,6 @@ public function liked_songs() {
         }
     }
 
-    public function get_public_playlist() {
-        $error = "";
-        $message = "";
-
-        $model_response = $this->model_playlist;
-        $this->check_model($model_response);
-
-        $response = $model_response->get_all_playlists_of_user(1);
-        $error = $response['error'];
-
-        header('Content-Type: application/json; charset=utf-8');
-
-        if (empty($error)) {
-            $message = $response['msg'];
-            foreach ($message as $value) {
-                $value->playlists_image = url($value->playlists_image);
-            }
-            echo json_encode($message);
-        } else {
-            echo json_encode([
-                'error' => $error
-            ]);
-        }
-    }
 
     public function delete_playlist_by_name() {
         $error = "";
@@ -463,10 +471,42 @@ public function liked_songs() {
         }
     }
 
+    public function add_default_playlist() {
+        $error = "";
+        $message = "";
+
+        $token = $_POST['token'];
+
+        $src = 'src/public/assets/imgs/default_playlist.png';
+        $decsription = "Your new playlist.";
+        $today = date("Y-m-d");
+
+        $model_response = $this->model_album;
+        $this->check_model($model_response);
+
+        $get_token = $this->get_user_use_token($token);
+
+        if ($get_token != null) {
+            $response = $model_response->add_playlists("Default Playlist", $src, $decsription, $today, $get_token->id_users);
+            $error = $response['error'];
+
+            header('Content-Type:application/json; charset=utf-8');
+
+            if (empty($error)) {
+                $message = $response['msg'];
+                echo json_encode([
+                    'message' => $message
+                ]);
+            } else {
+                echo json_encode([
+                    'error' => $error
+                ]);
+            }
+        }
+    }
 
 
     public function test() {
 //        $this->edit_playlist();
-        $this->get_public_playlist();
     }
 }
