@@ -158,7 +158,6 @@
 
             const myModal = $('#myModal');
             console.log(myModal);
-            // console.log($('#myModal'))
 
             $('#edit-name').on('click', () => {
                 myModal.modal('show');
@@ -198,10 +197,8 @@
 
                 })
 
-
-                console.log(user_id);
-
                 const formData = new FormData($('.form')[0]);
+                formData.set('name', _$('input[name="name"]').value);
                 let oldName = '<?php echo $_SESSION['username']?>';
 
                 let newName = _$('input[name="name"]').value;
@@ -210,15 +207,6 @@
                 } else {
                     formData.set('name', newName);
                 }
-
-                if(inputAvatar.files.length != 0) { //kiểm tra ròi nè
-                    formData.set('img', inputAvatar.files[0]) //type là File
-                } else {
-                    let oldImg = '<?php echo $_SESSION['img']?>'; //đúm đúm
-                    
-
-                }
-                console.log(formData.get('img'));
 
                 if (_$('input[name="name"]').value !== '') {
                     close_modal();
@@ -246,8 +234,6 @@
             });
         });
 
-
-    //
 
     </script>
 
