@@ -67,7 +67,7 @@ class UserController extends Controller
             $error = $response['error'];
 
             if (empty($error)) {
-                return $_SESSION['merror'] = $response;
+                return $_SESSION['error'] = $response;
             } else {
                 return $_SESSION['error'] = $error;
             }
