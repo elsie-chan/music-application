@@ -154,6 +154,34 @@ class SongsController extends Controller
         }
     }
 
+    public function add_song_to_like_song() {
+        $error = "";
+        $message = "";
+
+        $id_song = $_POST['song_id'];
+        $id_playlist = $_SESSION['liked_songs'];
+
+        $model_response = $this->model_song;
+        $this->check_model($model_response);
+
+        $response = $model_response->add_songs_to_playlists($id_song, $id_playlist);
+//        dd($response);
+        $error = $response['error'];
+
+        header('Content-Type: application/json; charset=utf-8');
+
+        if (empty($error)) {
+            $message = $response['msg'];
+            echo json_encode([
+                'message' => $message
+            ]);
+        } else {
+            echo json_encode([
+                'error' => $error
+            ]);
+        }
+    }
+
     public function delete_song_of_playlist() {
         $error = "";
         $message = "";

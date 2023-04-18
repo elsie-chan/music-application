@@ -126,6 +126,67 @@ class ArtistsController extends Controller
 
         }
     }
+
+    public function get_artist_of_user() {
+        $error = "";
+        $message = "";
+
+        $token = $_POST['token'];
+
+        $model_response = $this->model_artist;
+        $this->check_model($model_response);
+
+        $get_token = $this->get_user_use_token($token);
+
+        header('Content-Type: application/json; charset=utf-8');
+
+        if ($get_token != null) {
+            $response = $model_response->get_artists_of_users($get_token->id_users);
+            $error = $response['error'];
+
+            if (empty($error)) {
+                $message = $response['msg'];
+                foreach ($message as $value) {
+                    $value->picture = url($value->picture);
+                }
+                echo json_encode($message);
+            } else {
+                echo json_encode([
+                    'error' => $error
+                ]);
+            }
+        }
+    }
+
+    public function delete_artist_of_user() {
+        $error = "";
+        $message = "";
+
+        $token = $_POST['token'];
+
+        $model_response = $this->model_artist;
+        $this->check_model($model_response);
+
+        $get_token = $this->get_user_use_token($token);
+
+        header('Content-Type: application/json; charset=utf-8');
+
+        if ($get_token != null) {
+            $response = $model_response->delete_artists_of_users($get_token->id_users);
+            $error = $response['error'];
+
+            if (empty($error)) {
+                $message = $response['msg'];
+                echo json_encode([
+                    'message' => $message
+                ]);
+            } else {
+                echo json_encode([
+                    'error' => $error
+                ]);
+            }
+        }
+    }
     public function test() {
 //        $this->get_album_by_id_artist();
     }
