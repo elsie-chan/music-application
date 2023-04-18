@@ -95,7 +95,7 @@ class UserController extends Controller
 
             $response = $model_response->edit_profile_by_id(getId(), $destination, $name);
             $error = $response['error'];
-
+            $_SESSION['img'] = $destination;
             header("Content-Type: application/json; charset=UTF-8");
 
             if (empty($error)) {

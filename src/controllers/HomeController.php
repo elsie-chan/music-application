@@ -15,7 +15,9 @@ class HomeController extends Controller {
             $response = $playlist_model->get_all_playlists_of_user(1);
             $playlists = $response['msg'];
 
-            $response = $song_model->get_all_song_with_id_topic(rand(1, 9));
+            $playlist_id = rand(1, 9);
+            $playlist_info = $playlist_model->get_playlist_by_id($playlist_id)['msg'];
+            $response = $song_model->get_all_song_with_id_topic($playlist_id);
             $songs = $response['msg'];
 
             foreach ($songs as $key => $song) {
@@ -24,7 +26,8 @@ class HomeController extends Controller {
             }
             $this->load_view('home', [
                 'playlists' => $playlists,
-                'songs' => $songs
+                'songs' => $songs,
+                'playlist_info' => $playlist_info
             ]);
         } else {
             $this->load_view('auth/auth.login');

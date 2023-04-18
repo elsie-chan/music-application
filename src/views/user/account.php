@@ -1,5 +1,4 @@
 
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -58,7 +57,7 @@
         <?php require_once (assets('views/components/header.php')) ?>
         <div id="info" class="container-fluid d-flex align-items-center flex-row justify-content-md-start justify-content-center">
             <div class="info__img" id="edit-name" data-toggle="modal" data-target="#myModal">
-                <img src="https://i.pinimg.com/564x/1b/a4/61/1ba461fd2d88660103a23c32037cb249.jpg" alt="avatar">
+                <img src="<?php echo url($_SESSION['img'])?>" alt="avatar">
                 <i class="fa-regular fa-pen"></i>
             </div>
             <div class="info__text">
@@ -98,7 +97,7 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-4 col-12 avatar-container d-flex form-group">
-                                <img id="srcAvatar" src="https://i.pinimg.com/564x/1b/a4/61/1ba461fd2d88660103a23c32037cb249.jpg" alt="">
+                                <img id="srcAvatar" src="<?php echo $_SESSION['img'];?>" alt="">
                                 <input accept="image/*" type='file' id="inputAvatar" class="form-control-file "/>
                                 <i class="hide fa-regular fa-pen"></i>
                             </div>
