@@ -302,48 +302,6 @@ public function liked_songs() {
         }
     }
 
-    public function add_playlist_of_user() {
-        $error = "";
-        $message = "";
-
-        if ($_POST) {
-            $name = $_POST['name'];
-            $img = $_FILES['img'];
-            $description = $_POST['description'];
-            $today = date("Y-m-d H:i:s");
-            $token = $_POST['token'];
-
-
-            $model_response  = $this->model_playlist;
-            $this->check_model($model_response);
-
-            header('Content-Type: application/json; charset=utf-8');
-
-            $destination = 'src/public/assets/artists/' . time();
-            $extension = pathinfo($img['name'], PATHINFO_EXTENSION);
-            $destination = $destination . '.' . $extension;
-            move_uploaded_file($img['tmp_name'], $destination);
-
-            $get_token = $this->get_user_use_token($token);
-            if ($get_token != null) {
-                $response = $model_response->add_playlists($name, $destination, $description, $today, $get_token->id_users);
-                $error = $response['error'];
-
-                if (empty($error)) {
-                    $message = $response['msg'];
-                    echo json_encode([
-                        'message' => $message
-                    ]);
-                } else {
-                    echo json_encode([
-                        'error' => $error
-                    ]);
-                }
-            }
-
-        }
-    }
-
     public function edit_playlist_of_user() {
         $error = "";
         $message = "";
@@ -471,32 +429,45 @@ public function liked_songs() {
         }
     }
 
+    public function get_playlist_of_user($id_user, $name_playlist) {
+        $model_response = $this->model_playlist;
+        $this->check_model($model_response);
+
+        $response = $model_response->get_playlist_of_user($id_user, $name_playlist);
+        $error = $response['error'];
+
+        if (empty($error)) {
+            return $response['msg']->id_playlists;
+        } else {
+            return null;
+        }
+    }
+
     public function add_default_playlist() {
         $error = "";
         $message = "";
 
+//        $this->count = $this->count + 1;
+
+        $name = "Default Playlist ". time();
         $token = $_POST['token'];
 
         $src = 'src/public/assets/imgs/default_playlist.png';
-        $decsription = "Your new playlist.";
+        $description = "Your new playlist.";
         $today = date("Y-m-d");
 
-        $model_response = $this->model_album;
+        $model_response = $this->model_playlist;
         $this->check_model($model_response);
-
         $get_token = $this->get_user_use_token($token);
-
         if ($get_token != null) {
-            $response = $model_response->add_playlists("Default Playlist", $src, $decsription, $today, $get_token->id_users);
+            $response = $model_response->add_playlists($name, $src, $description, $today, $get_token->id_users);
             $error = $response['error'];
 
             header('Content-Type:application/json; charset=utf-8');
 
             if (empty($error)) {
-                $message = $response['msg'];
-                echo json_encode([
-                    'message' => $message
-                ]);
+                $playlist = $this->get_playlist_of_user($get_token->id_users, $name);
+                echo json_encode($playlist);
             } else {
                 echo json_encode([
                     'error' => $error
@@ -505,7 +476,12 @@ public function liked_songs() {
         }
     }
 
-
+//    public function add_album_to_user() {
+//        $error =
+//
+//        $token = $_POST['token'];
+//        $
+//    }
     public function test() {
 //        $this->edit_playlist();
     }

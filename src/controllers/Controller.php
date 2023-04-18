@@ -12,6 +12,7 @@ class Controller
     protected $model_song;
     protected $model_topic;
     protected $model_user;
+    protected $count;
 
     public function __construct()
     {
@@ -22,6 +23,8 @@ class Controller
         $this->model_song = $this->load_model('SongModel');
         $this->model_topic = $this->load_model('TopicModel');
         $this->model_user = $this->load_model('UserModel');
+        $this->count = 0;
+
     }
 
     public function load_model($model_name) {
