@@ -86,7 +86,7 @@
 }
 
 .control {
-    /*flex: 0 0 50%;*/
+    flex: 0 0 60%;
     /*max-width: 50%;*/
 
     display: flex!important;
@@ -163,7 +163,7 @@
     /* max-width: 200px; */
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 650px) {
     .current__progress,
     .btn--playlist,
     .current__like
@@ -176,13 +176,21 @@
     }
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 700px) {
     .btn--playlist {
-        max-width: 60px;
+        width: fit-content;
     }
 
     .controlbar .current {
         width: 50%;
+    }
+
+    .controlbar .current--song {
+        flex: 0 0 50%;
+    }
+
+    .controlbar .control {
+        flex: 0 0 40%;
     }
 }
 

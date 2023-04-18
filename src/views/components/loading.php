@@ -1,6 +1,6 @@
 <style>
     .loading {
-        background-color: #000;
+        background-color: var(--blue-bg);
         position: absolute;
         height: 100vh;
         top: 0;
@@ -60,7 +60,7 @@
 <script>
     const loading = $('.loading');
     setTimeout(function() {
-        $('body').css('overflow', 'auto');
+        $('body').css('overflow-y', 'visible');
         loading.addClass('loading--hide');
-    }, 2000)
+    }, 0)
 </script>

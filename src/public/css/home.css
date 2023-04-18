@@ -24,20 +24,21 @@
 }
 
 .slideshow__blur {
-    background-position: center;
+	background-position: center;
 	background-size: cover;
 	background-repeat: no-repeat;
-    background-color: rgba(0, 0, 0, 0.66);
-    filter: blur(12px);
-    -webkit-filter: blur(12px);
-    z-index: -2;
-	height: calc(100vh - 16px);
+	background-color: rgba(0, 0, 0, 0.66);
+	filter: blur(12px);
+	-webkit-filter: blur(40px);
+	z-index: -2;
+	height: calc(120%);
 }
 
 .slideshow__darker {
-    background-color: rgba(0, 0, 0, 0.66);
-    z-index: -1;
-	height: 100vh;
+	background-color: rgb(0 0 0 / 50%);
+	z-index: -1;
+	height: 120%;
+	filter: blur(12px);
 }
 
 .slideshow {
@@ -117,5 +118,109 @@
 	height: 20px;
 }
 
-/* Fading animation */
 
+/* start css for list song*/
+
+.list__songs .song {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	height: 100%;
+	width: 100%;
+	margin: 0.4rem;
+}
+
+.list__songs .song .song__img {
+	width: 60px;
+	height: 60px;
+	position: relative;
+}
+
+.list__songs .song .song__img img{
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+
+
+.song__img .song--play {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 1.3rem;
+	display: none;
+}
+
+.song:hover {
+	cursor: pointer;
+}
+
+.song:active {
+	cursor: auto;
+}
+
+.song:hover img{
+	filter: brightness(50%);
+}
+
+.song:hover i {
+	display: block;
+}
+
+.list__songs .song .song__info {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.list__songs {
+	color: #fff;
+}
+
+.song__info--name h5,
+.song__info--artist p {
+	padding: 0;
+	margin: 0;
+}
+
+.song__info--name h5 {
+	font-size: 1rem;
+}
+
+.song__info--artist p {
+	font-size: 0.8rem;
+	color: #fff;
+}
+
+.song__img:active {
+
+}
+
+.box {
+	height: fit-content;
+	border: 1px solid #000;
+}
+
+/*end css for list song*/
+
+
+/* ------------start css for song card slider*/
+@media (max-width: 768px) {
+	.carousel-inner .carousel-item > div {
+		display: none;
+	}
+	.carousel-inner .carousel-item > div:first-child {
+		display: block;
+	}
+}
+
+.carousel-inner .carousel-item.active,
+.carousel-inner .carousel-item-next,
+.carousel-inner .carousel-item-prev {
+	display: flex;
+}
+
+/* display 3 */
+/* ------------start css for song card slider*/
