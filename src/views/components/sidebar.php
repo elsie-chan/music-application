@@ -4,9 +4,9 @@
 
 <div class="sidebar">
     <div class="banner">
-        <a class="logo" href="#">
+        <a class="logo" href="/music-application/">
             <img src="<?php echo url('src/public/assets/imgs/logo.svg') ?>" width="40" height="40" class="d-inline-block align-top" alt="">
-            <span>MISC</span>
+            <span class="logo--title">MISC</span>
         </a>
     </div>
     <nav class="navigation">

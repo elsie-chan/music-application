@@ -42,16 +42,16 @@
             <p class="time--duration">0:00</p>
         </div>
     </div>
-    <audio id="audio" src="<?php echo url('src/public/assets/songs/cupid.mp3')?>" preload="metadata"></audio>
+    <audio id="current--audio" autoplay src="<?php echo url('src/public/assets/songs/cupid.mp3')?>" preload="metadata"></audio>
     <div class="btn--playlist">
         <i class="fa-solid fa-list-music"></i>
     </div>
 </div>
 
 <script>
-    const audio = document.getElementById('audio');
-    const playBtn = document.querySelector('.btn--play');
-    const prevBtn = document.querySelector('.btn--prev');
+    const audio = document.getElementById('current--audio');
+    var playBtn = document.querySelector('.btn--play');
+    var prevBtn = document.querySelector('.btn--prev');
 
     playBtn.addEventListener('click', () => {
         if (audio.paused) {
@@ -62,4 +62,5 @@
             playBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
         }
     });
+
 </script>

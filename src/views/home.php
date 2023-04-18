@@ -1,20 +1,24 @@
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" type="image/x-icon" href="<?php echo url("src/public/assets/imgs/favicon.ico") ?>">
     <title>Home</title>
-    
-    <link rel="stylesheet" href="<?php echo url('src/public/vendors/bootstrap/css/bootstrap.min.css')?>">
-    <link rel="stylesheet" href="<?php echo url('src/public/vendors/font-awesome-6-pro-main/css/all.css')?>">
-    <link rel="stylesheet" href="<?php echo url('src/public/css/home.css')?>">
+
+    <link rel="stylesheet" href="<?php echo url('src/public/vendors/bootstrap/css/bootstrap.min.css') ?>">
+    <link rel="stylesheet" href="<?php echo url('src/public/vendors/font-awesome-6-pro-main/css/all.css') ?>">
+    <link rel="stylesheet" href="<?php echo url('src/public/css/home.css') ?>">
+    <link rel="stylesheet" href="<?php echo url('src/public/css/components/playlistList.css') ?>">
 
     <style>
         @import "<?php echo url('src/public/css/style.css') ?>";
+
         body {
             position: relative;
             overflow-y: hidden;
+            background-color: var(--blue-bg);
         }
 
         #home {
@@ -76,166 +80,227 @@
         <div class="row albums__title">
             <h4 style="padding: 0 1rem; color: var(--hightlight);">POPULAR ALBUMS</h4>
         </div>
-        <?php require 'components/playlistList.php' ?>
+        <div class="row albums__list" id="playlist--container">
+            <?php foreach ($data['playlists'] as $playlist) { ?>
+                <div class="col-6 col-md-3 col-sm-4">
+                    <div class="album__item" data-id="<?php echo $playlist->id_playlists ?>">
+                        <a href="<?php echo url('playlist/') . $playlist->id_playlists ?>">
+                            <img src="<?php echo url($playlist->playlists_image) ?>" alt="">
+                            <p class="py-2"><?php echo $playlist->name_playlists ?></p>
+                        </a>
+                    </div>
+                </div>
+            <?php } ?>
+        </div>
     </div>
     <!--    Trending albums-->
-    <div class="container-fluid albums" id="trending_albums">
+    <div class="container-fluid albums list__songs" id="trending_albums">
         <div class="row albums__title">
-            <h4 style="padding: 0 1rem; color: var(--hightlight);">TRENDINg ALBUMS</h4>
+            <h4 style="padding: 0 1rem; color: var(--hightlight);">US UK SONGS</h4>
         </div>
-        <?php require 'components/playlistList.php' ?>
+        <div class="songs row mx-auto my-auto p-0">
+            <?php foreach ($data['songs'] as $song) { ?>
+                <div class="col-12 col-md-6 col-xl-4 p-0">
+                    <div class="song" data-song_id="<?php echo $song->id_songs?>">
+                        <div class="song__img">
+                            <img src="<?php echo $song->image_song?>" alt="">
+                            <i class="fa-solid fa-play song--play"></i>
+                        </div>
+                        <div class="song__info">
+                            <div class="song__info--name">
+                                <h6><?php echo $song->name_songs?></h6>
+                            </div>
+                            <div class="song__info--artist">
+                                <p><?php echo $song->artists->name_artists?></p>
+                            </div>
+                        </div>
+                        <audio class="audio" src="<?php echo url($song->src)?>" controls style="display: none;"></audio>
+                    </div>
+                </div>
+            <?php } ?>
+        </div>
     </div>
 
 </div>
-    <script src="<?php echo url('src/public/vendors/jquery/jquery.js')?>"></script>
-    <script src="<?php echo url('src/public/vendors/bootstrap/js/bootstrap.bundle.min.js')?>"></script>
+<script src="<?php echo url('src/public/vendors/jquery/jquery.js') ?>"></script>
+<script src="<?php echo url('src/public/vendors/jquery/jquery_compress.js') ?>"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 
+<!-- js for sidebar resize -->
+<script>
+    const sidebar = document.querySelector('.sidebar');
+    const home = document.querySelector('#home');
+    document.addEventListener("DOMContentLoaded", function (event) {
+        resizeSidebar();
+    });
 
-<!-- js for loading -->
+    window.addEventListener('resize', function () {
+        resizeSidebar();
+    });
 
+    function resizeSidebar() {
+        if (window.innerWidth < 1000) {
+            sidebar.classList.add("toggle");
+            home.style.width = "calc(100% - 80px)";
+            home.style.left = "80px";
+        } else {
+            sidebar.classList.remove("toggle");
+            home.style.width = "calc(100% - 200px)";
+            home.style.left = "200px";
+        }
+    }
 
-    <!-- js for sidebar resize -->
-    <script>
-        const sidebar = document.querySelector('.sidebar');
-        const home = document.querySelector('#home');
-        document.addEventListener("DOMContentLoaded", function(event) { 
-            resizeSidebar();
-        });
+</script>
 
-        window.addEventListener('resize', function() {
-            resizeSidebar();
-        });
+<!-- js for slider -->
+<script type="module" async defer>
+    import getArtistById from '<?php echo url('src/public/js/getArtistById.js')?>'
 
-        function resizeSidebar() {
-            if (window.innerWidth < 1000) {
-                sidebar.classList.add("toggle");
-                home.style.width = "calc(100% - 80px)";
-                home.style.left = "80px";
-            } else {
-                sidebar.classList.remove("toggle");
-                home.style.width = "calc(100% - 200px)";
-                home.style.left = "200px";
+    const slideshow = $('.slideshow');
+    const slideshowCurrent = $('.slideshow__current')[0];
+    const slideshowControls = $('.slideshow__controls')[0];
+    const slideshowControlPrev = $('.slideshow__control--prev')[0];
+    const slideshowControlNext = $('.slideshow__control--next')[0];
+
+    const slideshowBlur = $(".slideshow__blur")[0];
+
+    const slideshowImgs = [
+        "https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80",
+        "https://images.unsplash.com/photo-1622547748225-3fc4abd2cca0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80",
+        "https://images.unsplash.com/photo-1618172193763-c511deb635ca?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80"
+    ];
+
+    let currentSlide = 0;
+
+    function initSliderControls() {
+        for (let i = 0; i < slideshowImgs.length; i++) {
+            const control = document.createElement('button');
+            control.classList.add('controls--buttons');
+            control.addEventListener('click', function () {
+                currentSlide = i;
+                slideshowCurrent.style.backgroundImage = `url(${slideshowImgs[currentSlide]})`;
+                setActiveControl(currentSlide)
+            });
+            slideshowControls.appendChild(control);
+        }
+    }
+
+    initSliderControls();
+
+    function initSlider() {
+        slideshowCurrent.style.backgroundImage = `url(${slideshowImgs[currentSlide]})`;
+        slideshowBlur.style.backgroundImage = `url(${slideshowImgs[currentSlide]})`;
+        let controls = document.querySelectorAll('.controls--buttons');
+        controls[0].classList.add('active');
+    }
+
+    slideshowControlNext.addEventListener("click", function () {
+        currentSlide++;
+        if (currentSlide > slideshowImgs.length - 1) {
+            currentSlide = 0;
+        }
+        slideshowCurrent.style.backgroundImage = `url(${slideshowImgs[currentSlide]})`;
+        setActiveControl(currentSlide)
+    });
+
+    slideshowControlPrev.addEventListener("click", function () {
+        currentSlide--;
+        if (currentSlide < 0) {
+            currentSlide = slideshowImgs.length - 1;
+        }
+        slideshowCurrent.style.backgroundImage = `url(${slideshowImgs[currentSlide]})`;
+        setActiveControl(currentSlide)
+    });
+
+    function setActiveControl(currentIndex) {
+        let controls = document.querySelectorAll('.controls--buttons');
+        for (let i = 0; i < controls.length; i++) {
+            if (controls[i].classList.contains('active')) {
+                controls[i].classList.remove('active');
             }
         }
+        controls[currentIndex].classList.add('active');
+    }
 
-    </script>
+    initSlider();
 
-    <!-- js for slider -->
-    <script>
-        const slideshow = $('.slideshow');
-        const slideshowCurrent = $('.slideshow__current')[0];
-        const slideshowControls = $('.slideshow__controls')[0];
-        const slideshowControlPrev = $('.slideshow__control--prev')[0];
-        const slideshowControlNext = $('.slideshow__control--next')[0];
-
-        const slideshowBlur = $(".slideshow__blur")[0];
-
-        const slideshowImgs = [
-            "https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80", 
-            "https://images.unsplash.com/photo-1622547748225-3fc4abd2cca0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80",
-            "https://images.unsplash.com/photo-1618172193763-c511deb635ca?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80"
-        ];
-
-        let currentSlide = 0;
-
-        function initSliderControls() {
-            for (let i = 0; i < slideshowImgs.length; i++) {
-                const control = document.createElement('button');
-                control.classList.add('controls--buttons');
-                control.addEventListener('click', function() {
-                    currentSlide = i;
-                    slideshowCurrent.style.backgroundImage = `url(${slideshowImgs[currentSlide]})`;
-                    setActiveControl(currentSlide)
-                });
-                slideshowControls.appendChild(control);
-            }
+    setInterval(function () {
+        currentSlide++;
+        if (currentSlide > slideshowImgs.length - 1) {
+            currentSlide = 0;
         }
-
-        initSliderControls();
-        function initSlider() {
-            slideshowCurrent.style.backgroundImage = `url(${slideshowImgs[currentSlide]})`;
-            slideshowBlur.style.backgroundImage = `url(${slideshowImgs[currentSlide]})`;
-            let controls = document.querySelectorAll('.controls--buttons');
-            controls[0].classList.add('active');
-        }
-
-
-        slideshowControlNext.addEventListener("click", function() {
-            currentSlide++;
-            if (currentSlide > slideshowImgs.length - 1) {
-                currentSlide = 0;
-            }
-            slideshowCurrent.style.backgroundImage = `url(${slideshowImgs[currentSlide]})`;
-            setActiveControl(currentSlide)
-        }); 
-        
-        slideshowControlPrev.addEventListener("click", function() {
-            currentSlide--;
-            if (currentSlide < 0) {
-                currentSlide = slideshowImgs.length - 1;
-            }
-            slideshowCurrent.style.backgroundImage = `url(${slideshowImgs[currentSlide]})`;
-            setActiveControl(currentSlide)
-        });
-
-        function setActiveControl(currentIndex) {
-            let controls = document.querySelectorAll('.controls--buttons');
-            for (let i = 0; i < controls.length; i++) {
-                if(controls[i].classList.contains('active')) {
-                    controls[i].classList.remove('active');
-                }
-            }
-            controls[currentIndex].classList.add('active');
-        }
-
-        initSlider();
-
-        setInterval(function() {
-            currentSlide++;
-            if (currentSlide > slideshowImgs.length - 1) {
-                currentSlide = 0;
-            }
-            slideshowCurrent.style.backgroundImage = `url(${slideshowImgs[currentSlide]})`;
-            setActiveControl(currentSlide)
-        }, 5000);
+        slideshowCurrent.style.backgroundImage = `url(${slideshowImgs[currentSlide]})`;
+        setActiveControl(currentSlide)
+    }, 5000);
 
     //    -------------js for drag list -------------------
-       const slider = document.querySelector('.albums__list');
-       let isDown = false;
-       let startX;
-       let scrollLeft;
+    const slider = document.querySelector('.albums__list');
+    let isDown = false;
+    let startX;
+    let scrollLeft;
 
-       slider.addEventListener('mousedown', (e) => {
-           isDown = true;
-           slider.classList.add('active');
-           startX = e.pageX - slider.offsetLeft;
-           scrollLeft = slider.scrollLeft;
-       });
-       slider.addEventListener('mouseleave', () => {
-           isDown = false;
-           slider.classList.remove('active');
-       });
-       slider.addEventListener('mouseup', () => {
-           isDown = false;
-           slider.classList.remove('active');
-       });
-       slider.addEventListener('mousemove', (e) => {
-           if(!isDown) return;
-           e.preventDefault();
-           const x = e.pageX - slider.offsetLeft;
-           const walk = (x - startX) * 3; //scroll-fast
-           slider.scrollLeft = scrollLeft - walk;
-           // console.log(walk);
-       });
+    slider.addEventListener('mousedown', (e) => {
+        isDown = true;
+        slider.classList.add('active');
+        startX = e.pageX - slider.offsetLeft;
+        scrollLeft = slider.scrollLeft;
+    });
+    slider.addEventListener('mouseleave', () => {
+        isDown = false;
+        slider.classList.remove('active');
+    });
+    slider.addEventListener('mouseup', () => {
+        isDown = false;
+        slider.classList.remove('active');
+    });
+    slider.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - slider.offsetLeft;
+        const walk = (x - startX) * 3; //scroll-fast
+        slider.scrollLeft = scrollLeft - walk;
+        // console.log(walk);
+    });
+    // -----------------end js for drag list -------------------
 
 
-       let albumItem = document.querySelectorAll('.album__item');
-       for(let i = 0; i < albumItem.length; i++) {
-           albumItem[i].addEventListener('click', function() {
-               console.log(i);
-           })
-       }
-    //
+    // ajax--------------------------------------------------------------------------
+    $(document).ready(function () {
+        const GET_ARTIST_PATH = '<?php echo url('get_artist_by_id') ?>';
+
+        //play song on control when click
+        let audio = $('#current--audio');
+        var playBtn = document.querySelector('.btn--play');
+        var prevBtn = document.querySelector('.btn--prev');
+        let controlbar = $('.controlbar');
+
+        let currentImg = controlbar.find('.current__poster--img');
+        let currentSongName = controlbar.find('.current__info--name')[0];
+        let currentArtistName = controlbar.find('.current__info--artist')[0];
+
+        let songs = $('.song');
+        songs.each(function (index, song) {
+            $(song).on('click', function () {
+                console.log($(this).attr('data-song_id'))
+                let songSrc = $(this).find('audio').attr('src');
+                audio.attr('src', songSrc)
+                let imgSrc = $(this).find('img').attr('src');
+                currentImg.attr('src', imgSrc)
+                console.log(imgSrc)
+                currentSongName.innerHTML = $(this).find('.song__info--name').text();
+                currentArtistName.innerHTML = $(this).find('.song__info--artist').text();
+
+                audio[0].play();
+                if (audio[0].paused) {
+                    playBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
+                } else {
+                    playBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+                }
+            })
+        })
+    });
+
+
     //</script>
 <?php require_once 'components/loading.php' ?>
 

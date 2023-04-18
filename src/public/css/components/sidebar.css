@@ -143,6 +143,12 @@ a:hover {
     justify-content: center;
 }
 
+.logo span.logo--title {
+    color: var(--hightlight);
+    font-weiglogo--titleht: 400;
+    font-size: 1.6rem;
+}
+
 .sidebar .banner {
     padding: 0;
 }
