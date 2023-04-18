@@ -384,6 +384,9 @@
     });
     // asignContextMenu();
     // ajax to render playlist
+
+
+    import playSongByClick from '<?php echo url('src/public/js/playSongByClick.js')?>'
     $(document).ready(function () {
         $.ajax({
             url: '<?php echo url('get_song_of_playlist') ?>',
@@ -395,7 +398,7 @@
                 // console.log(data);
                 const template = data[0].map((song, index) => {
                     return `
-                                    <li class="media">
+                                    <li class="media" data-song_id="${song.id_songs}">
                                         <div class="col-10">
                                             <div class="row media-left">
                                                 <div class="songThumbnail">
@@ -406,7 +409,7 @@
                                                 </div>
                                                 <div class="card-info song">
                                                     <h6>${song.name_songs}</h6>
-                                                    <a href="<?php echo url('artist') ?>/${song.id_artists}">${get_artist_by_id(song.id_artists)}</a>
+                                                    <a class="song__info--artist" href="<?php echo url('artist') ?>/${song.id_artists}">${get_artist_by_id(song.id_artists)}</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -421,6 +424,7 @@
                 $('.list-unstyled').html(template);
                 $('.number-of-songs span').text(data[1])
                 asignContextMenu();
+                playSongByClick('.media', '<?php echo url()?>');
             },
             error: function (error) {
                 console.log(error);
@@ -454,8 +458,13 @@
 
 
 
+
         
     })
+
+
+
+
 
 
 </script>

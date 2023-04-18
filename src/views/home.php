@@ -110,9 +110,7 @@
                             <div class="song__info--name">
                                 <h6><?php echo $song->name_songs?></h6>
                             </div>
-                            <div class="song__info--artist">
-                                <p><?php echo $song->artists->name_artists?></p>
-                            </div>
+                            <a class="song__info--artist"><?php echo $song->artists->name_artists?></a>
                         </div>
                         <audio class="audio" src="<?php echo url($song->src)?>" controls style="display: none;"></audio>
                     </div>
@@ -153,8 +151,8 @@
 </script>
 
 <!-- js for slider -->
-<script type="module" async defer>
-    import getArtistById from '<?php echo url('src/public/js/getArtistById.js')?>'
+<script type="module">
+    //import ajaxRequest from '<?php //echo url('src/public/js/ajaxRequest') ?>//'
 
     const slideshow = $('.slideshow');
     const slideshowCurrent = $('.slideshow__current')[0];
@@ -265,40 +263,61 @@
 
 
     // ajax--------------------------------------------------------------------------
-    $(document).ready(function () {
-        const GET_ARTIST_PATH = '<?php echo url('get_artist_by_id') ?>';
 
         //play song on control when click
-        let audio = $('#current--audio');
-        var playBtn = document.querySelector('.btn--play');
-        var prevBtn = document.querySelector('.btn--prev');
-        let controlbar = $('.controlbar');
+        //var playBtn = document.querySelector('.btn--play');
+        //var prevBtn = document.querySelector('.btn--prev');
+        //let controlbar = $('.controlbar');
+        //
+        //let audio = $('#current--audio');
+        //let currentImg = controlbar.find('.current__poster--img');
+        //let currentSongName = controlbar.find('.current__info--name')[0];
+        //let currentArtistName = controlbar.find('.current__info--artist')[0];
+        //let songId;
+        //let songSrc;
+        //
+        //let songs = $('.song');
+        //songs.each(function (index, song) {
+        //    $(song).on('click', function () {
+        //        songId = $(this).attr('data-song_id');
+        //        getSongById(songId)
+        //        // audio.attr('src', songSrc)
+        //
+        //        let imgSrc = $(this).find('img').attr('src');
+        //        currentImg.attr('src', imgSrc)
+        //        console.log(imgSrc)
+        //        currentSongName.innerHTML = $(this).find('.song__info--name').text();
+        //        currentArtistName.innerHTML = $(this).find('.song__info--artist').text();
+        //
+        //        audio[0].play();
+        //        if (audio[0].paused) {
+        //            playBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
+        //        } else {
+        //            playBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+        //        }
+        //    })
+        //})
+        //
+        //function getSongById(songId) {
+        //    $.ajax({
+        //        url: '<?php //echo url('get_song_by_id') ?>//',
+        //        type: 'POST',
+        //        data: {
+        //            id_song: songId
+        //        },
+        //        async: false,
+        //        success: function (data) {
+        //            audio.attr('src', data[0].src);
+        //        },
+        //        error: function (error) {
+        //            console.log('error')
+        //            console.log(error)
+        //        }
+        //    })
+        //}
 
-        let currentImg = controlbar.find('.current__poster--img');
-        let currentSongName = controlbar.find('.current__info--name')[0];
-        let currentArtistName = controlbar.find('.current__info--artist')[0];
-
-        let songs = $('.song');
-        songs.each(function (index, song) {
-            $(song).on('click', function () {
-                console.log($(this).attr('data-song_id'))
-                let songSrc = $(this).find('audio').attr('src');
-                audio.attr('src', songSrc)
-                let imgSrc = $(this).find('img').attr('src');
-                currentImg.attr('src', imgSrc)
-                console.log(imgSrc)
-                currentSongName.innerHTML = $(this).find('.song__info--name').text();
-                currentArtistName.innerHTML = $(this).find('.song__info--artist').text();
-
-                audio[0].play();
-                if (audio[0].paused) {
-                    playBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
-                } else {
-                    playBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
-                }
-            })
-        })
-    });
+    import playSongByClick from '<?php echo url('src/public/js/playSongByClick.js')?>'
+    playSongByClick('.song', '<?php echo url()?>');
 
 
     //</script>
