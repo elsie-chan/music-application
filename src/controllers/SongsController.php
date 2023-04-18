@@ -132,27 +132,27 @@ class SongsController extends Controller
         $error = "";
         $message = "";
 
-        if (getId()) {
-            $id_song = $_POST['id_song'];
+        $id_song = $_POST['id_song'];
+        $id_playlist = $_POST['id_playlist'];
 
-            $model_response = $this->model_song;
-            $this->check_model($model_response);
+        $model_response = $this->model_song;
+        $this->check_model($model_response);
 
-            $response = $model_response->add_songs_to_playlists($id_song, getId());
-            $error = $response['error'];
+        $response = $model_response->add_songs_to_playlists($id_song, $id_playlist);
+//        dd($response);
+        $error = $response['error'];
 
-            header('Content-Type: application/json; charset=utf-8');
+        header('Content-Type: application/json; charset=utf-8');
 
-            if (empty($error)) {
-                $message = $response['msg'];
-                echo json_encode([
-                    'message' => $message
-                ]);
-            } else {
-                echo json_encode([
-                    'error' => $error
-                ]);
-            }
+        if (empty($error)) {
+            $message = $response['msg'];
+            echo json_encode([
+                'message' => $message
+            ]);
+        } else {
+            echo json_encode([
+                'error' => $error
+            ]);
         }
     }
 
@@ -160,33 +160,33 @@ class SongsController extends Controller
         $error = "";
         $message = "";
 
-        if (getId()) {
-            $id_song = $_POST['id_song'];
+        $id_song = $_POST['id_song'];
+        $id_playlist = $_POST['id_playlist'];
 
-            $model_response = $this->model_song;
-            $this->check_model($model_response);
 
-            header('Content-Type: application/json; charset=utf-8');
+        $model_response = $this->model_song;
+        $this->check_model($model_response);
 
-            $response = $model_response->delete_song_of_playlist($id_song, getId());
-            $error = $response['error'];
+        header('Content-Type: application/json; charset=utf-8');
 
-            if (empty($error)) {
-                $message = $response['msg'];
-                echo json_encode([
-                    'message' => $message
-                ]);
-            } else {
-                echo json_encode([
-                    'error' => $error
-                ]);
-            }
+        $response = $model_response->delete_song_of_playlist($id_song, $id_playlist);
+        $error = $response['error'];
+
+        if (empty($error)) {
+            $message = $response['msg'];
+            echo json_encode([
+                'message' => $message
+            ]);
+        } else {
+            echo json_encode([
+                'error' => $error
+            ]);
         }
     }
 
 //    public function get_all_song_wit
     public function test() {
 //        dd($_SESSION['album']);
-        $this->get_song_of_playlist();
+        $this->add_song_to_playlist();
     }
 }

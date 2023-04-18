@@ -118,7 +118,9 @@ class AuthController extends Controller {
         if (empty($error)) {
             $message = $response['msg'];
             Mail::send_code_to_email($message->email_users, $_SESSION['username']);
-            echo json_encode([$message]);
+            echo json_encode([
+                'message' => $message
+            ]);
         } else {
            echo json_encode([
                'error' => $error
