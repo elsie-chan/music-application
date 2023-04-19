@@ -87,7 +87,6 @@ public function liked_songs() {
 
             if (empty($error)) {
                 $message = $response['msg'];
-                $_SESSION['follow'] = 'Following';
                 echo json_encode([
                     'message' => $message
                 ]);
@@ -104,7 +103,6 @@ public function liked_songs() {
         $message = "";
 
         $token = $_POST['token'];
-        $id_album = $_POST['id_album'];
 
         $model_response = $this->model_album;
         $this->check_model($model_response);
@@ -112,7 +110,7 @@ public function liked_songs() {
         $get_token = $this->get_user_use_token($token);
 
         if ($get_token != null) {
-            $response = $model_response->get_albums_of_users($get_token->id_users, $id_album);
+            $response = $model_response->get_albums_of_users($get_token->id_users);
             $error = $response['error'];
 
             header("Content-Type: application/json; charset=utf-8");
@@ -178,7 +176,6 @@ public function liked_songs() {
 
                 if (empty($error)) {
                     $message = $response['msg'];
-                    $_SESSION['follow'] = 'Follow';
                     echo json_encode([
                         'message' => $message
                     ]);
@@ -204,6 +201,10 @@ public function liked_songs() {
 
             if (empty($error)) {
                 $playlist = $response['msg'];
+                if (strtolower($playlist->name_playlists) === "like songs") {
+                    require_once (assets('views/layout/404.php'));
+                    return;
+                }
                 $this->load_view('playlistView', [
                     'playlist' => $playlist
                 ]);
@@ -251,21 +252,33 @@ public function liked_songs() {
             $model_response = $this->model_playlist;
             $this->check_model($model_response);
 
-            $destination = 'src/public/assets/artists/' . time();
-            $extension = pathinfo($img['name'], PATHINFO_EXTENSION);
-            $destination = $destination . '.' . $extension;
-            move_uploaded_file($img['tmp_name'], $destination);
+            $destination = 'src/public/assets/imgs_playlists/' . time();
+            $destination = $destination . '.png';
+
+            if($img != null) {
+                $is_moved = move_uploaded_file($img['tmp_name'], $destination);
+            } else {
+                $user = $model_response->get_user_by_token($_SESSION['token'])['msg'];
+                $destination = $user->avatar_users;
+                $is_moved = false;
+            }
 
             $response = $model_response->edit_playlists_by_id_playlists(getId(), $name, $destination, $description);
             $error = $response['error'];
 
             header('Content-Type: application/json; charset=utf-8');
 
+
             if (empty($error)) {
-                 $message = $response['msg'];
-                 echo json_encode([
-                     'message' => $message
-                 ]);
+                $message = $response['msg'];
+                echo json_encode([
+                    'error' => $error,
+                    'message' => $message,
+                    'name' => $name,
+                    'file' => $_FILES,
+                    'img' => url($destination),
+                    'is_moved' => $is_moved
+                ], JSON_PRETTY_PRINT);
             } else {
                 echo json_encode([
                     'error' => $error
