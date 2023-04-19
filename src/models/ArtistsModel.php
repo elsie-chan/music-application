@@ -145,27 +145,31 @@ class ArtistsModel extends Model
         return $response;
     }
 //    Delete
-    function delete_artists_by_username($username){
+    function delete_artists_by_id($id_artists){
         $response = array(
             "error" => "",
             "msg" => ""
         );
-        $stmt = "SELECT * FROM `$this->table` WHERE `name_artists` like '$username'";
-        $sql = mysqli_query($this->con,$stmt);
-        if(mysqli_num_rows($sql)==0){
+        $sql = "SELECT * FROM `$this->table` WHERE `id_artists` like '$username'";
+        $stmt = mysqli_query($this->con,$sql);
+        if(mysqli_num_rows($stmt)==0){
             $response['error'] = "Artist is not exists";
         }else{
-            $row = mysqli_fetch_object($sql);
-            $id = $row->id_artists;
-            $sql = "DELETE FROM `songs` WHERE `id_artists` = '$row->id_artists'";
+            $sql = "DELETE FROM `songs` WHERE `id_artists` = '$id_artists'";
             $stmt = mysqli_query($this->con,$sql);
-            $sql = "DELETE FROM `albums` WHERE `id_artists` = '$row->id_artists'";
+            $sql = "UPDATE `songs` SET `id_artists` = `id_artists` - 1 WHERE `id_artists` > '$id_artists'";
             $stmt = mysqli_query($this->con,$sql);
-            $sql = "DELETE FROM `users_artists` WHERE `id_artists` = '$row->id_artists'";
+            $sql = "DELETE FROM `albums` WHERE `id_artists` = '$id_artists'";
             $stmt = mysqli_query($this->con,$sql);
-            $sql = "DELETE FROM `$this->table` WHERE `name_artists` = '$row->name_artists'";
+            $sql = "UPDATE `albums` SET `id_artists` = `id_artists` - 1 WHERE `id_artists` > '$id_artists'";
             $stmt = mysqli_query($this->con,$sql);
-            $sql = "UPDATE `$this->table` SET `id_artists` = `id_artists` - 1 WHERE `id_artists` > '$id'";
+            $sql = "DELETE FROM `users_artists` WHERE `id_artists` = '$id_artists'";
+            $stmt = mysqli_query($this->con,$sql);
+            $sql = "UPDATE `users_artists` SET `id_artists` = `id_artists` - 1 WHERE `id_artists` > '$id_artists'";
+            $stmt = mysqli_query($this->con,$sql);
+            $sql = "DELETE FROM `$this->table` WHERE `id_artists` = '$id_artists'";
+            $stmt = mysqli_query($this->con,$sql);
+            $sql = "UPDATE `$this->table` SET `id_artists` = `id_artists` - 1 WHERE `id_artists` > '$id_artists'";
             $stmt = mysqli_query($this->con,$sql);
             $response['msg'] = "Successful. Artist has been removed";
         }

@@ -193,24 +193,27 @@ class SongModel extends Model{
     }
 //    EDIT / UPDATE
 //    DELETE SONGS
-    function delete_song_by_name($name_songs){
-        $sql = "SELECT * FROM `$this->table` WHERE `name_songs` = '$name_songs'";
-        $stmt = mysqli_query($this->con,$sql);
-        $id = mysqli_fetch_object(mysqli_query($this->con,$sql))->id_songs;
+    function delete_song_by_id($id_songs){
         $response = array(
             "error" => "",
             "msg" => ""
         );
+        $sql = "SELECT * FROM `$this->table` WHERE `id_songs` = '$id_songs'";
+        $stmt = mysqli_query($this->con,$sql);
         if(mysqli_num_rows($stmt) == 0){
             $response["error"] = "Song is not exists.";
         }else{
-            $sql = "DELETE FROM `playlists_songs` WHERE `id_songs` = '$id'";
+            $sql = "DELETE FROM `playlists_songs` WHERE `id_songs` = '$id_songs'";
             $stmt = mysqli_query($this->con,$sql);
-            $sql = "DELETE FROM `albums_songs` WHERE `id_songs` = '$id'";
+            $sql = "UPDATE `playlists_songs` SET `id_songs` = `id_songs` - 1 WHERE `id_songs` > '$id_songs'";
             $stmt = mysqli_query($this->con,$sql);
-            $sql = "DELETE FROM `$this->table` WHERE `name_songs` = '$name_songs'";
+            $sql = "DELETE FROM `albums_songs` WHERE `id_songs` = '$id_songs'";
             $stmt = mysqli_query($this->con,$sql);
-            $sql = "UPDATE `$this->table` SET `id_songs` = `id_songs` - 1 WHERE `id_songs` > '$id'";
+            $sql = "UPDATE `albums_songs` SET `id_songs` = `id_songs` - 1 WHERE `id_songs` > '$id_songs'";
+            $stmt = mysqli_query($this->con,$sql);
+            $sql = "DELETE FROM `$this->table` WHERE `id_songs` = '$id_songs'";
+            $stmt = mysqli_query($this->con,$sql);
+            $sql = "UPDATE `$this->table` SET `id_songs` = `id_songs` - 1 WHERE `id_songs` > '$id_songs'";
             $stmt = mysqli_query($this->con,$sql);
             $response["msg"] = "Song has been removed.";
         }

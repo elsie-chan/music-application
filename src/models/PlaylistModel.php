@@ -156,22 +156,23 @@ class PlaylistModel extends Model{
         return $response;
     }
 //    delete
-    function delete_playlists_by_name($name_playlists){
+    function delete_playlists_by_id($id_playlists){
         $response = array(
             "error" => "",
             "msg" => ""
         );
-        $sql = "SELECT * FROM `$this->table` WHERE `name_playlists` = '$name_playlists'";
+        $sql = "SELECT * FROM `$this->table` WHERE `id_playlists` = '$id_playlists'";
         $stmt = mysqli_query($this->con,$sql);
-        $id = mysqli_fetch_object(mysqli_query($this->con,$sql))->id_playlists;
         if(mysqli_num_rows($stmt) == 0){
             $response["error"] = "Playlist is not exists.";
         }else{
-            $sql = "DELETE FROM `playlists_songs` WHERE `id_playlists` = '$id'";
+            $sql = "DELETE FROM `playlists_songs` WHERE `id_playlists` = '$id_playlists'";
             $stmt = mysqli_query($this->con,$sql);
-            $sql = "DELETE FROM `$this->table` WHERE `name_playlists` = '$name_playlists'";
+            $sql = "UPDATE `playlists_songs` SET `id_playlists` = `id_playlists` - 1 WHERE `id_playlists` > '$id_playlists'";
             $stmt = mysqli_query($this->con,$sql);
-            $sql = "UPDATE `$this->table` SET `id_playlists` = `id_playlists` - 1 WHERE `id_playlists` > '$id'";
+            $sql = "DELETE FROM `$this->table` WHERE `id_playlists` = '$id_playlists'";
+            $stmt = mysqli_query($this->con,$sql);
+            $sql = "UPDATE `$this->table` SET `id_playlists` = `id_playlists` - 1 WHERE `id_playlists` > '$id_playlists'";
             $stmt = mysqli_query($this->con,$sql);
             $response["msg"] = "Playlist has been deleted.";
         }
