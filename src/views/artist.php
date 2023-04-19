@@ -1,3 +1,4 @@
+
 <html>
 <head>
     <meta charset="UTF-8">
@@ -61,7 +62,7 @@
                 <p style="">Profile</p>
                 <h1 class="info__name"><?php echo $data['artist']->name_artists ?></h1>
                 <p class="info__playlist text--inline"><span class="info__playlist--numb">7</span> Albums</p>
-                <button type="button" class="btn btn-outline-success button__playlist">Follow</button>
+                <button type="button" class="btn btn-outline-success button__playlist"><?php echo $_SESSION['follow'] ?></button>
             </div>
         </div>
         <!--    Trending albums-->
@@ -85,7 +86,8 @@
 <script src="<?php echo url('src/public/vendors/bootstrap/js/bootstrap.bundle.min.js')?>"></script>
 
     <!-- js for sidebar resize -->
-    <script>
+    <script type="module">
+        import ajaxRequest from '<?php echo url('src/public/js/ajaxRequest.js')?>'
         // const $ = document.querySelector.bind(document);
         const sidebar = document.querySelector('.sidebar');
         const home = document.querySelector('#account');
@@ -143,14 +145,60 @@
         })
 
         // handle button press
-        $('.button__playlist').click(function() {
-            if ($(this).hasClass('following')) {
-                $(this).removeClass('following');
-                $('.button__playlist').text('Follow');
+        $('.button__playlist').on('click',function() {
+            console.log($(this).text())
+            let is_followed = $(this).text().trim() === 'Following';
+
+            if (is_followed) {
+                // $(this).removeClass('following');
+                // $('.button__playlist').text('Follow');
+                // unfollow
+                ajaxRequest(
+                    '<?php echo url('delete_artist_of_user') ?>',
+                    "POST",
+                    {
+                        token: '<?php echo $_SESSION['token'] ?>',
+                        id_artist: '<?php echo $data['artist']->id_artists ?>'
+                    },
+                    function (data) {
+                        console.log(data)
+                        console.log('success deleted');
+                        $('.button__playlist').text('Follow');
+
+                    },
+                    function (err) {
+                        console.log(err);
+                        console.log("get artist error");
+                    },
+                    {
+                        async: false,
+                    }
+                )
             }
             else {
                 $(this).addClass('following');
-                $('.button__playlist').text('Following');
+                // follow
+                ajaxRequest(
+                    '<?php echo url('add_artist_to_user') ?>',
+                    "POST",
+                    {
+                        token: '<?php echo $_SESSION['token'] ?>',
+                        id_artist: '<?php echo ($data['artist']->id_artists) ?>'
+                    },
+                    function (data) {
+                        console.log(data)
+                        console.log('success added');
+                        console.log(<?php echo ($data['artist']->id_artists) ?>);
+                        $('.button__playlist').text('Following');
+                    },
+                    function (err) {
+                        console.log(err)
+                        console.log("get artist error");
+                    },
+                    {
+                        async: false,
+                    }
+                )
             }
         })
 

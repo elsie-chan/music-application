@@ -344,8 +344,8 @@
 
             // click to show album view
             function asignAlbumListener() {
-                console.log("in asign ")
-                console.log($('.album-result'))
+                // console.log("in asign ")
+                // console.log($('.album-result'))
                 $('.album-result').on('click', function (e) {
                     console.log("when click")
                     window.location.href = '<?php echo url('album') ?>' + '/' + $(this).data('id');
@@ -354,7 +354,7 @@
 
             // click to show playlist view
             function asignPlaylistListener() {
-                console.log($('.playlist-result'))
+                // console.log($('.playlist-result'))
                 $('.playlist-result').on('click', function (e) {
                     console.log('click playlist');
                     window.location.href = '<?php echo url('playlist') ?>' + '/' + $(this).data('id');

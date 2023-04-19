@@ -89,8 +89,7 @@
                             <i class="more-info fa-duotone fa-circle-ellipsis-vertical  ml-auto p-2"></i>
                             <ul class="more-function" style="display: none;">
                                 <li><a href="#">Edit playlist name</a></li>
-                                <li><a href="#">Delete</a></li>
-                                <li><a href="#">Delete</a></li>
+                                <li class="delete-playlist"><a href="#">Delete playlist</a></li>
                             </ul>
                         </div>
                     </div>
@@ -372,6 +371,26 @@
         }
     });
 
+    // delete playlist
+    $('.delete-playlist').click(() => {
+        let playlistId = <?php echo $data['playlist']->id_playlists ?>;
+        ajaxRequest(
+            '<?php echo url('delete_playlist_by_id')?>',
+            'POST',
+            {
+                id_playlist: playlistId,
+            },
+            function (data) {
+                console.log(data)
+                console.log('deleted playlist')
+                window.location.href = '<?php echo url('library') ?>';
+            },
+            {
+                async: false,
+            }
+        );
+    })
+
 
     // Display modal for edit playlist name
     const myModal = $('#myModal');
@@ -395,7 +414,7 @@
                 name: <?php echo $data['playlist']->id_playlists ?>,
             },
             success: function (data) {
-                // console.log(data);
+                console.log(data);
                 const template = data[0].map((song, index) => {
                     return `
                                     <li class="media" data-song_id="${song.id_songs}">

@@ -23,6 +23,7 @@ class ArtistsController extends Controller
 
             $response = $model_response->get_artists_by_id(getId());
             $_SESSION['artist'] = getId();
+            $_SESSION['follow'] = $_SESSION['follow'] == 'Follow' ? 'Follow' : 'Following';
             $error = $response['error'];
 
             if (empty($error)) {
@@ -97,6 +98,7 @@ class ArtistsController extends Controller
         $error ="";
         $message = "";
 
+
         $token = $_POST['token'];
         $id_artist = $_POST['id_artist'];
 
@@ -113,6 +115,7 @@ class ArtistsController extends Controller
             header("Content-Type: application/json; charset=utf-8");
 
             if (empty($error)) {
+                $_SESSION['follow'] = "Following";
                 $message = $response['msg'];
                 echo json_encode([
                     'message' => $message
@@ -177,6 +180,7 @@ class ArtistsController extends Controller
             $error = $response['error'];
 
             if (empty($error)) {
+                $_SESSION['follow'] = "Follow";
                 $message = $response['msg'];
                 echo json_encode([
                     'message' => $message

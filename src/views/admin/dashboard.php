@@ -21,6 +21,10 @@
         .title {
             color: var(--hightlight)
         }
+        form {
+            color: var(--white);
+            background-color: var(--blue-sb);
+        }
     </style>
     
     <link rel="stylesheet" href="<?php echo url('src/public/vendors/bootstrap/css/bootstrap.min.css')?>">
@@ -39,7 +43,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-4 col-sm-8 col-10 sidebar">
+            <div class="col-md-3 col-sm-8 col-10 sidebar">
                 <nav class="navigation">
                     <ul class="navigation--list">
                         <li class="navigation--item " >
@@ -81,6 +85,29 @@
                     </ul>
                 </nav>
             </div>
+            <div class="col">
+                <form class>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Artist Name</label>
+                        <input type="email" class="form-control" id="" aria-describedby="" placeholder="Enter artist name">
+<!--                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>-->
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Picture</label>
+                        <input type="text" class="form-control" id="" placeholder="Picture">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Birthday</label>
+                        <input type="text" class="form-control" id="" placeholder="Birthday">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Social media</label>
+                        <input type="text" class="form-control" id="" placeholder="Social media">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+
         </div>
     </div>
 </div>

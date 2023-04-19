@@ -83,8 +83,8 @@
                                 <i class="repeat-song fa-sharp fa-solid fa-repeat p-2"></i>
                                 <i class="more-info fa-duotone fa-circle-ellipsis-vertical  ml-auto p-2"></i>
                                 <ul class="more-function" style="display: none;">
-                                    <li><a href="#">Add to Library</a></li>
-                                    <li><a href="#">Add to Playlist</a></li>
+                                    <li class="add-to-library"><a href="#">Add to Library</a></li>
+                                    <li class="remove-from-library"><a href="#">Remove from Library</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -287,6 +287,53 @@
                 moreFunction.style.display = 'none';
             }
         });
+
+        // add to library
+        $('.add-to-library').click(function() {
+            ajaxRequest(
+                '<?php echo url('add_album_to_user')?>',
+                'POST',
+                {
+                    token: '<?php echo $_SESSION['token'] ?>',
+                    id_album: '<?php echo ($data['album']->id_albums) ?>',
+                },
+                function (data) {
+                    console.log(data);
+                    console.log('<?php echo ($data['album']->id_albums) ?>');
+                    console.log('success added to library');
+                },
+                function (err) {
+                    console.log(err);
+                    console.log("add album to library error");
+                },
+                {
+                    async: false,
+                },
+            )
+        });
+    // remove from library
+    $('.remove-from-library').click(function() {
+        ajaxRequest(
+            '<?php echo url('delete_album_of_user')?>',
+            'POST',
+            {
+                token: '<?php echo $_SESSION['token'] ?>',
+                id_album: '<?php echo ($data['album']->id_albums) ?>',
+            },
+            function (data) {
+                console.log(data);
+                console.log('<?php echo ($data['album']->id_albums) ?>');
+                console.log('success removed to library');
+            },
+            function (err) {
+                console.log(err);
+                console.log("remove album to library error");
+            },
+            {
+                async: false,
+            },
+        )
+    });
 
         
         // asignContextMenu();
