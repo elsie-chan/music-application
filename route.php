@@ -60,7 +60,6 @@ $routes = [
     (new Route('get_all_album', 'POST', LibrariesController::class, 'get_all_album')),
     (new Route('get_album_of_user', 'POST', LibrariesController::class, 'get_album_of_user')),
     (new Route('add_album_to_user', 'POST', LibrariesController::class, 'add_album_to_user')),
-    (new Route('edit_album_of_user', 'POST', LibrariesController::class, 'edit_album_of_user')),
     (new Route('delete_album_of_user', 'POST', LibrariesController::class, 'delete_album_of_user')),
 //    Playlist routes
 //    (new Route('liked_songs', 'GET', LibrariesController::class, 'liked_songs')),
@@ -93,14 +92,6 @@ $routes = [
     (new Route('add_to_liked_songs', 'POST', SongsController::class, 'add_song_to_like_song')),
     (new Route('delete_song_of_playlist', 'POST', SongsController::class, 'delete_song_of_playlist')),
     (new Route('get_song_by_id', 'POST', SongsController::class, 'get_song_by_id')),
-//    test routes
-    (new Route('test', 'POST', UserController::class, 'test')),
-    (new Route('test_search', 'POST', SearchController::class, 'test')),
-    (new Route('test_like', 'POST', AuthController::class, 'test')),
-    (new Route('test_admin', 'POST', AdminController::class, 'test')),
-    (new Route('test_song', 'POST', SongsController::class, 'test')),
-    (new Route('test_artist', 'POST', ArtistsController::class, 'test')),
-    (new Route('test_library', 'POST', LibrariesController::class, 'test')),
     ];
 
 $flag = false;
