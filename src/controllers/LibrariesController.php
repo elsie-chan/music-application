@@ -98,32 +98,30 @@ public function liked_songs() {
         }
     }
 
-    public function edit_album_of_user() {
+    public function get_album_of_user() {
         $error = "";
         $message = "";
 
-        if (getId()) {
-            $name = $_POST['name_album'];
-            $img = $_FILES['img'];
-            $id_album = $_POST['id_album'];
-            $model_response = $this->model_album;
-            $this->check_model($model_response);
+        $token = $_POST['token'];
+        $id_album = $_POST['id_album'];
 
-            $destination = 'src/public/assets/imgs_album/' . time();
-            $extension = pathinfo($img['name'], PATHINFO_EXTENSION);
-            $destination = $destination . '.' . $extension;
-            move_uploaded_file($img['tmp_name'], $destination);
+        $model_response = $this->model_album;
+        $this->check_model($model_response);
 
-            $response = $model_response->edit_album_by_id(getId(), $name, $destination, $id_album);
+        $get_token = $this->get_user_use_token($token);
+
+        if ($get_token != null) {
+            $response = $model_response->get_albums_of_users($get_token->id_users, $id_album);
             $error = $response['error'];
 
-            header('Content-Type:application/json; charset=utf-8');
+            header("Content-Type: application/json; charset=utf-8");
 
-            if (empty($error)) {
+            if(empty($error)) {
                 $message = $response['msg'];
-                echo json_encode([
-                   'message' => $message
-                ]);
+                foreach ($message as $value) {
+                    $value->image_albums = url($value->image_albums);
+                }
+                echo json_encode($message);
             } else {
                 echo json_encode([
                     'error' => $error
@@ -131,40 +129,6 @@ public function liked_songs() {
             }
         }
     }
-
-    public function get_album_to_user() {
-        $error = "";
-        $message = "";
-
-        if (getId()) {
-            $token = $_POST['token'];
-
-            $model_response = $this->model_album;
-            $this->check_model($model_response);
-
-            $get_token = $this->get_user_use_token($token);
-
-            if ($get_token != null) {
-                $response = $model_response->get_albums_of_users($get_token->id_users);
-                $error = $response['error'];
-
-                header("Content-Type: application/json; charset=utf-8");
-
-                if(empty($error)) {
-                    $message = $response['msg'];
-                    foreach ($message as $value) {
-                        $value->image_albums = url($value->image_albums);
-                    }
-                    echo json_encode($message);
-                } else {
-                    echo json_encode([
-                        'error' => $error
-                    ]);
-                }
-            }
-        }
-    }
-
 
     public function get_all_album() {
         $error = "";
@@ -191,37 +155,6 @@ public function liked_songs() {
         }
     }
 
-    public function get_album_of_user() {
-        $error = "";
-        $message = "";
-
-        $token = $_POST['token'];
-
-        $model_response = $this->model_album;
-        $this->check_model($model_response);
-
-        $get_token = $this->get_user_use_token($token);
-
-        header('Content-Type: application/json; charset=utf-8');
-
-        if ($get_token != null) {
-            $response = $model_response->get_albums_of_users($get_token->id_users);
-            $error = $response['error'];
-
-            if (empty($error)) {
-                $message = $response['msg'];
-                foreach ($message as $value) {
-                    $value->image_albums = url($value->image_albums);
-                }
-                echo json_encode($message);
-            } else {
-                echo json_encode([
-                    'error' => $error
-                ]);
-            }
-        }
-    }
-
     public function delete_album_of_user() {
         $error = "";
         $message = "";
@@ -229,6 +162,7 @@ public function liked_songs() {
         if (getId()) {
 
             $token = $_POST['token'];
+            $id_album = $_POST['id_album'];
 
             $model_response = $this->model_album;
             $this->check_model($model_response);
@@ -238,7 +172,7 @@ public function liked_songs() {
             header('Content-Type: application/json; charset=utf-8');
 
             if ($get_token != null) {
-                $response = $model_response->delete_albums_of_users($get_token->id_users, getId());
+                $response = $model_response->delete_albums_of_users($get_token->id_users, $id_album);
                 $error = $response['error'];
 
                 if (empty($error)) {
@@ -402,31 +336,29 @@ public function liked_songs() {
     }
 
 
-    public function delete_playlist_by_name() {
+    public function delete_playlist_by_id() {
         $error = "";
         $message = "";
 
-        if ($_POST) {
-            $name = $_POST['name'];
+        $name = $_POST['id_playlist'];
 
-            $model_response = $this->model_playlist;
-            $this->check_model($model_response);
+        $model_response = $this->model_playlist;
+        $this->check_model($model_response);
 
-            $response = $model_response->delete_playlists_by_name($name);
-            $error = $response['error'];
+        $response = $model_response->delete_playlists_by_id($name);
+        $error = $response['error'];
 
-            header('Content-Type: application/json; charset=utf-8');
+        header('Content-Type: application/json; charset=utf-8');
 
-            if (empty($error)) {
-                $message = $response['message'];
-                echo json_encode([
-                    'message' => $message
-                ]);
-            } else {
-                echo json_encode([
-                    'error' => $error
-                ]);
-            }
+        if (empty($error)) {
+            $message = $response['msg'];
+            echo json_encode([
+                'message' => $message
+            ]);
+        } else {
+            echo json_encode([
+                'error' => $error
+            ]);
         }
     }
 
