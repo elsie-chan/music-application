@@ -208,6 +208,8 @@
                     formData.set('name', newName);
                 }
 
+                formData.set('img', inputAvatar.files[0]);
+
                 if (_$('input[name="name"]').value !== '') {
                     close_modal();
                     $('.loading').show()
@@ -224,7 +226,6 @@
                             infoName.innerHTML = data.name;
                             imgAvatar.src = data.img;
                             $('.loading').hide(1000);
-
                         },
                         error: function (data) {
                             console.log(data);
