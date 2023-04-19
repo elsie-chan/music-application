@@ -290,6 +290,7 @@
 
         
         // asignContextMenu();
+        import playSongByClick from '<?php echo url('src/public/js/playSongByClick.js')?>'
         $(document).ready(function () {
             $.ajax({
                     url: '<?php echo url('get_song_of_album') ?>',
@@ -301,18 +302,19 @@
                         // console.log(data);
                         const template = data[0].map((song, index) => {
                                 return `
-                                    <li class="media">
+                                    <li class="media" data-song_id="${song.id_songs}">
                                         <div class="col-10">
                                             <div class="row media-left">
                                                 <div class="songThumbnail">
-                                                    <img src="${song.image_song}" alt="song avatar" >
-                                                    <span class="icon-play-song">
-                                                        <i class="fa-duotone fa-play"></i>
+                                                    <img class="song__img--src" src="${song.image_song}" alt="song avatar" >
+                                                    <span class="">
+                                                        <i class="fa-duotone fa-play icon-play-song"></i>
+                                                        <img class="wave--icon" src="<?php echo url('src/public/assets/imgs/yes.gif')?>" alt="sound wave" style="width:40px;height:40px; object-fit: contain;">
                                                     </span>
                                                 </div>
-                                                <div class="card-info">
+                                                <div class="card-info song">
                                                     <h6>${song.name_songs}</h6>
-                                                    <a href="<?php echo url('artist') ?>/${song.id_artists}" data-id="${song.id_artists}">${get_artist_by_id(song.id_artists)}</a>
+                                                    <a class="song__info--artist" href="<?php echo url('artist') ?>/${song.id_artists}" data-id="${song.id_artists}">${get_artist_by_id(song.id_artists)}</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -326,6 +328,7 @@
                         $('.list-unstyled').html(template);
                         $('.number-of-songs span').text(data[0].length);
                         asignContextMenu();
+                        playSongByClick('.media', '<?php echo url()?>');
                     },
                     error: function(error) {
                         console.log(error);
