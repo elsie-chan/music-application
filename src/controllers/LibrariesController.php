@@ -87,6 +87,7 @@ public function liked_songs() {
 
             if (empty($error)) {
                 $message = $response['msg'];
+                $_SESSION['follow'] = 'Following';
                 echo json_encode([
                     'message' => $message
                 ]);
@@ -177,6 +178,7 @@ public function liked_songs() {
 
                 if (empty($error)) {
                     $message = $response['msg'];
+                    $_SESSION['follow'] = 'Follow';
                     echo json_encode([
                         'message' => $message
                     ]);
