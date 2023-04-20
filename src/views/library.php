@@ -129,12 +129,12 @@
             background-color: var(--blue-bg);
         }
         .playlist-name{
-            width: 12rem;
-            height:10rem
+            width: 600;
+            height:700;
         }
         .img-playlist{
             width: 100%;
-            height: 6rem;
+            height: 80px;
         }
 
 
@@ -166,6 +166,7 @@
 
         <div class="container-fluids albums">
             <div class="row row-cols-md albums__list">
+                </div>
             </div>
         </div>
     </div>
@@ -214,7 +215,7 @@
                         function (data) {
                             const template = data.map((playlist, index) => {
                                 if(index == 0){
-                                    return `<div class="col-md-2 col-sm-4 col-10 p-0 playlist-name">
+                                    return `<div class="div class="col-md-2 col-sm-4 col-10 p-0 playlist-name">
                                             <a class="card list mr-3 mb-3 mt-3" href="/music-application/liked_songs">
                                                 <img class="img-playlist" src="${playlist.playlists_image}">
                                                 <div class="card-body" >
@@ -224,7 +225,7 @@
                                         </div>`;
                                 }
                                 else{
-                                    return `<div class="col-md-2 col-sm-4 col-10 p-0 playlist-name">
+                                    return `<div class="div class="col-md-2 col-sm-4 col-10 p-0 playlist-name">
                                             <a class="card list mr-3 mb-3 mt-3" href="/music-application/playlist/${playlist.id_playlists}">
                                                 <img class="img-playlist" src="${playlist.playlists_image}">
                                                 <div class="card-body" >
@@ -253,7 +254,7 @@
                             // console.log('success clicked');
                             const template = data.map((playlist, index) => {
                                 if(index == 0){
-                                    return `<div class="col-md-2 col-sm-4 col-10 p-0 playlist-name">
+                                    return `<div class="div class="col-md-2 col-sm-4 col-10 p-0 playlist-name">
                                             <a class="card list mr-3 mb-3 mt-3" href="/music-application/liked_songs">
                                                 <img class="img-playlist" src="${playlist.playlists_image}">
                                                 <div class="card-body" >
@@ -263,7 +264,7 @@
                                         </div>`;
                                 }
                                 else{
-                                    return `<div class="col-md-2 col-sm-4 col-10 p-0 playlist-name">
+                                    return `<div class="div class="col-md-2 col-sm-4 col-10 p-0 playlist-name">
                                             <a class="card list mr-3 mb-3 mt-3" href="/music-application/playlist/${playlist.id_playlists}">
                                                 <img class="img-playlist" src="${playlist.playlists_image}">
                                                 <div class="card-body" >
@@ -290,13 +291,14 @@
                         function (data) {
                             console.log(data);
                             const template = data.map((artist, index) => {
-                                    return `<div class="col-md-2 col-sm-4 col-10 p-0 playlist-name">
+                                    return `<div class="div class="col-md-2 col-sm-4 col-10 p-0 playlist-name">
                                                 <a class="card list mr-3 mb-3 mt-3" href="/music-application/artist/${artist.id_artists}"
-                                                    style ="width: 12rem;
-                                                        height:10rem;">
+                                                    style="width: 600;
+                                                        height:700;"
+                                                >
                                                     <img src="${artist.picture}"
-                                                        style = "width: 100%;
-                                                            height: 6rem;"
+                                                        style="width: 100%;
+                                                            height:100px;"
                                                     >
                                                     <div class="card-body" >
                                                         <p class="card-text">${artist.name_artists}</p>
@@ -321,7 +323,7 @@
                         function (data) {
                             console.log(data);
                             const template = data.map((album, index) => {
-                                    return `<div class="col-md-2 col-sm-4 col-10 p-0 playlist-name">
+                                    return `<div class="div class="col-md-2 col-sm-4 col-10 p-0 playlist-name">
                                                 <a class="card list mr-3 mb-3 mt-3" href="/music-application/album/${album.id_albums}">
                                                     <img class="img-playlist" src="${album.image_albums}">
                                                     <div class="card-body" >
