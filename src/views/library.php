@@ -49,12 +49,13 @@
             font-weight: 600;
         }
         .nav-link{
+            padding:10;
             color: #ffffff;
         }
-        .nav-item:hover a{
+        .nav-item:hover div{
             color: #00B6D6;
         }
-        .nav-item:active a{
+        .nav-item:active div{
             background: rgba(255, 255, 255, 0.2);
         }
 
@@ -74,16 +75,31 @@
             line-height: 22px;
             bottom: 15px;
         }
-        .card-body p{
-            font-size: 1.5rem;
-            color: white;
-        }
-        .card-body{
-            padding: 0;
-        }
+
         .list{
             padding: 0.8rem;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .list img{
+            width: 100%;
+        }
+        .card-body {
+            width: 100%;
+            height: fit-content;
+            padding: 0.5rem 0.5rem 0 0.5rem;
+            border-radius: 4px;
+        }
+
+        .card-body p {
+            width: 100%;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            font-weight: 700;
+            font-size: 14px;
+            line-height: 22px;
+            margin: 0;
+            color: var(--white);
         }
         .albums__list {
             margin: 0;
@@ -125,13 +141,13 @@
                 <div class="container-fluid">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Your Playlist</a>
+                            <div class="nav-link" id="your-playlist">Your Playlist</div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Artist</a>
+                            <div class="nav-link" id="artist">Artist</div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Album</a>
+                            <div class="nav-link" id ="album">Album</div>
                         </li>
                     </ul>
                 </div>
@@ -140,18 +156,6 @@
 
         <div class="container-fluids albums">
             <div class="row row-cols-md albums__list">
-                <!-- <a class="col-md-4 col-sm-8 col-12 liked-song pr-3" href="/music-application/liked_songs/<?php echo $_SESSION['user']?>">
-                    <div class="liked_songs" >
-                        <p>Liked Songs</p>  
-                    </div>
-                </a> -->
-                <!-- <div class="col-md-2 col-sm-4 col-10 p-0 " >
-                    <a class="card list mr-3 mb-3 mt-3" href="<?php echo url('playlist')?>">
-                        <img src="https://images.unsplash.com/photo-1678257355149-6eda1755b1a2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80" class="card-img-top" alt="...">
-                        <div class="card-body" >
-                            <p class="card-text">Playlist Name</p>
-                        </div>
-                    </a> -->
             </div>
         </div>
     </div>
@@ -190,23 +194,35 @@
                 home_library.style.left = "200px";
             }
         }
+
+        // get playplist by user
         $(document).ready(function () {
             ajaxRequest(
                         '<?php echo url('get_all_playlist_by_user') ?>',
                         "POST",
                         {token: '<?php echo $_SESSION['token'] ?>'},
                         function (data) {
-                            console.log(data)
-                            console.log('success clicked');
                             const template = data.map((playlist, index) => {
-                                return `<div class="col-md-2 col-sm-4 col-10 p-0 " >
-                                            <a class="card list mr-3 mb-3 mt-3" href="/music-application/playlist/<?php echo $_SESSION['user']?>">
+                                if(index == 0){
+                                    return `<div class="col-md-2 col-sm-4 col-10 p-0 playlist-name">
+                                            <a class="card list mr-3 mb-3 mt-3" href="/music-application/liked_songs">
                                                 <img src="${playlist.playlists_image}">
                                                 <div class="card-body" >
                                                     <p class="card-text">${playlist.name_playlists}</p>
                                                 </div>
                                             </a>
-                                        </div>`;>
+                                        </div>`;
+                                }
+                                else{
+                                    return `<div class="col-md-2 col-sm-4 col-10 p-0 playlist-name">
+                                            <a class="card list mr-3 mb-3 mt-3" href="/music-application/playlist/${playlist.id_playlists}">
+                                                <img src="${playlist.playlists_image}">
+                                                <div class="card-body" >
+                                                    <p class="card-text">${playlist.name_playlists}</p>
+                                                </div>
+                                            </a>
+                                        </div>`;
+                                }
                             })
                             $('.albums__list').html(template);
                         },
@@ -215,6 +231,97 @@
                         },
                     );
         });
+        //get your playlist
+        let playlist = document.getElementById("your-playlist");
+        playlist.addEventListener("click", function(){
+            ajaxRequest(
+                        '<?php echo url('get_all_playlist_by_user') ?>',
+                        "POST",
+                        {token: '<?php echo $_SESSION['token'] ?>'},
+                        function (data) {
+                            // console.log(data)
+                            // console.log('success clicked');
+                            const template = data.map((playlist, index) => {
+                                if(index == 0){
+                                    return `<div class="col-md-2 col-sm-4 col-10 p-0 playlist-name">
+                                            <a class="card list mr-3 mb-3 mt-3" href="/music-application/liked_songs">
+                                                <img src="${playlist.playlists_image}">
+                                                <div class="card-body" >
+                                                    <p class="card-text">${playlist.name_playlists}</p>
+                                                </div>
+                                            </a>
+                                        </div>`;
+                                }
+                                else{
+                                    return `<div class="col-md-2 col-sm-4 col-10 p-0 playlist-name">
+                                            <a class="card list mr-3 mb-3 mt-3" href="/music-application/playlist/${playlist.id_playlists}">
+                                                <img src="${playlist.playlists_image}">
+                                                <div class="card-body" >
+                                                    <p class="card-text">${playlist.name_playlists}</p>
+                                                </div>
+                                            </a>
+                                        </div>`;
+                                }
+                            })
+                            $('.albums__list').html(template);
+                        },
+                        function (err) {
+                            console.log("get playlist error");
+                        },
+                    );
+            });
+        //get artist by user
+        let artist2 = document.getElementById("artist");
+        artist2.addEventListener("click", function(){
+            ajaxRequest(
+                        '<?php echo url('get_artist_of_user') ?>',
+                        "POST",
+                        {token: '<?php echo $_SESSION['token'] ?>'},
+                        function (data) {
+                            console.log(data);
+                            const template = data.map((artist, index) => {
+                                    return `<div class="col-md-2 col-sm-4 col-10 p-0 playlist-name">
+                                                <a class="card list mr-3 mb-3 mt-3" href="/music-application/artist/${artist.id_artists}">
+                                                    <img src="${artist.picture}">
+                                                    <div class="card-body" >
+                                                        <p class="card-text">${artist.name_artists}</p>
+                                                    </div>
+                                                </a>
+                                            </div>`;
+                            })
+                            $('.albums__list').html(template);
+                        },
+                        function (err) {
+                            console.log("get artist error");
+                        },
+                    );
+            });
+        //get album by user
+        let album2 = document.getElementById("album");
+        album2.addEventListener("click", function(){
+            ajaxRequest(
+                        '<?php echo url('get_album_of_user') ?>',
+                        "POST",
+                        {token: '<?php echo $_SESSION['token'] ?>'},
+                        function (data) {
+                            console.log(data);
+                            const template = data.map((album, index) => {
+                                    return `<div class="col-md-2 col-sm-4 col-10 p-0 playlist-name">
+                                                <a class="card list mr-3 mb-3 mt-3" href="/music-application/album/${album.id_albums}">
+                                                    <img src="${album.image_albums}">
+                                                    <div class="card-body" >
+                                                        <p class="card-text">${album.name_albums}</p>
+                                                    </div>
+                                                </a>
+                                            </div>`;
+                            })
+                            $('.albums__list').html(template);
+                        },
+                        function (err) {
+                            console.log("get album error");
+                        },
+                    );
+            });
     </script>
 </body>
 </html>
