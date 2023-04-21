@@ -124,7 +124,7 @@ class ArtistsModel extends Model
         return $response;
     }
 //    Update
-    function edit_profile_artists($id_artists,$username,$picture,$social_media){
+    function edit_profile_artists($id_artists,$username,$picture, $birthday, $social_media){
         $response = array(
             "error" => "",
             "msg" => ""
@@ -135,7 +135,7 @@ class ArtistsModel extends Model
         if(mysqli_num_rows($stmt)==0){
             $response['error'] = "Artist is not exists";
         }
-        $sql = "UPDATE `$this->table` SET `name_artists` = '$username', `picture` = '$picture', `social_media` = '$social_media' WHERE `id_artists` = '$id_artists'";
+        $sql = "UPDATE `$this->table` SET `name_artists` = '$username', `picture` = '$picture', `birthday` = '$birthday', `social_media` = '$social_media' WHERE `id_artists` = '$id_artists'";
         $stmt = mysqli_query($this->con,$sql);
         if ($stmt){
             $response['msg'] = "Successful. Artist has been updated";
