@@ -23,6 +23,9 @@ class ArtistsController extends Controller
 
             $response = $model_response->get_artists_by_id(getId());
             $_SESSION['artist'] = getId();
+            if (empty($_SESSION['follow'])) {
+                $_SESSION['follow'] = "Follow";
+            }
             $_SESSION['follow'] = $_SESSION['follow'] == 'Follow' ? 'Follow' : 'Following';
             $error = $response['error'];
 
