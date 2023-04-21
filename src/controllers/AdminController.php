@@ -70,6 +70,7 @@ class AdminController extends Controller {
             foreach ($message as $value) {
                 $value->picture = url($value->picture);
             }
+            sort($message);
             echo json_encode($message);
         } else {
             echo json_encode([
@@ -85,6 +86,7 @@ class AdminController extends Controller {
         $id_artist = $_POST['id_artist'];
         $name_artist = $_POST['name_artist'];
         $picture_artist = $_FILES['picture_artist'];
+        $birth_artist = $_POST['birth_artist'];
         $media_artist = $_POST['media_artist'];
 
         $model_response = $this->model_artist;
@@ -95,7 +97,7 @@ class AdminController extends Controller {
         $destination = $destination . '.png' ;
         move_uploaded_file($picture_artist['tmp_name'], $destination);
 
-        $response = $model_response->edit_profile_artists($id_artist, $name_artist, $destination, $media_artist);
+        $response = $model_response->edit_profile_artists($id_artist, $name_artist, $destination, $birth_artist, $media_artist);
         $error = $response['error'];
 
         if (empty($error)) {
@@ -306,6 +308,7 @@ class AdminController extends Controller {
             foreach ($message as $value) {
                     $value->playlists_image = url($value->playlists_image);
                 }
+            sort($message);
             echo json_encode($message);
         } else {
             $_SESSION['error'] = $error;
@@ -409,6 +412,7 @@ class AdminController extends Controller {
             foreach ($message as $value) {
                 $value->image_albums = url($value->image_albums);
             }
+            sort($message);
             echo json_encode($message);
         } else {
             echo json_encode([
@@ -476,12 +480,12 @@ class AdminController extends Controller {
         $error = "";
         $message = "";
 
-        $name_songs = $_POST['name_songs'];
+        $name_songs = $_POST['name_song'];
         $src = $_FILES['src_song'];
-        $image_songs = $_FILES['img_songs'];
-        $release = $_POST['release_song'];
-        $id_artists = $_POST['id_artists'];
-        $id_topics = $_POST['id_topics'];
+        $image_songs = $_FILES['img_song'];
+        $release = date("Y-m-d ");
+        $id_artists = $_POST['id_artist'];
+        $id_topics = $_POST['id_topic'];
 
         $model_response = $this->model_song;
         $this->check_model($model_response);
@@ -605,12 +609,10 @@ class AdminController extends Controller {
         $error = "";
         $message = "";
 
-        $name = $_POST['name_song'];
-
         $model_response = $this->model_song;
         $this->check_model($model_response);
 
-        $response = $model_response->get_all_songs_with_name($name);
+        $response = $model_response->get_all_songs_with_name("Chạy Về Khóc Với Anh");
         $error = $response['error'];
 
         header('Content-Type: application/json; charset=utf-8');
@@ -621,6 +623,7 @@ class AdminController extends Controller {
                 $value->src = url($value->src);
                 $value->image_song = url($value->image_song);
             }
+            sort($message);
             echo json_encode($message);
         } else {
             echo json_encode([
