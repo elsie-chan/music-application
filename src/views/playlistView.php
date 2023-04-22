@@ -98,9 +98,8 @@
 
         </div>
         <div class="col">
-            <ul class="list-unstyled mt-3 songs">
+            <ul class="list-unstyled mt-3 songs" data-playlist_id="<?php echo $data['playlist']->id_playlists ?>">
             </ul>
-
         </div>
     </div>
 </div>
@@ -406,6 +405,7 @@
 
 
     import playSongByClick from '<?php echo url('src/public/js/playSongByClick.js')?>'
+    import handleMusic from '<?php echo url('src/public/js/controlbarListener.js') ?>'
     $(document).ready(function () {
         $.ajax({
             url: '<?php echo url('get_song_of_playlist') ?>',
@@ -415,19 +415,20 @@
             },
             success: function (data) {
                 console.log(data);
+                localStorage.setItem('songs', JSON.stringify(data[0]));
                 const template = data[0].map((song, index) => {
                     return `
-                                    <li class="media" data-song_id="${song.id_songs}">
+                                    <li class="song media" data-song_id="${song.id_songs}" data-song-index="${index}">
                                         <div class="col-10">
                                             <div class="row media-left">
                                                 <div class="songThumbnail">
                                                     <img class="song__img--src" src="${song.image_song}" alt="song avatar" >
                                                     <span class="">
                                                         <i class="fa-duotone fa-play icon-play-song"></i>
-                                                        <img class="wave--icon" src="<?php echo url('src/public/assets/imgs/yes.gif')?>" alt="sound wave" style="width:40px;height:40px; object-fit: contain;">
+                                                        <img class="wave--icon" src="<?php echo url('src/public/assets/imgs/icon-playing.gif')?>" alt="sound wave" style="width:40px;height:40px; object-fit: contain;">
                                                     </span>
                                                 </div>
-                                                <div class="card-info song">
+                                                <div class="card-info">
                                                     <h6>${song.name_songs}</h6>
                                                     <a class="song__info--artist" href="<?php echo url('artist') ?>/${song.id_artists}">${get_artist_by_id(song.id_artists)}</a>
                                                 </div>
@@ -444,6 +445,7 @@
                 $('.list-unstyled').html(template);
                 $('.number-of-songs span').text(data[1])
                 asignContextMenu();
+                handleMusic();
                 playSongByClick('.media', '<?php echo url()?>');
             },
             error: function (error) {

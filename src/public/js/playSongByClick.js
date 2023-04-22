@@ -1,5 +1,9 @@
 function playSongByClick(className, url) {
+
+
         //play song on control when click
+        const PLAYER_STORAGE_KEY = "MISC_PLAYER";
+
         var playBtn = document.querySelector('.btn--play');
         let controlbar = $('.controlbar');
 
@@ -7,17 +11,19 @@ function playSongByClick(className, url) {
         let currentImg = controlbar.find('.current__poster--img');
         let currentSongName = controlbar.find('.current__info--name')[0];
         let currentArtistName = controlbar.find('.current__info--artist')[0];
+        let duration = controlbar.find('.current__duration--time')[0];
         let songId;
 
         let songs = $(className);
         let songImg;
         let songCard;
+        let currentData;
         songs.each(function (index, song) {
             songImg =  $(song).find('.songThumbnail');
             songImg.on('click', function () {
+                console.log("img clicked")
                 clearAllActiveCurrent();
                 songCard = $(this).closest(song);
-                songCard.addClass('active--current');
                 songId = $(songCard).attr('data-song_id');
                 getSongById(songId)
 
@@ -25,16 +31,6 @@ function playSongByClick(className, url) {
                 currentImg.attr('src', imgSrc)
 
                 currentArtistName.innerText = $(songCard).find('.song__info--artist').text();
-
-
-                audio[0].play();
-                if (audio[0].paused) {
-                    playBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
-                    songCard.removeClass('active--current');
-                } else {
-                    playBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
-                    songCard.addClass('active--current');
-                }
             })
         })
 

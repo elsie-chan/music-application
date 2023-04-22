@@ -98,14 +98,14 @@
         <div class="row albums__title">
             <h4 style="padding: 0 1rem; color: var(--hightlight);"><?php echo $data['playlist_info']->name_playlists?></h4>
         </div>
-        <div class="songs row mx-auto my-auto p-0">
-            <?php foreach ($data['songs'] as $song) { ?>
+        <div class="songs row mx-auto my-auto p-0" >
+            <?php foreach ($data['songs'] as $key=>$song) { ?>
                 <div class="col-12 col-md-6 col-xl-4 p-0">
-                    <div class="song" data-song_id="<?php echo $song->id_songs?>">
-                        <div class="song__img songThumbnail">
-                            <img class="song__img--src" src="<?php echo $song->image_song?>" alt="">
+                    <div class="song" data-song_id="<?php echo $song->id_songs?>" data-song-index="<?php echo $key?>">
+                        <div class="song__img songThumbnail" >
+                            <img class="song__img--src" src="<?php echo url($song->image_song)?>" alt="">
                             <i class="fa-solid fa-play song--play"></i>
-                            <img class="wave--icon" src="<?php echo url('src/public/assets/imgs/yes.gif')?>" alt="sound wave" style="width:32px;height:32px; object-fit: contain;">
+                            <img class="wave--icon" src="<?php echo url('src/public/assets/imgs/meo.gif')?>" alt="sound wave" style="width:32px;height:32px; object-fit: contain;">
                         </div>
                         <div class="song__info">
                             <div class="song__info--name">
@@ -262,6 +262,8 @@
     });
     // -----------------end js for drag list -------------------
 
+    localStorage.setItem("songs", JSON.stringify(<?php echo json_encode($data['songs']) ?>))
+
 
     // ajax--------------------------------------------------------------------------
 
@@ -319,7 +321,8 @@
 
     import playSongByClick from '<?php echo url('src/public/js/playSongByClick.js')?>'
     playSongByClick('.song', '<?php echo url()?>');
-
+    import handleMusic from  '<?php echo url('src/public/js/controlbarListener.js')?>'
+    handleMusic();
 
     //</script>
 <?php require_once 'components/loading.php' ?>
