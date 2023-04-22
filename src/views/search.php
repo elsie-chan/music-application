@@ -121,6 +121,10 @@
 
     <script type="module">
         import playSongByClick from '<?php echo url('src/public/js/playSongByClick.js')?>'
+<<<<<<< HEAD
+=======
+        import handleMusic from "<?php echo url('src/public/js/controlbarListener.js') ?>";
+>>>>>>> 94651fd28dd27e63db098d6e74e4b1aa0c5cedb3
         import ajaxRequest from '<?php echo url('src/public/js/ajaxRequest.js')?>'
         import getArtistById from '<?php echo url('src/public/js/getArtistById.js')?>'
         // <!-- js for sidebar resize -->
@@ -422,19 +426,18 @@
                             // console.log(data + " in 401")
                             if (data) {
                                 console.log(data)
-                                
+                                localStorage.setItem('songs', JSON.stringify(data));
                                 const template = data.map((song, index) => {
                                 const artist = getArtistById(GET_ARTIST_PATH, song.id_artists);
-                                    // console.log(artist)
                                 return `
-                                    <li class="media container" data-song_id="${song.id_songs}">
+                                    <li class="media container song" data-song_id="${song.id_songs}" data-song-index="${index}">
                                         <div class="col-10">
                                             <div class="row media-left">
                                                 <div class="songThumbnail">
                                                     <img class="song__img--src" src="${song.image_song}" alt="song avatar" >
                                                     <span class="">
                                                         <i class="fa-duotone fa-play icon-play-song"></i>
-                                                        <img class="wave--icon" src="<?php echo url('src/public/assets/imgs/yes.gif')?>" alt="sound wave" style="width:40px;height:40px; object-fit: contain;">
+                                                        <img class="wave--icon" src="<?php echo url('src/public/assets/imgs/icon-playing.gif')?>" alt="sound wave" style="width:36px;height:36px; object-fit: contain;">
                                                     </span>
                                                 </div>
                                                 <div class="card-info">
@@ -451,7 +454,9 @@
                                 // $('.search-result-artist').append( "<h2>Album</h2>" );
                                 // $('h2').addClass("row");
                                 $('.topic-type').html(template);
-                                playSongByClick('.media', '<?php echo url()?>');
+                                playSongByClick('.song', '<?php echo url()?>');
+                                handleMusic();
+
                             }
                         }
                     },
