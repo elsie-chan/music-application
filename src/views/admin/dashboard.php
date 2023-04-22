@@ -41,13 +41,7 @@
             background: transparent;
             margin:0;
         }
-        /*}*/
-        /*.edit-artist:active {*/
-        /*    border: none;*/
-        /*}*/
-        .btn:active{
 
-        }
         .nav-link span{
             padding-left: 20px;
             font-weight: 700;
