@@ -30,14 +30,30 @@
         }
         .nav-link{
             color:white;
-            background-color: rgba(255, 255, 255, 0.08);
-            margin: 10px;
+            background-color:rgb(135,206,235);
+            margin-top: 10px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            padding: 0;
+            border: 0;
+        }
+        .btn{
+            background: transparent;
+            margin:0;
+        }
+        /*}*/
+        /*.edit-artist:active {*/
+        /*    border: none;*/
+        /*}*/
+        .btn:active{
+
         }
         .nav-link span{
             padding-left: 20px;
             font-weight: 700;
             font-size: 16px;
             line-height: 22px;
+
         }
     </style>
     
@@ -583,19 +599,25 @@
     });
 
     $('.edit-artist').on('click', function(e) {
-          $('.form-edit-artist').css('display', 'block');
+        $('.form-add-artist').css('display', 'none');
+        $('.form-edit-artist').css('display', 'block');
+        $('.form-delete-artist').css('display', 'none');
     })
     $('.btn-submit-edit-artist').on('click', function(e){
         $('.form-edit-artist')[0].submit();
     })
     $('.add-artist').on('click', function(e) {
-          $('.form-add-artist').css('display', 'block');
+        $('.form-add-artist').css('display', 'block');
+        $('.form-edit-artist').css('display', 'none');
+        $('.form-delete-artist').css('display', 'none');
     })
     $('.btn-submit-add-artist').on('click', function(e){
         $('.form-add-artist')[0].submit();
     })
     $('.delete-artist').on('click', function(e) {
-          $('.form-delete-artist').css('display', 'block');
+        $('.form-add-artist').css('display', 'none');
+        $('.form-edit-artist').css('display', 'none');
+        $('.form-delete-artist').css('display', 'block');
     })
     $('.btn-submit-delete-artist').on('click', function(e){
         $('.form-delete-artist')[0].submit();
@@ -634,19 +656,25 @@
     })
 
     $('.edit-album').on('click', function(e) {
-          $('.form-edit-album').css('display', 'block');
+        $('.form-add-album').css('display', 'none');
+        $('.form-delete-album').css('display', 'none');
+        $('.form-edit-album').css('display', 'block');
     })
     $('.btn-submit-edit-album').on('click', function(e) {
         $('.form-edit-album')[0].submit();
     })
     $('.add-album').on('click', function(e) {
-          $('.form-add-album').css('display', 'block');
+        $('.form-add-album').css('display', 'block');
+        $('.form-delete-album').css('display', 'none');
+        $('.form-edit-album').css('display', 'none');
     })
     $('.btn-submit-add-album').on('click', function(e){
         $('.form-add-album')[0].submit();
     })
     $('.delete-album').on('click', function(e) {
-          $('.form-delete-album').css('display', 'block');
+        $('.form-add-album').css('display', 'none');
+        $('.form-delete-album').css('display', 'block');
+        $('.form-edit-album').css('display', 'none');
     })
     $('.btn-submit-delete-album').on('click', function(e){
         $('.form-delete-album')[0].submit();
@@ -684,19 +712,26 @@
     })
 
     $('.edit-playlist').on('click', function(e) {
+        $('.form-delete-playlist').css('display', 'none');
+        $('.form-add-playlist').css('display', 'none');
         $('.form-edit-playlist').css('display', 'block');
     })
     $('.btn-submit-edit-playlist').on('click', function(e){
         $('.form-edit-playlist')[0].submit();
     })
     $('.add-playlist').on('click', function(e) {
+        $('.form-delete-playlist').css('display', 'none');
         $('.form-add-playlist').css('display', 'block');
+        $('.form-edit-playlist').css('display', 'none');
     })
     $('.btn-submit-add-playlist').on('click', function(e){
         $('.form-add-playlist')[0].submit();
     })
     $('.delete-playlist').on('click', function(e) {
         $('.form-delete-playlist').css('display', 'block');
+        $('.form-add-playlist').css('display', 'none');
+        $('.form-edit-playlist').css('display', 'none');
+
     })
     $('.btn-submit-delete-playlist').on('click', function(e){
         $('.form-delete-artist')[0].submit();
@@ -744,31 +779,52 @@
     })
     $('.delete-song').on('click', function(e) {
         $('.form-delete-song').css('display', 'block');
+        $('.form-add-song').css('display', 'none');
+        $('.form-add-song-to-album').css('display', 'none');
+        $('.form-delete-song-of-album').css('display', 'none');
+        $('.form-add-song-to-playlist').css('display', 'none');
+        $('.form-delete-song-of-playlist').css('display', 'none');
     })
     $('.btn-submit-delete-song').on('click', function(e){
         $('.form-delete-song')[0].submit();
     })
     $('.add-song-to-album').on('click', function(e) {
+        $('.form-add-song').css('display', 'none');
         $('.form-add-song-to-album').css('display', 'block');
-    })
+        $('.form-delete-song-of-album').css('display', 'none');
+        $('.form-add-song-to-playlist').css('display', 'none');
+        $('.form-delete-song-of-playlist').css('display', 'none');
+        $('.form-delete-song').css('display', 'none');    })
     $('.btn-submit-add-song-to-album').on('click', function(e){
         $('.form-add-song-to-album')[0].submit();
     })
     $('.delete-song-of-album').on('click', function(e) {
+        $('.form-add-song').css('display', 'none');
+        $('.form-add-song-to-album').css('display', 'none');
         $('.form-delete-song-of-album').css('display', 'block');
-    })
+        $('.form-add-song-to-playlist').css('display', 'none');
+        $('.form-delete-song-of-playlist').css('display', 'none');
+        $('.form-delete-song').css('display', 'none');    })
     $('.btn-submit-delete-song-of-album').on('click', function(e){
         $('.form-delete-song-of-album')[0].submit();
     })
     $('.add-song-to-playlist').on('click', function(e) {
+        $('.form-add-song').css('display', 'none');
+        $('.form-add-song-to-album').css('display', 'none');
+        $('.form-delete-song-of-album').css('display', 'none');
         $('.form-add-song-to-playlist').css('display', 'block');
-    })
+        $('.form-delete-song-of-playlist').css('display', 'none');
+        $('.form-delete-song').css('display', 'none');    })
     $('.btn-submit-add-song-to-playlist').on('click', function(e){
         $('.form-add-song-to-playlist')[0].submit();
     })
     $('.delete-song-of-playlist').on('click', function(e) {
+        $('.form-add-song').css('display', 'none');
+        $('.form-add-song-to-album').css('display', 'none');
+        $('.form-delete-song-of-album').css('display', 'none');
+        $('.form-add-song-to-playlist').css('display', 'none');
         $('.form-delete-song-of-playlist').css('display', 'block');
-    })
+        $('.form-delete-song').css('display', 'none');    })
     $('.btn-submit-delete-song-of-playlist').on('click', (e) => {
         $('.form-delete-song-of-playlist')[0].submit();
     })
@@ -807,19 +863,25 @@
     })
 
     $('.edit-topic').on('click', function(e) {
+        $('.form-delete-topic').css('display', 'none');
+        $('.form-add-topic').css('display', 'none');
         $('.form-edit-topic').css('display', 'block');
     })
     $('.btn-submit-edit-topic').on('click', function(e){
         $('.form-edit-topic')[0].submit();
     })
     $('.add-topic').on('click', function(e) {
+        $('.form-delete-topic').css('display', 'none');
         $('.form-add-topic').css('display', 'block');
+        $('.form-edit-topic').css('display', 'none');
     })
     $('.btn-submit-add-topic').on('click', function(e){
         $('.form-add-topic')[0].submit();
     })
     $('.delete-topic').on('click', function(e) {
         $('.form-delete-topic').css('display', 'block');
+        $('.form-add-topic').css('display', 'none');
+        $('.form-edit-topic').css('display', 'none');
     })
     $('.btn-submit-delete-topic').on('click', function(e){
         $('.form-delete-topic')[0].submit();
@@ -856,17 +918,23 @@
 
     $('.edit-user').on('click', function(e) {
         $('.form-edit-user').css('display', 'block');
+        $('.form-add-user').css('display', 'none');
+        $('.form-delete-user').css('display', 'none');
     })
     $('.btn-submit-edit-user').on('click', function(e) {
         $('.form-edit-user')[0].submit()
     })
     $('.add-user').on('click', function(e) {
+        $('.form-edit-user').css('display', 'none');
+        $('.form-delete-user').css('display', 'none');
         $('.form-add-user').css('display', 'block');
     })
     $('.btn-submit-add-user').on('click', function(e) {
         $('.form-add-user')[0].submit()
     })
     $('.delete-user').on('click', function(e) {
+        $('.form-edit-user').css('display', 'none');
+        $('.form-add-user').css('display', 'none');
         $('.form-delete-user').css('display', 'block');
     })
     $('.btn-submit-delete-user').on('click', function(e) {
@@ -888,7 +956,7 @@
                                                 <div class="songThumbnail">
                                                     <h6>ID User: ${user.id_users}</h6>
                                                     <h6>Name User: ${user.username}</h6>
-                                                    <img src="${user.image_song}" style="height: 100px; width: 100px;">
+                                                    <img src="${user.avatar_users}" style="height: 100px; width: 100px;">
                                                     <h6>Email User: ${user.email_users}</h6>
                                                     <h6>Password User: ${user.pass_users}</h6>
                                                     <h6>Phone User: ${user.phone_users}</h6>
