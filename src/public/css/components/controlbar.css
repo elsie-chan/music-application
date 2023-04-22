@@ -14,7 +14,6 @@
 	display: flex;
     padding: 0 20px;
     align-items: center;
-
 }
 
 .controlbar p {
@@ -163,6 +162,14 @@
     /* max-width: 200px; */
 }
 
+.btn--playlist:hover {
+    cursor: pointer;
+}
+
+.btn--playlist:active {
+    cursor: default;
+}
+
 @media screen and (max-width: 650px) {
     .current__progress,
     .btn--playlist,
@@ -182,7 +189,7 @@
     }
 
     .controlbar .current {
-        width: 50%;
+
     }
 
     .controlbar .current--song {
@@ -194,4 +201,36 @@
     }
 }
 
+.playlist__modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: green;
+    z-index: 19;
+    width: 300px;
+    height: 100vh;
+    overflow-y: auto;
+    padding-bottom: 80px;
+}
 
+.playlist__list {
+
+}
+
+.songs {
+    margin: 1rem;
+}
+
+
+/*.song .card-info{*/
+/*    text-overflow: ellipsis;*/
+/*    white-space: nowrap;*/
+/*    overflow: hidden;*/
+/*    font-weight: 700;*/
+/*    font-size: 16px;*/
+/*    line-height: 22px;*/
+/*    margin: 0;*/
+/*    color: var(--white);*/
+/*    width: 166px;*/
+/*}*/
