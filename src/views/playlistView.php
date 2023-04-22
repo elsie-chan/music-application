@@ -457,6 +457,7 @@
 
 
     import playSongByClick from '<?php echo url('src/public/js/playSongByClick.js')?>'
+    import handleMusic from  '<?php echo url('src/public/js/controlbarListener.js')?>'
     $(document).ready(function () {
 
 
@@ -475,9 +476,10 @@
                     $('.list-unstyled').find('a').attr('href', '<?php echo url('search') ?>');
                 }
                 else {
+                    localStorage.setItem('songs', JSON.stringify(data[0]));
                     const template = data[0].map((song, index) => {
                         return `
-                                    <li class="media" data-song_id="${song.id_songs}">
+                                    <li class="media song" data-song_id="${song.id_songs}" data-song-index='${index}'>
                                         <div class="col-10">
                                             <div class="row media-left">
                                                 <div class="songThumbnail">
@@ -500,6 +502,7 @@
                                     </li>
                                 `;
                     })
+                    handleMusic();
 
                     $('.list-unstyled').html(template);
                     $('.number-of-songs span').text(data[1])
