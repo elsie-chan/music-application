@@ -419,7 +419,7 @@
                                                     <img class="song__img--src" src="${song.image_song}" alt="song avatar" >
                                                     <span class="">
                                                         <i class="fa-duotone fa-play icon-play-song"></i>
-                                                        <img class="wave--icon" src="<?php echo url('src/public/assets/imgs/icon-playing.gif')?>" alt="sound wave" style="width:40px;height:40px; object-fit: contain;">
+                                                        <img class="wave--icon" src="<?php echo url('src/public/assets/imgs/icon-playing.gif')?>" alt="sound wave" style="width:36px;height:36px; object-fit: contain;">
                                                     </span>
                                                 </div>
                                                 <div class="card-info">

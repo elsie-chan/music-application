@@ -43,38 +43,7 @@
             <i class="fa-sharp fa-regular fa-square-plus"></i>
             <span>Create playlist</span>
         </button>
-        <ul class="playlist--list">
-            <li class="navigation--item playlist--item">
-                <a href="#" class="playlist--link navigation--link">
-                    <i class="fa-solid fa-list-music"></i>
-                    <span>Playlist 1</span>
-                </a>
-            </li>
-            <li class="navigation--item playlist--item">
-                <a href="#" class="playlist--link navigation--link">
-                    <i class="fa-solid fa-list-music"></i>
-                    <span>Playlist 2</span>
-                </a>
-            </li>
-            <li class="navigation--item playlist--item">
-                <a href="#" class="playlist--link navigation--link">
-                    <i class="fa-solid fa-list-music"></i>
-                    <span>Playlist 3</span>
-                </a>
-            </li>
-            <li class="navigation--item playlist--item">
-                <a href="#" class="playlist--link navigation--link">
-                    <i class="fa-solid fa-list-music"></i>
-                    <span>Playlist 4</span>
-                </a>
-            </li>
-        </ul>
     </div>
-
-    <p style="color: #333;">
-    Test scroll 
-        lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam, quod.lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam, quod.lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam, quod.lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam, quod.lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam, quod.lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam, quod.lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam, quod.lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam, quod.lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam, quod.
-    </p>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

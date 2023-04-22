@@ -21,6 +21,7 @@ function playSongByClick(className, url) {
         songs.each(function (index, song) {
             songImg =  $(song).find('.songThumbnail');
             songImg.on('click', function () {
+
                 console.log("img clicked")
                 clearAllActiveCurrent();
                 songCard = $(this).closest(song);

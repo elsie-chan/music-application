@@ -4,12 +4,25 @@ function clearAllActiveCurrent() {
         $(song).removeClass('active--current');
     })
 }
-function handleMusic() {
+function handleMusic()
+{
+
+
     let audio = document.getElementById('current--audio');
     const PLAYER_STORAGE_KEY = "MISC_PLAYER";
+
+
+
     let currentData;
     let songs = document.querySelectorAll('.song');
     let currentSongData = $('.controlbar');
+
+    if(JSON.parse(localStorage.getItem(PLAYER_STORAGE_KEY))){
+        currentSongData.css('display', 'flex');
+    } else {
+        currentSongData.css('display', 'none');
+    }
+
     let songCard;
     let endDuration = "";
     let currentDuration = "";
@@ -58,6 +71,7 @@ function handleMusic() {
 
     songs.forEach((song) => {
         song.addEventListener('click', function (e) {
+            currentSongData.css('display', 'flex');
             // console.log("currentData")
             currentSongIndex = Number.parseInt(this.getAttribute('data-song-index'))
             console.log(currentSongIndex)
@@ -69,8 +83,8 @@ function handleMusic() {
             }
             songCard = $(this).closest(song);
 
-            console.log(songCard)
-            songCard.addClass('active--current');
+            // console.log(songCard)
+            // songCard.addClass('active--current');
 
             audio.onloadedmetadata = function () {
                 durationTime.text(Math.floor(audio.duration / 60) + ":" + Math.floor(audio.duration % 60));

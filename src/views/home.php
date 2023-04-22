@@ -105,7 +105,7 @@
                         <div class="song__img songThumbnail" >
                             <img class="song__img--src" src="<?php echo url($song->image_song)?>" alt="">
                             <i class="fa-solid fa-play song--play"></i>
-                            <img class="wave--icon" src="<?php echo url('src/public/assets/imgs/meo.gif')?>" alt="sound wave" style="width:32px;height:32px; object-fit: contain;">
+                            <img class="wave--icon" src="<?php echo url('src/public/assets/imgs/icon-playing.gif')?>" alt="sound wave" style="width:36px;height:36px; object-fit: contain;">
                         </div>
                         <div class="song__info">
                             <div class="song__info--name">

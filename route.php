@@ -94,7 +94,7 @@ $routes = [
     (new Route('add_to_liked_songs', 'POST', SongsController::class, 'add_song_to_like_song')),
     (new Route('delete_song_of_playlist', 'POST', SongsController::class, 'delete_song_of_playlist')),
     (new Route('get_song_by_id', 'POST', SongsController::class, 'get_song_by_id'))
-    ];
+];
 
 $flag = false;
 foreach( $routes as $route ) {
@@ -104,4 +104,3 @@ foreach( $routes as $route ) {
         break;
     }
 }
-

@@ -38,6 +38,126 @@ class AdminController extends Controller {
             $this->load_view('auth/auth.login');
         }
     }
+
+    public function load_add_user() {
+        if (authed()) {
+            if ($this->is_admin_login()) {
+                $this->load_view('admin/dashboard_temp', [
+                    'current_page' => 'user/addUser'
+                ]);
+
+            } else {
+                if ($_SERVER['REQUEST_URI'] == '/music-application/admin/dashboard') {
+                    require_once (assets('views/layout/404.php'));
+                }
+            }
+        } else {
+            $this->load_view('auth/auth.login');
+        }
+    }
+
+    public function load_add_song() {
+        if (authed()) {
+            if ($this->is_admin_login()) {
+                $this->load_view('admin/dashboard_temp', [
+                    'current_page' => 'song/addSong'
+                ]);
+
+            } else {
+                if ($_SERVER['REQUEST_URI'] == '/music-application/admin/dashboard') {
+                    require_once (assets('views/layout/404.php'));
+                }
+            }
+        } else {
+            $this->load_view('auth/auth.login');
+        }
+    }
+
+    public function load_add_album() {
+        if (authed()) {
+            if ($this->is_admin_login()) {
+                $this->load_view('admin/dashboard_temp', [
+                    'current_page' => 'album/addAlbum'
+                ]);
+
+            } else {
+                if ($_SERVER['REQUEST_URI'] == '/music-application/admin/dashboard') {
+                    require_once (assets('views/layout/404.php'));
+                }
+            }
+        } else {
+            $this->load_view('auth/auth.login');
+        }
+    }
+
+    public function load_add_topic() {
+        if (authed()) {
+            if ($this->is_admin_login()) {
+                $this->load_view('admin/dashboard_temp', [
+                    'current_page' => 'topic/addTopic'
+                ]);
+
+            } else {
+                if ($_SERVER['REQUEST_URI'] == '/music-application/admin/dashboard') {
+                    require_once (assets('views/layout/404.php'));
+                }
+            }
+        } else {
+            $this->load_view('auth/auth.login');
+        }
+    }
+
+    public function load_add_playlist() {
+        if (authed()) {
+            if ($this->is_admin_login()) {
+                $this->load_view('admin/dashboard_temp', [
+                    'current_page' => 'playlist/addPlaylist'
+                ]);
+
+            } else {
+                if ($_SERVER['REQUEST_URI'] == '/music-application/admin/dashboard') {
+                    require_once (assets('views/layout/404.php'));
+                }
+            }
+        } else {
+            $this->load_view('auth/auth.login');
+        }
+    }
+
+    public function load_add_song_to_playlist() {
+        if (authed()) {
+            if ($this->is_admin_login()) {
+                $this->load_view('admin/dashboard_temp', [
+                    'current_page' => 'playlist/addSongToPlaylist'
+                ]);
+
+            } else {
+                if ($_SERVER['REQUEST_URI'] == '/music-application/admin/dashboard') {
+                    require_once (assets('views/layout/404.php'));
+                }
+            }
+        } else {
+            $this->load_view('auth/auth.login');
+        }
+    }
+
+    public function load_add_song_to_album() {
+        if (authed()) {
+            if ($this->is_admin_login()) {
+                $this->load_view('admin/dashboard_temp', [
+                    'current_page' => 'album/addSongToAlbum'
+                ]);
+
+            } else {
+                if ($_SERVER['REQUEST_URI'] == '/music-application/admin/dashboard') {
+                    require_once (assets('views/layout/404.php'));
+                }
+            }
+        } else {
+            $this->load_view('auth/auth.login');
+        }
+    }
+
     //  Artist CRUD
     public function add_artist() {
         $error = "";
