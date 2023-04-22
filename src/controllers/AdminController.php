@@ -265,10 +265,10 @@ class AdminController extends Controller {
 
         if (empty($error)) {
             $_SESSION['message'] = $response['msg'];
-            Redirect::to('admin/dashboard/artists');
+            Redirect::to('admin/artists');
         } else {
             $_SESSION['error'] = $response['error'];
-            Redirect::to('admin/dashboard/artists');
+            Redirect::to('admin/artists');
         }
     }
 
