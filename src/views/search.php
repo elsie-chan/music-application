@@ -123,6 +123,7 @@
     import playSongByClick from '<?php echo url('src/public/js/playSongByClick.js')?>'
     import ajaxRequest from '<?php echo url('src/public/js/ajaxRequest.js')?>'
     import getArtistById from '<?php echo url('src/public/js/getArtistById.js')?>'
+    import handleMusic from '<?php echo url('src/public/js/controlbarListener.js')?>';
     // <!-- js for sidebar resize -->
     // const $ = document.querySelector.bind(document);
     const sidebar = document.querySelector('.sidebar');
@@ -422,12 +423,13 @@
                         // console.log(data + " in 401")
                         if (data) {
                             console.log(data)
+                            localStorage.setItem('songs', JSON.stringify(data))
 
                             const template = data.map((song, index) => {
                                 const artist = getArtistById(GET_ARTIST_PATH, song.id_artists);
                                 // console.log(artist)
                                 return `
-                                    <li class="media container" data-song_id="${song.id_songs}">
+                                    <li class="media container song" data-song-id="${song.id_songs}" data-song_id="${song.id_songs}" data-song-index='${index}'>
                                         <div class="col-10">
                                             <div class="row media-left">
                                                 <div class="songThumbnail">
@@ -437,7 +439,7 @@
                                                         <img class="wave--icon" src="<?php echo url('src/public/assets/imgs/yes.gif')?>" alt="sound wave" style="width:40px;height:40px; object-fit: contain;">
                                                     </span>
                                                 </div>
-                                                <div class="card-info">
+                                                <div class="card-info song__info--name song__info">
                                                     <h6>${song.name_songs}</h6>
                                                     <a class="song__info--artist" href="<?php echo url('artist') ?>/${artist.id_artists}"">${artist.name_artists}</a>
                                                 </div>
@@ -451,6 +453,7 @@
                             // $('.search-result-artist').append( "<h2>Album</h2>" );
                             // $('h2').addClass("row");
                             $('.topic-type').html(template);
+                            handleMusic();
                             playSongByClick('.media', '<?php echo url()?>');
                         }
                     }
