@@ -198,13 +198,13 @@
     });
 </script>
 <script>
-    $('.user').each(function (index, user) {
-        let btnDelete = $(user).find(".btnDelete");
-        let btnEdit = $(user).find(".btnEdit");
+    $('.artist').each(function (index, artist) {
+        let btnDelete = $(artist).find(".btnDelete");
+        let btnEdit = $(artist).find(".btnEdit");
         if (btnDelete) {
             btnDelete.click(function () {
-                let id = $(this).closest(".user").data('user-id');
-                let isConformed = confirm("Are you sure to delete this user?");
+                let id = $(this).closest(".artist").data('artist-id');
+                let isConformed = confirm("Are you sure to delete this artist?");
                 if (isConformed) {
                     $.ajax({
                         url: "<?php echo url('admin/artist/delete_artist')?>",
@@ -227,12 +227,48 @@
         }
         if (btnEdit) {
             btnEdit.click(function () {
-                let id = $(this).closest(".user").data('user-id');
-                let name = $(this).closest(".user").find(".user-name").text();
-                let userImage = $(this).closest(".user").find(".user-image").attr('src');
+                let id = $(this).closest(".artist").data('artist-id');
+                let name = $(this).closest(".artist").find(".artist-name").text();
+                let artistImage = $(this).closest(".artist").find(".artist-image").attr('src');
 
             })
         }
+    })
+</script>
+<script>
+    $('.user').each(function (index, user) {
+        let btnDelete = $(user).find(".btnDelete");
+        let btnEdit = $(user).find(".btnEdit");
+
+        if (btnDelete) {
+            btnDelete.click(function () {
+                let id = $(this).closest(".user").data("user-id");
+                let userName = $(this).closest(".user").find(".user-name").text();
+                let isConformed = confirm("Are you sure to delete this user?");
+                if (isConformed) {
+                    $.ajax({
+                        url: "<?php echo url('admin/user/delete_user')?>",
+                        type: "POST",
+                        data: {
+                            "id_user": id,
+                            "name_user": userName
+                        },
+                        success: function (data) {
+                            console.log(data);
+                            if (data) {
+                                alert("Delete success");
+                                location.reload();
+                            } else {
+                                alert("Delete failed");
+                            }
+                        }
+                    })
+                }
+
+                console.log(id)
+            })
+        }
+
     })
 </script>
 </html>

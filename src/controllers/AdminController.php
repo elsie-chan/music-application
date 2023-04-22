@@ -338,18 +338,25 @@ class AdminController extends Controller {
         $response = $model_response->get_all_user();
         $error = $response['error'];
 
-        header('Content-Type: application/json; charset=utf-8');
+//        header('Content-Type: application/json; charset=utf-8');
 
         if (empty($error)) {
             $message = $response['msg'];
             foreach ($message as $value) {
                 $value->avatar_users = url($value->avatar_users);
             }
-            echo json_encode($message);
-        } else {
-            echo json_encode([
-                'error' => $error
+            $this->load_view('admin/dashboard_temp', [
+                'user' => $message,
+                'current_page' => 'user/users'
             ]);
+//            sort($message);
+//            echo json_encode($message);
+
+        } else {
+//            echo json_encode([
+//               'error' => $error
+//            ]);
+            echo "Something went wrong !! Let's say with TOTO";
         }
     }
 
@@ -395,10 +402,12 @@ class AdminController extends Controller {
 
             if (empty($error)) {
                 $_SESSION['message'] = $response['msg'];
-                Redirect::to('admin/dashboard');
+                return true;
+//                Redirect::to('admin/dashboard');
             } else {
                 $_SESSION['error'] = $error;
-                Redirect::to('admin/dashboard');
+                return false;
+//                Redirect::to('admin/dashboard');
             }
         }
     }
