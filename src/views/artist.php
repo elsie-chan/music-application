@@ -44,7 +44,10 @@
         .controlbar {
             z-index: 20;
         }
-
+        .button__playlist:active {
+            background-color: var(--blue-sb);
+            border-color: var(--blue-sb);
+        }
     </style>
 
 </head>
@@ -55,14 +58,14 @@
         <?php require_once (assets('views/components/header.php')) ?>
         
         <div id="info" class="container-fluid d-flex align-items-center flex-row justify-content-md-start justify-content-center">
-            <div class="info__img" id="edit-name">
+            <div class="artist__img info__img" id="edit-name">
                 <img src="<?php echo url($data['artist']->picture) ?>" alt="avatar">
             </div>
             <div class="info__text">
                 <p style="">Profile</p>
                 <h1 class="info__name"><?php echo $data['artist']->name_artists ?></h1>
                 <p class="info__playlist text--inline"><span class="info__playlist--numb">7</span> Albums</p>
-                <button type="button" class="btn btn-outline-success button__playlist"><?php echo $_SESSION['follow'] ?></button>
+                <button type="button" class="button__playlist btn"><?php echo $_SESSION['follow'] ?></button>
             </div>
         </div>
         <!--    Trending albums-->

@@ -1,7 +1,7 @@
 import ajaxRequest from "./ajaxRequest.js";
 
 function getArtistById(url, id) {
-  console.log(url, id, "at call ajax");
+  // console.log(url, id, "at call ajax");
   let artist = {};
   ajaxRequest(
     url,

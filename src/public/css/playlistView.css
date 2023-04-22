@@ -19,6 +19,11 @@
   width: 100%;
 }
 
+.info__img img {
+  max-height: 400px;
+  object-fit: cover;
+}
+
 .info {
   color: var(--white);
 }
@@ -255,3 +260,4 @@
 .more-option {
   position: relative;
 }
+

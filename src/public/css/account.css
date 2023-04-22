@@ -7,7 +7,7 @@
 }
 
 #info {
-    background-color: seagreen;
+    background-color: #408490;
     padding: 24px 0;
 }
 
@@ -67,6 +67,23 @@
     font-weight: 500;
     border-color: var(--white);
     border-radius: 10px;
+    background-color: transparent;
+    box-shadow:none;
+}
+
+.button__playlist:hover {
+    background-color: var(--blue-sb);
+    border-color: var(--blue-sb);
+}
+
+.info__text .button__playlist:active {
+    background-color: var(--blue-sb);
+    border-color: var(--blue-sb);
+    box-shadow: none;
+}
+
+.info__text .button__playlist:focus {
+    box-shadow: none;
 }
 
 #liked_artists .albums__list .album__item p{

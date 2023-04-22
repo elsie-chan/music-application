@@ -242,9 +242,8 @@ public function liked_songs() {
     public function edit_playlist_of_user() {
         $error = "";
         $message = "";
-
         if (getID()) {
-//            $id = $_POST['id'];
+            $id = $_POST['id_playlist'];
             $name = $_POST['name_playlist'];
             $img = $_FILES['img'];
             $description = $_POST['description'];
@@ -252,7 +251,7 @@ public function liked_songs() {
             $model_response = $this->model_playlist;
             $this->check_model($model_response);
 
-            $destination = 'src/public/assets/imgs_playlists/' . time();
+            $destination = 'src/public/assets/imgs/img_playlists/' . time();
             $destination = $destination . '.png';
 
             if($img != null) {
@@ -262,12 +261,10 @@ public function liked_songs() {
                 $destination = $user->avatar_users;
                 $is_moved = false;
             }
-
-            $response = $model_response->edit_playlists_by_id_playlists(getId(), $name, $destination, $description);
+            $response = $model_response->edit_playlists_by_id_playlists($id, $name,$destination, $description);
             $error = $response['error'];
 
             header('Content-Type: application/json; charset=utf-8');
-
 
             if (empty($error)) {
                 $message = $response['msg'];

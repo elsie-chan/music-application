@@ -1,11 +1,14 @@
 <link rel="stylesheet" href="<?php echo url('src/public/vendors/bootstrap/css/bootstrap.css') ?>">
 <link rel="stylesheet" href="<?php echo url('src/public/vendors/font-awesome-6-pro-main/css/all.css') ?>">
 <link rel="stylesheet" href="<?php echo url('src/public/css/style.css') ?>">
+<link rel="icon" type="image/x-icon" href="<?php echo url("src/public/assets/imgs/favicon.ico") ?>">
+<title>Register</title>
 <style>
     <?php require_once (assets('public/css/auth/register.css')) ?>
     .bg {
         background-image: url(<?php echo url('src/public/assets/imgs/bg_signup.png') ?>);
         background-size: cover;
+        transition: 1s ease;
     }
 </style>
 <main>

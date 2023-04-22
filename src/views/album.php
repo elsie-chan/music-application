@@ -80,7 +80,6 @@
                             <!-- <p></p> -->
                             <div class="functional d-flex">
                                 <i class="play-song fa-solid fa-circle-play p-2 " style="padding-left: 0 !important;"></i>
-                                <i class="repeat-song fa-sharp fa-solid fa-repeat p-2"></i>
                                 <i class="more-info fa-duotone fa-circle-ellipsis-vertical  ml-auto p-2"></i>
                                 <ul class="more-function" style="display: none;">
                                     <li class="add-to-library"><a href="#">Add to Library</a></li>
@@ -107,6 +106,8 @@
 <script src="<?php echo url('src/public/vendors/bootstrap/js/bootstrap.js') ?>"></script>
 <script src="<?php echo url('src/public/vendors/jquery/jquery.js')?>"></script>
 <script src="<?php echo url('src/public/vendors/bootstrap/js/bootstrap.bundle.min.js')?>"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
 
 <script type="module">
     import ajaxRequest from '<?php echo url('src/public/js/ajaxRequest.js')?>'
@@ -196,7 +197,12 @@
                         function (data) {
                             console.log(data);
                             console.log('success added to liked song');
-                            console.log(songId);
+                            if (data.error) {
+                                toastr.warning(data.error);
+                            } else {
+                                console.log('success added to liked song');
+                                toastr.success(data.message);
+                            }
                         },
                         function (err) {
                             console.log("add song to liked song error");
@@ -239,8 +245,12 @@
                     function (data) {
                         console.log(data)
                         console.log('added song')
-                        console.log(songId);
-                        console.log(playlistId);
+                        if (data.error) {
+                            toastr.warning(data.error);
+                        } else {
+                            toastr.success(data.message);
+                            toastr.options.timeOut = 2000;
+                        }
                     },
                     function (err) {
                         console.log(err)
@@ -299,8 +309,12 @@
                 },
                 function (data) {
                     console.log(data);
-                    console.log('<?php echo ($data['album']->id_albums) ?>');
-                    console.log('success added to library');
+                    if (data.error) {
+                        toastr.warning(data.error);
+                    } else {
+                        console.log('success added to library');
+                        toastr.success(data.message);
+                    }
                 },
                 function (err) {
                     console.log(err);
@@ -322,8 +336,12 @@
             },
             function (data) {
                 console.log(data);
-                console.log('<?php echo ($data['album']->id_albums) ?>');
-                console.log('success removed to library');
+                if (data.error) {
+                    toastr.warning(data.error);
+                } else {
+                    console.log('success removed to library');
+                    toastr.success(data.message);
+                }
             },
             function (err) {
                 console.log(err);

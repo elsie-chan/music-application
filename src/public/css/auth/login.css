@@ -28,6 +28,7 @@ body {
     height: 100vh;
     display: flex;
     align-items: center;
+    transition: 0.5s ease;
 }
 
 /* FORM LOG IN */

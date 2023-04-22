@@ -121,7 +121,6 @@
 
     <script type="module">
         import playSongByClick from '<?php echo url('src/public/js/playSongByClick.js')?>'
-
         import ajaxRequest from '<?php echo url('src/public/js/ajaxRequest.js')?>'
         import getArtistById from '<?php echo url('src/public/js/getArtistById.js')?>'
         // <!-- js for sidebar resize -->
@@ -190,10 +189,14 @@
                         $('.card').css("display","none");
                         $('.search-result-artist').addClass("row d-flex");
                         if (data?.error) {
-                            console.log(data);
+                            console.log(data.error);
+                            // $('.search-result-artist').text(data.error);
+                            let $nofitication = $("<div/>")
+                                .attr("id", "someID")
+                                .addClass("notification")
+                            $( ".search-result-artist").append( $nofitication );
+                            $('.notification').text(data.error);
                         } else {
-                            
-                            
                             const template = data.slice(0,5).map((artist, index) => {
                                 return `
                                     <div class="album__item col-md-2 col-sm-8 col-10 py-2">
@@ -208,10 +211,6 @@
                             // $('h2').addClass("row");
                             $('.search-result-artist').html(template);
                         }
-                        // console.log('hi');
-                        console.log(data)
-                        
-
                     },
                     error: function(error) {
                         console.log(error);
@@ -232,10 +231,15 @@
                         $('.card').css("display","none");
                         $('.search-result-song').addClass("row d-flex");
                         if (data?.error) {
-                            console.log(data);
+                            console.log(data.error);
+                            let $nofitication = $("<div/>")
+                                .attr("id", "search-song-id")
+                                .addClass("notification")
+                            $( ".search-result-song").append( $nofitication );
+                            $('#search-song-id').text(data.error);
                         } else {
                             console.log('hi');
-                            console.log(data);
+                            // console.log(data);
                             
                             const template = data.slice(0,5).map((song, index) => {
                                 return `
@@ -271,6 +275,11 @@
                         $('.search-result-album').addClass("row d-flex");
                         if (data?.error) {
                             console.log(data);
+                            let $nofitication = $("<div/>")
+                                .attr("id", "search-album-id")
+                                .addClass("notification")
+                            $( ".search-result-album").append( $nofitication );
+                            $('#search-album-id').text(data.error);
                         } else {
                             
                             const template = data.slice(0,5).map((album, index) => {
@@ -312,6 +321,11 @@
                         $('.search-result-playlist').addClass("row d-flex justify-content-around");
                         if (data?.error) {
                             console.log(data);
+                            let $nofitication = $("<div/>")
+                                .attr("id", "search-playlist-id")
+                                .addClass("notification")
+                            $( ".search-result-playlist").append( $nofitication );
+                            $('#search-playlist-id').text(data.error);
                         } else {
                             
                             const template = data.slice(0,5).map((playlist, index) => {
@@ -429,10 +443,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col media-right more-option"  data-song-id="${song.id_songs}">
-                                            <i class="more fa-solid fa-ellipsis-vertical"></i>
-                                            <?php require 'components/contextMenu.php' ?>
-                                        </div>
+
                                     </li>
                                         
                                     `;

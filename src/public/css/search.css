@@ -152,3 +152,9 @@
 .album__item:hover {
     background: rgb(255, 255, 255, 0.2);
 }
+
+.notification {
+    color: var(--grey);
+    font-size: .9rem;
+    font-weight: 300;
+}
