@@ -1,4 +1,3 @@
-<?php dd($_SESSION)?>
 <div class="container-fluid">
     <div class="row">
         <div class="col-12">
