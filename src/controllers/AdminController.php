@@ -26,7 +26,7 @@ class AdminController extends Controller {
         if (authed()) {
             if ($this->is_admin_login()) {
                 $this->load_view('admin/dashboard_temp', [
-                    'current_page' => 'addArtist'
+                    'current_page' => 'artist/addArtist'
                 ]);
 
             } else {

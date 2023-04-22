@@ -132,7 +132,7 @@
 <!--    --><?php //require assets('views/admin/components/artist/addArtist.php')?>
     <?php
         if (isset($data['current_page'])) {
-            require assets('views/admin/components/artist/'.$data['current_page'].'.php');
+            require assets('views/admin/components/'.$data['current_page'].'.php');
         }
 
     ?>
