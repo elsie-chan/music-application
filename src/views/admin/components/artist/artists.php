@@ -3,9 +3,9 @@
         <div class="col-12">
             <h1 class="text-center" style="color: var(--hightlight)">Artists</h1>
         </div>
-    <div class="users row p-0 d-flex">
+    <div class="artists row p-0 d-flex">
         <?php foreach ($data['artists'] as $key => $artist) { ?>
-            <div class="user " data-user-id="<?php echo $artist->id_artists?>">
+            <div class="artist " data-artist-id="<?php echo $artist->id_artists?>">
                 <div class="img" >
                     <img class="user-image" src="<?php echo $artist->picture?>" alt="">
                 </div>

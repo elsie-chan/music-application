@@ -18,7 +18,7 @@ $routes = [
 //    Admin User routes
     (new Route('admin/user/add_user', 'GET', AdminController::class, 'load_add_user')),
     (new Route('admin/user/add_user', 'POST', AdminController::class, 'add_user')),
-    (new Route('admin/user/get_all_users', 'POST', AdminController::class, 'get_all_user')),
+    (new Route('admin/users', 'GET', AdminController::class, 'get_all_user')),
     (new Route('admin/user/edit_user', 'POST', AdminController::class, 'edit_user')),
     (new Route('admin/user/delete_user', 'POST', AdminController::class, 'delete_user')),
 //    Admin Playlist routes
