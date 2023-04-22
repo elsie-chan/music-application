@@ -150,7 +150,7 @@ class ArtistsModel extends Model
             "error" => "",
             "msg" => ""
         );
-        $sql = "SELECT * FROM `$this->table` WHERE `id_artists` like '$username'";
+        $sql = "SELECT * FROM `$this->table` WHERE `id_artists` like '$id_artists'";
         $stmt = mysqli_query($this->con,$sql);
         if(mysqli_num_rows($stmt)==0){
             $response['error'] = "Artist is not exists";

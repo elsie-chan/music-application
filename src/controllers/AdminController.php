@@ -11,7 +11,7 @@ class AdminController extends Controller {
     public function index() {
         if (authed()) {
             if ($this->is_admin_login()) {
-                $this->load_view('admin/dashboard');
+                $this->load_view('admin/dashboard_temp');
             } else {
                 if ($_SERVER['REQUEST_URI'] == '/music-application/admin/dashboard') {
                     require_once (assets('views/layout/404.php'));
@@ -22,6 +22,22 @@ class AdminController extends Controller {
         }
     }
 
+    public function load_add_artist() {
+        if (authed()) {
+            if ($this->is_admin_login()) {
+                $this->load_view('admin/dashboard_temp', [
+                    'current_page' => 'artist/addArtist'
+                ]);
+
+            } else {
+                if ($_SERVER['REQUEST_URI'] == '/music-application/admin/dashboard') {
+                    require_once (assets('views/layout/404.php'));
+                }
+            }
+        } else {
+            $this->load_view('auth/auth.login');
+        }
+    }
     //  Artist CRUD
     public function add_artist() {
         $error = "";
@@ -36,7 +52,6 @@ class AdminController extends Controller {
             $this->check_model($model_response);
 
             $destination = 'src/public/assets/artists/' . time();
-            $extension = pathinfo($img['name'], PATHINFO_EXTENSION);
             $destination = $destination . '.png' ;
             move_uploaded_file($img['tmp_name'], $destination);
 
@@ -113,12 +128,12 @@ class AdminController extends Controller {
         $error = "";
         $message = "";
 
-        $name_artist = $_POST['name_artist'];
+        $id_artists = $_POST['id_artist'];
 
         $model_response = $this->model_artist;
         $this->check_model($model_response);
 
-        $response = $model_response->delete_artists_by_username($name_artist);
+        $response = $model_response->delete_artists_by_id($id_artists);
         $error = $response['error'];
 
         if (empty($error)) {
@@ -196,11 +211,10 @@ class AdminController extends Controller {
         $img = $_FILES['img_user'];
         $name_user = $_POST['name_user'];
 
-        $model_response = $this->model_admin;
+        $model_response = $this->model_user;
         $this->check_model($model_response);
 
         $destination = 'src/public/assets/artists/' . time();
-        $extension = pathinfo($img['name'], PATHINFO_EXTENSION);
         $destination = $destination . '.png' ;
         move_uploaded_file($img['tmp_name'], $destination);
 
@@ -274,7 +288,6 @@ class AdminController extends Controller {
             $this->check_model($model_response);
 
             $destination = 'src/public/assets/artists/' . time();
-            $extension = pathinfo($img['name'], PATHINFO_EXTENSION);
             $destination = $destination . '.png';
             move_uploaded_file($img['tmp_name'], $destination);
 
@@ -328,7 +341,6 @@ class AdminController extends Controller {
             $this->check_model($model_response);
 
             $destination = 'src/public/assets/artists/' . time();
-            $extension = pathinfo($img['name'], PATHINFO_EXTENSION);
             $destination = $destination . '.png' ;
             move_uploaded_file($img['tmp_name'], $destination);
 
@@ -348,12 +360,12 @@ class AdminController extends Controller {
             $error  = "";
             $message = "";
 
-            $name = $_POST['name_playlist'];
+            $id_playlists = $_POST['id_playlist'];
 
-            $model_response = $this->model_artist;
+            $model_response = $this->model_playlist;
             $this->check_model($model_response);
 
-            $response = $model_response->delete_playlists_by_name($name);
+            $response = $model_response->delete_playlists_by_id($id_playlists);
             $error = $response['error'];
 
             if (empty($error)) {
@@ -378,7 +390,6 @@ class AdminController extends Controller {
             $this->check_model($model_response);
 
             $destination = 'src/public/assets/artists/' . time();
-            $extension = pathinfo($img['name'], PATHINFO_EXTENSION);
             $destination = $destination . '.png' ;
             move_uploaded_file($img['tmp_name'], $destination);
 
@@ -435,7 +446,6 @@ class AdminController extends Controller {
             $this->check_model($model_response);
 
             $destination = 'src/public/assets/artists/' . time();
-            $extension = pathinfo($img['name'], PATHINFO_EXTENSION);
             $destination = $destination . '.png' ;
             move_uploaded_file($img['tmp_name'], $destination);
 
@@ -457,12 +467,12 @@ class AdminController extends Controller {
         $message = "";
 
         if ($_POST) {
-            $name = $_POST['name_album'];
+            $id_album = $_POST['id_album'];
 
             $model_response = $this->model_album;
             $this->check_model($model_response);
 
-            $response = $model_response->delete_ablum_by_name($name);
+            $response = $model_response->delete_album_by_id($id_album);
             $error = $response['error'];
 
             if (empty($error)) {
@@ -491,12 +501,10 @@ class AdminController extends Controller {
         $this->check_model($model_response);
 
         $destination_src = 'src/public/assets/img_songs/' . time();
-        $extension_src = pathinfo($src['name'], PATHINFO_EXTENSION);
         $destination_src = $destination_src . '.png';
         move_uploaded_file($src['tmp_name'], $destination_src);
 
         $destination_img = 'src/public/assets/songs/' . time();
-        $extension_img = pathinfo($image_songs['name'], PATHINFO_EXTENSION);
         $destination_img = $destination_img . '.png';
         move_uploaded_file($image_songs['tmp_name'], $destination_img);
 
@@ -635,12 +643,12 @@ class AdminController extends Controller {
         $error = "";
         $message = "";
 
-        $name = $_POST['name_song'];
+         $id_songs = $_POST['id_song'];
 
         $model_response = $this->model_song;
         $this->check_model($model_response);
 
-        $response = $model_response->delete_song_by_name($name);
+        $response = $model_response->delete_song_by_id($id_songs);
         $error = $response['error'];
 
          if (empty($error)) {
@@ -725,12 +733,12 @@ class AdminController extends Controller {
         $error = "";
         $message = "";
 
-        $name_topic = $_POST['name_topic'];
+        $id_topics = $_POST['id_topic'];
 
         $model_response = $this->model_topic;
         $this->check_model($model_response);
 
-        $response = $model_response->delete_topic_by_name($name_topic);
+        $response = $model_response->delete_topic_by_id($id_topics);
         $error = $response['error'];
 
         if (empty($error)) {
@@ -740,14 +748,5 @@ class AdminController extends Controller {
             $_SESSION['error'] = $error;
             Redirect::to('admin/dashboard');
         }
-    }
-
-    public function test() {
-//        echo $this->is_admin_login();
-        $this->get_all_user();
-//        echo $test;
-//        $this->check_login();
-//        $this->delete_user();
-
     }
 }
