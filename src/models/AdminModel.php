@@ -24,7 +24,7 @@ class AdminModel extends Model{
         return $response;
     }
     // Remove One User in Database
-    public function delete_user_by_username($username,$id_users){
+    public function delete_user_by_id($id_users){
         $response = array(
             "error" => "",
             "msg" => ""
@@ -36,7 +36,7 @@ class AdminModel extends Model{
         }else{
             $sql = "DELETE FROM `playlists` WHERE `id_users` = '$id_users'";
             $stmt = mysqli_query($this->con,$sql);
-            $sql = "DELETE FROM $this->table WHERE `username` = '$username'";
+            $sql = "DELETE FROM $this->table WHERE `id_users` = '$id_users'";
             $stmt = mysqli_query($this->con,$sql);
             $sql = "UPDATE `$this->table` SET `id_users` = `id_users` - 1 WHERE `id_users` > '$id_users'";
             $stmt = mysqli_query($this->con,$sql);
