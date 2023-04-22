@@ -8,8 +8,10 @@ $routes = [
     (new Route('admin/dashboard', 'GET', AdminController::class, 'index')),
     (new Route('admin/test', 'GET', AdminController::class, 'index')),
 //    Admin Artist routes
+    (new Route('admin/artists', 'GET', AdminController::class, 'get_all_artist')),
     (new Route('admin/artist/add_artist', 'GET', AdminController::class, 'load_add_artist')),
     (new Route('admin/artist/add_artist', 'POST', AdminController::class, 'add_artist')),
+    (new Route('admin/artist/edit_artist/:id', 'GET', AdminController::class, 'load_edit_artist')),
     (new Route('admin/artist/get_all_artists', 'POST', AdminController::class, 'get_all_artist')),
     (new Route('admin/artist/edit_artist', 'POST', AdminController::class, 'edit_artist')),
     (new Route('admin/artist/delete_artist', 'POST', AdminController::class, 'delete_artist')),
