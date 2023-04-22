@@ -397,7 +397,7 @@ class AdminController extends Controller {
             $model_response = $this->model_admin;
             $this->check_model($model_response);
 
-            $response = $model_response->delete_user_by_username($username, $id_user);
+            $response = $model_response->delete_user_by_id($id_user);
             $error = $response['error'];
 
             if (empty($error)) {
