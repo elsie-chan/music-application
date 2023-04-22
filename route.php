@@ -6,37 +6,47 @@ $routes = [
     (new Route('/', 'GET', HomeController::class, 'index')),
 //    admin routes
     (new Route('admin/dashboard', 'GET', AdminController::class, 'index')),
+    (new Route('admin/test', 'GET', AdminController::class, 'index')),
 //    Admin Artist routes
+    (new Route('admin/artists', 'GET', AdminController::class, 'get_all_artist')),
+    (new Route('admin/artist/add_artist', 'GET', AdminController::class, 'load_add_artist')),
     (new Route('admin/artist/add_artist', 'POST', AdminController::class, 'add_artist')),
-    (new Route('admin/artist/get_all_artist', 'POST', AdminController::class, 'get_all_artist')),
+    (new Route('admin/artist/edit_artist/:id', 'GET', AdminController::class, 'load_edit_artist')),
+    (new Route('admin/artist/get_all_artists', 'POST', AdminController::class, 'get_all_artist')),
     (new Route('admin/artist/edit_artist', 'POST', AdminController::class, 'edit_artist')),
     (new Route('admin/artist/delete_artist', 'POST', AdminController::class, 'delete_artist')),
 //    Admin User routes
+    (new Route('admin/user/add_user', 'GET', AdminController::class, 'load_add_user')),
     (new Route('admin/user/add_user', 'POST', AdminController::class, 'add_user')),
-    (new Route('admin/user/get_all_user', 'POST', AdminController::class, 'get_all_user')),
+    (new Route('admin/user/get_all_users', 'POST', AdminController::class, 'get_all_user')),
     (new Route('admin/user/edit_user', 'POST', AdminController::class, 'edit_user')),
     (new Route('admin/user/delete_user', 'POST', AdminController::class, 'delete_user')),
 //    Admin Playlist routes
+    (new Route('admin/playlist/add_playlist', 'GET', AdminController::class, 'load_add_playlist')),
     (new Route('admin/playlist/add_playlist', 'POST', AdminController::class, 'add_playlist')),
+    (new Route('admin/playlist/add_song_to_playlist', 'GET', AdminController::class, 'load_add_song_to_playlist')),
     (new Route('admin/playlist/get_all_playlists', 'POST', AdminController::class, 'get_all_playlist')),
     (new Route('admin/playlist/edit_playlist', 'POST', AdminController::class, 'edit_playlist')),
     (new Route('admin/playlist/delete_playlist', 'POST', AdminController::class, 'delete_playlist')),
 //    Admin Album routes
+    (new Route('admin/album/add_album', 'GET', AdminController::class, 'load_add_album')),
     (new Route('admin/album/add_album', 'POST', AdminController::class, 'add_album')),
-    (new Route('admin/album/get_all_album', 'POST', AdminController::class, 'get_all_albums')),
+    (new Route('admin/album/add_song_to_album', 'GET', AdminController::class, 'load_add_song_to_album')),
+    (new Route('admin/album/get_all_albums', 'POST', AdminController::class, 'get_all_albums')),
     (new Route('admin/album/edit_album', 'POST', AdminController::class, 'edit_album')),
     (new Route('admin/album/delete_album', 'POST', AdminController::class, 'delete_album')),
 //    Admin Song routes
+    (new Route('admin/song/add_song', 'GET', AdminController::class, 'load_add_song')),
     (new Route('admin/song/add_song', 'POST', AdminController::class, 'add_song')),
     (new Route('admin/song/add_song_to_album', 'POST', AdminController::class, 'add_song_to_album')),
     (new Route('admin/song/delete_song_of_album', 'POST', AdminController::class, 'delete_song_of_album')),
     (new Route('admin/song/add_song_to_playlist', 'POST', AdminController::class, 'add_song_to_playlist')),
-    (new Route('admin/song/delete_song_of_playlist', 'POST', AdminController::class, 'delete_song_of_playlist')),
-    (new Route('admin/song/get_all_song', 'POST', AdminController::class, 'get_all_song')),
+    (new Route('admin/song/get_all_songs', 'POST', AdminController::class, 'get_all_song')),
     (new Route('admin/song/delete_song', 'POST', AdminController::class, 'delete_song')),
 //    Admin Topic routes
+    (new Route('admin/topic/add_topic', 'GET', AdminController::class, 'load_add_topic')),
     (new Route('admin/topic/add_topic', 'POST', AdminController::class, 'add_topic')),
-    (new Route('admin/topic/get_all_topic', 'POST', AdminController::class, 'get_all_topic')),
+    (new Route('admin/topic/get_all_topics', 'POST', AdminController::class, 'get_all_topic')),
     (new Route('admin/topic/edit_topic', 'POST', AdminController::class, 'edit_topic')),
     (new Route('admin/topic/delete_topic', 'POST', AdminController::class, 'delete_topic')),
 //    Auth routes
@@ -91,8 +101,8 @@ $routes = [
     (new Route('add_song_to_playlist', 'POST', SongsController::class, 'add_song_to_playlist')),
     (new Route('add_to_liked_songs', 'POST', SongsController::class, 'add_song_to_like_song')),
     (new Route('delete_song_of_playlist', 'POST', SongsController::class, 'delete_song_of_playlist')),
-    (new Route('get_song_by_id', 'POST', SongsController::class, 'get_song_by_id')),
-    ];
+    (new Route('get_song_by_id', 'POST', SongsController::class, 'get_song_by_id'))
+];
 
 $flag = false;
 foreach( $routes as $route ) {
@@ -102,4 +112,3 @@ foreach( $routes as $route ) {
         break;
     }
 }
-
