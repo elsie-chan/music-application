@@ -6,8 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="<?php echo url('src/public/css/admin/index.css')?>">
     <link rel="stylesheet" href="<?php echo url('src/public/vendors/bootstrap/css/bootstrap.css')?>">
+    <link rel="stylesheet" href="<?php echo url('src/public/css/admin/index.css')?>">
+
     <style>
         @import "<?php echo url('src/public/css/style.css') ?>";
 
@@ -24,7 +25,7 @@
     </div>
     <ul class="nav-links">
         <li>
-            <a href="#">
+            <a href="<?php echo url('admin/dashboard')?>">
                 <i class='bx bx-grid-alt' ></i>
                 <span class="link_name">Dashboard</span>
             </a>
@@ -34,31 +35,30 @@
         </li>
         <li class="active">
             <div class="icon-link">
-                <a href="#">
+                <a href="<?php echo url('admin/artists')?>">
                     <i class='bx bx-collection' ></i>
                     <span class="link_name">Artist</span>
                 </a>
                 <i class='bx bxs-chevron-down arrow' ></i>
             </div>
             <ul class="sub-menu">
-                <li><a class="link_name" href="#">Artist</a></li>
+                <li><a class="link_name" href="<?php echo url('admin/dashboard/artists')?>">Artist</a></li>
                 <li><a href="<?php echo url('admin/artist/add_artist')?>">Add Artist</a></li>
-                <li><a href="#">Edit Artist</a></li>
-                <li><a href="#">Delete Artist</a></li>
+                <li><a href="<?php echo url('admin/dashboard/artists')?>">Edit Artist</a></li>
             </ul>
         </li>
         <li>
             <div class="icon-link">
-                <a href="#">
+                <a href="<?php echo url('admin/users')?>">
                     <i class='bx bx-book-alt' ></i>
-                    <span class="link_name">Posts</span>
+                    <span class="link_name">User</span>
                 </a>
                 <i class='bx bxs-chevron-down arrow' ></i>
             </div>
             <ul class="sub-menu">
-                <li><a class="link_name" href="#">Posts</a></li>
-                <li><a href="#">Web Design</a></li>
-                <li><a href="#">Login Form</a></li>
+                <li><a href="<?php echo url('admin/users')?>">User</a></li>
+                <li><a href="<?php echo url('admin/user/add_user')?>">Add User</a></li>
+                <li><a href="#">Update</a></li>
                 <li><a href="#">Card Design</a></li>
             </ul>
         </li>
@@ -196,5 +196,43 @@
 
 
     });
+</script>
+<script>
+    $('.user').each(function (index, user) {
+        let btnDelete = $(user).find(".btnDelete");
+        let btnEdit = $(user).find(".btnEdit");
+        if (btnDelete) {
+            btnDelete.click(function () {
+                let id = $(this).closest(".user").data('user-id');
+                let isConformed = confirm("Are you sure to delete this user?");
+                if (isConformed) {
+                    $.ajax({
+                        url: "<?php echo url('admin/artist/delete_artist')?>",
+                        type: "POST",
+                        data: {
+                            "id_artist": id
+                        },
+                        success: function (data) {
+                            console.log(data);
+                            if (data) {
+                                alert("Delete success");
+                                location.reload();
+                            } else {
+                                alert("Delete failed");
+                            }
+                        }
+                    })
+                }
+            })
+        }
+        if (btnEdit) {
+            btnEdit.click(function () {
+                let id = $(this).closest(".user").data('user-id');
+                let name = $(this).closest(".user").find(".user-name").text();
+                let userImage = $(this).closest(".user").find(".user-image").attr('src');
+
+            })
+        }
+    })
 </script>
 </html>

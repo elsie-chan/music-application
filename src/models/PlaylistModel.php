@@ -42,18 +42,6 @@ class PlaylistModel extends Model{
         }
         return $response;
     }
-    function add_album_to_playlist($id_albums,$id_playlists){
-        $response = array(
-            "error" => "",
-            "msg" => ""
-        );
-        $sql = "SELECT * FROM `albums` WHERE `id_albums` = '$id_albums'";
-        $stmt = mysqli_query($this->con,$stmt);
-        if(mysqli_num_rows($stmt) == 0){
-            $response["error"] = "Album is not exists.";
-        }
-
-    }
 //    read / find
     function get_playlists_by_name($name_playlists){
         $response = array(

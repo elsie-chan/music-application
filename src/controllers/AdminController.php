@@ -11,7 +11,9 @@ class AdminController extends Controller {
     public function index() {
         if (authed()) {
             if ($this->is_admin_login()) {
-                $this->load_view('admin/dashboard_temp');
+                $this->load_view('admin/dashboard_temp', [
+                    'current_page' => 'index'
+                ]);
             } else {
                 if ($_SERVER['REQUEST_URI'] == '/music-application/admin/dashboard') {
                     require_once (assets('views/layout/404.php'));
@@ -198,19 +200,45 @@ class AdminController extends Controller {
         $response = $model_response->get_all_artists(1);
         $error = $response['error'];
 
-        header('Content-Type: application/json; charset=utf-8');
+//        header('Content-Type: application/json; charset=utf-8');
 
         if (empty($error)) {
             $message = $response['msg'];
             foreach ($message as $value) {
                 $value->picture = url($value->picture);
             }
-            sort($message);
-            echo json_encode($message);
-        } else {
-            echo json_encode([
-               'error' => $error
+            $this->load_view('admin/dashboard_temp', [
+                'artists' => $message,
+                'current_page' => 'artist/artists'
             ]);
+//            sort($message);
+//            echo json_encode($message);
+
+        } else {
+//            echo json_encode([
+//               'error' => $error
+//            ]);
+            echo "Something went wrong !! Let's say with TOTO";
+        }
+    }
+
+    public function load_edit_artist() {
+        $id = getId();
+        if (isset($id)) {
+            $artist_model = $this->model_artist;
+            $this->check_model($artist_model);
+            $response = $artist_model->get_artists_by_id($id);
+            $error = $response['error'];
+            if (empty($error)) {
+                $message = $response['msg'];
+                $this->load_view('admin/dashboard_temp', [
+                    'artist' => $message,
+                    'current_page' => 'artist/editArtist'
+                ]);
+            } else {
+                $_SESSION['error'] = $error;
+                Redirect::to('admin/dashboard');
+            }
         }
     }
 
@@ -237,10 +265,10 @@ class AdminController extends Controller {
 
         if (empty($error)) {
             $_SESSION['message'] = $response['msg'];
-            Redirect::to('admin/dashboard');
+            Redirect::to('admin/dashboard/artists');
         } else {
             $_SESSION['error'] = $response['error'];
-            Redirect::to('admin/dashboard');
+            Redirect::to('admin/dashboard/artists');
         }
     }
 
@@ -258,10 +286,12 @@ class AdminController extends Controller {
 
         if (empty($error)) {
             $_SESSION['message'] = $response['msg'];
-            Redirect::to('admin/dashboard');
+            return true;
+//            Redirect::to('admin/dashboard');
         } else {
             $_SESSION['error'] = $response['error'];
-            Redirect::to('admin/dashboard');
+//            Redirect::to('admin/dashboard');
+            return false;
         }
     }
 
@@ -322,6 +352,8 @@ class AdminController extends Controller {
             ]);
         }
     }
+
+
 
     public function edit_user() {
         $error = "";
