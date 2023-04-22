@@ -210,9 +210,4 @@ class SongsController extends Controller
         }
     }
 
-//    public function get_all_song_wit
-    public function test() {
-//        dd($_SESSION['album']);
-        $this->add_song_to_playlist();
-    }
 }
