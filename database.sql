@@ -325,7 +325,7 @@ INSERT INTO `songs` VALUES
                     (82, 'Thấy Chưa', 'src/public/assets/songs/thaychua.mp3', 'src/public/assets/imgs/img_songs/thaychua.jpeg', CURRENT_TIMESTAMP(), 17, 3),
                     (83, 'Mất Tích', 'src/public/assets/songs/mattich.mp3', 'src/public/assets/imgs/img_songs/mattich.jpeg', CURRENT_TIMESTAMP(), 17, 3),
                     (84, 'Để Quên', 'src/public/assets/songs/dequen.mp3', 'src/public/assets/imgs/img_songs/dequen.jpeg', CURRENT_TIMESTAMP(), 17, 3),
-                    (85, 'Mấy Khi', 'src/public/assets/songs/maykhi.mp3', 'src/public/assets/imgs/img_songs/maykhi.jpeg', CURRENT_TIMESTAMP(), 17, 3),
+                    (85, 'Mấy Khi', 'src/public/assets/songs/maykhi.mp3', 'src/public/assets/imgs/img_songs/maykhi.jpg', CURRENT_TIMESTAMP(), 17, 3),
                     (86, 'Racing Into The Night', 'src/public/assets/song/racinginto.mp3', 'src/public/assets/imgs/img_songs/racinginto.jpeg', CURRENT_TIMESTAMP(), 18, 3),
                     (87, 'Tabun', 'src/public/assets/song/tabun.mp3', 'src/public/assets/imgs/img_songs/tabun.jpeg', CURRENT_TIMESTAMP(), 18, 3),
                     (88, 'Gunjou', 'src/public/assets/songs/gunjou.mp3', 'src/public/assets/imgs/img_songs/gunjou.png', CURRENT_TIMESTAMP(), 18, 3),
