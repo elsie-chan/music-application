@@ -6,7 +6,9 @@ $routes = [
     (new Route('/', 'GET', HomeController::class, 'index')),
 //    admin routes
     (new Route('admin/dashboard', 'GET', AdminController::class, 'index')),
+    (new Route('admin/test', 'GET', AdminController::class, 'index')),
 //    Admin Artist routes
+    (new Route('admin/artist/add_artist', 'GET', AdminController::class, 'load_add_artist')),
     (new Route('admin/artist/add_artist', 'POST', AdminController::class, 'add_artist')),
     (new Route('admin/artist/get_all_artists', 'POST', AdminController::class, 'get_all_artist')),
     (new Route('admin/artist/edit_artist', 'POST', AdminController::class, 'edit_artist')),
@@ -91,7 +93,7 @@ $routes = [
     (new Route('add_song_to_playlist', 'POST', SongsController::class, 'add_song_to_playlist')),
     (new Route('add_to_liked_songs', 'POST', SongsController::class, 'add_song_to_like_song')),
     (new Route('delete_song_of_playlist', 'POST', SongsController::class, 'delete_song_of_playlist')),
-    (new Route('get_song_by_id', 'POST', SongsController::class, 'get_song_by_id')),
+    (new Route('get_song_by_id', 'POST', SongsController::class, 'get_song_by_id'))
     ];
 
 $flag = false;

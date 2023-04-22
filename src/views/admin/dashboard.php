@@ -61,9 +61,14 @@
                 <nav class="navigation">
                     <ul class="navigation--list">
                         <li class="navigation--item">
-                            <div class="navigation--link" id="artist" >
+                            <div class="navigation--link dropdown" id="artist" >
                                 <i class="fa-duotone fa-user-music"></i>
-                                <span>Artist</span>
+                                <span class="dropdown-toggle " id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Artist</span>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="#">Action</a>
+                                    <a class="dropdown-item" href="#">Another action</a>
+                                    <a class="dropdown-item" href="#">Something else here</a>
+                                </div>
                             </div>
                         </li>
                         <li class="navigation--item">
@@ -99,13 +104,7 @@
                     </ul>
                 </nav>
             </div>
-            <div class="col">
-                <div class="col">
-                    <ul class="list-unstyled">
-                    </ul>
 
-                </div>
-            </div>
                 <div class="hide" id="artist-opinion" style="display:none">
                     <ul class="navbar-nav">
                         <li class="nav-item">

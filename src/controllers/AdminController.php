@@ -11,7 +11,7 @@ class AdminController extends Controller {
     public function index() {
         if (authed()) {
             if ($this->is_admin_login()) {
-                $this->load_view('admin/dashboard');
+                $this->load_view('admin/dashboard_temp');
             } else {
                 if ($_SERVER['REQUEST_URI'] == '/music-application/admin/dashboard') {
                     require_once (assets('views/layout/404.php'));
@@ -22,6 +22,22 @@ class AdminController extends Controller {
         }
     }
 
+    public function load_add_artist() {
+        if (authed()) {
+            if ($this->is_admin_login()) {
+                $this->load_view('admin/dashboard_temp', [
+                    'current_page' => 'addArtist'
+                ]);
+
+            } else {
+                if ($_SERVER['REQUEST_URI'] == '/music-application/admin/dashboard') {
+                    require_once (assets('views/layout/404.php'));
+                }
+            }
+        } else {
+            $this->load_view('auth/auth.login');
+        }
+    }
     //  Artist CRUD
     public function add_artist() {
         $error = "";
