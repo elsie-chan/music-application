@@ -186,8 +186,4 @@ class AuthController extends Controller {
             $_SESSION['error'] = $error;
         }
     }
-
-    public function test() {
-        $this->check_email();
-    }
 }

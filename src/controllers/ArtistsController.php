@@ -195,7 +195,4 @@ class ArtistsController extends Controller
             }
         }
     }
-    public function test() {
-//        $this->get_album_by_id_artist();
-    }
 }
