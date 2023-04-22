@@ -21,7 +21,7 @@
         <i>
             <img src="<?php echo url('src/public/assets/imgs/logo.svg')?>" alt="" class="logo_image">
         </i>
-        <span class="logo_name">MISC</span>
+        <span class="logo_name"><a href="<?php echo url('')?>">MISC</a></span>
     </div>
     <ul class="nav-links">
         <li>
